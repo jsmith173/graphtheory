@@ -5,19 +5,35 @@
 # Node z type=series oznacza wynik polaczenia szeregowego.
 # Node z type=parallel oznacza wynik polaczenia rownoleglego.
 # Node z type=jackknife oznacza wynik operacji jackknife. ONLY UNDIRECTED GRAPHS
+glb_node_id = 0
+
+def node_global_init():
+    global glb_node_id
+    glb_node_id = 0
 
 class Node:
     """The class defining a node."""
 
     def __init__(self, source=None, target=None, type=None, left=None, right=None):
+        global glb_node_id
         self.source = source
         self.target = target
         self.type = type   # edge, series, parallel, jackknife
         self.left = left
         self.right = right
+        self.d = {}
+        self.prop = {}; self.directed_nodes = None
+        self.id = glb_node_id
+        self.computed = False
+        self.computed_id = 0
+        self.detail_id = str(self.source)+str(self.target)+str(self.id)
+        glb_node_id = glb_node_id+1
 
     def __str__(self):
         return "Node({}, {}, '{}')".format(self.source, self.target, self.type)
+
+    def to_str(self):
+        return f"({self.source}, {self.target}:{self.detail_id})"
 
 
 def btree_print(top, level=0):

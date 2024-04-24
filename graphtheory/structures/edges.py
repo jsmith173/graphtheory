@@ -28,7 +28,7 @@ class Edge:
     http://stackoverflow.com/questions/793761/built-in-python-hash-function
     """
 
-    def __init__(self, source, target, weight=1):
+    def __init__(self, source, target, weight=1, prop={}):
         """Load up a directed edge instance.
         
         Parameters
@@ -40,6 +40,15 @@ class Edge:
         self.source = source
         self.target = target
         self.weight = weight
+        self.prop = prop
+
+    def to_dict(self, addprop=True):
+        self.d = {}
+        self.d['source'] = self.source
+        self.d['target'] = self.target
+        if addprop:
+         self.d['prop'] = self.prop
+        return self.d
 
     def __repr__(self):
         """Compute the string representation of the edge."""
@@ -60,6 +69,9 @@ class Edge:
         return (self.source, self.target, self.weight) == (
             other.source, other.target, other.weight)
 
+    def eq(self, other):
+        return (self.source, self.target) == (other.source, other.target) or (self.target, self.source) == (other.source, other.target)
+
     def __ne__(self, other):
         """Comparing of edges (the weight first)."""
         return not self == other
@@ -75,7 +87,7 @@ class Edge:
 
     def __invert__(self):
         """Return the edge with the opposite direction."""
-        return self.__class__(self.target, self.source, self.weight)
+        return self.__class__(self.target, self.source, self.weight, self.prop)
 
     inverted = __invert__
 
