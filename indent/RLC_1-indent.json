@@ -1,0 +1,99 @@
+{
+    "circuit_no_gens": {
+        "N": 4,
+        "nodes": [
+            1,
+            2,
+            3,
+            0
+        ],
+        "gens": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "Source",
+                    "match_label": "",
+                    "CompId": 16,
+                    "UniqueID": "T_0464B25C20050601152444",
+                    "value": 0,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 1,
+                        "AbsV": 100,
+                        "Phase": 0,
+                        "Freq": 1000000,
+                        "FreqStr": "1MEG"
+                    }
+                }
+            }
+        ],
+        "meters": [
+            {
+                "nodes": [
+                    3,
+                    0
+                ],
+                "prop": {
+                    "label": "Out",
+                    "match_label": "C",
+                    "CompId": 5,
+                    "UniqueID": "T_045C4CA420050601152444",
+                    "value": 0,
+                    "flags": 1
+                }
+            }
+        ],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "R",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F48BB1020240228180735",
+                    "value": 200,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    0
+                ],
+                "prop": {
+                    "label": "C",
+                    "match_label": "",
+                    "CompId": 10,
+                    "UniqueID": "T_0462B9F020050601152444",
+                    "value": 1e-09,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    3
+                ],
+                "prop": {
+                    "label": "L",
+                    "match_label": "",
+                    "CompId": 11,
+                    "UniqueID": "T_0462B74C20050601152444",
+                    "value": 0.001,
+                    "flags": 1
+                }
+            }
+        ]
+    },
+    "request": {
+        "text": "What is the voltage on C?",
+        "cmd": "get_voltage",
+        "comp": "C"
+    }
+}

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R1 and R3 connected in series so Rd=R1+R3=2Ohm</item>
+				<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.33Ohm</item>
+				<item>Rc and R4 connected in series so Rb=Rc+R4=2.33Ohm</item>
+				<item>R2 and Rb connected in series so Ra=R2+Rb=3.33Ohm</item>
+				<item>The total resistance is Ra = 3.33Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R1 and R3 connected in series so Rd=R1+R3=2Ohm</item>
+				<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.33Ohm</item>
+				<item>Rc and R4 connected in series so Rb=Rc+R4=2.33Ohm</item>
+				<item>R2 and Rb connected in series so Ra=R2+Rb=3.33Ohm</item>
+				<item>The total resistance is Ra = 3.33Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>1</item>
+					<item>2</item>
+				</nodes>
+				<prop>
+					<label>IS1</label>
+					<match_label/>
+					<CompId>13</CompId>
+					<UniqueID>T_047B1FC020240428081016</UniqueID>
+					<value>1</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+	</superposition>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>R5 3 4</item>
+		<item>R4 3 2</item>
+		<item>R3 0 3</item>
+		<item>R2 4 1</item>
+		<item>R1 0 4</item>
+		<item/>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_voltage</cmd>
+		<comp>R2</comp>
+		<options>&lt;none&gt;</options>
+		<qid>0</qid>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<edge_values>
+		<item>
+			<label>R2</label>
+			<nodes>
+				<item>4</item>
+				<item>1</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>1.0</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>1</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+			<voltage>1.0</voltage>
+		</item>
+	</edge_values>
+	<calculation>
+		<solution>
+			<item>&gt;&gt; Pass1 started ...</item>
+			<item>&gt;&gt; Gen processing: IS1 ...</item>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes (IS1)</item>
+			<item>R1 and R3 connected in series so Rd=R1+R3=2Ohm</item>
+			<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.33Ohm</item>
+			<item>Rc and R4 connected in series so Rb=Rc+R4=2.33Ohm</item>
+			<item>R2 and Rb connected in series so Ra=R2+Rb=3.33Ohm</item>
+			<item>The total resistance is Ra = 3.33Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on R2</item>
+			<item>We know that the voltage between IS1 nodes is 3.333333333333333V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 3.33Ohm so the voltage between the generator nodes is Igen*Rtot = 3.333333333333333V</item>
+			<item/>
+			<item>(1) The components R2,Rb connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is 3.33V.</item>
+			<item>(1) R2 is in the voltage divider so the voltage on R2 is R2/Ra*3.33V = 1V. </item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rd</label>
+				<origin>series</origin>
+				<value>2Ohm</value>
+				<labels>
+					<item>R1</item>
+					<item>R3</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39B85020240130111157</item>
+					<item>T_1F39C23020240130111206</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rc</label>
+				<origin>parallel</origin>
+				<value>1.33Ohm</value>
+				<labels>
+					<item>R5</item>
+					<item>Rd</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39CC1020240130111214</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<value>2.33Ohm</value>
+				<labels>
+					<item>Rc</item>
+					<item>R4</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F39C72020240130111211</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<value>3.33Ohm</value>
+				<labels>
+					<item>R2</item>
+					<item>Rb</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39BD4020240130111203</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/g-grid1-ok-2.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

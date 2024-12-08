@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<edge_values/>
+	<calculation>
+		<solution>
+			<item>Failed: see codes</item>
+		</solution>
+		<fn>data/current2.json</fn>
+		<valid>0</valid>
+		<error>1</error>
+		<status>Fatal error: Generator not found</status>
+	</calculation>
+</all>

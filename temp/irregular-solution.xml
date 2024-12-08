@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<all>
+	<gen>
+		<nodes>
+			<item>2</item>
+			<item>0</item>
+		</nodes>
+		<prop>
+			<label>VS1</label>
+			<CompId>14</CompId>
+			<UniqueID>T_1F41FB4020240129133922</UniqueID>
+			<value>6.0</value>
+			<flags>1</flags>
+			<ac_gen>
+				<mode>0</mode>
+			</ac_gen>
+		</prop>
+	</gen>
+	<circuit>
+		<item>R3 1 0</item>
+		<item>R1 2 3</item>
+	</circuit>
+	<request>
+		<text>What is the voltage on R1?</text>
+		<cmd>get_voltage</cmd>
+		<comp>R1</comp>
+		<req_on_gen>false</req_on_gen>
+	</request>
+	<total_impedance_ori_txt/>
+	<total_impedance_txt/>
+	<calculation>
+		<solution/>
+		<block_labels/>
+		<fn>data/irregular.json</fn>
+		<valid>0</valid>
+		<error>0</error>
+		<status>not an sp-graph</status>
+	</calculation>
+</all>

@@ -1,0 +1,194 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "Rd=Rxya",
+                "R4 and Rd connected in parallel so Rc=R4*Rd/(R4+Rd)=380.49 Ohm",
+                "Rf=Rxyb",
+                "R2 and Rf connected in parallel so Re=R2*Rf/(R2+Rf)=162.5 Ohm",
+                "Rc and Re connected in series so Rb=Rc+Re=542.99 Ohm",
+                "Rxyc and Rb connected in parallel so Ra=Rxyc*Rb/(Rxyc+Rb)=449.18 Ohm",
+                "The total resistance is Ra = 449.18 Ohm"
+            ],
+            "total_impedance_txt": [
+                "R4 and Rxya connected in parallel so Rc=R4*Rxya/(R4+Rxya)=380.49 Ohm",
+                "R2 and Rxyb connected in parallel so Re=R2*Rxyb/(R2+Rxyb)=162.5 Ohm",
+                "Rc and Re connected in series so Rb=Rc+Re=542.99 Ohm",
+                "Rxyc and Rb connected in parallel so Ra=Rxyc*Rb/(Rxyc+Rb)=449.18 Ohm",
+                "The total resistance is Ra = 449.18 Ohm"
+            ]
+        }
+    ],
+    "gen": {
+        "nodes": [
+            4,
+            2
+        ],
+        "prop": {
+            "label": "VS1",
+            "match_label": "",
+            "CompId": 14,
+            "UniqueID": "T_1F2BEA6020240223163301",
+            "value": 100,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R5 1 2",
+        "R4 3 2",
+        "R3 3 1",
+        "R2 4 3",
+        "R1 4 1",
+        ""
+    ],
+    "request": {
+        "text": "What is the voltage on R2?",
+        "cmd": "get_voltage",
+        "comp": "R2",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "This circuit can not be solved by using the standard series-parallel rules",
+            "The R5,R3,R1 components form a star connection. We will convert it to delta connection",
+            "So we can use standard series-parallel rules for impedance calculation",
+            "The new components will be: Rxya=1040.00 Ohm,Rxyb=866.67 Ohm,Rxyc=2600.00 Ohm",
+            "The following formulas are used in the star to delta conversion: ",
+            "Rxya=(R5*R3+R3*R1+R1*R5)/R1",
+            "Rxyb=(R5*R3+R3*R1+R1*R5)/R5",
+            "Rxyc=(R5*R3+R3*R1+R1*R5)/R3",
+            "",
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (VS1)",
+            "R4 and Rxya connected in parallel so Rc=R4*Rxya/(R4+Rxya)=380.49 Ohm",
+            "R2 and Rxyb connected in parallel so Re=R2*Rxyb/(R2+Rxyb)=162.5 Ohm",
+            "Rc and Re connected in series so Rb=Rc+Re=542.99 Ohm",
+            "Rxyc and Rb connected in parallel so Ra=Rxyc*Rb/(Rxyc+Rb)=449.18 Ohm",
+            "The total resistance is Ra = 449.18 Ohm",
+            "",
+            "Now we calculate the voltage on R2",
+            "We know that the voltage between VS1 nodes is 100 V.",
+            "",
+            "(1) The components Rxyc,Rb connected in parallel. The voltage on Rb is 100 V because the voltage on Ra is 100 V",
+            "",
+            "(2) The components Rc,Re connected in series.",
+            "(2) The voltage between this components starting and ending node is 100 V.",
+            "(2) Re is in the voltage divider so the voltage on Re is Re/Rb*100 V = 29.93 V. ",
+            "",
+            "(3) The components R2,Rxyb connected in parallel. The voltage on R2 is 29.93 V because the voltage on Re is 29.93 V",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Rxya",
+                "origin": "yd",
+                "origin2": "Y-label",
+                "labels": [
+                    "R1",
+                    "R3",
+                    "R5"
+                ],
+                "value": "1040 Ohm",
+                "unique_labels": [
+                    "T_1F2BEF5020240223163317",
+                    "T_1F2BF93020240223163325",
+                    "T_1F2C031020240223163348"
+                ]
+            },
+            {
+                "label": "Rxyb",
+                "origin": "yd",
+                "origin2": "Y-label",
+                "labels": [
+                    "R5",
+                    "R1",
+                    "R3"
+                ],
+                "value": "866.67 Ohm",
+                "unique_labels": [
+                    "T_1F2C031020240223163348",
+                    "T_1F2BEF5020240223163317",
+                    "T_1F2BF93020240223163325"
+                ]
+            },
+            {
+                "label": "Rxyc",
+                "origin": "yd",
+                "origin2": "Y-label",
+                "labels": [
+                    "R3",
+                    "R5",
+                    "R1"
+                ],
+                "value": "2600 Ohm",
+                "unique_labels": [
+                    "T_1F2BF93020240223163325",
+                    "T_1F2C031020240223163348",
+                    "T_1F2BEF5020240223163317"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "parallel",
+                "value": "380.49 Ohm",
+                "labels": [
+                    "R4",
+                    "Rxya"
+                ],
+                "unique_labels": [
+                    "T_1F2BFE2020240223163336",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Re",
+                "origin": "parallel",
+                "value": "162.5 Ohm",
+                "labels": [
+                    "R2",
+                    "Rxyb"
+                ],
+                "unique_labels": [
+                    "T_1F2BF44020240223163322",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rb",
+                "origin": "series",
+                "value": "542.99 Ohm",
+                "labels": [
+                    "Rc",
+                    "Re"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "parallel",
+                "value": "449.18 Ohm",
+                "labels": [
+                    "Rxyc",
+                    "Rb"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            }
+        ],
+        "fn": "data/g-d-1.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

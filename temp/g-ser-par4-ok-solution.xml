@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<all>
+	<gen>
+		<nodes>
+			<item>2</item>
+			<item>0</item>
+		</nodes>
+		<prop>
+			<label>VS1</label>
+			<CompId>14</CompId>
+			<UniqueID>T_1F26DB1020240204130943</UniqueID>
+			<value>6.0</value>
+			<flags>1</flags>
+			<ac_gen>
+				<mode>0</mode>
+			</ac_gen>
+		</prop>
+	</gen>
+	<circuit>
+		<item>R4 1 0</item>
+		<item>R3 3 1</item>
+		<item>R2 3 0</item>
+		<item>R1 2 3</item>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_current</cmd>
+		<comp>VS1</comp>
+		<req_on_gen>true</req_on_gen>
+	</request>
+	<total_impedance_ori_txt>
+		<item>R4 and R3 connected in series so Rc=R4+R3=2.0000 Ohm</item>
+		<item>R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=1.0000 Ohm</item>
+		<item>Rb and R1 connected in series so Ra=Rb+R1=5.0000 Ohm</item>
+		<item>The total impedance is Ra = 5.0000 Ohm</item>
+	</total_impedance_ori_txt>
+	<total_impedance_txt>
+		<item>R4 and R3 connected in series so Rc=R4+R3=2.0000 Ohm</item>
+		<item>R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=1.0000 Ohm</item>
+		<item>Rb and R1 connected in series so Ra=Rb+R1=5.0000 Ohm</item>
+		<item>The total impedance is Ra = 5.0000 Ohm</item>
+	</total_impedance_txt>
+	<calculation>
+		<solution>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes</item>
+			<item>R4 and R3 connected in series so Rc=R4+R3=2.0000 Ohm</item>
+			<item>R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=1.0000 Ohm</item>
+			<item>Rb and R1 connected in series so Ra=Rb+R1=5.0000 Ohm</item>
+			<item>The total impedance is Ra = 5.0000 Ohm</item>
+			<item/>
+			<item>Now we calculate the current on VS1</item>
+			<item/>
+			<item>We know that the voltage between VS1 nodes is 6.0000 V.</item>
+			<item>We calculated previously the impedance between VS1 nodes: this is 6.0000 Ohm.</item>
+			<item>So the current on VS1 is 1.2000 A.</item>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rc</label>
+				<origin>series</origin>
+				<labels>
+					<item>R4</item>
+					<item>R3</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F59DF9020240222105122</item>
+					<item>T_1F41F65020240129133843</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rb</label>
+				<origin>parallel</origin>
+				<labels>
+					<item>R2</item>
+					<item>Rc</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F41F16020240129133837</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<labels>
+					<item>Rb</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F41EC7020240129133833</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/g-ser-par4-ok.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

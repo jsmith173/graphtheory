@@ -1,0 +1,58 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "The total resistance is R1 = 1 Ohm"
+            ],
+            "total_impedance_txt": [
+                "The total resistance is R1 = 1 Ohm"
+            ]
+        }
+    ],
+    "gen": {
+        "nodes": [
+            1,
+            0
+        ],
+        "prop": {
+            "label": "VS1",
+            "match_label": "",
+            "CompId": 14,
+            "UniqueID": "T_1F41FB4020240129133922",
+            "value": 5,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R1 1 0",
+        ""
+    ],
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (VS1)",
+            "The total resistance is R1 = 1 Ohm",
+            "",
+            "Now we calculate the voltage on R1",
+            "We know that the voltage between VS1 nodes is 5 V.",
+            ""
+        ],
+        "block_labels": [],
+        "fn": "data/g-ser-simple-ok.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

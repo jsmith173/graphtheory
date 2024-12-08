@@ -1,0 +1,168 @@
+{
+    "circuit_no_gens": {
+        "N": 8,
+        "nodes": [
+            1,
+            2,
+            3,
+            0,
+            4,
+            5,
+            6,
+            7
+        ],
+        "gens": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "V1",
+                    "match_label": "",
+                    "CompId": 67,
+                    "UniqueID": "T_1EF4306020240308074852",
+                    "value": 5,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        ],
+        "meters": [],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "R9",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F269AE020240204130330",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    3
+                ],
+                "prop": {
+                    "label": "R8",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2695F020240204130328",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    0
+                ],
+                "prop": {
+                    "label": "R7",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F268C1020240204130325",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    4,
+                    0
+                ],
+                "prop": {
+                    "label": "R6",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F26910020240204130321",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    5,
+                    4
+                ],
+                "prop": {
+                    "label": "R5",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F26872020240204130320",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    1,
+                    5
+                ],
+                "prop": {
+                    "label": "R4",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F26823020240204130318",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    6,
+                    0
+                ],
+                "prop": {
+                    "label": "R3",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2C628020240131171149",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    7,
+                    6
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F358CC020240131152845",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    1,
+                    7
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F3587D020240131152843",
+                    "value": 1,
+                    "flags": 1
+                }
+            }
+        ]
+    },
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1"
+    }
+}

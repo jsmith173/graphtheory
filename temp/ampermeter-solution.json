@@ -1,0 +1,105 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "Rc=R1",
+                "R2 and Rc connected in series so Rb=R2+Rc=2 Ohm",
+                "R3 and Rb connected in series so Ra=R3+Rb=3 Ohm",
+                "The total resistance is Ra = 3 Ohm"
+            ],
+            "total_impedance_txt": [
+                "R2 and R1 connected in series so Rb=R2+R1=2 Ohm",
+                "R3 and Rb connected in series so Ra=R3+Rb=3 Ohm",
+                "The total resistance is Ra = 3 Ohm"
+            ]
+        }
+    ],
+    "gen": {
+        "nodes": [
+            4,
+            0
+        ],
+        "prop": {
+            "label": "VS1",
+            "match_label": "",
+            "CompId": 14,
+            "UniqueID": "T_1F41FB4020240129133922",
+            "value": 6,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "AM1 1 2",
+        "R3 3 0",
+        "R2 2 3",
+        "R1 4 1",
+        ""
+    ],
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (VS1)",
+            "R2 and R1 connected in series so Rb=R2+R1=2 Ohm",
+            "R3 and Rb connected in series so Ra=R3+Rb=3 Ohm",
+            "The total resistance is Ra = 3 Ohm",
+            "",
+            "Now we calculate the voltage on R1",
+            "We know that the voltage between VS1 nodes is 6 V.",
+            "",
+            "(1) The components R3,Rb connected in series.",
+            "(1) The voltage between this components starting and ending node is 6 V.",
+            "(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*6 V = 4 V. ",
+            "",
+            "(2) The components R2,R1 connected in series.",
+            "(2) The voltage between this components starting and ending node is 4 V.",
+            "(2) R1 is in the voltage divider so the voltage on R1 is Rc/Rb*4 V = 2 V. ",
+            "",
+            "(3) The voltage on R1 is 2 V because the voltage is 2 V on R1",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Rb",
+                "origin": "series",
+                "value": "2 Ohm",
+                "labels": [
+                    "R2",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "T_1F2AE4A020240203083904",
+                    "T_1F41EC7020240129133833"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "series",
+                "value": "3 Ohm",
+                "labels": [
+                    "R3",
+                    "Rb"
+                ],
+                "unique_labels": [
+                    "T_1F2AE99020240203083907",
+                    "<block>"
+                ]
+            }
+        ],
+        "fn": "data/ampermeter.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

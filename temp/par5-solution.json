@@ -1,0 +1,137 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "Re=R4",
+                "R5 and Re connected in parallel so Rd=R5*Re/(R5+Re)=500 Ohm",
+                "Rf=R3",
+                "Rd and Rf connected in parallel so Rc=Rd*Rf/(Rd+Rf)=333.33 Ohm",
+                "Rg=R2",
+                "Rc and Rg connected in parallel so Rb=Rc*Rg/(Rc+Rg)=250 Ohm",
+                "Rh=R1",
+                "Rb and Rh connected in parallel so Ra=Rb*Rh/(Rb+Rh)=200 Ohm",
+                "The total resistance is Ra = 200 Ohm"
+            ],
+            "total_impedance_txt": [
+                "R5 and R4 connected in parallel so Rd=R5*R4/(R5+R4)=500 Ohm",
+                "Rd and R3 connected in parallel so Rc=Rd*R3/(Rd+R3)=333.33 Ohm",
+                "Rc and R2 connected in parallel so Rb=Rc*R2/(Rc+R2)=250 Ohm",
+                "Rb and R1 connected in parallel so Ra=Rb*R1/(Rb+R1)=200 Ohm",
+                "The total resistance is Ra = 200 Ohm"
+            ]
+        }
+    ],
+    "gen": {
+        "nodes": [
+            1,
+            2
+        ],
+        "prop": {
+            "label": "VS1",
+            "match_label": "",
+            "CompId": 14,
+            "UniqueID": "T_1F2263C020240301100655",
+            "value": 5,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R5 1 2",
+        "R4 1 3",
+        "<split> 3 2",
+        "R3 1 4",
+        "<split> 4 2",
+        "R2 1 5",
+        "<split> 5 2",
+        "R1 1 6",
+        "<split> 6 2",
+        ""
+    ],
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (VS1)",
+            "R5 and R4 connected in parallel so Rd=R5*R4/(R5+R4)=500 Ohm",
+            "Rd and R3 connected in parallel so Rc=Rd*R3/(Rd+R3)=333.33 Ohm",
+            "Rc and R2 connected in parallel so Rb=Rc*R2/(Rc+R2)=250 Ohm",
+            "Rb and R1 connected in parallel so Ra=Rb*R1/(Rb+R1)=200 Ohm",
+            "The total resistance is Ra = 200 Ohm",
+            "",
+            "Now we calculate the voltage on R1",
+            "We know that the voltage between VS1 nodes is 5 V.",
+            "",
+            "(1) The components Rb,R1 connected in parallel. The voltage on R1 is 5 V because the voltage on Ra is 5 V",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Rd",
+                "origin": "parallel",
+                "value": "500 Ohm",
+                "labels": [
+                    "R5",
+                    "R4"
+                ],
+                "unique_labels": [
+                    "T_1F225ED020240301100619",
+                    "T_1F2259E020240301100616"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "parallel",
+                "value": "333.33 Ohm",
+                "labels": [
+                    "Rd",
+                    "R3"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_1F2254F020240301100608"
+                ]
+            },
+            {
+                "label": "Rb",
+                "origin": "parallel",
+                "value": "250 Ohm",
+                "labels": [
+                    "Rc",
+                    "R2"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_1F22500020240301100606"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "parallel",
+                "value": "200 Ohm",
+                "labels": [
+                    "Rb",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_1F224B1020240301100604"
+                ]
+            }
+        ],
+        "fn": "data/par5.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

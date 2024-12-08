@@ -1,0 +1,103 @@
+{
+    "circuit_no_gens": {
+        "N": 4,
+        "nodes": [
+            1,
+            0,
+            3,
+            2
+        ],
+        "gens": [
+            {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "VG1",
+                    "match_label": "",
+                    "CompId": 16,
+                    "UniqueID": "T_1F2BDF2020240228104255",
+                    "value": 0,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 1,
+                        "AbsV": 1,
+                        "Phase": 0,
+                        "Freq": 50,
+                        "FreqStr": "50"
+                    }
+                }
+            }
+        ],
+        "meters": [],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "R4",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2C968020240228170717",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    1
+                ],
+                "prop": {
+                    "label": "R3",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F41F65020240129133843",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    0
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F41F16020240129133837",
+                    "value": 2,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    3
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F41EC7020240129133833",
+                    "value": 1,
+                    "flags": 1
+                }
+            }
+        ]
+    },
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1"
+    },
+    "expected": {
+        "valid": 1,
+        "res_imp": 2,
+        "res_req": 0
+    }
+}

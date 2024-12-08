@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<all>
+	<gen>
+		<nodes>
+			<item>1</item>
+			<item>0</item>
+		</nodes>
+		<prop>
+			<label>Source</label>
+			<CompId>16</CompId>
+			<UniqueID>T_0464B25C20050601152444</UniqueID>
+			<value>0.0</value>
+			<flags>1</flags>
+			<ac_gen>
+				<mode>1</mode>
+				<AbsV>100.0</AbsV>
+				<Phase>0.0</Phase>
+				<Freq>1000000.0</Freq>
+				<FreqStr>1MEG</FreqStr>
+			</ac_gen>
+		</prop>
+	</gen>
+	<circuit>
+		<item>R 1 2</item>
+		<item>C 3 0</item>
+		<item>L 2 3</item>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_current</cmd>
+		<comp>R</comp>
+	</request>
+	<total_impedance_ori_txt>
+		<item>L and R connected in series so Zb=j*w*L+R='6286.3676 / 88.1768°' Ohm</item>
+		<item>C and Zb connected in series so Za=1/(j*w*C)+Zb='6127.2953 / 88.1295°' Ohm</item>
+		<item>The total impedance is Za = '6127.2953 / 88.1295°' Ohm</item>
+	</total_impedance_ori_txt>
+	<total_impedance_txt>
+		<item>L and R connected in series so Zb=j*w*L+R='6286.3676 / 88.1768°' Ohm</item>
+		<item>C and Zb connected in series so Za=1/(j*w*C)+Zb='6127.2953 / 88.1295°' Ohm</item>
+		<item>The total impedance is Za = '6127.2953 / 88.1295°' Ohm</item>
+	</total_impedance_txt>
+	<calculation>
+		<solution>
+			<item>This is an AC calculation</item>
+			<item>We know that generator frequency is f=1MEG Hz, w=2*pi*f</item>
+			<item>At first we calculate the total resistance between the generator nodes</item>
+			<item>L and R connected in series so Zb=j*w*L+R='6286.3676 / 88.1768°' Ohm</item>
+			<item>C and Zb connected in series so Za=1/(j*w*C)+Zb='6127.2953 / 88.1295°' Ohm</item>
+			<item>The total impedance is Za = '6127.2953 / 88.1295°' Ohm</item>
+			<item/>
+			<item>Now we calculate the current on R</item>
+			<item>We know that the voltage between Source nodes is '100.0000 / 0.0000°' V. So the current on Source is '100.0000 / 0.0000°'/Za = '0.0163 / -88.1295°' A</item>
+			<item/>
+			<item>(1) The components C,Zb connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is '100.0000 / 0.0000°' V.</item>
+			<item>(1) Zb is in the voltage divider so the voltage on Zb is Zb/Za*'100.0000 / 0.0000°' V = '102.5961 / 0.0473°' V. </item>
+			<item>(1) The current on Zb is the 'voltage on Zb / Zb' = '0.0163 / -88.1295°' A .</item>
+			<item/>
+			<item>(2) The components L,R connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is '102.5961 / 0.0473°' V.</item>
+			<item>(2) R is in the voltage divider so the voltage on R is R/Zb*'102.5961 / 0.0473°' V = '3.2641 / -88.1295°' V. </item>
+			<item>(2) The current on R is the 'voltage on R / R' = '0.0163 / -88.1295°' A .</item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Zb</label>
+				<origin>series</origin>
+				<labels>
+					<item>L</item>
+					<item>R</item>
+				</labels>
+				<unique_labels>
+					<item>T_0462B74C20050601152444</item>
+					<item>T_1F48BB1020240228180735</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Za</label>
+				<origin>series</origin>
+				<labels>
+					<item>C</item>
+					<item>Zb</item>
+				</labels>
+				<unique_labels>
+					<item>T_0462B9F020050601152444</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/RLC_1.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

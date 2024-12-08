@@ -1,0 +1,256 @@
+<?xml version="1.0" ?>
+<all>
+	<gen>
+		<nodes>
+			<item>1</item>
+			<item>0</item>
+		</nodes>
+		<prop>
+			<label>VS1</label>
+			<CompId>14</CompId>
+			<UniqueID>T_1F318AA020240211163549</UniqueID>
+			<value>5.0</value>
+			<flags>1</flags>
+			<ac_gen>
+				<mode>0</mode>
+			</ac_gen>
+		</prop>
+	</gen>
+	<circuit>
+		<item>R12 2 0</item>
+		<item>R11 2 8</item>
+		<item>&lt;split&gt; 8 0</item>
+		<item>R10 1 2</item>
+		<item>R9 3 0</item>
+		<item>R8 3 9</item>
+		<item>&lt;split&gt; 9 0</item>
+		<item>R7 4 3</item>
+		<item>R6 1 5</item>
+		<item>R5 5 6</item>
+		<item>R4 6 4</item>
+		<item>R3 5 7</item>
+		<item>R2 7 4</item>
+		<item>R1 7 10</item>
+		<item>&lt;split&gt; 10 4</item>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_current</cmd>
+		<comp>R1</comp>
+	</request>
+	<total_impedance_ori_txt>
+		<item>Rd=R11</item>
+		<item>R12 and Rd connected in parallel so Rc=R12*Rd/(R12+Rd)=1.0000 Ohm</item>
+		<item>Rc and R10 connected in series so Rb=Rc+R10=2.0000 Ohm</item>
+		<item>Ri=R8</item>
+		<item>R9 and Ri connected in parallel so Rh=R9*Ri/(R9+Ri)=1.0000 Ohm</item>
+		<item>Rh and R7 connected in series so Rg=Rh+R7=2.0000 Ohm</item>
+		<item>R4 and R5 connected in series so Rk=R4+R5=2.0000 Ohm</item>
+		<item>Ro=R1</item>
+		<item>R2 and Ro connected in parallel so Rn=R2*Ro/(R2+Ro)=1.0000 Ohm</item>
+		<item>Rn and R3 connected in series so Rm=Rn+R3=2.0000 Ohm</item>
+		<item>Rk and Rm connected in parallel so Rj=Rk*Rm/(Rk+Rm)=1.0000 Ohm</item>
+		<item>Rg and Rj connected in series so Rf=Rg+Rj=3.0000 Ohm</item>
+		<item>Rf and R6 connected in series so Re=Rf+R6=4.0000 Ohm</item>
+		<item>Rb and Re connected in parallel so Ra=Rb*Re/(Rb+Re)=1.3333 Ohm</item>
+		<item>The total impedance is Ra = 1.3333 Ohm</item>
+	</total_impedance_ori_txt>
+	<total_impedance_txt>
+		<item>R12 and R11 connected in parallel so Rc=R12*R11/(R12+R11)=1.0000 Ohm</item>
+		<item>Rc and R10 connected in series so Rb=Rc+R10=2.0000 Ohm</item>
+		<item>R9 and R8 connected in parallel so Rh=R9*R8/(R9+R8)=1.0000 Ohm</item>
+		<item>Rh and R7 connected in series so Rg=Rh+R7=2.0000 Ohm</item>
+		<item>R4 and R5 connected in series so Rk=R4+R5=2.0000 Ohm</item>
+		<item>R2 and R1 connected in parallel so Rn=R2*R1/(R2+R1)=1.0000 Ohm</item>
+		<item>Rn and R3 connected in series so Rm=Rn+R3=2.0000 Ohm</item>
+		<item>Rk and Rm connected in parallel so Rj=Rk*Rm/(Rk+Rm)=1.0000 Ohm</item>
+		<item>Rg and Rj connected in series so Rf=Rg+Rj=3.0000 Ohm</item>
+		<item>Rf and R6 connected in series so Re=Rf+R6=4.0000 Ohm</item>
+		<item>Rb and Re connected in parallel so Ra=Rb*Re/(Rb+Re)=1.3333 Ohm</item>
+		<item>The total impedance is Ra = 1.3333 Ohm</item>
+	</total_impedance_txt>
+	<calculation>
+		<solution>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes</item>
+			<item>R12 and R11 connected in parallel so Rc=R12*R11/(R12+R11)=1.0000 Ohm</item>
+			<item>Rc and R10 connected in series so Rb=Rc+R10=2.0000 Ohm</item>
+			<item>R9 and R8 connected in parallel so Rh=R9*R8/(R9+R8)=1.0000 Ohm</item>
+			<item>Rh and R7 connected in series so Rg=Rh+R7=2.0000 Ohm</item>
+			<item>R4 and R5 connected in series so Rk=R4+R5=2.0000 Ohm</item>
+			<item>R2 and R1 connected in parallel so Rn=R2*R1/(R2+R1)=1.0000 Ohm</item>
+			<item>Rn and R3 connected in series so Rm=Rn+R3=2.0000 Ohm</item>
+			<item>Rk and Rm connected in parallel so Rj=Rk*Rm/(Rk+Rm)=1.0000 Ohm</item>
+			<item>Rg and Rj connected in series so Rf=Rg+Rj=3.0000 Ohm</item>
+			<item>Rf and R6 connected in series so Re=Rf+R6=4.0000 Ohm</item>
+			<item>Rb and Re connected in parallel so Ra=Rb*Re/(Rb+Re)=1.3333 Ohm</item>
+			<item>The total impedance is Ra = 1.3333 Ohm</item>
+			<item/>
+			<item>Now we calculate the current on R1</item>
+			<item>We know that the voltage between VS1 nodes is 5.0000 V. So the current on VS1 is 5.0000/Ra = 3.7500 A</item>
+			<item/>
+			<item>(1) The components Rb,Re connected in parallel. The voltage on Re is 5.0000 V because the voltage on Ra is 5.0000 V</item>
+			<item/>
+			<item>(1) The current on Re is the 'voltage on Re / Re' = 1.2500 A .</item>
+			<item>(2) The components Rf,R6 connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is 5.0000 V.</item>
+			<item>(2) Rf is in the voltage divider so the voltage on Rf is Rf/Re*5.0000 V = 3.7500 V. </item>
+			<item>(2) The current on Rf is the 'voltage on Rf / Rf' = 1.2500 A .</item>
+			<item/>
+			<item>(3) The components Rg,Rj connected in series.</item>
+			<item>(3) The voltage between this components starting and ending node is 3.7500 V.</item>
+			<item>(3) Rj is in the voltage divider so the voltage on Rj is Rj/Rf*3.7500 V = 1.2500 V. </item>
+			<item>(3) The current on Rj is the 'voltage on Rj / Rj' = 1.2500 A .</item>
+			<item/>
+			<item>(4) The components Rk,Rm connected in parallel. The voltage on Rm is 1.2500 V because the voltage on Rj is 1.2500 V</item>
+			<item/>
+			<item>(4) The current on Rm is the 'voltage on Rm / Rm' = 0.6250 A .</item>
+			<item>(5) The components Rn,R3 connected in series.</item>
+			<item>(5) The voltage between this components starting and ending node is 1.2500 V.</item>
+			<item>(5) Rn is in the voltage divider so the voltage on Rn is Rn/Rm*1.2500 V = 0.6250 V. </item>
+			<item>(5) The current on Rn is the 'voltage on Rn / Rn' = 0.6250 A .</item>
+			<item/>
+			<item>(6) The components R2,R1 connected in parallel. The voltage on R1 is 0.6250 V because the voltage on Rn is 0.6250 V</item>
+			<item/>
+			<item>(6) The current on R1 is the 'voltage on R1 / Ro' = 0.3125 A .</item>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rc</label>
+				<origin>parallel</origin>
+				<labels>
+					<item>R12</item>
+					<item>R11</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F316D0020240211163348</item>
+					<item>T_1F3171F020240211163348</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<labels>
+					<item>Rc</item>
+					<item>R10</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F3176E020240211163348</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rh</label>
+				<origin>parallel</origin>
+				<labels>
+					<item>R9</item>
+					<item>R8</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F315E3020240211163343</item>
+					<item>T_1F31632020240211163343</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rg</label>
+				<origin>series</origin>
+				<labels>
+					<item>Rh</item>
+					<item>R7</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F31681020240211163343</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rk</label>
+				<origin>series</origin>
+				<labels>
+					<item>R4</item>
+					<item>R5</item>
+				</labels>
+				<unique_labels>
+					<item>T_03F8620020240207095111</item>
+					<item>T_03F866F020240207095115</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rn</label>
+				<origin>parallel</origin>
+				<labels>
+					<item>R2</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>T_03F8582020240207095102</item>
+					<item>T_03F8533020240207095057</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rm</label>
+				<origin>series</origin>
+				<labels>
+					<item>Rn</item>
+					<item>R3</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_03F85D1020240207095108</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rj</label>
+				<origin>parallel</origin>
+				<labels>
+					<item>Rk</item>
+					<item>Rm</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rf</label>
+				<origin>series</origin>
+				<labels>
+					<item>Rg</item>
+					<item>Rj</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Re</label>
+				<origin>series</origin>
+				<labels>
+					<item>Rf</item>
+					<item>R6</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_03F86BE020240207095119</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>parallel</origin>
+				<labels>
+					<item>Rb</item>
+					<item>Re</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/g-ser-par2-big1.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

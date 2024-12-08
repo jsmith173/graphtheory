@@ -1,0 +1,12 @@
+{
+    "edge_values": [],
+    "calculation": {
+        "solution": [
+            "Failed: see codes"
+        ],
+        "fn": "data/current2.json",
+        "valid": 0,
+        "error": 1,
+        "status": "Fatal error: Generator not found"
+    }
+}

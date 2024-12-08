@@ -1,0 +1,157 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "R1 and R3 connected in series so Rd=R1+R3=2Ohm",
+                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.33Ohm",
+                "Rc and R4 connected in series so Rb=Rc+R4=2.33Ohm",
+                "R2 and Rb connected in series so Ra=R2+Rb=3.33Ohm",
+                "The total resistance is Ra = 3.33Ohm"
+            ],
+            "total_impedance_txt": [
+                "R1 and R3 connected in series so Rd=R1+R3=2Ohm",
+                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.33Ohm",
+                "Rc and R4 connected in series so Rb=Rc+R4=2.33Ohm",
+                "R2 and Rb connected in series so Ra=R2+Rb=3.33Ohm",
+                "The total resistance is Ra = 3.33Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "T_047B1FC020240428081016",
+                    "value": 1,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R5 3 4",
+        "R4 3 2",
+        "R3 0 3",
+        "R2 4 1",
+        "R1 0 4",
+        ""
+    ],
+    "request": {
+        "text": "",
+        "cmd": "get_voltage",
+        "comp": "R2",
+        "options": "<none>",
+        "qid": "0",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "edge_values": [
+        {
+            "label": "R2",
+            "nodes": [
+                4,
+                1
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 1.0,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 1,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 1.0
+        }
+    ],
+    "calculation": {
+        "solution": [
+            ">> Pass1 started ...",
+            ">> Gen processing: IS1 ...",
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (IS1)",
+            "R1 and R3 connected in series so Rd=R1+R3=2Ohm",
+            "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.33Ohm",
+            "Rc and R4 connected in series so Rb=Rc+R4=2.33Ohm",
+            "R2 and Rb connected in series so Ra=R2+Rb=3.33Ohm",
+            "The total resistance is Ra = 3.33Ohm",
+            "",
+            "Now we calculate the voltage on R2",
+            "We know that the voltage between IS1 nodes is 3.333333333333333V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 3.33Ohm so the voltage between the generator nodes is Igen*Rtot = 3.333333333333333V",
+            "",
+            "(1) The components R2,Rb connected in series.",
+            "(1) The voltage between this components starting and ending node is 3.33V.",
+            "(1) R2 is in the voltage divider so the voltage on R2 is R2/Ra*3.33V = 1V. ",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Rd",
+                "origin": "series",
+                "value": "2Ohm",
+                "labels": [
+                    "R1",
+                    "R3"
+                ],
+                "unique_labels": [
+                    "T_1F39B85020240130111157",
+                    "T_1F39C23020240130111206"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "parallel",
+                "value": "1.33Ohm",
+                "labels": [
+                    "R5",
+                    "Rd"
+                ],
+                "unique_labels": [
+                    "T_1F39CC1020240130111214",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rb",
+                "origin": "series",
+                "value": "2.33Ohm",
+                "labels": [
+                    "Rc",
+                    "R4"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_1F39C72020240130111211"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "series",
+                "value": "3.33Ohm",
+                "labels": [
+                    "R2",
+                    "Rb"
+                ],
+                "unique_labels": [
+                    "T_1F39BD4020240130111203",
+                    "<block>"
+                ]
+            }
+        ],
+        "fn": "data/g-grid1-ok-2.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

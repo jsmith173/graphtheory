@@ -1,0 +1,38 @@
+{
+    "gen": {
+        "nodes": [
+            2,
+            0
+        ],
+        "prop": {
+            "label": "VS1",
+            "CompId": 14,
+            "UniqueID": "T_1F41FB4020240129133922",
+            "value": 6.0,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    "circuit": [
+        "R3 1 0",
+        "R1 2 3"
+    ],
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1",
+        "req_on_gen": false
+    },
+    "total_impedance_ori_txt": [],
+    "total_impedance_txt": [],
+    "calculation": {
+        "solution": [],
+        "block_labels": [],
+        "fn": "data/irregular.json",
+        "valid": 0,
+        "error": 0,
+        "status": "not an sp-graph"
+    }
+}

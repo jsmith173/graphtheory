@@ -1,0 +1,222 @@
+<?xml version="1.0" ?>
+<all>
+	<superposition>
+		<item>
+			<total_impedance>
+				<item>
+					<txt>R3 and R2 connected in series so Rb=R3+R2=2 Ohm</txt>
+					<one_item>false</one_item>
+					<s_top>Rb</s_top>
+					<s_left>R3</s_left>
+					<s_right>R2</s_right>
+					<left_type>edge</left_type>
+					<right_type>edge</right_type>
+					<top_type>series</top_type>
+					<left_node_id>018</left_node_id>
+					<right_node_id>129</right_node_id>
+					<top_node_id>026</top_node_id>
+					<labels>
+						<item>R3</item>
+						<item>R2</item>
+					</labels>
+					<unique_labels>
+						<item>T_1F2AE99020240203083907</item>
+						<item>T_1F2AE4A020240203083904</item>
+					</unique_labels>
+				</item>
+				<item>
+					<txt>Rb and R1 connected in series so Ra=Rb+R1=3 Ohm</txt>
+					<one_item>false</one_item>
+					<s_top>Ra</s_top>
+					<s_left>Rb</s_left>
+					<s_right>R1</s_right>
+					<left_type>series</left_type>
+					<right_type>edge</right_type>
+					<top_type>series</top_type>
+					<left_node_id>026</left_node_id>
+					<right_node_id>237</right_node_id>
+					<top_node_id>035</top_node_id>
+					<labels>
+						<item>Rb</item>
+						<item>R1</item>
+					</labels>
+					<unique_labels>
+						<item>&lt;block&gt;</item>
+						<item>T_1F41EC7020240129133833</item>
+					</unique_labels>
+				</item>
+				<item>
+					<txt>The total resistance is Ra = 3 Ohm</txt>
+					<one_item>false</one_item>
+					<s_top/>
+					<s_left/>
+					<s_right/>
+				</item>
+			</total_impedance>
+			<total_impedance_ori_txt>
+				<item>R3 and R2 connected in series so Rb=R3+R2=2 Ohm</item>
+				<item>Rb and R1 connected in series so Ra=Rb+R1=3 Ohm</item>
+				<item>The total resistance is Ra = 3 Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R3 and R2 connected in series so Rb=R3+R2=2 Ohm</item>
+				<item>Rb and R1 connected in series so Ra=Rb+R1=3 Ohm</item>
+				<item>The total resistance is Ra = 3 Ohm</item>
+			</total_impedance_txt>
+			<nodal_voltage_log>
+				<item>Nodes: 3, 0, voltage: 5, top type: &lt;none&gt;</item>
+				<item>Nodes: 3, 0, current: 1.6666666666666667, top type: &lt;none&gt;</item>
+				<item>Nodes: 2, 0, voltage: 3.333333333333333, top type: series</item>
+				<item>Nodes: 2, 0, current: 1.6666666666666667, top type: series</item>
+				<item>Nodes: 3, 2, voltage: 1.6666666666666665, top type: series</item>
+				<item>Nodes: 3, 2, current: 1.6666666666666667, top type: series</item>
+				<item>Nodes: 1, 0, voltage: 1.6666666666666665, top type: series</item>
+				<item>Nodes: 1, 0, current: 1.6666666666666667, top type: series</item>
+				<item>Nodes: 2, 1, voltage: 1.6666666666666665, top type: series</item>
+				<item>Nodes: 2, 1, current: 1.6666666666666667, top type: series</item>
+			</nodal_voltage_log>
+		</item>
+	</superposition>
+	<gen>
+		<nodes>
+			<item>3</item>
+			<item>0</item>
+		</nodes>
+		<prop>
+			<label>VS1</label>
+			<match_label/>
+			<CompId>14</CompId>
+			<UniqueID>T_1F41FB4020240129133922</UniqueID>
+			<value>5</value>
+			<flags>1</flags>
+			<ac_gen>
+				<mode>0</mode>
+			</ac_gen>
+		</prop>
+	</gen>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>R3 1 0</item>
+		<item>R2 2 1</item>
+		<item>R1 3 2</item>
+		<item/>
+	</circuit>
+	<request>
+		<text>What is the voltage on R2?</text>
+		<cmd>get_voltage</cmd>
+		<comp>R2</comp>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+	</request>
+	<edge_values>
+		<item>
+			<label>R1</label>
+			<nodes>
+				<item>3</item>
+				<item>2</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>1.6666666666666665</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>1.6666666666666667</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+		</item>
+		<item>
+			<label>R2</label>
+			<nodes>
+				<item>2</item>
+				<item>1</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>1.6666666666666665</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>1.6666666666666667</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+		</item>
+		<item>
+			<label>R3</label>
+			<nodes>
+				<item>1</item>
+				<item>0</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>1.6666666666666665</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>1.6666666666666667</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+		</item>
+	</edge_values>
+	<calculation>
+		<solution>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>R3 and R2 connected in series so Rb=R3+R2=2 Ohm</item>
+			<item>Rb and R1 connected in series so Ra=Rb+R1=3 Ohm</item>
+			<item>The total resistance is Ra = 3 Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on R2</item>
+			<item>We know that the voltage between VS1 nodes is 5 V.</item>
+			<item>All generators except for VS1 have been replaced with a short circuit.</item>
+			<item/>
+			<item>(1) The components Rb,R1 connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is 5 V.</item>
+			<item>(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*5 V = 3.33 V. </item>
+			<item/>
+			<item>(2) The components R3,R2 connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is 3.33 V.</item>
+			<item>(2) R2 is in the voltage divider so the voltage on R2 is R2/Rb*3.33 V = 1.67 V. </item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<labels>
+					<item>R3</item>
+					<item>R2</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F2AE99020240203083907</item>
+					<item>T_1F2AE4A020240203083904</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<labels>
+					<item>Rb</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F41EC7020240129133833</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/g-ser-simple3-ok.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

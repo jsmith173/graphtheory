@@ -1,0 +1,201 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "R8 and R9 connected in series so Rd=R8+R9=2 Ohm",
+                "R7 and Rd connected in series so Rc=R7+Rd=3 Ohm",
+                "R6 and R5 connected in series so Rf=R6+R5=2 Ohm",
+                "Rf and R4 connected in series so Re=Rf+R4=3 Ohm",
+                "Rc and Re connected in parallel so Rb=Rc*Re/(Rc+Re)=1.5 Ohm",
+                "R3 and R2 connected in series so Rh=R3+R2=2 Ohm",
+                "Rh and R1 connected in series so Rg=Rh+R1=3 Ohm",
+                "Rb and Rg connected in parallel so Ra=Rb*Rg/(Rb+Rg)=1 Ohm",
+                "The total resistance is Ra = 1 Ohm"
+            ],
+            "total_impedance_txt": [
+                "R8 and R9 connected in series so Rd=R8+R9=2 Ohm",
+                "R7 and Rd connected in series so Rc=R7+Rd=3 Ohm",
+                "R6 and R5 connected in series so Rf=R6+R5=2 Ohm",
+                "Rf and R4 connected in series so Re=Rf+R4=3 Ohm",
+                "Rc and Re connected in parallel so Rb=Rc*Re/(Rc+Re)=1.5 Ohm",
+                "R3 and R2 connected in series so Rh=R3+R2=2 Ohm",
+                "Rh and R1 connected in series so Rg=Rh+R1=3 Ohm",
+                "Rb and Rg connected in parallel so Ra=Rb*Rg/(Rb+Rg)=1 Ohm",
+                "The total resistance is Ra = 1 Ohm"
+            ]
+        }
+    ],
+    "gen": {
+        "nodes": [
+            1,
+            0
+        ],
+        "prop": {
+            "label": "V1",
+            "match_label": "",
+            "CompId": 67,
+            "UniqueID": "T_1EF4306020240308074852",
+            "value": 5,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R9 1 2",
+        "R8 2 3",
+        "R7 3 0",
+        "R6 4 0",
+        "R5 5 4",
+        "R4 1 5",
+        "R3 6 0",
+        "R2 7 6",
+        "R1 1 7",
+        ""
+    ],
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (V1)",
+            "R8 and R9 connected in series so Rd=R8+R9=2 Ohm",
+            "R7 and Rd connected in series so Rc=R7+Rd=3 Ohm",
+            "R6 and R5 connected in series so Rf=R6+R5=2 Ohm",
+            "Rf and R4 connected in series so Re=Rf+R4=3 Ohm",
+            "Rc and Re connected in parallel so Rb=Rc*Re/(Rc+Re)=1.5 Ohm",
+            "R3 and R2 connected in series so Rh=R3+R2=2 Ohm",
+            "Rh and R1 connected in series so Rg=Rh+R1=3 Ohm",
+            "Rb and Rg connected in parallel so Ra=Rb*Rg/(Rb+Rg)=1 Ohm",
+            "The total resistance is Ra = 1 Ohm",
+            "",
+            "Now we calculate the voltage on R1",
+            "We know that the voltage between V1 nodes is 5 V.",
+            "",
+            "(1) The components Rb,Rg connected in parallel. The voltage on Rg is 5 V because the voltage on Ra is 5 V",
+            "",
+            "(2) The components Rh,R1 connected in series.",
+            "(2) The voltage between this components starting and ending node is 5 V.",
+            "(2) R1 is in the voltage divider so the voltage on R1 is R1/Rg*5 V = 1.67 V. ",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Rd",
+                "origin": "series",
+                "value": "2 Ohm",
+                "labels": [
+                    "R8",
+                    "R9"
+                ],
+                "unique_labels": [
+                    "T_1F2695F020240204130328",
+                    "T_1F269AE020240204130330"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "series",
+                "value": "3 Ohm",
+                "labels": [
+                    "R7",
+                    "Rd"
+                ],
+                "unique_labels": [
+                    "T_1F268C1020240204130325",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rf",
+                "origin": "series",
+                "value": "2 Ohm",
+                "labels": [
+                    "R6",
+                    "R5"
+                ],
+                "unique_labels": [
+                    "T_1F26910020240204130321",
+                    "T_1F26872020240204130320"
+                ]
+            },
+            {
+                "label": "Re",
+                "origin": "series",
+                "value": "3 Ohm",
+                "labels": [
+                    "Rf",
+                    "R4"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_1F26823020240204130318"
+                ]
+            },
+            {
+                "label": "Rb",
+                "origin": "parallel",
+                "value": "1.5 Ohm",
+                "labels": [
+                    "Rc",
+                    "Re"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rh",
+                "origin": "series",
+                "value": "2 Ohm",
+                "labels": [
+                    "R3",
+                    "R2"
+                ],
+                "unique_labels": [
+                    "T_1F2C628020240131171149",
+                    "T_1F358CC020240131152845"
+                ]
+            },
+            {
+                "label": "Rg",
+                "origin": "series",
+                "value": "3 Ohm",
+                "labels": [
+                    "Rh",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_1F3587D020240131152843"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "parallel",
+                "value": "1 Ohm",
+                "labels": [
+                    "Rb",
+                    "Rg"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            }
+        ],
+        "fn": "data/battery.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

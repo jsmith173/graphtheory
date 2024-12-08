@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<all>
+	<gen>
+		<nodes>
+			<item>3</item>
+			<item>0</item>
+		</nodes>
+		<prop>
+			<label>VS1</label>
+			<match_label/>
+			<CompId>14</CompId>
+			<UniqueID>T_1F41FB4020240129133922</UniqueID>
+			<value>6.0</value>
+			<flags>1</flags>
+			<ac_gen>
+				<mode>0</mode>
+			</ac_gen>
+		</prop>
+	</gen>
+	<circuit>
+		<item>R3 2 0</item>
+		<item>R2 1 2</item>
+		<item>R1 3 1</item>
+	</circuit>
+	<request>
+		<text>What is the voltage on VM1?</text>
+		<cmd>get_voltage</cmd>
+		<comp>R2</comp>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>true</volt_meter_question>
+		<comp_ori>VM1</comp_ori>
+	</request>
+	<total_impedance_ori_txt>
+		<item>R2 and R1 connected in series so Rb=R2+R1=2.0000 Ohm</item>
+		<item>R3 and Rb connected in series so Ra=R3+Rb=3.0000 Ohm</item>
+		<item>The total resistance is Ra = 3.0000 Ohm</item>
+	</total_impedance_ori_txt>
+	<total_impedance_txt>
+		<item>R2 and R1 connected in series so Rb=R2+R1=2.0000 Ohm</item>
+		<item>R3 and Rb connected in series so Ra=R3+Rb=3.0000 Ohm</item>
+		<item>The total resistance is Ra = 3.0000 Ohm</item>
+	</total_impedance_txt>
+	<calculation>
+		<solution>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes</item>
+			<item>R2 and R1 connected in series so Rb=R2+R1=2.0000 Ohm</item>
+			<item>R3 and Rb connected in series so Ra=R3+Rb=3.0000 Ohm</item>
+			<item>The total resistance is Ra = 3.0000 Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on R2</item>
+			<item>We know that the voltage between VS1 nodes is 6.0000 V.</item>
+			<item/>
+			<item>(1) The components R3,Rb connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is 6.0000 V.</item>
+			<item>(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*6.0000 V = 4.0000 V. </item>
+			<item/>
+			<item>(2) The components R2,R1 connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is 4.0000 V.</item>
+			<item>(2) R2 is in the voltage divider so the voltage on R2 is R2/Rb*4.0000 V = 2.0000 V. </item>
+			<item/>
+			<item>To answer the original question: because the VM1 connected to R2 so the voltage on VM1 is 2.0 V</item>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<labels>
+					<item>R2</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F2AE4A020240203083904</item>
+					<item>T_1F41EC7020240129133833</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<labels>
+					<item>R3</item>
+					<item>Rb</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F2AE99020240203083907</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/voltmeter.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

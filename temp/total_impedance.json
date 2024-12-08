@@ -1,0 +1,31 @@
+[
+    {
+        "txt": "Rf=R3",
+        "one_item": true,
+        "s_top": "Rf",
+        "s_left": "R3",
+        "s_right": "",
+        "left_type": "edge",
+        "right_type": "edge",
+        "top_type": "series",
+        "left_node_id": "1024",
+        "right_node_id": "0425",
+        "top_node_id": "1423",
+        "labels": [
+            "R3"
+        ],
+        "unique_labels": [
+            "T_1F39C23020240130111206"
+        ],
+        "nodes": [
+            [
+                1,
+                0
+            ],
+            [
+                0,
+                4
+            ]
+        ]
+    }
+]

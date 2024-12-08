@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R3 and R4 connected in series so Rc=R3+R4=2Ohm</item>
+				<item>R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=667mOhm</item>
+				<item>R1 and Rb connected in series so Ra=R1+Rb=1.67Ohm</item>
+				<item>The total resistance is Ra = 1.67Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R3 and R4 connected in series so Rc=R3+R4=2Ohm</item>
+				<item>R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=667mOhm</item>
+				<item>R1 and Rb connected in series so Ra=R1+Rb=1.67Ohm</item>
+				<item>The total resistance is Ra = 1.67Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>0</item>
+					<item>2</item>
+				</nodes>
+				<prop>
+					<label>IS1</label>
+					<match_label/>
+					<CompId>13</CompId>
+					<UniqueID>T_047B1FC020240428081016</UniqueID>
+					<value>1</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+	</superposition>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>R4 1 2</item>
+		<item>R3 3 1</item>
+		<item>R2 3 2</item>
+		<item>R1 0 3</item>
+		<item/>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_voltage</cmd>
+		<comp>R2</comp>
+		<options>&lt;none&gt;</options>
+		<qid>0</qid>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<edge_values>
+		<item>
+			<label>R1</label>
+			<nodes>
+				<item>0</item>
+				<item>3</item>
+			</nodes>
+			<current_items>
+				<item>
+					<current>1</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>0.0</voltage>
+		</item>
+		<item>
+			<label>R2</label>
+			<nodes>
+				<item>3</item>
+				<item>2</item>
+			</nodes>
+			<current_items>
+				<item>
+					<current>0.6666666666666666</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>0.0</voltage>
+		</item>
+		<item>
+			<label>R3</label>
+			<nodes>
+				<item>3</item>
+				<item>1</item>
+			</nodes>
+			<current_items>
+				<item>
+					<current>0.6666666666666666</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>0.0</voltage>
+		</item>
+		<item>
+			<label>R4</label>
+			<nodes>
+				<item>1</item>
+				<item>2</item>
+			</nodes>
+			<current_items>
+				<item>
+					<current>0.6666666666666666</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>0.0</voltage>
+		</item>
+	</edge_values>
+	<calculation>
+		<solution>
+			<item>&gt;&gt; Pass1 started ...</item>
+			<item>&gt;&gt; Gen processing: IS1 ...</item>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes (IS1)</item>
+			<item>R3 and R4 connected in series so Rc=R3+R4=2Ohm</item>
+			<item>R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=667mOhm</item>
+			<item>R1 and Rb connected in series so Ra=R1+Rb=1.67Ohm</item>
+			<item>The total resistance is Ra = 1.67Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on R2</item>
+			<item>We know that the voltage between IS1 nodes is 1.6666666666666665V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 1.67Ohm so the voltage between the generator nodes is Igen*Rtot = 1.6666666666666665V</item>
+			<item/>
+			<item>(1) The components R1,Rb connected in series.</item>
+			<item>(1) The current in this branch is 1A.</item>
+			<item/>
+			<item>(2) The current on R2 is 333mA . (calculated by impedance divider)</item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rc</label>
+				<origin>series</origin>
+				<value>2Ohm</value>
+				<labels>
+					<item>R3</item>
+					<item>R4</item>
+				</labels>
+				<unique_labels>
+					<item>T_00000000282040D020241207155337</item>
+					<item>T_0000000026F7908020241207155953</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rb</label>
+				<origin>parallel</origin>
+				<value>667mOhm</value>
+				<labels>
+					<item>R2</item>
+					<item>Rc</item>
+				</labels>
+				<unique_labels>
+					<item>T_0000000028203AF020241207155335</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<value>1.67Ohm</value>
+				<labels>
+					<item>R1</item>
+					<item>Rb</item>
+				</labels>
+				<unique_labels>
+					<item>T_0000000026F7B3C020241207155322</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/current1.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

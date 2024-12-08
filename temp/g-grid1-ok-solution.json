@@ -1,0 +1,141 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "R4 and R2 connected in series so Rd=R4+R2=2 Ohm",
+                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1 Ohm",
+                "R3 and Rc connected in series so Rb=R3+Rc=2 Ohm",
+                "Rb and R1 connected in series so Ra=Rb+R1=3 Ohm",
+                "The total resistance is Ra = 3 Ohm"
+            ],
+            "total_impedance_txt": [
+                "R4 and R2 connected in series so Rd=R4+R2=2 Ohm",
+                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1 Ohm",
+                "R3 and Rc connected in series so Rb=R3+Rc=2 Ohm",
+                "Rb and R1 connected in series so Ra=Rb+R1=3 Ohm",
+                "The total resistance is Ra = 3 Ohm"
+            ]
+        }
+    ],
+    "gen": {
+        "nodes": [
+            1,
+            0
+        ],
+        "prop": {
+            "label": "VS1",
+            "match_label": "",
+            "CompId": 14,
+            "UniqueID": "T_1F27FA0020240204131136",
+            "value": 6,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R5 2 3",
+        "R4 2 4",
+        "R3 0 2",
+        "R2 3 4",
+        "R1 1 3",
+        ""
+    ],
+    "request": {
+        "text": "What is the voltage on R4?",
+        "cmd": "get_voltage",
+        "comp": "R4",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (VS1)",
+            "R4 and R2 connected in series so Rd=R4+R2=2 Ohm",
+            "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1 Ohm",
+            "R3 and Rc connected in series so Rb=R3+Rc=2 Ohm",
+            "Rb and R1 connected in series so Ra=Rb+R1=3 Ohm",
+            "The total resistance is Ra = 3 Ohm",
+            "",
+            "Now we calculate the voltage on R4",
+            "We know that the voltage between VS1 nodes is 6 V.",
+            "",
+            "(1) The components Rb,R1 connected in series.",
+            "(1) The voltage between this components starting and ending node is 6 V.",
+            "(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*6 V = 4 V. ",
+            "",
+            "(2) The components R3,Rc connected in series.",
+            "(2) The voltage between this components starting and ending node is 4 V.",
+            "(2) Rc is in the voltage divider so the voltage on Rc is Rc/Rb*4 V = 2 V. ",
+            "",
+            "(3) The components R5,Rd connected in parallel. The voltage on Rd is 2 V because the voltage on Rc is 2 V",
+            "",
+            "(4) The components R4,R2 connected in series.",
+            "(4) The voltage between this components starting and ending node is 2 V.",
+            "(4) R4 is in the voltage divider so the voltage on R4 is R4/Rd*2 V = 1 V. ",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Rd",
+                "origin": "series",
+                "value": "2 Ohm",
+                "labels": [
+                    "R4",
+                    "R2"
+                ],
+                "unique_labels": [
+                    "T_1F39C72020240130111211",
+                    "T_1F39BD4020240130111203"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "parallel",
+                "value": "1 Ohm",
+                "labels": [
+                    "R5",
+                    "Rd"
+                ],
+                "unique_labels": [
+                    "T_1F39CC1020240130111214",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rb",
+                "origin": "series",
+                "value": "2 Ohm",
+                "labels": [
+                    "R3",
+                    "Rc"
+                ],
+                "unique_labels": [
+                    "T_1F39C23020240130111206",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "series",
+                "value": "3 Ohm",
+                "labels": [
+                    "Rb",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_1F39B85020240130111157"
+                ]
+            }
+        ],
+        "fn": "data/g-grid1-ok.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

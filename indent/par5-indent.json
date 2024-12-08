@@ -1,0 +1,166 @@
+{
+    "circuit_no_gens": {
+        "N": 6,
+        "nodes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+        ],
+        "gens": [
+            {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_1F2263C020240301100655",
+                    "value": 5,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        ],
+        "meters": [],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "R5",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F225ED020240301100619",
+                    "value": 1000,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    1,
+                    3
+                ],
+                "prop": {
+                    "label": "R4",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2259E020240301100616",
+                    "value": 1000,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    2
+                ],
+                "prop": {
+                    "label": "<split>",
+                    "match_label": "",
+                    "CompId": 0,
+                    "UniqueID": "<CompNil>",
+                    "value": 0,
+                    "flags": 0
+                }
+            },
+            {
+                "nodes": [
+                    1,
+                    4
+                ],
+                "prop": {
+                    "label": "R3",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2254F020240301100608",
+                    "value": 1000,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    4,
+                    2
+                ],
+                "prop": {
+                    "label": "<split>",
+                    "match_label": "",
+                    "CompId": 0,
+                    "UniqueID": "<CompNil>",
+                    "value": 0,
+                    "flags": 0
+                }
+            },
+            {
+                "nodes": [
+                    1,
+                    5
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F22500020240301100606",
+                    "value": 1000,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    5,
+                    2
+                ],
+                "prop": {
+                    "label": "<split>",
+                    "match_label": "",
+                    "CompId": 0,
+                    "UniqueID": "<CompNil>",
+                    "value": 0,
+                    "flags": 0
+                }
+            },
+            {
+                "nodes": [
+                    1,
+                    6
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F224B1020240301100604",
+                    "value": 1000,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    6,
+                    2
+                ],
+                "prop": {
+                    "label": "<split>",
+                    "match_label": "",
+                    "CompId": 0,
+                    "UniqueID": "<CompNil>",
+                    "value": 0,
+                    "flags": 0
+                }
+            }
+        ]
+    },
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1"
+    }
+}

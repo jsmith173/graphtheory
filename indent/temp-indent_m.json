@@ -1,0 +1,112 @@
+{
+    "circuit_no_gens": {
+        "N": 4,
+        "nodes": [
+            1,
+            0,
+            2,
+            3
+        ],
+        "gens": [
+            {
+                "nodes": [
+                    3,
+                    0
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_1E036CD020240426074553",
+                    "value": 5,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        ],
+        "meters": [
+            {
+                "nodes": [
+                    2,
+                    1
+                ],
+                "prop": {
+                    "label": "VM1",
+                    "match_label": "R9",
+                    "CompId": 5,
+                    "UniqueID": "T_1E02E26020240425121908",
+                    "value": 0,
+                    "flags": 1
+                }
+            }
+        ],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "AM1",
+                    "match_label": "",
+                    "CompId": 6,
+                    "UniqueID": "T_1DF513F020240426094858",
+                    "value": 0,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    1
+                ],
+                "prop": {
+                    "label": "R9",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F315E3020240211163343",
+                    "value": 2,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "R8",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F31632020240211163343",
+                    "value": 2,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    2
+                ],
+                "prop": {
+                    "label": "R7",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F31681020240211163343",
+                    "value": 1,
+                    "flags": 1
+                }
+            }
+        ],
+        "circ_name": "testm2.tsc"
+    },
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0"
+    }
+}

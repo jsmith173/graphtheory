@@ -1,0 +1,218 @@
+{
+    "circuit_no_gens": {
+        "N": 11,
+        "nodes": [
+            1,
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ],
+        "gens": [
+            {
+                "nodes": [
+                    4,
+                    0
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_1F26A9B020240204130530",
+                    "value": 6,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        ],
+        "meters": [],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "R12",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F27F02020240227084015",
+                    "value": 3,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "R11",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F27EB3020240227084013",
+                    "value": 3,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    0
+                ],
+                "prop": {
+                    "label": "R10",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F27E64020240227084009",
+                    "value": 3,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    4,
+                    5
+                ],
+                "prop": {
+                    "label": "R9",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F269AE020240204130330",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    5,
+                    6
+                ],
+                "prop": {
+                    "label": "R8",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2695F020240204130328",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    6,
+                    1
+                ],
+                "prop": {
+                    "label": "R7",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F268C1020240204130325",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    7,
+                    2
+                ],
+                "prop": {
+                    "label": "R6",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F26910020240204130321",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    8,
+                    7
+                ],
+                "prop": {
+                    "label": "R5",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F26872020240204130320",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    4,
+                    8
+                ],
+                "prop": {
+                    "label": "R4",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F26823020240204130318",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    9,
+                    3
+                ],
+                "prop": {
+                    "label": "R3",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2C628020240131171149",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    10,
+                    9
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F358CC020240131152845",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    4,
+                    10
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_1F3587D020240131152843",
+                    "value": 1,
+                    "flags": 1
+                }
+            }
+        ]
+    },
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1"
+    },
+    "expected": {
+        "valid": 1,
+        "res_imp": 2,
+        "res_req": 0
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "L and R connected in series so Zb=j*w*L+R='6286.37 / 88.18°' Ohm",
+                "C and Zb connected in series so Za=1/(j*w*C)+Zb='6127.3 / 88.13°' Ohm",
+                "The total impedance is Za = '6127.3 / 88.13°' Ohm"
+            ],
+            "total_impedance_txt": [
+                "L and R connected in series so Zb=j*w*L+R='6286.37 / 88.18°' Ohm",
+                "C and Zb connected in series so Za=1/(j*w*C)+Zb='6127.3 / 88.13°' Ohm",
+                "The total impedance is Za = '6127.3 / 88.13°' Ohm"
+            ]
+        }
+    ],
+    "gen": {
+        "nodes": [
+            1,
+            0
+        ],
+        "prop": {
+            "label": "Source",
+            "match_label": "",
+            "CompId": 16,
+            "UniqueID": "T_0464B25C20050601152444",
+            "value": 0,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 1,
+                "AbsV": 100,
+                "Phase": 0,
+                "Freq": 1000000,
+                "FreqStr": "1MEG"
+            }
+        }
+    },
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R 1 2",
+        "C 3 0",
+        "L 2 3",
+        ""
+    ],
+    "request": {
+        "text": "What is the voltage on C?",
+        "cmd": "get_voltage",
+        "comp": "C",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "This is an AC calculation",
+            "We know that generator frequency is f=1MEG Hz, w=2*pi*f",
+            "At first we calculate the total impedance between the generator nodes (Source)",
+            "L and R connected in series so Zb=j*w*L+R='6286.37 / 88.18°' Ohm",
+            "C and Zb connected in series so Za=1/(j*w*C)+Zb='6127.3 / 88.13°' Ohm",
+            "The total impedance is Za = '6127.3 / 88.13°' Ohm",
+            "",
+            "Now we calculate the voltage on C",
+            "We know that the voltage between Source nodes is '100 / 0°' V.",
+            "",
+            "(1) The components C,Zb connected in series.",
+            "(1) The voltage between this components starting and ending node is '100 / 0°' V.",
+            "(1) C is in the voltage divider so the voltage on C is 1/(j*w*C)/Za*'100 / 0°' V = '2.6 / -178.13°' V. ",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Zb",
+                "origin": "series",
+                "value": "'6286.37 / 88.18°' Ohm",
+                "labels": [
+                    "L",
+                    "R"
+                ],
+                "unique_labels": [
+                    "T_0462B74C20050601152444",
+                    "T_1F48BB1020240228180735"
+                ]
+            },
+            {
+                "label": "Za",
+                "origin": "series",
+                "value": "'6127.3 / 88.13°' Ohm",
+                "labels": [
+                    "C",
+                    "Zb"
+                ],
+                "unique_labels": [
+                    "T_0462B9F020050601152444",
+                    "<block>"
+                ]
+            }
+        ],
+        "fn": "data/RLC_1.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

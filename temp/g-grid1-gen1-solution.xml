@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R4 and R2 connected in series so Rd=R4+R2=9Ohm</item>
+				<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.64Ohm</item>
+				<item>R3 and Rc connected in series so Rb=R3+Rc=4.64Ohm</item>
+				<item>Rb and R1 connected in series so Ra=Rb+R1=5.64Ohm</item>
+				<item>The total resistance is Ra = 5.64Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R4 and R2 connected in series so Rd=R4+R2=9Ohm</item>
+				<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.64Ohm</item>
+				<item>R3 and Rc connected in series so Rb=R3+Rc=4.64Ohm</item>
+				<item>Rb and R1 connected in series so Ra=Rb+R1=5.64Ohm</item>
+				<item>The total resistance is Ra = 5.64Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>1</item>
+					<item>0</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_1F27FA0020240204131136</UniqueID>
+					<value>6</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+	</superposition>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>R5 2 3</item>
+		<item>R4 2 4</item>
+		<item>R3 0 2</item>
+		<item>R2 3 4</item>
+		<item>R1 1 3</item>
+		<item/>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_voltage</cmd>
+		<comp>R5</comp>
+		<options>&lt;none&gt;</options>
+		<qid>0</qid>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<edge_values>
+		<item>
+			<label>R1</label>
+			<nodes>
+				<item>1</item>
+				<item>3</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>1.064516129032258</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>1.064516129032258</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+			<voltage>1.064516129032258</voltage>
+		</item>
+		<item>
+			<label>R3</label>
+			<nodes>
+				<item>0</item>
+				<item>2</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>3.193548387096774</voltage>
+					<original_dir>false</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>1.064516129032258</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>-3.193548387096774</voltage>
+		</item>
+		<item>
+			<label>R5</label>
+			<nodes>
+				<item>2</item>
+				<item>3</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>1.7419354838709675</voltage>
+					<original_dir>false</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>0.19354838709677416</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>-1.7419354838709675</voltage>
+		</item>
+	</edge_values>
+	<calculation>
+		<solution>
+			<item>&gt;&gt; Pass1 started ...</item>
+			<item>&gt;&gt; Gen processing: VS1 ...</item>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>R4 and R2 connected in series so Rd=R4+R2=9Ohm</item>
+			<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.64Ohm</item>
+			<item>R3 and Rc connected in series so Rb=R3+Rc=4.64Ohm</item>
+			<item>Rb and R1 connected in series so Ra=Rb+R1=5.64Ohm</item>
+			<item>The total resistance is Ra = 5.64Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on R5</item>
+			<item>We know that the voltage between VS1 nodes is 6V.</item>
+			<item/>
+			<item>(1) The components Rb,R1 connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is 6V.</item>
+			<item>(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*6V = 4.94V. </item>
+			<item/>
+			<item>(2) The components R3,Rc connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is 4.94V.</item>
+			<item>(2) Rc is in the voltage divider so the voltage on Rc is Rc/Rb*4.94V = 1.74V. </item>
+			<item/>
+			<item>(3) The components R5,Rd connected in parallel. The voltage on R5 is 1.74V because the voltage on Rc is 1.74V</item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rd</label>
+				<origin>series</origin>
+				<value>9Ohm</value>
+				<labels>
+					<item>R4</item>
+					<item>R2</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39C72020240130111211</item>
+					<item>T_1F39BD4020240130111203</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rc</label>
+				<origin>parallel</origin>
+				<value>1.64Ohm</value>
+				<labels>
+					<item>R5</item>
+					<item>Rd</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39CC1020240130111214</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<value>4.64Ohm</value>
+				<labels>
+					<item>R3</item>
+					<item>Rc</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39C23020240130111206</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<value>5.64Ohm</value>
+				<labels>
+					<item>Rb</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F39B85020240130111157</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/g-grid1-gen1.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

@@ -1,0 +1,60 @@
+{
+    "circuit_no_gens": {
+        "N": 4,
+        "nodes": [
+            1,
+            0,
+            2,
+            3
+        ],
+        "gen": {
+            "nodes": [
+                2,
+                0
+            ],
+            "prop": {
+                "label": "VS1",
+                "CompId": 14,
+                "UniqueID": "T_1F41FB4020240129133922",
+                "value": 6.0,
+                "flags": 1,
+                "ac_gen": {
+                    "mode": 0
+                }
+            }
+        },
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "R3",
+                    "CompId": 9,
+                    "UniqueID": "T_1F2AE99020240203083907",
+                    "value": 1.0,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    3
+                ],
+                "prop": {
+                    "label": "R1",
+                    "CompId": 9,
+                    "UniqueID": "T_1F41EC7020240129133833",
+                    "value": 1.0,
+                    "flags": 1
+                }
+            }
+        ]
+    },
+    "request": {
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1"
+    }
+}

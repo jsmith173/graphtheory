@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<all>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>Rc=R1</item>
+				<item>R2 and Rc connected in series so Rb=R2+Rc=2 Ohm</item>
+				<item>R3 and Rb connected in series so Ra=R3+Rb=3 Ohm</item>
+				<item>The total resistance is Ra = 3 Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R2 and R1 connected in series so Rb=R2+R1=2 Ohm</item>
+				<item>R3 and Rb connected in series so Ra=R3+Rb=3 Ohm</item>
+				<item>The total resistance is Ra = 3 Ohm</item>
+			</total_impedance_txt>
+		</item>
+	</superposition>
+	<gen>
+		<nodes>
+			<item>4</item>
+			<item>0</item>
+		</nodes>
+		<prop>
+			<label>VS1</label>
+			<match_label/>
+			<CompId>14</CompId>
+			<UniqueID>T_1F41FB4020240129133922</UniqueID>
+			<value>6</value>
+			<flags>1</flags>
+			<ac_gen>
+				<mode>0</mode>
+			</ac_gen>
+		</prop>
+	</gen>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>AM1 1 2</item>
+		<item>R3 3 0</item>
+		<item>R2 2 3</item>
+		<item>R1 4 1</item>
+		<item/>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_current</cmd>
+		<comp>AM1</comp>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<calculation>
+		<solution>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>R2 and R1 connected in series so Rb=R2+R1=2 Ohm</item>
+			<item>R3 and Rb connected in series so Ra=R3+Rb=3 Ohm</item>
+			<item>The total resistance is Ra = 3 Ohm</item>
+			<item/>
+			<item>Now we calculate the current on AM1</item>
+			<item>We know that the voltage between VS1 nodes is 6 V.</item>
+			<item/>
+			<item>(1) The components R3,Rb connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is 6 V.</item>
+			<item>(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*6 V = 4 V. </item>
+			<item>(1) The current on Rb is the 'voltage on Rb / Rb' = 2 A .</item>
+			<item/>
+			<item>(2) The components R2,R1 connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is 4 V.</item>
+			<item>(2) R1 is in the voltage divider so the voltage on R1 is Rc/Rb*4 V = 2 V. </item>
+			<item>(2) The current on R1 is the 'voltage on R1 / Rc' = 2 A .</item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<value>2 Ohm</value>
+				<labels>
+					<item>R2</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F2AE4A020240203083904</item>
+					<item>T_1F41EC7020240129133833</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<value>3 Ohm</value>
+				<labels>
+					<item>R3</item>
+					<item>Rb</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F2AE99020240203083907</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/ampermeter.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>
