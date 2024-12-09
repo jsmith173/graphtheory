@@ -6,7 +6,25 @@
             0,
             2
         ],
-        "gens": [],
+        "gens": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "U4CSOSAGR0BOMHR6IF1RTDVC",
+                    "value": 3,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        ],
         "dctables": [
             {
                 "currents": [

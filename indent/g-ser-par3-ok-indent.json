@@ -30,6 +30,52 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 2
+                    },
+                    {
+                        "label": "R2",
+                        "value": 2
+                    },
+                    {
+                        "label": "R3",
+                        "value": 2
+                    },
+                    {
+                        "label": "R4",
+                        "value": 2
+                    },
+                    {
+                        "label": "R5",
+                        "value": 2
+                    },
+                    {
+                        "label": "R6",
+                        "value": 2
+                    },
+                    {
+                        "label": "R7",
+                        "value": 2
+                    },
+                    {
+                        "label": "R8",
+                        "value": 2
+                    },
+                    {
+                        "label": "R9",
+                        "value": 2
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -6
+                    }
+                ]
+            }
+        ],
         "meters": [],
         "edges": [
             {
@@ -158,16 +204,18 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "g-ser-par3-ok.tsc"
     },
     "request": {
         "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R1"
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0"
     },
     "expected": {
         "valid": 1,
-        "res_imp": 1,
-        "res_req": 0
+        "res_imp": 1
     }
 }

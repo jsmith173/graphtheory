@@ -26,6 +26,32 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 1.2
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0.6
+                    },
+                    {
+                        "label": "R3",
+                        "value": 0.6
+                    },
+                    {
+                        "label": "R4",
+                        "value": 0.6
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -1.2
+                    }
+                ]
+            }
+        ],
         "meters": [],
         "edges": [
             {
@@ -84,16 +110,18 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "g-ser-par4-ok.tsc"
     },
     "request": {
         "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R1"
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0"
     },
     "expected": {
         "valid": 1,
-        "res_imp": 5,
-        "res_req": 0
+        "res_imp": 5
     }
 }

@@ -2,88 +2,197 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "R4 and R2 connected in series so Rd=R4+R2=2 Ohm",
-                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1 Ohm",
-                "R3 and Rc connected in series so Rb=R3+Rc=2 Ohm",
-                "Rb and R1 connected in series so Ra=Rb+R1=3 Ohm",
-                "The total resistance is Ra = 3 Ohm"
+                "Re=R4",
+                "Re and R2 connected in series so Rd=Re+R2=2Ohm",
+                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1Ohm",
+                "Rc and R1 connected in series so Rb=Rc+R1=2Ohm",
+                "R3 and Rb connected in series so Ra=R3+Rb=3Ohm",
+                "The total resistance is Ra = 3Ohm"
             ],
             "total_impedance_txt": [
-                "R4 and R2 connected in series so Rd=R4+R2=2 Ohm",
-                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1 Ohm",
-                "R3 and Rc connected in series so Rb=R3+Rc=2 Ohm",
-                "Rb and R1 connected in series so Ra=Rb+R1=3 Ohm",
-                "The total resistance is Ra = 3 Ohm"
-            ]
-        }
-    ],
-    "gen": {
-        "nodes": [
-            1,
-            0
-        ],
-        "prop": {
-            "label": "VS1",
-            "match_label": "",
-            "CompId": 14,
-            "UniqueID": "T_1F27FA0020240204131136",
-            "value": 6,
-            "flags": 1,
-            "ac_gen": {
-                "mode": 0
+                "R4 and R2 connected in series so Rd=R4+R2=2Ohm",
+                "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1Ohm",
+                "Rc and R1 connected in series so Rb=Rc+R1=2Ohm",
+                "R3 and Rb connected in series so Ra=R3+Rb=3Ohm",
+                "The total resistance is Ra = 3Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    5,
+                    0
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_1F27FA0020240204131136",
+                    "value": 6,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
             }
         }
-    },
+    ],
     "circuit": [
         "Netlist (component name, nodes)",
-        "R5 2 3",
-        "R4 2 4",
-        "R3 0 2",
-        "R2 3 4",
-        "R1 1 3",
+        "AM1 1 2",
+        "R5 4 3",
+        "R4 4 1",
+        "R3 0 4",
+        "R2 3 2",
+        "R1 5 3",
         ""
     ],
     "request": {
         "text": "What is the voltage on R4?",
         "cmd": "get_voltage",
         "comp": "R4",
+        "options": "<none>",
+        "qid": "0",
         "req_on_gen": false,
         "volt_meter_question": false,
         "amper_meter_question": false
     },
+    "edge_values": [
+        {
+            "label": "R1",
+            "nodes": [
+                5,
+                3
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 2.0,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 2.0,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 2.0
+        },
+        {
+            "label": "R2",
+            "nodes": [
+                3,
+                2
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 1.0,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 1.0,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 1.0
+        },
+        {
+            "label": "R3",
+            "nodes": [
+                0,
+                4
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 2.0,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 2.0,
+                    "original_dir": false
+                }
+            ],
+            "voltage": -2.0
+        },
+        {
+            "label": "R4",
+            "nodes": [
+                4,
+                1
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 1.0,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 1.0,
+                    "original_dir": false
+                }
+            ],
+            "voltage": -1.0
+        },
+        {
+            "label": "R5",
+            "nodes": [
+                4,
+                3
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 2.0,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 1.0,
+                    "original_dir": false
+                }
+            ],
+            "voltage": -2.0
+        }
+    ],
     "calculation": {
         "solution": [
+            ">> Pass1 started ...",
+            ">> Gen processing: VS1 ...",
             "This is a DC calculation",
             "At first we calculate the total resistance between the generator nodes (VS1)",
-            "R4 and R2 connected in series so Rd=R4+R2=2 Ohm",
-            "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1 Ohm",
-            "R3 and Rc connected in series so Rb=R3+Rc=2 Ohm",
-            "Rb and R1 connected in series so Ra=Rb+R1=3 Ohm",
-            "The total resistance is Ra = 3 Ohm",
+            "R4 and R2 connected in series so Rd=R4+R2=2Ohm",
+            "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1Ohm",
+            "Rc and R1 connected in series so Rb=Rc+R1=2Ohm",
+            "R3 and Rb connected in series so Ra=R3+Rb=3Ohm",
+            "The total resistance is Ra = 3Ohm",
             "",
             "Now we calculate the voltage on R4",
-            "We know that the voltage between VS1 nodes is 6 V.",
+            "We know that the voltage between VS1 nodes is 6V.",
             "",
-            "(1) The components Rb,R1 connected in series.",
-            "(1) The voltage between this components starting and ending node is 6 V.",
-            "(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*6 V = 4 V. ",
+            "(1) The components R3,Rb connected in series.",
+            "(1) The voltage between this components starting and ending node is 6V.",
+            "(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*6V = 4V. ",
             "",
-            "(2) The components R3,Rc connected in series.",
-            "(2) The voltage between this components starting and ending node is 4 V.",
-            "(2) Rc is in the voltage divider so the voltage on Rc is Rc/Rb*4 V = 2 V. ",
+            "(2) The components Rc,R1 connected in series.",
+            "(2) The voltage between this components starting and ending node is 4V.",
+            "(2) Rc is in the voltage divider so the voltage on Rc is Rc/Rb*4V = 2V. ",
             "",
-            "(3) The components R5,Rd connected in parallel. The voltage on Rd is 2 V because the voltage on Rc is 2 V",
+            "(3) The components R5,Rd connected in parallel. The voltage on Rd is 2V because the voltage on Rc is 2V",
             "",
             "(4) The components R4,R2 connected in series.",
-            "(4) The voltage between this components starting and ending node is 2 V.",
-            "(4) R4 is in the voltage divider so the voltage on R4 is R4/Rd*2 V = 1 V. ",
+            "(4) The voltage between this components starting and ending node is 2V.",
+            "(4) R4 is in the voltage divider so the voltage on R4 is Re/Rd*2V = 1V. ",
+            "",
             ""
         ],
         "block_labels": [
             {
                 "label": "Rd",
                 "origin": "series",
-                "value": "2 Ohm",
+                "value": "2Ohm",
                 "labels": [
                     "R4",
                     "R2"
@@ -96,7 +205,7 @@
             {
                 "label": "Rc",
                 "origin": "parallel",
-                "value": "1 Ohm",
+                "value": "1Ohm",
                 "labels": [
                     "R5",
                     "Rd"
@@ -109,27 +218,27 @@
             {
                 "label": "Rb",
                 "origin": "series",
-                "value": "2 Ohm",
+                "value": "2Ohm",
                 "labels": [
-                    "R3",
-                    "Rc"
-                ],
-                "unique_labels": [
-                    "T_1F39C23020240130111206",
-                    "<block>"
-                ]
-            },
-            {
-                "label": "Ra",
-                "origin": "series",
-                "value": "3 Ohm",
-                "labels": [
-                    "Rb",
+                    "Rc",
                     "R1"
                 ],
                 "unique_labels": [
                     "<block>",
                     "T_1F39B85020240130111157"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "series",
+                "value": "3Ohm",
+                "labels": [
+                    "R3",
+                    "Rb"
+                ],
+                "unique_labels": [
+                    "T_1F39C23020240130111206",
+                    "<block>"
                 ]
             }
         ],

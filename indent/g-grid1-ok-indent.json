@@ -1,17 +1,18 @@
 {
     "circuit_no_gens": {
-        "N": 5,
+        "N": 6,
         "nodes": [
+            1,
             2,
-            3,
             4,
+            3,
             0,
-            1
+            5
         ],
         "gens": [
             {
                 "nodes": [
-                    1,
+                    5,
                     0
                 ],
                 "prop": {
@@ -27,11 +28,70 @@
                 }
             }
         ],
-        "meters": [],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 2
+                    },
+                    {
+                        "label": "R2",
+                        "value": 1
+                    },
+                    {
+                        "label": "R3",
+                        "value": -2
+                    },
+                    {
+                        "label": "R4",
+                        "value": -1
+                    },
+                    {
+                        "label": "R5",
+                        "value": -1
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -2
+                    }
+                ]
+            }
+        ],
+        "meters": [
+            {
+                "nodes": [
+                    3,
+                    4
+                ],
+                "prop": {
+                    "label": "VM1",
+                    "match_label": "R5",
+                    "CompId": 5,
+                    "UniqueID": "T_1E007CD020240419121914",
+                    "value": 0,
+                    "flags": 1
+                }
+            }
+        ],
         "edges": [
             {
                 "nodes": [
-                    2,
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "AM1",
+                    "match_label": "",
+                    "CompId": 34,
+                    "UniqueID": "T_1E037C2020240420124348",
+                    "value": 0,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    4,
                     3
                 ],
                 "prop": {
@@ -45,8 +105,8 @@
             },
             {
                 "nodes": [
-                    2,
-                    4
+                    4,
+                    1
                 ],
                 "prop": {
                     "label": "R4",
@@ -60,7 +120,7 @@
             {
                 "nodes": [
                     0,
-                    2
+                    4
                 ],
                 "prop": {
                     "label": "R3",
@@ -74,7 +134,7 @@
             {
                 "nodes": [
                     3,
-                    4
+                    2
                 ],
                 "prop": {
                     "label": "R2",
@@ -87,7 +147,7 @@
             },
             {
                 "nodes": [
-                    1,
+                    5,
                     3
                 ],
                 "prop": {
@@ -99,16 +159,18 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "g-grid1-ok.tsc"
     },
     "request": {
-        "text": "What is the voltage on R1?",
+        "text": "What is the voltage on R4?",
         "cmd": "get_voltage",
-        "comp": "R1"
+        "comp": "R4",
+        "options": "<none>",
+        "qid": "0"
     },
     "expected": {
         "valid": 1,
-        "res_imp": 3,
-        "res_req": 0
+        "res_imp": 3
     }
 }

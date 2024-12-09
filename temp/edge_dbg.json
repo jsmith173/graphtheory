@@ -1,25 +1,13 @@
 [
     {
-        "source": 2,
-        "target": 3,
+        "source": 1,
+        "target": 0,
         "prop": {
-            "label": "R5",
+            "label": "R2",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_1F39CC1020240130111214",
-            "value": 2,
-            "flags": 1
-        }
-    },
-    {
-        "source": 2,
-        "target": 4,
-        "prop": {
-            "label": "R4",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_1F39C72020240130111211",
-            "value": 5,
+            "UniqueID": "T_0000000026F7BF8020241208121049",
+            "value": 1,
             "flags": 1
         }
     },
@@ -27,36 +15,51 @@
         "source": 0,
         "target": 2,
         "prop": {
-            "label": "R3",
+            "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_1F39C23020240130111206",
-            "value": 3,
+            "UniqueID": "CJ35NK7470S7O7DM7M421JCD",
+            "value": 1,
             "flags": 1
         }
     },
     {
-        "source": 3,
-        "target": 4,
+        "source": 2,
+        "target": 1,
         "prop": {
-            "label": "R2",
+            "label": "<split>",
             "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_1F39BD4020240130111203",
-            "value": 4,
-            "flags": 1
+            "CompId": 0,
+            "UniqueID": "<CompNil>",
+            "value": 0,
+            "flags": 0
         }
     },
     {
         "source": 1,
-        "target": 3,
+        "target": 2,
         "prop": {
-            "label": "R1",
+            "label": "IS1",
             "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_1F39B85020240130111157",
-            "value": 1,
-            "flags": 1
+            "CompId": 13,
+            "UniqueID": "U4CSOSAGR0BOMHR6IF1RTDVC",
+            "value": 3,
+            "flags": 1,
+            "ac_gen": {
+                "mode": 0
+            }
+        }
+    },
+    {
+        "source": 2,
+        "target": 0,
+        "prop": {
+            "label": "<split>_cgen",
+            "match_label": "",
+            "CompId": 0,
+            "UniqueID": "<CompNil>",
+            "value": 0,
+            "flags": 0
         }
     }
 ]

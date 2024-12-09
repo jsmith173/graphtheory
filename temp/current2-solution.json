@@ -1,12 +1,12 @@
 {
+    "superposition": [],
     "edge_values": [],
     "calculation": {
-        "solution": [
-            "Failed: see codes"
-        ],
+        "solution": [],
+        "block_labels": [],
         "fn": "data/current2.json",
         "valid": 0,
-        "error": 1,
-        "status": "Fatal error: Generator not found"
+        "error": 0,
+        "status": "parallel edges are forbidden"
     }
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <all>
+	<superposition/>
 	<edge_values/>
 	<calculation>
-		<solution>
-			<item>Failed: see codes</item>
-		</solution>
+		<solution/>
+		<block_labels/>
 		<fn>data/current2.json</fn>
 		<valid>0</valid>
-		<error>1</error>
-		<status>Fatal error: Generator not found</status>
+		<error>0</error>
+		<status>parallel edges are forbidden</status>
 	</calculation>
 </all>
