@@ -1,12 +1,63 @@
 {
     "superposition": [],
-    "edge_values": [],
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R3 1 0",
+        "R2 2 1",
+        "R1 0 2",
+        ""
+    ],
+    "request": {
+        "text": "",
+        "cmd": "get_voltage",
+        "comp": "R2",
+        "options": "<none>",
+        "qid": "0",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "edge_values": [
+        {
+            "label": "R1",
+            "nodes": [
+                0,
+                2
+            ],
+            "current_items": [
+                {
+                    "current": 2.0,
+                    "original_dir": true
+                }
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 8.0,
+                    "original_dir": true
+                }
+            ]
+        }
+    ],
     "calculation": {
-        "solution": [],
-        "block_labels": [],
+        "solution": [
+            ">> Pass1 started ...",
+            ">> Gen processing: IS1 ...",
+            "This is a DC calculation",
+            "At first we calculate the total resistance between the generator nodes (IS1)",
+            "R3 and R2 connected in series so Rb=R3+R2=4Ohm",
+            "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
+            "The total resistance is Ra = 1.33Ohm",
+            "",
+            "Now we calculate the voltage on R2",
+            "We know that the voltage between IS1 nodes is 8.0V, because the generator current is Igen = 6A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 8.0V",
+            "",
+            "CGEN 'paralel' current calc on Rb, value: 2",
+            "CGEN 'paralel' voltage calc on Rb, value: 8",
+            "Failed: see codes"
+        ],
         "fn": "data/current2.json",
         "valid": 0,
-        "error": 0,
-        "status": "parallel edges are forbidden"
+        "error": 1,
+        "status": "Fatal error: list index out of range"
     }
 }

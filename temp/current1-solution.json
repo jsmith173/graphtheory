@@ -2,28 +2,26 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "R3 and R4 connected in series so Rc=R3+R4=2Ohm",
-                "R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=667mOhm",
-                "R1 and Rb connected in series so Ra=R1+Rb=1.67Ohm",
-                "The total resistance is Ra = 1.67Ohm"
+                "R3 and R2 connected in series so Rb=R3+R2=4Ohm",
+                "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
+                "The total resistance is Ra = 1.33Ohm"
             ],
             "total_impedance_txt": [
-                "R3 and R4 connected in series so Rc=R3+R4=2Ohm",
-                "R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=667mOhm",
-                "R1 and Rb connected in series so Ra=R1+Rb=1.67Ohm",
-                "The total resistance is Ra = 1.67Ohm"
+                "R3 and R2 connected in series so Rb=R3+R2=4Ohm",
+                "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
+                "The total resistance is Ra = 1.33Ohm"
             ],
             "gen": {
                 "nodes": [
-                    0,
-                    2
+                    2,
+                    0
                 ],
                 "prop": {
                     "label": "IS1",
                     "match_label": "",
                     "CompId": 13,
-                    "UniqueID": "T_047B1FC020240428081016",
-                    "value": 1,
+                    "UniqueID": "T_0000000026F9A22020250120125317",
+                    "value": 6,
                     "flags": 1,
                     "ac_gen": {
                         "mode": 0
@@ -34,10 +32,9 @@
     ],
     "circuit": [
         "Netlist (component name, nodes)",
-        "R4 1 2",
-        "R3 3 1",
-        "R2 3 2",
-        "R1 0 3",
+        "R3 1 0",
+        "R2 2 1",
+        "R1 0 2",
         ""
     ],
     "request": {
@@ -55,25 +52,31 @@
             "label": "R1",
             "nodes": [
                 0,
-                3
-            ],
-            "current_items": [
-                {
-                    "current": 1,
-                    "original_dir": false
-                }
-            ],
-            "voltage": 0.0
-        },
-        {
-            "label": "R2",
-            "nodes": [
-                3,
                 2
             ],
             "current_items": [
                 {
-                    "current": 0.6666666666666666,
+                    "current": 2.0,
+                    "original_dir": true
+                }
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 8.0,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 8.0
+        },
+        {
+            "label": "R2",
+            "nodes": [
+                2,
+                1
+            ],
+            "current_items": [
+                {
+                    "current": 2.0,
                     "original_dir": false
                 }
             ],
@@ -82,26 +85,12 @@
         {
             "label": "R3",
             "nodes": [
-                3,
-                1
-            ],
-            "current_items": [
-                {
-                    "current": 0.6666666666666666,
-                    "original_dir": false
-                }
-            ],
-            "voltage": 0.0
-        },
-        {
-            "label": "R4",
-            "nodes": [
                 1,
-                2
+                0
             ],
             "current_items": [
                 {
-                    "current": 0.6666666666666666,
+                    "current": 2.0,
                     "original_dir": false
                 }
             ],
@@ -112,59 +101,48 @@
         "solution": [
             ">> Pass1 started ...",
             ">> Gen processing: IS1 ...",
-            "This is a DC calculation",
+            "*** Solution by TINA assisted by AI ***",
             "At first we calculate the total resistance between the generator nodes (IS1)",
-            "R3 and R4 connected in series so Rc=R3+R4=2Ohm",
-            "R2 and Rc connected in parallel so Rb=R2*Rc/(R2+Rc)=667mOhm",
-            "R1 and Rb connected in series so Ra=R1+Rb=1.67Ohm",
-            "The total resistance is Ra = 1.67Ohm",
+            "R3 and R2 connected in series so Rb=R3+R2=4Ohm",
+            "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
+            "The total resistance is Ra = 1.33Ohm",
             "",
             "Now we calculate the voltage on R2",
-            "We know that the voltage between IS1 nodes is 1.6666666666666665V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 1.67Ohm so the voltage between the generator nodes is Igen*Rtot = 1.6666666666666665V",
             "",
-            "(1) The components R1,Rb connected in series.",
-            "(1) The current in this branch is 1A.",
+            "CGEN 'paralel' current calc on R1, value: 4",
+            "CGEN 'paralel' current calc on Rb, value: 2",
+            "(1) The current on Rb is 2A . (calculated by impedance divider)",
             "",
-            "(2) The current on R2 is 333mA . (calculated by impedance divider)",
+            "CGEN 'series' current calc on R3, value: 2",
+            "CGEN 'series' current calc on R2, value: 2",
+            "(2) The components R3,R2 connected in series.",
+            "(2) The current in this branch is 2A.",
             ""
         ],
         "block_labels": [
             {
-                "label": "Rc",
+                "label": "Rb",
                 "origin": "series",
-                "value": "2Ohm",
+                "value": "4Ohm",
                 "labels": [
                     "R3",
-                    "R4"
+                    "R2"
                 ],
                 "unique_labels": [
-                    "T_00000000282040D020241207155337",
-                    "T_0000000026F7908020241207155953"
-                ]
-            },
-            {
-                "label": "Rb",
-                "origin": "parallel",
-                "value": "667mOhm",
-                "labels": [
-                    "R2",
-                    "Rc"
-                ],
-                "unique_labels": [
-                    "T_0000000028203AF020241207155335",
-                    "<block>"
+                    "T_0000000026F9BF8020250120142251",
+                    "T_0000000026F7BF8020241208121049"
                 ]
             },
             {
                 "label": "Ra",
-                "origin": "series",
-                "value": "1.67Ohm",
+                "origin": "parallel",
+                "value": "1.33Ohm",
                 "labels": [
                     "R1",
                     "Rb"
                 ],
                 "unique_labels": [
-                    "T_0000000026F7B3C020241207155322",
+                    "CJ35NK7470S7O7DM7M421JCD",
                     "<block>"
                 ]
             }

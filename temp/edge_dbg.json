@@ -1,65 +1,26 @@
 [
     {
-        "source": 1,
+        "source": 2,
         "target": 0,
         "prop": {
             "label": "R2",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_0000000026F7BF8020241208121049",
+            "UniqueID": "T_1F39BD4020240130111203",
             "value": 1,
             "flags": 1
-        }
-    },
-    {
-        "source": 0,
-        "target": 2,
-        "prop": {
-            "label": "R1",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "CJ35NK7470S7O7DM7M421JCD",
-            "value": 1,
-            "flags": 1
-        }
-    },
-    {
-        "source": 2,
-        "target": 1,
-        "prop": {
-            "label": "<split>",
-            "match_label": "",
-            "CompId": 0,
-            "UniqueID": "<CompNil>",
-            "value": 0,
-            "flags": 0
         }
     },
     {
         "source": 1,
         "target": 2,
         "prop": {
-            "label": "IS1",
+            "label": "R1",
             "match_label": "",
-            "CompId": 13,
-            "UniqueID": "U4CSOSAGR0BOMHR6IF1RTDVC",
-            "value": 3,
-            "flags": 1,
-            "ac_gen": {
-                "mode": 0
-            }
-        }
-    },
-    {
-        "source": 2,
-        "target": 0,
-        "prop": {
-            "label": "<split>_cgen",
-            "match_label": "",
-            "CompId": 0,
-            "UniqueID": "<CompNil>",
-            "value": 0,
-            "flags": 0
+            "CompId": 9,
+            "UniqueID": "T_1F39B85020240130111157",
+            "value": 1,
+            "flags": 1
         }
     }
 ]

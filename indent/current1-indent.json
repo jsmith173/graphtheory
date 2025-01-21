@@ -1,31 +1,44 @@
 {
     "circuit_no_gens": {
-        "N": 4,
+        "N": 3,
         "nodes": [
             1,
-            2,
-            3,
-            0
+            0,
+            2
         ],
-        "gens": [],
+        "gens": [
+            {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "T_0000000026F9A22020250120125317",
+                    "value": 6,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        ],
         "dctables": [
             {
                 "currents": [
                     {
                         "label": "R1",
-                        "value": -1
+                        "value": 4
                     },
                     {
                         "label": "R2",
-                        "value": -0.66667
+                        "value": -2
                     },
                     {
                         "label": "R3",
-                        "value": -0.33333
-                    },
-                    {
-                        "label": "R4",
-                        "value": -0.33333
+                        "value": -2
                     }
                 ]
             }
@@ -35,56 +48,28 @@
             {
                 "nodes": [
                     1,
-                    2
-                ],
-                "prop": {
-                    "label": "R4",
-                    "match_label": "",
-                    "CompId": 9,
-                    "UniqueID": "T_0000000026F7908020241207155953",
-                    "value": 1,
-                    "flags": 1
-                }
-            },
-            {
-                "nodes": [
-                    3,
-                    1
+                    0
                 ],
                 "prop": {
                     "label": "R3",
                     "match_label": "",
                     "CompId": 9,
-                    "UniqueID": "T_00000000282040D020241207155337",
-                    "value": 1,
+                    "UniqueID": "T_0000000026F9BF8020250120142251",
+                    "value": 2,
                     "flags": 1
                 }
             },
             {
                 "nodes": [
-                    3,
-                    2
+                    2,
+                    1
                 ],
                 "prop": {
                     "label": "R2",
                     "match_label": "",
                     "CompId": 9,
-                    "UniqueID": "T_0000000028203AF020241207155335",
-                    "value": 1,
-                    "flags": 1
-                }
-            },
-            {
-                "nodes": [
-                    0,
-                    3
-                ],
-                "prop": {
-                    "label": "R1",
-                    "match_label": "",
-                    "CompId": 9,
-                    "UniqueID": "T_0000000026F7B3C020241207155322",
-                    "value": 1,
+                    "UniqueID": "T_0000000026F7BF8020241208121049",
+                    "value": 2,
                     "flags": 1
                 }
             },
@@ -94,15 +79,12 @@
                     2
                 ],
                 "prop": {
-                    "label": "IS1",
+                    "label": "R1",
                     "match_label": "",
-                    "CompId": 13,
-                    "UniqueID": "T_047B1FC020240428081016",
-                    "value": 1,
-                    "flags": 1,
-                    "ac_gen": {
-                        "mode": 0
-                    }
+                    "CompId": 9,
+                    "UniqueID": "CJ35NK7470S7O7DM7M421JCD",
+                    "value": 2,
+                    "flags": 1
                 }
             }
         ],

@@ -9,7 +9,7 @@
         "gens": [
             {
                 "nodes": [
-                    1,
+                    2,
                     0
                 ],
                 "prop": {
@@ -17,7 +17,7 @@
                     "match_label": "",
                     "CompId": 13,
                     "UniqueID": "U4CSOSAGR0BOMHR6IF1RTDVC",
-                    "value": 3,
+                    "value": 6,
                     "flags": 1,
                     "ac_gen": {
                         "mode": 0
@@ -30,11 +30,15 @@
                 "currents": [
                     {
                         "label": "R1",
-                        "value": 1.5
+                        "value": 4
                     },
                     {
                         "label": "R2",
-                        "value": -1.5
+                        "value": -2
+                    },
+                    {
+                        "label": "R3",
+                        "value": -2
                     }
                 ]
             }
@@ -47,11 +51,25 @@
                     0
                 ],
                 "prop": {
+                    "label": "R3",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_0000000026F9BF8020250120123501",
+                    "value": 2,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    1
+                ],
+                "prop": {
                     "label": "R2",
                     "match_label": "",
                     "CompId": 9,
                     "UniqueID": "T_0000000026F7BF8020241208121049",
-                    "value": 1,
+                    "value": 2,
                     "flags": 1
                 }
             },
@@ -65,53 +83,8 @@
                     "match_label": "",
                     "CompId": 9,
                     "UniqueID": "CJ35NK7470S7O7DM7M421JCD",
-                    "value": 1,
+                    "value": 2,
                     "flags": 1
-                }
-            },
-            {
-                "nodes": [
-                    2,
-                    1
-                ],
-                "prop": {
-                    "label": "<split>",
-                    "match_label": "",
-                    "CompId": 0,
-                    "UniqueID": "<CompNil>",
-                    "value": 0,
-                    "flags": 0
-                }
-            },
-            {
-                "nodes": [
-                    1,
-                    2
-                ],
-                "prop": {
-                    "label": "IS1",
-                    "match_label": "",
-                    "CompId": 13,
-                    "UniqueID": "U4CSOSAGR0BOMHR6IF1RTDVC",
-                    "value": 3,
-                    "flags": 1,
-                    "ac_gen": {
-                        "mode": 0
-                    }
-                }
-            },
-            {
-                "nodes": [
-                    2,
-                    0
-                ],
-                "prop": {
-                    "label": "<split>_cgen",
-                    "match_label": "",
-                    "CompId": 0,
-                    "UniqueID": "<CompNil>",
-                    "value": 0,
-                    "flags": 0
                 }
             }
         ],

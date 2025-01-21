@@ -1,13 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <all>
 	<superposition/>
-	<edge_values/>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>R3 1 0</item>
+		<item>R2 2 1</item>
+		<item>R1 0 2</item>
+		<item/>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_voltage</cmd>
+		<comp>R2</comp>
+		<options>&lt;none&gt;</options>
+		<qid>0</qid>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<edge_values>
+		<item>
+			<label>R1</label>
+			<nodes>
+				<item>0</item>
+				<item>2</item>
+			</nodes>
+			<current_items>
+				<item>
+					<current>2.0</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+			<voltage_items>
+				<item>
+					<voltage>8.0</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+		</item>
+	</edge_values>
 	<calculation>
-		<solution/>
-		<block_labels/>
+		<solution>
+			<item>&gt;&gt; Pass1 started ...</item>
+			<item>&gt;&gt; Gen processing: IS1 ...</item>
+			<item>This is a DC calculation</item>
+			<item>At first we calculate the total resistance between the generator nodes (IS1)</item>
+			<item>R3 and R2 connected in series so Rb=R3+R2=4Ohm</item>
+			<item>R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm</item>
+			<item>The total resistance is Ra = 1.33Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on R2</item>
+			<item>We know that the voltage between IS1 nodes is 8.0V, because the generator current is Igen = 6A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 8.0V</item>
+			<item/>
+			<item>CGEN 'paralel' current calc on Rb, value: 2</item>
+			<item>CGEN 'paralel' voltage calc on Rb, value: 8</item>
+			<item>Failed: see codes</item>
+		</solution>
 		<fn>data/current2.json</fn>
 		<valid>0</valid>
-		<error>0</error>
-		<status>parallel edges are forbidden</status>
+		<error>1</error>
+		<status>Fatal error: list index out of range</status>
 	</calculation>
 </all>
