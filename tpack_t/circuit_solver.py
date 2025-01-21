@@ -787,7 +787,9 @@ class TCircuitSolver:
 			self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
 		else:	
 			voltage_str = f"{voltage_val}V"
-			self.log(f"We know that the current on {gen_name} is {cu.fv(T.prop['current'])}A")
+			self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
+			          f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {cu.fv(T.prop['impedance'])}Ohm so "
+				 	  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
 
 		if self.graph.use_superposition:
 			gen_comp_id = self.gen['prop']['CompId']
