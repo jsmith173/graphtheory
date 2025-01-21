@@ -99,7 +99,7 @@ def run():
 	mode_release = 0
 
 	opts = {}
-	opts['mode_all_files'] = 0
+	opts['mode_all_files'] = 1
 	opts['debug_mode'] = 1
 	opts['test_Y'] = 1
 	opts['test_D'] = 1
@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'current1.json'	
+		test_file = 'current2.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0

@@ -91,10 +91,14 @@
         "circ_name": "current2.tsc"
     },
     "request": {
-        "text": "What is the voltage on R1?",
+        "text": "What is the voltage on R2?",
         "cmd": "get_voltage",
-        "comp": "R1",
+        "comp": "R2",
         "options": "<none>",
         "qid": "0"
+    },
+    "expected": {
+        "valid": 1,
+        "res_req": -4
     }
 }

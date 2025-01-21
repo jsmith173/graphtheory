@@ -1,38 +1,86 @@
 [
     {
         "source": 1,
-        "target": 0,
+        "target": 2,
         "prop": {
-            "label": "R3",
+            "label": "AM1",
+            "match_label": "",
+            "CompId": 34,
+            "UniqueID": "T_1E03811020240420124359",
+            "value": 0,
+            "flags": 0
+        }
+    },
+    {
+        "source": 4,
+        "target": 3,
+        "prop": {
+            "label": "R5",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_0000000026F9BF8020250120142251",
+            "UniqueID": "T_1F39CC1020240130111214",
             "value": 2,
             "flags": 1
         }
     },
     {
-        "source": 2,
-        "target": 1,
+        "source": 4,
+        "target": 6,
         "prop": {
-            "label": "R2",
+            "label": "R4",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_0000000026F7BF8020241208121049",
-            "value": 2,
+            "UniqueID": "T_1F39C72020240130111211",
+            "value": 5,
             "flags": 1
         }
     },
     {
         "source": 0,
-        "target": 2,
+        "target": 4,
+        "prop": {
+            "label": "R3",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_1F39C23020240130111206",
+            "value": 3,
+            "flags": 1
+        }
+    },
+    {
+        "source": 3,
+        "target": 5,
+        "prop": {
+            "label": "R2",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_1F39BD4020240130111203",
+            "value": 4,
+            "flags": 1
+        }
+    },
+    {
+        "source": 2,
+        "target": 3,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "CJ35NK7470S7O7DM7M421JCD",
-            "value": 2,
+            "UniqueID": "T_1F39B85020240130111157",
+            "value": 1,
             "flags": 1
+        }
+    },
+    {
+        "source": 5,
+        "target": 6,
+        "prop": {
+            "label": "Rshortxxx0",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "<none>",
+            "value": 0.0,
+            "flags": 2
         }
     }
 ]

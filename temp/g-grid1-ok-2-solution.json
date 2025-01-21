@@ -44,9 +44,9 @@
         ""
     ],
     "request": {
-        "text": "",
+        "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R2",
+        "comp": "R1",
         "options": "<none>",
         "qid": "0",
         "req_on_gen": false,
@@ -54,6 +54,26 @@
         "amper_meter_question": false
     },
     "edge_values": [
+        {
+            "label": "R1",
+            "nodes": [
+                0,
+                4
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 0.6666666666666666,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 0.6666666666666666,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 0.6666666666666666
+        },
         {
             "label": "R2",
             "nodes": [
@@ -73,13 +93,73 @@
                 }
             ],
             "voltage": 1.0
+        },
+        {
+            "label": "R3",
+            "nodes": [
+                0,
+                3
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 0.6666666666666666,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 0.6666666666666666,
+                    "original_dir": false
+                }
+            ],
+            "voltage": -0.6666666666666666
+        },
+        {
+            "label": "R4",
+            "nodes": [
+                3,
+                2
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 1.0,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 1,
+                    "original_dir": false
+                }
+            ],
+            "voltage": -1.0
+        },
+        {
+            "label": "R5",
+            "nodes": [
+                3,
+                4
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 1.3333333333333333,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 0.6666666666666666,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 1.3333333333333333
         }
     ],
     "calculation": {
         "solution": [
             ">> Pass1 started ...",
             ">> Gen processing: IS1 ...",
-            "This is a DC calculation",
+            "*** Solution by TINA assisted by AI ***",
             "At first we calculate the total resistance between the generator nodes (IS1)",
             "R1 and R3 connected in series so Rd=R1+R3=2Ohm",
             "R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=1.33Ohm",
@@ -87,13 +167,24 @@
             "R2 and Rb connected in series so Ra=R2+Rb=3.33Ohm",
             "The total resistance is Ra = 3.33Ohm",
             "",
-            "Now we calculate the voltage on R2",
+            "Now we calculate the voltage on R1",
             "We know that the voltage between IS1 nodes is 3.333333333333333V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 3.33Ohm so the voltage between the generator nodes is Igen*Rtot = 3.333333333333333V",
             "",
             "(1) The components R2,Rb connected in series.",
             "(1) The voltage between this components starting and ending node is 3.33V.",
-            "(1) R2 is in the voltage divider so the voltage on R2 is R2/Ra*3.33V = 1V. ",
-            ""
+            "(1) Rb is in the voltage divider so the voltage on Rb is Rb/Ra*3.33V = 2.33V. ",
+            "",
+            "(2) The components Rc,R4 connected in series.",
+            "(2) The voltage between this components starting and ending node is 2.33V.",
+            "(2) Rc is in the voltage divider so the voltage on Rc is Rc/Rb*2.33V = 1.33V. ",
+            "",
+            "(3) The components R5,Rd connected in parallel. The voltage on Rd is 1.33V because the voltage on Rc is 1.33V",
+            "",
+            "(4) The components R1,R3 connected in series.",
+            "(4) The voltage between this components starting and ending node is 1.33V.",
+            "(4) R1 is in the voltage divider so the voltage on R1 is R1/Rd*1.33V = 667mV. ",
+            "",
+            "*** Passed ***: expected: 667m, got: 667m"
         ],
         "block_labels": [
             {

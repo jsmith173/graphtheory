@@ -491,6 +491,16 @@ class TCircuitSolver:
 		    self.request['cmd'] == 'get_current' and self.request['amper_meter_question']):
 			self.answer_meter()
 
+		if self.has_expected_key:
+			v, v_str = self.get_result()
+			v1 = abs(v)
+			v2 = abs(self.expected_key['res_req'])
+			if abs(v1-v2) > 1e-3:
+				self.log_info(f"*** Wrong ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
+				raise SolverException(f"Solver error: {self.fn}")
+			else:
+				self.log_info(f"*** Passed ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
+		
 		self.write_log(1, 'OK', 0, True)
 
 	def check_amper_meter_question(self):
@@ -504,6 +514,15 @@ class TCircuitSolver:
 		if not self.request['amper_meter_question'] and (comp_id == cg.AMPER_METER_ or comp_id == cg.AMPER_METER2_):
 			raise Exception(f"Error while processing ampermeter {label}")
 
+	def get_result(self):
+		request_txt = cu.get_request_txt(self.request)
+		comp = self.request["comp"]
+		idx = self.graph.find_edge_value_by_label(comp)
+		if idx < 0:
+			raise Exception(f"{comp} not found while trying to calculate the meter {meter_name}")
+		value = self.graph.edge_values[idx]
+		return self.calc_final_nodal_edge(value, request_txt)
+	
 	def answer_meter(self):
 		request_txt = cu.get_request_txt(self.request)
 		if request_txt == "voltage":
@@ -739,14 +758,14 @@ class TCircuitSolver:
 		self.walk_postorder(T)
 		self.finalize_calc_impedance(T)
 		if self.has_expected_key:
-			T.prop['expected'] = self.expected_key['res_imp']
+			T.prop['expected'] = self.expected_key['res_req']
 		T.prop['circuit_key'] = circuit_key
 		if self.graph.show_result:
 			print(""); print(T.prop)
 
 		self.formula = T.formula	
-		if self.has_expected_key and abs(self.expected_key['res_imp']-T.prop['impedance']) > 1e-4:
-			raise SolverException(f"Solver error: {self.fn}")
+		#if self.has_expected_key and abs(self.expected_key['res_imp']-T.prop['impedance']) > 1e-4:
+		#	raise SolverException(f"Solver error: {self.fn}")
 		
 		#Prepare gen
 		gen_new_value = self.get_gen_value()
@@ -761,12 +780,13 @@ class TCircuitSolver:
 			self.unit = "Ohm"
 		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
 		request_txt = cu.get_request_txt(self.request)
-		if ac_gen['mode'] == 1:
-			freq = ac_gen['FreqStr']
-			self.log(f"This is an AC calculation")
-			self.log(f"We know that generator frequency is f={freq} Hz, w=2*pi*f")
-		else:	
-			self.log(f"*** Solution by TINA assisted by AI ***")
+		if i_pass == 0:
+			if ac_gen['mode'] == 1:
+				freq = ac_gen['FreqStr']
+				self.log(f"This is an AC calculation")
+				self.log(f"We know that generator frequency is f={freq} Hz, w=2*pi*f")
+			else:	
+				self.log(f"*** Solution by TINA assisted by AI ***")
 
 		# calculating voltage/currents
 		# set values on top node

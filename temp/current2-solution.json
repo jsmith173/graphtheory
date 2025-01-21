@@ -1,5 +1,35 @@
 {
-    "superposition": [],
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "R3 and R2 connected in series so Rb=R3+R2=4Ohm",
+                "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
+                "The total resistance is Ra = 1.33Ohm"
+            ],
+            "total_impedance_txt": [
+                "R3 and R2 connected in series so Rb=R3+R2=4Ohm",
+                "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
+                "The total resistance is Ra = 1.33Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "U4CSOSAGR0BOMHR6IF1RTDVC",
+                    "value": 6,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
     "circuit": [
         "Netlist (component name, nodes)",
         "R3 1 0",
@@ -8,7 +38,7 @@
         ""
     ],
     "request": {
-        "text": "",
+        "text": "What is the voltage on R2?",
         "cmd": "get_voltage",
         "comp": "R2",
         "options": "<none>",
@@ -35,14 +65,55 @@
                     "voltage": 8.0,
                     "original_dir": true
                 }
-            ]
+            ],
+            "voltage": 8.0
+        },
+        {
+            "label": "R2",
+            "nodes": [
+                2,
+                1
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 4.0,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 2.0,
+                    "original_dir": false
+                }
+            ],
+            "voltage": -4.0
+        },
+        {
+            "label": "R3",
+            "nodes": [
+                1,
+                0
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 4.0,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 2.0,
+                    "original_dir": false
+                }
+            ],
+            "voltage": -4.0
         }
     ],
     "calculation": {
         "solution": [
             ">> Pass1 started ...",
             ">> Gen processing: IS1 ...",
-            "This is a DC calculation",
+            "*** Solution by TINA assisted by AI ***",
             "At first we calculate the total resistance between the generator nodes (IS1)",
             "R3 and R2 connected in series so Rb=R3+R2=4Ohm",
             "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
@@ -51,13 +122,45 @@
             "Now we calculate the voltage on R2",
             "We know that the voltage between IS1 nodes is 8.0V, because the generator current is Igen = 6A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 8.0V",
             "",
-            "CGEN 'paralel' current calc on Rb, value: 2",
-            "CGEN 'paralel' voltage calc on Rb, value: 8",
-            "Failed: see codes"
+            "(1) The components R1,Rb connected in parallel. The voltage on Rb is 8V because the voltage on Ra is 8V",
+            "",
+            "(2) The components R3,R2 connected in series.",
+            "(2) The voltage between this components starting and ending node is 8V.",
+            "(2) R2 is in the voltage divider so the voltage on R2 is R2/Rb*8V = 4V. ",
+            "",
+            "*** Passed ***: expected: -4, got: -4"
+        ],
+        "block_labels": [
+            {
+                "label": "Rb",
+                "origin": "series",
+                "value": "4Ohm",
+                "labels": [
+                    "R3",
+                    "R2"
+                ],
+                "unique_labels": [
+                    "T_0000000026F9BF8020250120123501",
+                    "T_0000000026F7BF8020241208121049"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "parallel",
+                "value": "1.33Ohm",
+                "labels": [
+                    "R1",
+                    "Rb"
+                ],
+                "unique_labels": [
+                    "CJ35NK7470S7O7DM7M421JCD",
+                    "<block>"
+                ]
+            }
         ],
         "fn": "data/current2.json",
-        "valid": 0,
-        "error": 1,
-        "status": "Fatal error: list index out of range"
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
     }
 }

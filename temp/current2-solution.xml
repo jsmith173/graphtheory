@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <all>
-	<superposition/>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R3 and R2 connected in series so Rb=R3+R2=4Ohm</item>
+				<item>R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm</item>
+				<item>The total resistance is Ra = 1.33Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R3 and R2 connected in series so Rb=R3+R2=4Ohm</item>
+				<item>R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm</item>
+				<item>The total resistance is Ra = 1.33Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>2</item>
+					<item>0</item>
+				</nodes>
+				<prop>
+					<label>IS1</label>
+					<match_label/>
+					<CompId>13</CompId>
+					<UniqueID>U4CSOSAGR0BOMHR6IF1RTDVC</UniqueID>
+					<value>6</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
 		<item>R3 1 0</item>
@@ -37,13 +67,54 @@
 					<original_dir>true</original_dir>
 				</item>
 			</voltage_items>
+			<voltage>8.0</voltage>
+		</item>
+		<item>
+			<label>R2</label>
+			<nodes>
+				<item>2</item>
+				<item>1</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>4.0</voltage>
+					<original_dir>false</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>2.0</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>-4.0</voltage>
+		</item>
+		<item>
+			<label>R3</label>
+			<nodes>
+				<item>1</item>
+				<item>0</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>4.0</voltage>
+					<original_dir>false</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>2.0</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>-4.0</voltage>
 		</item>
 	</edge_values>
 	<calculation>
 		<solution>
 			<item>&gt;&gt; Pass1 started ...</item>
 			<item>&gt;&gt; Gen processing: IS1 ...</item>
-			<item>This is a DC calculation</item>
+			<item>*** Solution by TINA assisted by AI ***</item>
 			<item>At first we calculate the total resistance between the generator nodes (IS1)</item>
 			<item>R3 and R2 connected in series so Rb=R3+R2=4Ohm</item>
 			<item>R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm</item>
@@ -52,13 +123,44 @@
 			<item>Now we calculate the voltage on R2</item>
 			<item>We know that the voltage between IS1 nodes is 8.0V, because the generator current is Igen = 6A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 8.0V</item>
 			<item/>
-			<item>CGEN 'paralel' current calc on Rb, value: 2</item>
-			<item>CGEN 'paralel' voltage calc on Rb, value: 8</item>
-			<item>Failed: see codes</item>
+			<item>(1) The components R1,Rb connected in parallel. The voltage on Rb is 8V because the voltage on Ra is 8V</item>
+			<item/>
+			<item>(2) The components R3,R2 connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is 8V.</item>
+			<item>(2) R2 is in the voltage divider so the voltage on R2 is R2/Rb*8V = 4V. </item>
+			<item/>
 		</solution>
+		<block_labels>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<value>4Ohm</value>
+				<labels>
+					<item>R3</item>
+					<item>R2</item>
+				</labels>
+				<unique_labels>
+					<item>T_0000000026F9BF8020250120123501</item>
+					<item>T_0000000026F7BF8020241208121049</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>parallel</origin>
+				<value>1.33Ohm</value>
+				<labels>
+					<item>R1</item>
+					<item>Rb</item>
+				</labels>
+				<unique_labels>
+					<item>CJ35NK7470S7O7DM7M421JCD</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
 		<fn>data/current2.json</fn>
-		<valid>0</valid>
-		<error>1</error>
-		<status>Fatal error: list index out of range</status>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
 	</calculation>
 </all>

@@ -121,7 +121,7 @@
 			<item>The total resistance is Ra = 1.33Ohm</item>
 			<item/>
 			<item>Now we calculate the voltage on R2</item>
-			<item>We know that the current on IS1 is 6A</item>
+			<item>We know that the voltage between IS1 nodes is 8.0V, because the generator current is Igen = 6A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 8.0V</item>
 			<item/>
 			<item>(1) The components R1,Rb connected in parallel. The voltage on Rb is 8V because the voltage on Ra is 8V</item>
 			<item/>

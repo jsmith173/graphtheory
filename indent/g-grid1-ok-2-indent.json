@@ -8,7 +8,25 @@
             0,
             1
         ],
-        "gens": [],
+        "gens": [
+            {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "T_047B1FC020240428081016",
+                    "value": 1,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        ],
         "dctables": [
             {
                 "currents": [
@@ -106,23 +124,6 @@
                     "value": 1,
                     "flags": 1
                 }
-            },
-            {
-                "nodes": [
-                    1,
-                    2
-                ],
-                "prop": {
-                    "label": "IS1",
-                    "match_label": "",
-                    "CompId": 13,
-                    "UniqueID": "T_047B1FC020240428081016",
-                    "value": 1,
-                    "flags": 1,
-                    "ac_gen": {
-                        "mode": 0
-                    }
-                }
             }
         ],
         "circ_name": "g-grid1-ok-2.tsc"
@@ -133,5 +134,9 @@
         "comp": "R1",
         "options": "<none>",
         "qid": "0"
+    },
+    "expected": {
+        "valid": 1,
+        "res_req": 0.6666
     }
 }

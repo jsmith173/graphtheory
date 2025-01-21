@@ -21,7 +21,7 @@
 					<label>IS1</label>
 					<match_label/>
 					<CompId>13</CompId>
-					<UniqueID>T_0000000026F9A22020250120125317</UniqueID>
+					<UniqueID>U4CSOSAGR0BOMHR6IF1RTDVC</UniqueID>
 					<value>6</value>
 					<flags>1</flags>
 					<ac_gen>
@@ -121,7 +121,7 @@
 			<item>The total resistance is Ra = 1.33Ohm</item>
 			<item/>
 			<item>Now we calculate the voltage on R2</item>
-			<item>We know that the current on IS1 is 6A</item>
+			<item>We know that the voltage between IS1 nodes is 8.0V, because the generator current is Igen = 6A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 8.0V</item>
 			<item/>
 			<item>(1) The components R1,Rb connected in parallel. The voltage on Rb is 8V because the voltage on Ra is 8V</item>
 			<item/>
@@ -140,7 +140,7 @@
 					<item>R2</item>
 				</labels>
 				<unique_labels>
-					<item>T_0000000026F9BF8020250120142251</item>
+					<item>T_0000000026F9BF8020250120123501</item>
 					<item>T_0000000026F7BF8020241208121049</item>
 				</unique_labels>
 			</item>
@@ -158,7 +158,7 @@
 				</unique_labels>
 			</item>
 		</block_labels>
-		<fn>data/current1.json</fn>
+		<fn>data/current2.json</fn>
 		<valid>1</valid>
 		<error>0</error>
 		<status>OK</status>
