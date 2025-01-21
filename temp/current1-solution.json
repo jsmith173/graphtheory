@@ -74,13 +74,19 @@
                 2,
                 1
             ],
+            "voltage_items": [
+                {
+                    "voltage": 4.0,
+                    "original_dir": false
+                }
+            ],
             "current_items": [
                 {
                     "current": 2.0,
                     "original_dir": false
                 }
             ],
-            "voltage": 0.0
+            "voltage": -4.0
         },
         {
             "label": "R3",
@@ -88,13 +94,19 @@
                 1,
                 0
             ],
+            "voltage_items": [
+                {
+                    "voltage": 4.0,
+                    "original_dir": false
+                }
+            ],
             "current_items": [
                 {
                     "current": 2.0,
                     "original_dir": false
                 }
             ],
-            "voltage": 0.0
+            "voltage": -4.0
         }
     ],
     "calculation": {
@@ -108,15 +120,13 @@
             "The total resistance is Ra = 1.33Ohm",
             "",
             "Now we calculate the voltage on R2",
+            "We know that the current on IS1 is 6A",
             "",
-            "CGEN 'paralel' current calc on R1, value: 4",
-            "CGEN 'paralel' current calc on Rb, value: 2",
-            "(1) The current on Rb is 2A . (calculated by impedance divider)",
+            "(1) The components R1,Rb connected in parallel. The voltage on Rb is 8V because the voltage on Ra is 8V",
             "",
-            "CGEN 'series' current calc on R3, value: 2",
-            "CGEN 'series' current calc on R2, value: 2",
             "(2) The components R3,R2 connected in series.",
-            "(2) The current in this branch is 2A.",
+            "(2) The voltage between this components starting and ending node is 8V.",
+            "(2) R2 is in the voltage divider so the voltage on R2 is R2/Rb*8V = 4V. ",
             ""
         ],
         "block_labels": [

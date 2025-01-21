@@ -3,23 +3,25 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>R2 and R1 connected in series so Ra=R2+R1=2 Ohm</item>
-				<item>The total resistance is Ra = 2 Ohm</item>
+				<item>R3 and R2 connected in series so Rb=R3+R2=4Ohm</item>
+				<item>R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm</item>
+				<item>The total resistance is Ra = 1.33Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>R2 and R1 connected in series so Ra=R2+R1=2 Ohm</item>
-				<item>The total resistance is Ra = 2 Ohm</item>
+				<item>R3 and R2 connected in series so Rb=R3+R2=4Ohm</item>
+				<item>R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm</item>
+				<item>The total resistance is Ra = 1.33Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
-					<item>1</item>
+					<item>2</item>
 					<item>0</item>
 				</nodes>
 				<prop>
-					<label>VS1</label>
+					<label>IS1</label>
 					<match_label/>
-					<CompId>14</CompId>
-					<UniqueID>T_1F27FA0020240204131136</UniqueID>
+					<CompId>13</CompId>
+					<UniqueID>T_0000000026F9A22020250120125317</UniqueID>
 					<value>6</value>
 					<flags>1</flags>
 					<ac_gen>
@@ -31,8 +33,9 @@
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>R2 2 0</item>
-		<item>R1 1 2</item>
+		<item>R3 1 0</item>
+		<item>R2 2 1</item>
+		<item>R1 0 2</item>
 		<item/>
 	</circuit>
 	<request>
@@ -49,77 +52,113 @@
 		<item>
 			<label>R1</label>
 			<nodes>
-				<item>1</item>
+				<item>0</item>
 				<item>2</item>
 			</nodes>
-			<voltage_items>
-				<item>
-					<voltage>3.0</voltage>
-					<original_dir>true</original_dir>
-				</item>
-			</voltage_items>
 			<current_items>
 				<item>
-					<current>3.0</current>
+					<current>2.0</current>
 					<original_dir>true</original_dir>
 				</item>
 			</current_items>
-			<voltage>3.0</voltage>
+			<voltage_items>
+				<item>
+					<voltage>8.0</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<voltage>8.0</voltage>
 		</item>
 		<item>
 			<label>R2</label>
 			<nodes>
 				<item>2</item>
-				<item>0</item>
+				<item>1</item>
 			</nodes>
 			<voltage_items>
 				<item>
-					<voltage>3.0</voltage>
-					<original_dir>true</original_dir>
+					<voltage>4.0</voltage>
+					<original_dir>false</original_dir>
 				</item>
 			</voltage_items>
 			<current_items>
 				<item>
-					<current>3.0</current>
-					<original_dir>true</original_dir>
+					<current>2.0</current>
+					<original_dir>false</original_dir>
 				</item>
 			</current_items>
-			<voltage>3.0</voltage>
+			<voltage>-4.0</voltage>
+		</item>
+		<item>
+			<label>R3</label>
+			<nodes>
+				<item>1</item>
+				<item>0</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>4.0</voltage>
+					<original_dir>false</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>2.0</current>
+					<original_dir>false</original_dir>
+				</item>
+			</current_items>
+			<voltage>-4.0</voltage>
 		</item>
 	</edge_values>
 	<calculation>
 		<solution>
 			<item>&gt;&gt; Pass1 started ...</item>
-			<item>&gt;&gt; Gen processing: VS1 ...</item>
+			<item>&gt;&gt; Gen processing: IS1 ...</item>
 			<item>*** Solution by TINA assisted by AI ***</item>
-			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
-			<item>R2 and R1 connected in series so Ra=R2+R1=2 Ohm</item>
-			<item>The total resistance is Ra = 2 Ohm</item>
+			<item>At first we calculate the total resistance between the generator nodes (IS1)</item>
+			<item>R3 and R2 connected in series so Rb=R3+R2=4Ohm</item>
+			<item>R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm</item>
+			<item>The total resistance is Ra = 1.33Ohm</item>
 			<item/>
 			<item>Now we calculate the voltage on R2</item>
-			<item>We know that the voltage between VS1 nodes is 6V.</item>
+			<item>We know that the current on IS1 is 6A</item>
 			<item/>
-			<item>(1) The components R2,R1 connected in series.</item>
-			<item>(1) The voltage between this components starting and ending node is 6V.</item>
-			<item>(1) R2 is in the voltage divider so the voltage on R2 is R2/Ra*6V = 3V. </item>
+			<item>(1) The components R1,Rb connected in parallel. The voltage on Rb is 8V because the voltage on Ra is 8V</item>
+			<item/>
+			<item>(2) The components R3,R2 connected in series.</item>
+			<item>(2) The voltage between this components starting and ending node is 8V.</item>
+			<item>(2) R2 is in the voltage divider so the voltage on R2 is R2/Rb*8V = 4V. </item>
 			<item/>
 		</solution>
 		<block_labels>
 			<item>
-				<label>Ra</label>
+				<label>Rb</label>
 				<origin>series</origin>
-				<value>2 Ohm</value>
+				<value>4Ohm</value>
 				<labels>
+					<item>R3</item>
 					<item>R2</item>
-					<item>R1</item>
 				</labels>
 				<unique_labels>
-					<item>T_1F39BD4020240130111203</item>
-					<item>T_1F39B85020240130111157</item>
+					<item>T_0000000026F9BF8020250120142251</item>
+					<item>T_0000000026F7BF8020241208121049</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>parallel</origin>
+				<value>1.33Ohm</value>
+				<labels>
+					<item>R1</item>
+					<item>Rb</item>
+				</labels>
+				<unique_labels>
+					<item>CJ35NK7470S7O7DM7M421JCD</item>
+					<item>&lt;block&gt;</item>
 				</unique_labels>
 			</item>
 		</block_labels>
-		<fn>data/voltage1.json</fn>
+		<fn>data/current1.json</fn>
 		<valid>1</valid>
 		<error>0</error>
 		<status>OK</status>

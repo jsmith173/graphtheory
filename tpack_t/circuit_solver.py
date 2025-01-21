@@ -352,6 +352,7 @@ class TCircuitSolver:
 
 				directed_nodes = self.graph.get_directed_nodes(node, nodes[i])
 				self.graph.set_node_val(nodes[i], new_val[i], True, 'voltage', directed_nodes, node)
+				self.graph.set_node_val(nodes[i], current, True, 'current', directed_nodes, node)
 				#status, block_rules = self.resolve_composed_labels_rules(labels)
  
 				status, M = cu.in_path(nodes[i], self.request_path)
@@ -786,9 +787,7 @@ class TCircuitSolver:
 			self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
 		else:	
 			voltage_str = f"{voltage_val}V"
-			self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
-			          f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {cu.fv(T.prop['impedance'])}Ohm so "
-				 	  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
+			self.log(f"We know that the current on {gen_name} is {cu.fv(T.prop['current'])}A")
 
 		if self.graph.use_superposition:
 			gen_comp_id = self.gen['prop']['CompId']
