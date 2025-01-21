@@ -72,67 +72,13 @@
         "volt_meter_question": false,
         "amper_meter_question": false
     },
-    "edge_values": [
-        {
-            "label": "R1",
-            "nodes": [
-                1,
-                2
-            ],
-            "current_items": [
-                {
-                    "current": 0.005,
-                    "original_dir": true
-                },
-                {
-                    "current": 0.0,
-                    "original_dir": true
-                }
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 5.0,
-                    "original_dir": true
-                },
-                {
-                    "voltage": 0.0,
-                    "original_dir": true
-                }
-            ],
-            "voltage": 5.0
-        },
-        {
-            "label": "R2",
-            "nodes": [
-                2,
-                3
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 0.0,
-                    "original_dir": false
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 0.0,
-                    "original_dir": false
-                },
-                {
-                    "current": 0.0,
-                    "original_dir": false
-                }
-            ],
-            "voltage": 0.0
-        }
-    ],
     "calculation": {
         "solution": [
+            "*** Solution by TINA assisted by AI ***",
             "We have more than one generator so we are using superposition to calculate voltages/currents.",
             "",
             ">> Pass1 started ...",
             ">> Gen processing: IS1 ...",
-            "*** Solution by TINA assisted by AI ***",
             "At first we calculate the total resistance between the generator nodes (IS1)",
             "R1 and R2 connected in parallel so Ra0=R1*R2/(R1+R2)=500Ohm",
             "The total resistance is Ra0 = 500Ohm",

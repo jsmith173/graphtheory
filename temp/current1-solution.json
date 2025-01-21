@@ -47,72 +47,8 @@
         "volt_meter_question": false,
         "amper_meter_question": false
     },
-    "edge_values": [
-        {
-            "label": "R1",
-            "nodes": [
-                0,
-                2
-            ],
-            "current_items": [
-                {
-                    "current": 2.0,
-                    "original_dir": true
-                }
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 8.0,
-                    "original_dir": true
-                }
-            ],
-            "current": 2.0
-        },
-        {
-            "label": "R2",
-            "nodes": [
-                2,
-                1
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 4.0,
-                    "original_dir": false
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 2.0,
-                    "original_dir": false
-                }
-            ],
-            "current": -2.0
-        },
-        {
-            "label": "R3",
-            "nodes": [
-                1,
-                0
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 4.0,
-                    "original_dir": false
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 2.0,
-                    "original_dir": false
-                }
-            ],
-            "current": -2.0
-        }
-    ],
     "calculation": {
         "solution": [
-            ">> Pass1 started ...",
-            ">> Gen processing: IS1 ...",
             "*** Solution by TINA assisted by AI ***",
             "At first we calculate the total resistance between the generator nodes (IS1)",
             "R3 and R2 connected in series so Rb=R3+R2=4Ohm",

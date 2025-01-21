@@ -456,6 +456,8 @@ class TCircuitSolver:
 
 		self.graph.debug_graph()
 
+		self.log(f"*** Solution by TINA assisted by AI ***")
+
 		if self.graph.use_superposition:
 			#self.logl(self.graph.graph_debug)
 			self.log("We have more than one generator so we are using superposition to calculate voltages/currents.")
@@ -497,6 +499,7 @@ class TCircuitSolver:
 			v2 = abs(self.expected_key['res_req'])
 			if abs(v1-v2) > 1e-3:
 				self.log_info(f"*** Wrong ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
+				self.write_log(1, 'OK', 0, True)
 				raise SolverException(f"Solver error: {self.fn}")
 			else:
 				self.log_info(f"*** Passed ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
@@ -676,8 +679,9 @@ class TCircuitSolver:
 		#self.solution['gen'] = self.gen
 		self.solution['circuit'] = self.graph.graph_debug
 		self.solution['request'] = self.request
-		self.log_info(f">> Pass{i_pass+1} started ...")
-		self.log_info(f">> Gen processing: {self.gen['prop']['label']} ...")
+		if self.graph.use_superposition:
+			self.log(f">> Pass{i_pass+1} started ...")
+			self.log(f">> Gen processing: {self.gen['prop']['label']} ...")
 		
 		self.mod = []
 		#self.set_edge_directions()				
@@ -785,8 +789,6 @@ class TCircuitSolver:
 				freq = ac_gen['FreqStr']
 				self.log(f"This is an AC calculation")
 				self.log(f"We know that generator frequency is f={freq} Hz, w=2*pi*f")
-			else:	
-				self.log(f"*** Solution by TINA assisted by AI ***")
 
 		# calculating voltage/currents
 		# set values on top node
