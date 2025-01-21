@@ -634,6 +634,9 @@ class TCircuitSolver:
 		self.graph.nodal_voltage_log = []
 		self.stop_solver = False; nInserted = 0
 
+		gen_comp_id = self.gen['prop']['CompId']
+		is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
+		
 		#init 'run_pass'
 		#voltage gens: add extra edge before 'get_graph'
 		for j in range(len(self.gens)):
@@ -649,18 +652,6 @@ class TCircuitSolver:
 					nInserted += 1
 
 		G = self.graph.get_graph(circuit_key)
-
-		#current gen: remove edges from the generated graph
-		for j in range(len(self.gens)):
-			if j != i_pass:
-				gen = self.gens[j]
-
-				gen_comp_id = gen['prop']['CompId']
-				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
-				is_i_gen = not is_v_gen
-
-				if is_i_gen:
-					self.graph.cgen_remove_connected_edges(gen)	
 
 		#self.solution['gen'] = self.gen
 		self.solution['circuit'] = self.graph.graph_debug
@@ -774,7 +765,7 @@ class TCircuitSolver:
 			self.log(f"This is an AC calculation")
 			self.log(f"We know that generator frequency is f={freq} Hz, w=2*pi*f")
 		else:	
-			self.log(f"This is a DC calculation")
+			self.log(f"*** Solution by TINA assisted by AI ***")
 
 		# calculating voltage/currents
 		# set values on top node
@@ -851,7 +842,7 @@ class TCircuitSolver:
 			self.solution_log.append('Failed: see codes')
 
 		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
-		#self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
+		self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
 
 		result = []
 		for item in edge_values_:
