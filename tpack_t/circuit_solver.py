@@ -499,7 +499,6 @@ class TCircuitSolver:
 			v2 = abs(self.expected_key['res_req'])
 			if abs(v1-v2) > 1e-3:
 				self.log_info(f"*** Wrong ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
-				self.write_log(1, 'OK', 0, True)
 				raise SolverException(f"Solver error: {self.fn}")
 			else:
 				self.log_info(f"*** Passed ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
@@ -865,7 +864,7 @@ class TCircuitSolver:
 			self.solution_log.append('Failed: see codes')
 
 		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
-		#self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
+		self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
 
 		result = []
 		for item in edge_values_:

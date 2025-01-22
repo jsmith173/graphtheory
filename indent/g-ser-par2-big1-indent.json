@@ -33,6 +33,64 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 0.3125
+                    },
+                    {
+                        "label": "R10",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "R11",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "R12",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0.3125
+                    },
+                    {
+                        "label": "R3",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R4",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R5",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R6",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "R7",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "R8",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R9",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -3.75
+                    }
+                ]
+            }
+        ],
         "meters": [],
         "edges": [
             {
@@ -69,7 +127,7 @@
                     0
                 ],
                 "prop": {
-                    "label": "<split>",
+                    "label": "<split>R11",
                     "match_label": "",
                     "CompId": 0,
                     "UniqueID": "<CompNil>",
@@ -125,7 +183,7 @@
                     0
                 ],
                 "prop": {
-                    "label": "<split>",
+                    "label": "<split>R8",
                     "match_label": "",
                     "CompId": 0,
                     "UniqueID": "<CompNil>",
@@ -237,7 +295,7 @@
                     4
                 ],
                 "prop": {
-                    "label": "<split>",
+                    "label": "<split>R1",
                     "match_label": "",
                     "CompId": 0,
                     "UniqueID": "<CompNil>",
@@ -245,16 +303,18 @@
                     "flags": 0
                 }
             }
-        ]
+        ],
+        "circ_name": "g-ser-par2-big1.tsc"
     },
     "request": {
-        "text": "What is the voltage on R1?",
+        "text": "What is the voltage on R8?",
         "cmd": "get_voltage",
-        "comp": "R1"
+        "comp": "R8",
+        "options": "<none>",
+        "qid": "0"
     },
     "expected": {
         "valid": 1,
-        "res_imp": 1.3333,
-        "res_req": 0
+        "res_req": 1.25
     }
 }

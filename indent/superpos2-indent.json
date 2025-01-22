@@ -1,16 +1,15 @@
 {
     "circuit_no_gens": {
-        "N": 4,
+        "N": 3,
         "nodes": [
-            3,
             2,
-            4,
+            3,
             1
         ],
         "gens": [
             {
                 "nodes": [
-                    3,
+                    2,
                     1
                 ],
                 "prop": {
@@ -28,7 +27,7 @@
             {
                 "nodes": [
                     1,
-                    4
+                    3
                 ],
                 "prop": {
                     "label": "VS2",
@@ -55,10 +54,6 @@
                         "value": 0
                     },
                     {
-                        "label": "R3",
-                        "value": 0
-                    },
-                    {
                         "label": "VS2",
                         "value": 0
                     }
@@ -73,10 +68,6 @@
                     {
                         "label": "R2",
                         "value": -0.005
-                    },
-                    {
-                        "label": "R3",
-                        "value": -0.01
                     },
                     {
                         "label": "VS2",
@@ -103,7 +94,7 @@
             {
                 "nodes": [
                     2,
-                    4
+                    3
                 ],
                 "prop": {
                     "label": "VM1",
@@ -118,22 +109,8 @@
         "edges": [
             {
                 "nodes": [
-                    3,
-                    2
-                ],
-                "prop": {
-                    "label": "R3",
-                    "match_label": "",
-                    "CompId": 9,
-                    "UniqueID": "T_1DAB848020241206124133",
-                    "value": 1000,
-                    "flags": 1
-                }
-            },
-            {
-                "nodes": [
                     2,
-                    4
+                    3
                 ],
                 "prop": {
                     "label": "R2",
@@ -167,5 +144,9 @@
         "comp": "R1",
         "options": "<none>",
         "qid": "0"
+    },
+    "expected": {
+        "valid": 1,
+        "res_req": 5
     }
 }

@@ -82,7 +82,7 @@
         ""
     ],
     "request": {
-        "text": "What is the current on R5?",
+        "text": "",
         "cmd": "get_current",
         "comp": "R5",
         "options": "<none>",

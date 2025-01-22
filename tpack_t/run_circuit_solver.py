@@ -46,6 +46,9 @@ def test_all_proc(fn, key, opts):
 	except RequestException as e:
 		solver.write_log(1, str(e), 1)
 		print(f"fn: {fn}, {e}")
+	except SolverException as e:
+		solver.write_log(1, str(e), 1)
+		print(f"fn: {fn}, {e}")
 
 def test_all(filelist, opts):
 	try:
@@ -57,9 +60,6 @@ def test_all(filelist, opts):
 		print('>>')
 		print('>> ALL TEST PASSED')
 		print('>>')
-	except SolverException as e:
-		print(f"{e}")
-		print(""); print("")
 	except ValueError as e:
 		print('>>')
 		print(f">> TEST FAILED: {e}")
@@ -76,8 +76,8 @@ def run():
 
 	test_request = {
 		"text": "",
-		"cmd": "get_voltage",
-		"comp": "R2",
+		"cmd": "get_current",
+		"comp": "R5",
 		"options": "<none>",
 		"qid": "0"
 	}
@@ -99,12 +99,12 @@ def run():
 	mode_release = 0
 
 	opts = {}
-	opts['mode_all_files'] = 1
+	opts['mode_all_files'] = 0
 	opts['debug_mode'] = 1
 	opts['test_Y'] = 1
 	opts['test_D'] = 1
 	opts['log_info'] = 1
-	opts['override_request'] = 1
+	opts['override_request'] = 0
 	opts['request'] = test_request
 
 	if mode_release == 1:
@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'current2.json'	
+		test_file = 'g-grid1-two-gen2.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0
