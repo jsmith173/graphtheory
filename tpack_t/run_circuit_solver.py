@@ -123,7 +123,7 @@ def run():
 			filelist = json_data_l['filelist']
 		test_all(filelist, opts)
 	else:	
-		test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
+		test_one_file(test_file, 'circuit_no_gens', opts)
 
 if __name__ == "__main__":
 	run()
