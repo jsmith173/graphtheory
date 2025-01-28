@@ -104,7 +104,7 @@ def run():
 	opts['test_Y'] = 1
 	opts['test_D'] = 1
 	opts['log_info'] = 1
-	opts['override_request'] = 0
+	opts['override_request'] = 1
 	opts['request'] = test_request
 
 	if mode_release == 1:
@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'g-grid1-two-gen2.json'	
+		test_file = 'g-grid1-two-gen-001.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0
