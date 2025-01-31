@@ -107,15 +107,15 @@
                 2,
                 8
             ],
-            "voltage_items": [
-                {
-                    "voltage": 2.5,
-                    "original_dir": true
-                }
-            ],
             "current_items": [
                 {
                     "current": 1.25,
+                    "original_dir": true
+                }
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 2.5,
                     "original_dir": true
                 }
             ],
@@ -187,15 +187,15 @@
                 3,
                 9
             ],
-            "voltage_items": [
-                {
-                    "voltage": 1.25,
-                    "original_dir": true
-                }
-            ],
             "current_items": [
                 {
                     "current": 0.625,
+                    "original_dir": true
+                }
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 1.25,
                     "original_dir": true
                 }
             ],

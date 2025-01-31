@@ -107,19 +107,19 @@
                 2,
                 3
             ],
-            "voltage_items": [
-                {
-                    "voltage": 0.0,
-                    "original_dir": false
-                }
-            ],
             "current_items": [
                 {
-                    "current": 0.0,
-                    "original_dir": false
+                    "current": 0.005,
+                    "original_dir": true
                 },
                 {
                     "current": 0.0,
+                    "original_dir": false
+                }
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 0.0,
                     "original_dir": false
                 }
             ],

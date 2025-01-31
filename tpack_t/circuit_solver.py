@@ -148,7 +148,7 @@ class TCircuitSolver:
 			elif len(values) == 1:
 				v = values[0]	
 		valid = len(values) > 0
-		self.graph.set_node_val(node, v, valid, 'impedance')		
+		self.graph.set_node_val(node, v, '', valid, 'impedance')		
 		item = self.calc_str_impedance(node, left, right, values, v, labels, unique_labels)		
 		#s1 = f"lv: {level}, nv: {len(values)}, l: {s_left}, r: {s_right}, targ: {s_target}, ltype: {left.type}, rtype: {right.type}, type: {node.type}, new: {v}"		
 		self.total_impedance.append(item)
@@ -268,7 +268,7 @@ class TCircuitSolver:
 			status, formula = self.graph.get_label_prop(top)
 			top.formula = formula
 			valid, v = self.graph.get_val(top, 'impedance')
-			self.graph.set_node_val(top, v, valid, 'impedance') #required if we have one edge only
+			self.graph.set_node_val(top, v, '', valid, 'impedance') #required if we have one edge only
 			node = top; s_node = node.to_str()		
 			s = f"lv: {level}, nv: 1, node: {s_node}, type: {node.type}, value: {v}"
 			if not self.silent:
@@ -351,8 +351,8 @@ class TCircuitSolver:
 				node_list = ",".join(node_list_)
 
 				directed_nodes = self.graph.get_directed_nodes(node, nodes[i])
-				self.graph.set_node_val(nodes[i], new_val[i], True, 'voltage', directed_nodes, node)
-				self.graph.set_node_val(nodes[i], current, True, 'current', directed_nodes, node)
+				self.graph.set_node_val(nodes[i], new_val[i], labels[i], True, 'voltage', directed_nodes, node)
+				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node)
 				#status, block_rules = self.resolve_composed_labels_rules(labels)
  
 				status, M = cu.in_path(nodes[i], self.request_path)
@@ -373,16 +373,16 @@ class TCircuitSolver:
 						self.log(f"{M}The current on {labels[i]} is the 'voltage on {labels[i]} / {labels_z[i]}' = {cu.fv(new_val[i]/impedance[i])}A .")
 					self.log("")
 
-				self.graph.set_node_val(nodes[i], current, True, 'current', directed_nodes, node) 
+				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node) 
 
 		elif node.type == "parallel":
-			v = impedance_parent/impedance[0]*current; new_val.append(v)
-			v = impedance_parent/impedance[1]*current; new_val.append(v)
+			v = impedance[1]/(impedance[0]+impedance[1])*current; new_val.append(v)
+			v = impedance[0]/(impedance[0]+impedance[1])*current; new_val.append(v)
 
 			for i in range(2):
 				directed_nodes = self.graph.get_directed_nodes(node, nodes[i])
-				self.graph.set_node_val(nodes[i], voltage, True, 'voltage', directed_nodes, node) 
-				self.graph.set_node_val(nodes[i], new_val[i], True, 'current', directed_nodes, node) 
+				self.graph.set_node_val(nodes[i], voltage, labels[i], True, 'voltage', directed_nodes, node) 
+				self.graph.set_node_val(nodes[i], new_val[i], labels[i], True, 'current', directed_nodes, node) 
 				status, M = cu.in_path(nodes[i], self.request_path)
 				if M != "":
 					self.last_node = nodes[i]
@@ -791,12 +791,12 @@ class TCircuitSolver:
 
 		# calculating voltage/currents
 		# set values on top node
-		self.graph.set_node_val(T, gen_new_value['value'], True, gen_new_value['quantity'], self.gen['nodes']) 
+		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
 		if gen_new_value['quantity'] == 'voltage':
-			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], True, 'current', self.gen['nodes']) 
+			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
 		else:
 			voltage_val = T.prop['current']*T.prop['impedance']	
-			self.graph.set_node_val(T, voltage_val, True, 'voltage', self.gen['nodes']) 
+			self.graph.set_node_val(T, voltage_val, '', True, 'voltage', self.gen['nodes']) 
 
 		self.log(f"At first we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
 		self.logl(self.total_impedance_txt)
@@ -841,7 +841,7 @@ class TCircuitSolver:
 			self.walk_preorder(T)
 			
 		pass_item = {}
-		if self.graph.opts['debug_mode']:	
+		if self.graph.opts['debug_mode'] == 1:	
 			#pass_item['total_impedance_silent'] = self.total_impedance_silent
 			pass_item['total_impedance_ori_txt'] = self.total_impedance_ori_txt
 			pass_item['total_impedance_txt'] = self.total_impedance_txt
@@ -864,7 +864,8 @@ class TCircuitSolver:
 			self.solution_log.append('Failed: see codes')
 
 		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
-		self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
+		if self.opts['debug_mode'] == 1:
+			self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
 
 		result = []
 		for item in edge_values_:

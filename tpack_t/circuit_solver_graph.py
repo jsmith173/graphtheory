@@ -45,9 +45,9 @@ class TCircuitSolverGraph:
 		self.show_tree = 0
 		self.show_result = 0
 		if opts != None:
-			self.show_graph = opts['debug_mode']
-			self.show_tree = opts['debug_mode']
-			self.show_result = opts['debug_mode']
+			self.show_graph = opts['debug_mode'] == 1
+			self.show_tree = opts['debug_mode'] == 1
+			self.show_result = opts['debug_mode'] == 1
 
 	def prepare(self, circuit_key):
 		self.resistive_comps_.append(RES_)
@@ -256,7 +256,7 @@ class TCircuitSolverGraph:
 			raise Exception('get_directed_nodes')	
 		return r	
 
-	def set_node_val(self, node, v, state, key, directed_nodes_=None, top=None):
+	def set_node_val(self, node, v, label, state, key, directed_nodes_=None, top=None):
 		node.prop[key] = v
 		node.prop['valid'] = state
 		if top != None:
@@ -267,7 +267,7 @@ class TCircuitSolverGraph:
 			node.directed_nodes = directed_nodes_
 			m = node.directed_nodes[0]
 			n = node.directed_nodes[1]
-			self.update_nodal_edges(node.directed_nodes, v, key)
+			self.update_nodal_edges(node.directed_nodes, v, key, label)
 			self.nodal_voltage_log.append(f"Nodes: {m}, {n}, {key}: {v}, top type: {top_str}")
 
 	def get_label_prop(self, node, calc_impedance=False):
@@ -787,8 +787,11 @@ class TCircuitSolverGraph:
 					v = v-item2[key]
 			item[key] = v
 
-	def update_nodal_edges(self, directed_nodes, v, key):
-		idx, original_dir = self.find_in_json_by_nodes(directed_nodes)
+	def update_nodal_edges(self, directed_nodes, v, key, label):
+		if key == 'current'and label != '':
+			idx = self.find_in_json(label)
+		else:	
+			idx, original_dir = self.find_in_json_by_nodes(directed_nodes)
 		if idx >= 0:
 			item = self.json_data["edges"][idx]
 			new_item = {}

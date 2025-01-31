@@ -1,24 +1,25 @@
 {
-    "N": 5,
+    "N": 6,
     "nodes": [
+        1,
         2,
         3,
-        4,
         0,
-        1
+        4,
+        5
     ],
     "gens": [
         {
             "nodes": [
-                1,
+                5,
                 0
             ],
             "prop": {
-                "label": "VS1",
+                "label": "Vs",
                 "match_label": "",
                 "CompId": 14,
-                "UniqueID": "T_1F27FA0020240204131136",
-                "value": 6,
+                "UniqueID": "T_0941000020230426193226",
+                "value": 2,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -31,27 +32,35 @@
             "currents": [
                 {
                     "label": "R1",
-                    "value": 1.06
+                    "value": -0.38596
                 },
                 {
                     "label": "R2",
-                    "value": 0.19355
+                    "value": 0.52632
                 },
                 {
                     "label": "R3",
-                    "value": -1.06
+                    "value": 0.14035
                 },
                 {
                     "label": "R4",
-                    "value": -0.19355
+                    "value": -0.14035
                 },
                 {
                     "label": "R5",
-                    "value": -0.87097
+                    "value": 0.10526
                 },
                 {
-                    "label": "VS1",
-                    "value": -1.06
+                    "label": "R6",
+                    "value": -0.2807
+                },
+                {
+                    "label": "R7",
+                    "value": -0.24561
+                },
+                {
+                    "label": "Vs",
+                    "value": -0.52632
                 }
             ]
         }
@@ -60,29 +69,29 @@
     "edges": [
         {
             "nodes": [
-                2,
-                3
+                1,
+                2
             ],
             "prop": {
                 "label": "R5",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39CC1020240130111214",
-                "value": 2,
+                "UniqueID": "T_000000002821808020250122070817",
+                "value": 3,
                 "flags": 1
             }
         },
         {
             "nodes": [
                 2,
-                4
+                3
             ],
             "prop": {
                 "label": "R4",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39C72020240130111211",
-                "value": 5,
+                "UniqueID": "T_0940DD7020230426193226",
+                "value": 2,
                 "flags": 1
             }
         },
@@ -92,42 +101,70 @@
                 2
             ],
             "prop": {
-                "label": "R3",
+                "label": "R7",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39C23020240130111206",
-                "value": 3,
+                "UniqueID": "T_0940F13020230426193226",
+                "value": 1,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                3,
-                4
+                0,
+                1
             ],
             "prop": {
-                "label": "R2",
+                "label": "R6",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39BD4020240130111203",
-                "value": 4,
+                "UniqueID": "T_0940E26020230426193226",
+                "value": 2,
                 "flags": 1
             }
         },
         {
             "nodes": [
                 1,
-                3
+                4
             ],
             "prop": {
                 "label": "R1",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39B85020240130111157",
+                "UniqueID": "T_0940E75020230426193226",
                 "value": 1,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                4,
+                3
+            ],
+            "prop": {
+                "label": "R3",
+                "match_label": "",
+                "CompId": 9,
+                "UniqueID": "T_0940FB1020230426193226",
+                "value": 3,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                5,
+                4
+            ],
+            "prop": {
+                "label": "R2",
+                "match_label": "",
+                "CompId": 9,
+                "UniqueID": "T_0940EC4020230426193226",
+                "value": 2,
                 "flags": 1
             }
         }
     ],
-    "circ_name": "g-grid1-two-gen-001.tsc"
+    "circ_name": "vd5_mod.tsc"
 }

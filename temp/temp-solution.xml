@@ -109,11 +109,11 @@
 			</voltage_items>
 			<current_items>
 				<item>
-					<current>0.19354838709677416</current>
+					<current>0.8709677419354839</current>
 					<original_dir>false</original_dir>
 				</item>
 			</current_items>
-			<current>-0.19354838709677416</current>
+			<current>-0.8709677419354839</current>
 		</item>
 	</edge_values>
 	<calculation>
@@ -142,7 +142,7 @@
 			<item>(3) The components R5,Rd connected in parallel. The voltage on R5 is 1.74V because the voltage on Rc is 1.74V</item>
 			<item/>
 			<item>(3) The current on R5 is the 'voltage on R5 / R5' = 871mA .</item>
-			<item>*** Wrong ***: expected: -870m, got: -194m</item>
+			<item>*** Passed ***: expected: -870m, got: -871m</item>
 		</solution>
 		<block_labels>
 			<item>
@@ -199,8 +199,8 @@
 			</item>
 		</block_labels>
 		<fn>data/g-grid1-two-gen-001.json</fn>
-		<valid>0</valid>
+		<valid>1</valid>
 		<error>0</error>
-		<status>Solver error: data/g-grid1-two-gen-001.json</status>
+		<status>OK</status>
 	</calculation>
 </top>
