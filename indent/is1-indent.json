@@ -1,11 +1,10 @@
 {
     "circuit_no_gens": {
-        "N": 4,
+        "N": 3,
         "nodes": [
             2,
             1,
-            0,
-            3
+            0
         ],
         "gens": [
             {
@@ -24,46 +23,9 @@
                         "mode": 0
                     }
                 }
-            },
-            {
-                "nodes": [
-                    3,
-                    0
-                ],
-                "prop": {
-                    "label": "VS1",
-                    "match_label": "",
-                    "CompId": 14,
-                    "UniqueID": "T_1F27FA0020240204131136",
-                    "value": 6,
-                    "flags": 1,
-                    "ac_gen": {
-                        "mode": 0
-                    }
-                }
             }
         ],
         "dctables": [
-            {
-                "currents": [
-                    {
-                        "label": "R1",
-                        "value": 1
-                    },
-                    {
-                        "label": "R3",
-                        "value": -1
-                    },
-                    {
-                        "label": "R5",
-                        "value": -1
-                    },
-                    {
-                        "label": "VS1",
-                        "value": -1
-                    }
-                ]
-            },
             {
                 "currents": [
                     {
@@ -77,10 +39,6 @@
                     {
                         "label": "R5",
                         "value": 0.33333
-                    },
-                    {
-                        "label": "VS1",
-                        "value": -0.66667
                     }
                 ]
             }
@@ -117,7 +75,7 @@
             },
             {
                 "nodes": [
-                    3,
+                    0,
                     1
                 ],
                 "prop": {
@@ -130,7 +88,7 @@
                 }
             }
         ],
-        "circ_name": "g-grid1-ok-with vs and is.tsc"
+        "circ_name": "is1.tsc"
     },
     "request": {
         "text": "What is the current on R1?",
@@ -141,6 +99,6 @@
     },
     "expected": {
         "valid": 1,
-        "res_req": 1.667
+        "res_req": 0.333
     }
 }

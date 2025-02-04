@@ -166,7 +166,7 @@
             "The total resistance is Ra = 3.33Ohm",
             "",
             "Now we calculate the voltage on R1",
-            "We know that the voltage between IS1 nodes is 3.333333333333333V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 3.33Ohm so the voltage between the generator nodes is Igen*Rtot = 3.333333333333333V",
+            "We know that the voltage between IS1 nodes is 3.33V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 3.33Ohm so the voltage between the generator nodes is Igen*Rtot = 3.33V",
             "",
             "(1) The components R2,Rb connected in series.",
             "(1) The voltage between this components starting and ending node is 3.33V.",

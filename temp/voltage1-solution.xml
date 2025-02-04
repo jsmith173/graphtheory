@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R2 and R1 connected in series so Ra=R2+R1=2Ohm</item>
+				<item>The total resistance is Ra = 2Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R2 and R1 connected in series so Ra=R2+R1=2Ohm</item>
+				<item>The total resistance is Ra = 2Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>1</item>
+					<item>0</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_1F27FA0020240204131136</UniqueID>
+					<value>6</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+	</superposition>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>R2 2 0</item>
+		<item>R1 1 2</item>
+		<item/>
+	</circuit>
+	<request>
+		<text/>
+		<cmd>get_voltage</cmd>
+		<comp>R2</comp>
+		<options>&lt;none&gt;</options>
+		<qid>0</qid>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<edge_values>
+		<item>
+			<label>R1</label>
+			<nodes>
+				<item>1</item>
+				<item>2</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>3.0</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>3.0</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+			<voltage>3.0</voltage>
+		</item>
+		<item>
+			<label>R2</label>
+			<nodes>
+				<item>2</item>
+				<item>0</item>
+			</nodes>
+			<voltage_items>
+				<item>
+					<voltage>3.0</voltage>
+					<original_dir>true</original_dir>
+				</item>
+			</voltage_items>
+			<current_items>
+				<item>
+					<current>3.0</current>
+					<original_dir>true</original_dir>
+				</item>
+			</current_items>
+			<voltage>3.0</voltage>
+		</item>
+	</edge_values>
+	<calculation>
+		<solution>
+			<item>&gt;&gt; Pass1 started ...</item>
+			<item>&gt;&gt; Gen processing: VS1 ...</item>
+			<item>*** Solution by TINA assisted by AI ***</item>
+			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>R2 and R1 connected in series so Ra=R2+R1=2Ohm</item>
+			<item>The total resistance is Ra = 2Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on R2</item>
+			<item>We know that the voltage between VS1 nodes is 6V.</item>
+			<item/>
+			<item>(1) The components R2,R1 connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is 6V.</item>
+			<item>(1) R2 is in the voltage divider so the voltage on R2 is R2/Ra*6V = 3V. </item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<value>2Ohm</value>
+				<labels>
+					<item>R2</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39BD4020240130111203</item>
+					<item>T_1F39B85020240130111157</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/voltage1.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

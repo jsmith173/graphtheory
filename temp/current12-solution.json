@@ -20,7 +20,7 @@
                     "label": "IS1",
                     "match_label": "",
                     "CompId": 13,
-                    "UniqueID": "U4CSOSAGR0BOMHR6IF1RTDVC",
+                    "UniqueID": "T_0000000026F9A22020250120125317",
                     "value": 6,
                     "flags": 1,
                     "ac_gen": {
@@ -38,8 +38,8 @@
         ""
     ],
     "request": {
-        "text": "What is the voltage on R2?",
-        "cmd": "get_voltage",
+        "text": "What is the current on R2?",
+        "cmd": "get_current",
         "comp": "R2",
         "options": "<none>",
         "qid": "0",
@@ -66,7 +66,7 @@
                     "original_dir": true
                 }
             ],
-            "voltage": 8.0
+            "current": 4.0
         },
         {
             "label": "R2",
@@ -86,7 +86,7 @@
                     "original_dir": false
                 }
             ],
-            "voltage": -4.0
+            "current": -2.0
         },
         {
             "label": "R3",
@@ -106,7 +106,7 @@
                     "original_dir": false
                 }
             ],
-            "voltage": -4.0
+            "current": -2.0
         }
     ],
     "calculation": {
@@ -117,7 +117,7 @@
             "R1 and Rb connected in parallel so Ra=R1*Rb/(R1+Rb)=1.33Ohm",
             "The total resistance is Ra = 1.33Ohm",
             "",
-            "Now we calculate the voltage on R2",
+            "Now we calculate the current on R2",
             "We know that the voltage between IS1 nodes is 8V, because the generator current is Igen = 6A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 8V",
             "",
             "(1) The components R1,Rb connected in parallel. The voltage on Rb is 8V because the voltage on Ra is 8V",
@@ -125,8 +125,9 @@
             "(2) The components R3,R2 connected in series.",
             "(2) The voltage between this components starting and ending node is 8V.",
             "(2) R2 is in the voltage divider so the voltage on R2 is R2/Rb*8V = 4V. ",
+            "(2) The current on R2 is the 'voltage on R2 / R2' = 2A .",
             "",
-            "*** Passed ***: expected: -4, got: -4"
+            "*** Passed ***: expected: -2, got: -2"
         ],
         "block_labels": [
             {
@@ -138,7 +139,7 @@
                     "R2"
                 ],
                 "unique_labels": [
-                    "T_0000000026F9BF8020250120123501",
+                    "T_0000000026F9BF8020250120142251",
                     "T_0000000026F7BF8020241208121049"
                 ]
             },
@@ -156,7 +157,7 @@
                 ]
             }
         ],
-        "fn": "data/current2.json",
+        "fn": "data/current12.json",
         "valid": 1,
         "error": 0,
         "status": "OK"

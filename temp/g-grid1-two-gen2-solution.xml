@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<superposition/>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>AM1 1 2</item>
+		<item>R5 4 3</item>
+		<item>R4 4 6</item>
+		<item>R3 0 4</item>
+		<item>R2 3 5</item>
+		<item>R1 2 3</item>
+		<item/>
+	</circuit>
+	<request>
+		<text>What is the current on R5?</text>
+		<cmd>get_current</cmd>
+		<comp>R5</comp>
+		<options>&lt;none&gt;</options>
+		<qid>0</qid>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<edge_values/>
+	<calculation>
+		<solution>
+			<item>*** Solution by TINA assisted by AI ***</item>
+			<item>We have more than one generator so we are using superposition to calculate voltages/currents.</item>
+			<item/>
+			<item>&gt;&gt; Pass1 started ...</item>
+			<item>&gt;&gt; Gen processing: VS2 ...</item>
+			<item>Failed: see codes</item>
+		</solution>
+		<fn>data/g-grid1-two-gen2.json</fn>
+		<valid>0</valid>
+		<error>1</error>
+		<status>Fatal error: 'NoneType' object is not subscriptable</status>
+	</calculation>
+</all>

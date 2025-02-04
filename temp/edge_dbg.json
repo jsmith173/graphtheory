@@ -1,61 +1,25 @@
 [
     {
-        "source": 1,
+        "source": 0,
         "target": 2,
         "prop": {
-            "label": "R5",
+            "label": "L",
             "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_000000002821808020250122070817",
-            "value": 3,
+            "CompId": 11,
+            "UniqueID": "T_09E10A9020230627121020",
+            "value": 5.3e-05,
             "flags": 1
         }
     },
     {
-        "source": 2,
+        "source": 0,
         "target": 3,
         "prop": {
-            "label": "R4",
+            "label": "R",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_0940DD7020230426193226",
-            "value": 2,
-            "flags": 1
-        }
-    },
-    {
-        "source": 0,
-        "target": 2,
-        "prop": {
-            "label": "R7",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0940F13020230426193226",
-            "value": 1,
-            "flags": 1
-        }
-    },
-    {
-        "source": 0,
-        "target": 1,
-        "prop": {
-            "label": "R6",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0940E26020230426193226",
-            "value": 2,
-            "flags": 1
-        }
-    },
-    {
-        "source": 1,
-        "target": 4,
-        "prop": {
-            "label": "R1",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0940E75020230426193226",
-            "value": 1,
+            "UniqueID": "T_09E105A020230627121020",
+            "value": 0.25,
             "flags": 1
         }
     },
@@ -63,23 +27,35 @@
         "source": 4,
         "target": 3,
         "prop": {
-            "label": "R3",
+            "label": "iR",
             "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0940FB1020230426193226",
-            "value": 3,
+            "CompId": 34,
+            "UniqueID": "T_09E100B020230627121020",
+            "value": 0,
             "flags": 1
         }
     },
     {
-        "source": 5,
+        "source": 4,
+        "target": 2,
+        "prop": {
+            "label": "iL",
+            "match_label": "",
+            "CompId": 34,
+            "UniqueID": "T_09E0BB9020230627121020",
+            "value": 0,
+            "flags": 1
+        }
+    },
+    {
+        "source": 1,
         "target": 4,
         "prop": {
-            "label": "R2",
+            "label": "is",
             "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0940EC4020230426193226",
-            "value": 2,
+            "CompId": 34,
+            "UniqueID": "T_09E0B6A020230627121020",
+            "value": 0,
             "flags": 1
         }
     }

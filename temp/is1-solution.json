@@ -1,0 +1,138 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "R1 and R3 connected in series so Rb=R1+R3=2Ohm",
+                "R5 and Rb connected in parallel so Ra=R5*Rb/(R5+Rb)=1.33Ohm",
+                "The total resistance is Ra = 1.33Ohm"
+            ],
+            "total_impedance_txt": [
+                "R1 and R3 connected in series so Rb=R1+R3=2Ohm",
+                "R5 and Rb connected in parallel so Ra=R5*Rb/(R5+Rb)=1.33Ohm",
+                "The total resistance is Ra = 1.33Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "T_047B1FC020240428081016",
+                    "value": 1,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R5 2 1",
+        "R3 0 2",
+        "R1 0 1",
+        ""
+    ],
+    "request": {
+        "text": "What is the current on R1?",
+        "cmd": "get_current",
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "edge_values": [
+        {
+            "label": "R1",
+            "nodes": [
+                0,
+                1
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 0.6666666666666666,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 0.6666666666666666,
+                    "original_dir": true
+                }
+            ],
+            "current": 0.6666666666666666
+        },
+        {
+            "label": "R3",
+            "nodes": [
+                0,
+                2
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 0.6666666666666666,
+                    "original_dir": false
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 0.6666666666666666,
+                    "original_dir": false
+                }
+            ],
+            "current": -0.6666666666666666
+        },
+        {
+            "label": "R5",
+            "nodes": [
+                2,
+                1
+            ],
+            "current_items": [
+                {
+                    "current": 0.3333333333333333,
+                    "original_dir": true
+                }
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 1.3333333333333333,
+                    "original_dir": true
+                }
+            ],
+            "current": 0.3333333333333333
+        }
+    ],
+    "calculation": {
+        "solution": [
+            "*** Solution by TINA assisted by AI ***",
+            "At first we calculate the total resistance between the generator nodes (IS1)",
+            "R1 and R3 connected in series so Rb=R1+R3=2Ohm",
+            "R5 and Rb connected in parallel so Ra=R5*Rb/(R5+Rb)=1.33Ohm",
+            "The total resistance is Ra = 1.33Ohm",
+            "",
+            "Now we calculate the current on R1",
+            "We know that the voltage between IS1 nodes is 1.33V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 1.33V",
+            "",
+            "(1) The components R5,Rb connected in parallel. The voltage on Rb is 1.33V because the voltage on Ra is 1.33V",
+            "",
+            "(2) The components R1,R3 connected in series.",
+            "(2) The voltage between this components starting and ending node is 1.33V.",
+            "(2) R1 is in the voltage divider so the voltage on R1 is R1/Rb*1.33V = 667mV. ",
+            "(2) The current on R1 is the 'voltage on R1 / R1' = 667mA .",
+            "",
+            "*** Wrong ***: expected: 333m, got: 667m",
+            "Failed: see codes"
+        ],
+        "fn": "data/is1.json",
+        "valid": 1,
+        "error": 1,
+        "status": "Solver error: data/is1.json"
+    }
+}

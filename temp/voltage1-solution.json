@@ -1,0 +1,126 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "R2 and R1 connected in series so Ra=R2+R1=2Ohm",
+                "The total resistance is Ra = 2Ohm"
+            ],
+            "total_impedance_txt": [
+                "R2 and R1 connected in series so Ra=R2+R1=2Ohm",
+                "The total resistance is Ra = 2Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_1F27FA0020240204131136",
+                    "value": 6,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R2 2 0",
+        "R1 1 2",
+        ""
+    ],
+    "request": {
+        "text": "",
+        "cmd": "get_voltage",
+        "comp": "R2",
+        "options": "<none>",
+        "qid": "0",
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "edge_values": [
+        {
+            "label": "R1",
+            "nodes": [
+                1,
+                2
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 3.0,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 3.0,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 3.0
+        },
+        {
+            "label": "R2",
+            "nodes": [
+                2,
+                0
+            ],
+            "voltage_items": [
+                {
+                    "voltage": 3.0,
+                    "original_dir": true
+                }
+            ],
+            "current_items": [
+                {
+                    "current": 3.0,
+                    "original_dir": true
+                }
+            ],
+            "voltage": 3.0
+        }
+    ],
+    "calculation": {
+        "solution": [
+            ">> Pass1 started ...",
+            ">> Gen processing: VS1 ...",
+            "*** Solution by TINA assisted by AI ***",
+            "At first we calculate the total resistance between the generator nodes (VS1)",
+            "R2 and R1 connected in series so Ra=R2+R1=2Ohm",
+            "The total resistance is Ra = 2Ohm",
+            "",
+            "Now we calculate the voltage on R2",
+            "We know that the voltage between VS1 nodes is 6V.",
+            "",
+            "(1) The components R2,R1 connected in series.",
+            "(1) The voltage between this components starting and ending node is 6V.",
+            "(1) R2 is in the voltage divider so the voltage on R2 is R2/Ra*6V = 3V. ",
+            ""
+        ],
+        "block_labels": [
+            {
+                "label": "Ra",
+                "origin": "series",
+                "value": "2Ohm",
+                "labels": [
+                    "R2",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "T_1F39BD4020240130111203",
+                    "T_1F39B85020240130111157"
+                ]
+            }
+        ],
+        "fn": "data/voltage1.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

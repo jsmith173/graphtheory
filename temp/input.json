@@ -1,28 +1,31 @@
 {
-    "N": 6,
+    "N": 5,
     "nodes": [
-        1,
+        0,
         2,
         3,
-        0,
         4,
-        5
+        1
     ],
     "gens": [
         {
             "nodes": [
-                5,
-                0
+                0,
+                1
             ],
             "prop": {
-                "label": "Vs",
+                "label": "is(t)",
                 "match_label": "",
-                "CompId": 14,
-                "UniqueID": "T_0941000020230426193226",
-                "value": 2,
+                "CompId": 15,
+                "UniqueID": "T_09E10F8020230627121020",
+                "value": 0,
                 "flags": 1,
                 "ac_gen": {
-                    "mode": 0
+                    "mode": 1,
+                    "AbsV": 5,
+                    "Phase": 0,
+                    "Freq": 1000,
+                    "FreqStr": "1k"
                 }
             }
         }
@@ -31,36 +34,12 @@
         {
             "currents": [
                 {
-                    "label": "R1",
-                    "value": -0.38596
+                    "label": "L",
+                    "value": 0
                 },
                 {
-                    "label": "R2",
-                    "value": 0.52632
-                },
-                {
-                    "label": "R3",
-                    "value": 0.14035
-                },
-                {
-                    "label": "R4",
-                    "value": -0.14035
-                },
-                {
-                    "label": "R5",
-                    "value": 0.10526
-                },
-                {
-                    "label": "R6",
-                    "value": -0.2807
-                },
-                {
-                    "label": "R7",
-                    "value": -0.24561
-                },
-                {
-                    "label": "Vs",
-                    "value": -0.52632
+                    "label": "R",
+                    "value": 0
                 }
             ]
         }
@@ -69,71 +48,29 @@
     "edges": [
         {
             "nodes": [
-                1,
+                0,
                 2
             ],
             "prop": {
-                "label": "R5",
+                "label": "L",
                 "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_000000002821808020250122070817",
-                "value": 3,
+                "CompId": 11,
+                "UniqueID": "T_09E10A9020230627121020",
+                "value": 5.3e-05,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                2,
+                0,
                 3
             ],
             "prop": {
-                "label": "R4",
+                "label": "R",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_0940DD7020230426193226",
-                "value": 2,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                0,
-                2
-            ],
-            "prop": {
-                "label": "R7",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_0940F13020230426193226",
-                "value": 1,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                0,
-                1
-            ],
-            "prop": {
-                "label": "R6",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_0940E26020230426193226",
-                "value": 2,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                1,
-                4
-            ],
-            "prop": {
-                "label": "R1",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_0940E75020230426193226",
-                "value": 1,
+                "UniqueID": "T_09E105A020230627121020",
+                "value": 0.25,
                 "flags": 1
             }
         },
@@ -143,28 +80,42 @@
                 3
             ],
             "prop": {
-                "label": "R3",
+                "label": "iR",
                 "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_0940FB1020230426193226",
-                "value": 3,
+                "CompId": 34,
+                "UniqueID": "T_09E100B020230627121020",
+                "value": 0,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                5,
+                4,
+                2
+            ],
+            "prop": {
+                "label": "iL",
+                "match_label": "",
+                "CompId": 34,
+                "UniqueID": "T_09E0BB9020230627121020",
+                "value": 0,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                1,
                 4
             ],
             "prop": {
-                "label": "R2",
+                "label": "is",
                 "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_0940EC4020230426193226",
-                "value": 2,
+                "CompId": 34,
+                "UniqueID": "T_09E0B6A020230627121020",
+                "value": 0,
                 "flags": 1
             }
         }
     ],
-    "circ_name": "vd5_mod.tsc"
+    "circ_name": "ai_curr_2.tsc"
 }

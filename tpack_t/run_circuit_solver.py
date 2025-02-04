@@ -91,7 +91,7 @@ def run():
 	test_request_am = {
 		"text": "",
 		"cmd": "get_current",
-		"comp": "AM1",
+		"comp": "iL",
 		"options": "<none>",
 		"qid": "0"
 	}
@@ -99,13 +99,13 @@ def run():
 	mode_release = 0
 
 	opts = {}
-	opts['mode_all_files'] = 1
+	opts['mode_all_files'] = 0
 	opts['debug_mode'] = 1
 	opts['test_Y'] = 1
 	opts['test_D'] = 1
 	opts['log_info'] = 1
 	opts['override_request'] = 1
-	opts['request'] = test_request
+	opts['request'] = test_request_am
 
 	if mode_release == 1:
 		opts['mode_all_files'] = 0
@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'g-grid1-two-gen-001.json'	
+		test_file = 'AI_curr_2.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0
@@ -123,7 +123,7 @@ def run():
 			filelist = json_data_l['filelist']
 		test_all(filelist, opts)
 	else:	
-		test_one_file(test_file, 'circuit_no_gens', opts)
+		test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
 
 if __name__ == "__main__":
 	run()

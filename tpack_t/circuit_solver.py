@@ -807,7 +807,7 @@ class TCircuitSolver:
 		if gen_new_value['quantity'] == 'voltage':
 			self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
 		else:	
-			voltage_str = f"{voltage_val}V"
+			voltage_str = f"{cu.fv(voltage_val)}V"
 			self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
 			          f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {cu.fv(T.prop['impedance'])}Ohm so "
 				 	  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
@@ -864,8 +864,8 @@ class TCircuitSolver:
 			self.solution_log.append('Failed: see codes')
 
 		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
-		if self.opts['debug_mode'] == 1:
-			self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
+		#if self.opts['debug_mode'] == 1:
+		#	self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
 
 		result = []
 		for item in edge_values_:

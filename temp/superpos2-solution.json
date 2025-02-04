@@ -138,7 +138,7 @@
             "The total resistance is Ra0 = 500Ohm",
             "",
             "Now we calculate the voltage on R1",
-            "We know that the voltage between IS1 nodes is 5.0V, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 500Ohm so the voltage between the generator nodes is Igen*Rtot = 5.0V",
+            "We know that the voltage between IS1 nodes is 5V, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 500Ohm so the voltage between the generator nodes is Igen*Rtot = 5V",
             "All voltage generators have been replaced with a short circuit.",
             "All current generators except for IS1 have been replaced with an open circuit.",
             "",
