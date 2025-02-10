@@ -91,7 +91,7 @@ def run():
 	test_request_am = {
 		"text": "",
 		"cmd": "get_current",
-		"comp": "iL",
+		"comp": "AM1",
 		"options": "<none>",
 		"qid": "0"
 	}
@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'AI_curr_2.json'	
+		test_file = 'g-ser-simple-ok.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0

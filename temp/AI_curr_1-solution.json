@@ -1,44 +1,5 @@
 {
-    "superposition": [
-        {
-            "total_impedance_ori_txt": [
-                "Zc=1/(j*w*C)",
-                "Ze=j*w*L",
-                "Ze and R connected in series so Zd=Ze+R='38.5 / 78°'Ohm",
-                "Zc and Zd connected in parallel so Zb=Zc*Zd/(Zc+Zd)='26.4 / -81.8°'Ohm",
-                "Zf=1/(j*w*C1)",
-                "Zb and Zf connected in series so Za=Zb+Zf='31.7 / -83.2°'Ohm",
-                "The total impedance is Za = '31.7 / -83.2°'Ohm"
-            ],
-            "total_impedance_txt": [
-                "j*w*L and R connected in series so Zd=j*w*L+R='38.5 / 78°'Ohm",
-                "1/(j*w*C) and Zd connected in parallel so Zb=1/(j*w*C)*Zd/(1/(j*w*C)+Zd)='26.4 / -81.8°'Ohm",
-                "Zb and 1/(j*w*C1) connected in series so Za=Zb+1/(j*w*C1)='31.7 / -83.2°'Ohm",
-                "The total impedance is Za = '31.7 / -83.2°'Ohm"
-            ],
-            "gen": {
-                "nodes": [
-                    1,
-                    0
-                ],
-                "prop": {
-                    "label": "V",
-                    "match_label": "",
-                    "CompId": 16,
-                    "UniqueID": "T_0A3240E020230627124151",
-                    "value": 0,
-                    "flags": 1,
-                    "ac_gen": {
-                        "mode": 1,
-                        "AbsV": 10,
-                        "Phase": 0,
-                        "Freq": 1000,
-                        "FreqStr": "1k"
-                    }
-                }
-            }
-        }
-    ],
+    "superposition": [],
     "circuit": [
         "Netlist (component name, nodes)",
         "I1 2 0",
@@ -51,91 +12,22 @@
         ""
     ],
     "request": {
-        "text": "",
+        "text": "What is the current on R1?",
         "cmd": "get_current",
-        "comp": "L",
+        "comp": "R1",
         "options": "<none>",
         "qid": "0",
         "req_on_gen": false,
         "volt_meter_question": false,
-        "amper_meter_question": true,
-        "comp_ori": "I2"
+        "amper_meter_question": false
     },
     "calculation": {
         "solution": [
             "*** Solution by TINA assisted by AI ***",
-            "This is an AC calculation",
-            "We know that generator frequency is f=1k Hz, w=2*pi*f",
-            "At first we calculate the total impedance between the generator nodes (V)",
-            "j*w*L and R connected in series so Zd=j*w*L+R='38.5 / 78°'Ohm",
-            "1/(j*w*C) and Zd connected in parallel so Zb=1/(j*w*C)*Zd/(1/(j*w*C)+Zd)='26.4 / -81.8°'Ohm",
-            "Zb and 1/(j*w*C1) connected in series so Za=Zb+1/(j*w*C1)='31.7 / -83.2°'Ohm",
-            "The total impedance is Za = '31.7 / -83.2°'Ohm",
-            "",
-            "Now we calculate the current on L",
-            "We know that the voltage between V nodes is '10 / 0°'V.",
-            "",
-            "(1) The components Zb,1/(j*w*C1) connected in series.",
-            "(1) The voltage between this components starting and ending node is '10 / 0°'V.",
-            "(1) Zb is in the voltage divider so the voltage on Zb is Zb/Za*'10 / 0°'V = '8.34 / 1.37°'V. ",
-            "(1) The current on Zb is the 'voltage on Zb / Zb' = '316m / 83.2°'A .",
-            "",
-            "(2) The components 1/(j*w*C),Zd connected in parallel. The voltage on Zd is '8.34 / 1.37°'V because the voltage on Zb is '8.34 / 1.37°'V",
-            "",
-            "(3) The components j*w*L,R connected in series.",
-            "(3) The voltage between this components starting and ending node is '8.34 / 1.37°'V.",
-            "(3) j*w*L is in the voltage divider so the voltage on j*w*L is Ze/Zd*'8.34 / 1.37°'V = '8.16 / 13.3°'V. ",
-            "(3) The current on j*w*L is the 'voltage on j*w*L / Ze' = '216m / -76.7°'A .",
-            "",
-            "(4) The voltage on L is '8.16 / 13.3°'V because the voltage is '8.16 / 13.3°'V on j*w*L",
-            "(4) The current on L is the 'voltage on L / j*w*L' = '216m / -76.7°'A .",
-            "",
-            "To answer the original question: because the I2 ampermeter connected to L in series so the current on I2 is '216m / 103°'A",
-            "We have considered also that the direction of the ampermeter does not match the current direction on L",
-            "We have considered also the sign of the current on L"
+            "The component R1 removed from the graph so we break this pass."
         ],
-        "block_labels": [
-            {
-                "label": "Zd",
-                "origin": "series",
-                "value": "'38.5 / 78°'Ohm",
-                "labels": [
-                    "j*w*L",
-                    "R"
-                ],
-                "unique_labels": [
-                    "<block>",
-                    "T_0A31B6A020230627124151"
-                ]
-            },
-            {
-                "label": "Zb",
-                "origin": "parallel",
-                "value": "'26.4 / -81.8°'Ohm",
-                "labels": [
-                    "1/(j*w*C)",
-                    "Zd"
-                ],
-                "unique_labels": [
-                    "<block>",
-                    "<block>"
-                ]
-            },
-            {
-                "label": "Za",
-                "origin": "series",
-                "value": "'31.7 / -83.2°'Ohm",
-                "labels": [
-                    "Zb",
-                    "1/(j*w*C1)"
-                ],
-                "unique_labels": [
-                    "<block>",
-                    "<block>"
-                ]
-            }
-        ],
-        "fn": "data/AI_curr_1.json",
+        "block_labels": [],
+        "fn": "data/ai_curr_1.json",
         "valid": 1,
         "error": 0,
         "status": "OK"

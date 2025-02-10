@@ -40,6 +40,24 @@
                         "label": "R3",
                         "value": -2
                     }
+                ],
+                "other voltages": [
+                    {
+                        "label": "IS1",
+                        "value": -8
+                    },
+                    {
+                        "label": "R1",
+                        "value": 8
+                    },
+                    {
+                        "label": "R2",
+                        "value": -4
+                    },
+                    {
+                        "label": "R3",
+                        "value": -4
+                    }
                 ]
             }
         ],

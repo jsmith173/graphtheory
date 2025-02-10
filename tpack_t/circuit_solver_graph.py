@@ -799,7 +799,7 @@ class TCircuitSolverGraph:
 			new_item['nodes'] = item['nodes']
 
 			#get the direction from 'dctable'
-			original_dir = self.getdir_from_dctable(self.i_pass, item['prop']['label'])
+			f, original_dir = self.getdir_from_dctable(self.i_pass, item['prop']['label'], "currents")
 
 			new_item2 = {}
 			new_item2[key] = v
@@ -918,9 +918,9 @@ class TCircuitSolverGraph:
 				return True
 		return False	
 
-	def getdir_from_dctable(self, i_pass, label):
+	def getdir_from_dctable(self, i_pass, label, key):
 		dctable = self.json_data["dctables"][self.i_pass]
-		key = "currents"; res = True
+		res = True; f = False
 		idx = self.find_in_json(label)
 
 		if idx >= 0:
@@ -928,6 +928,7 @@ class TCircuitSolverGraph:
 			for item in table:
 				if item['label'] == label:
 					res = item['value'] >= 0.0
+					f = True
 					break
-		return res			
+		return f, res			
 

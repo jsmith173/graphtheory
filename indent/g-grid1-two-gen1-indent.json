@@ -48,6 +48,12 @@
         ],
         "dctables": [
             {
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": 1.74
+                    }
+                ],
                 "currents": [
                     {
                         "label": "R1",
@@ -77,9 +83,53 @@
                         "label": "VS2",
                         "value": 0.19355
                     }
+                ],
+                "other voltages": [
+                    {
+                        "label": "AM1",
+                        "value": 0
+                    },
+                    {
+                        "label": "R1",
+                        "value": 1.06
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0.77419
+                    },
+                    {
+                        "label": "R3",
+                        "value": -3.19
+                    },
+                    {
+                        "label": "R4",
+                        "value": -0.96774
+                    },
+                    {
+                        "label": "R5",
+                        "value": -1.74
+                    },
+                    {
+                        "label": "VM1",
+                        "value": 1.74
+                    },
+                    {
+                        "label": "VS1",
+                        "value": 6
+                    },
+                    {
+                        "label": "VS2",
+                        "value": 0
+                    }
                 ]
             },
             {
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": 0.51613
+                    }
+                ],
                 "currents": [
                     {
                         "label": "R1",
@@ -108,6 +158,44 @@
                     {
                         "label": "VS2",
                         "value": -0.3871
+                    }
+                ],
+                "other voltages": [
+                    {
+                        "label": "AM1",
+                        "value": 0
+                    },
+                    {
+                        "label": "R1",
+                        "value": -0.12903
+                    },
+                    {
+                        "label": "R2",
+                        "value": -1.55
+                    },
+                    {
+                        "label": "R3",
+                        "value": 0.3871
+                    },
+                    {
+                        "label": "R4",
+                        "value": 1.94
+                    },
+                    {
+                        "label": "R5",
+                        "value": -0.51613
+                    },
+                    {
+                        "label": "VM1",
+                        "value": 0.51613
+                    },
+                    {
+                        "label": "VS1",
+                        "value": 0
+                    },
+                    {
+                        "label": "VS2",
+                        "value": 4
                     }
                 ]
             }

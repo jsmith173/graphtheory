@@ -88,6 +88,60 @@
                         "label": "VS1",
                         "value": -3.75
                     }
+                ],
+                "other voltages": [
+                    {
+                        "label": "R1",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R10",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "R11",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "R12",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R3",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R4",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R5",
+                        "value": 0.625
+                    },
+                    {
+                        "label": "R6",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "R7",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "R8",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "R9",
+                        "value": 1.25
+                    },
+                    {
+                        "label": "VS1",
+                        "value": 5
+                    }
                 ]
             }
         ],

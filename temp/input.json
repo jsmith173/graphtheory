@@ -1,45 +1,68 @@
 {
-    "N": 5,
+    "N": 4,
     "nodes": [
         0,
+        1,
         2,
-        3,
-        4,
-        1
+        3
     ],
     "gens": [
         {
             "nodes": [
-                0,
-                1
+                3,
+                0
             ],
             "prop": {
-                "label": "is(t)",
+                "label": "VS1",
                 "match_label": "",
-                "CompId": 15,
-                "UniqueID": "T_09E10F8020230627121020",
-                "value": 0,
+                "CompId": 14,
+                "UniqueID": "T_1F41FB4020240129133922",
+                "value": 5,
                 "flags": 1,
                 "ac_gen": {
-                    "mode": 1,
-                    "AbsV": 5,
-                    "Phase": 0,
-                    "Freq": 1000,
-                    "FreqStr": "1k"
+                    "mode": 0
                 }
             }
         }
     ],
     "dctables": [
         {
+            "outputs": [
+                {
+                    "label": "AM1",
+                    "value": -2.5
+                }
+            ],
             "currents": [
                 {
-                    "label": "L",
+                    "label": "R1",
+                    "value": 2.5
+                },
+                {
+                    "label": "R2",
+                    "value": 2.5
+                },
+                {
+                    "label": "VS1",
+                    "value": -2.5
+                }
+            ],
+            "other voltages": [
+                {
+                    "label": "AM1",
                     "value": 0
                 },
                 {
-                    "label": "R",
-                    "value": 0
+                    "label": "R1",
+                    "value": 2.5
+                },
+                {
+                    "label": "R2",
+                    "value": 2.5
+                },
+                {
+                    "label": "VS1",
+                    "value": 5
                 }
             ]
         }
@@ -49,73 +72,45 @@
         {
             "nodes": [
                 0,
-                2
+                1
             ],
             "prop": {
-                "label": "L",
+                "label": "AM1",
                 "match_label": "",
-                "CompId": 11,
-                "UniqueID": "T_09E10A9020230627121020",
-                "value": 5.3e-05,
+                "CompId": 34,
+                "UniqueID": "T_000000002822E42020250207070718",
+                "value": 0,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                0,
-                3
+                2,
+                1
             ],
             "prop": {
-                "label": "R",
+                "label": "R2",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_09E105A020230627121020",
-                "value": 0.25,
+                "UniqueID": "T_000000002822DE4020250207070706",
+                "value": 1,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                4,
-                3
-            ],
-            "prop": {
-                "label": "iR",
-                "match_label": "",
-                "CompId": 34,
-                "UniqueID": "T_09E100B020230627121020",
-                "value": 0,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                4,
+                3,
                 2
             ],
             "prop": {
-                "label": "iL",
+                "label": "R1",
                 "match_label": "",
-                "CompId": 34,
-                "UniqueID": "T_09E0BB9020230627121020",
-                "value": 0,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                1,
-                4
-            ],
-            "prop": {
-                "label": "is",
-                "match_label": "",
-                "CompId": 34,
-                "UniqueID": "T_09E0B6A020230627121020",
-                "value": 0,
+                "CompId": 9,
+                "UniqueID": "T_1F41EC7020240129133833",
+                "value": 1,
                 "flags": 1
             }
         }
     ],
-    "circ_name": "ai_curr_2.tsc"
+    "circ_name": "g-ser-simple-ok.tsc"
 }

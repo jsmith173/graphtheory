@@ -50,6 +50,32 @@
                         "label": "R5",
                         "value": 0.33333
                     }
+                ],
+                "other voltages": [
+                    {
+                        "label": "IS1",
+                        "value": -3.33
+                    },
+                    {
+                        "label": "R1",
+                        "value": 0.66667
+                    },
+                    {
+                        "label": "R2",
+                        "value": 1
+                    },
+                    {
+                        "label": "R3",
+                        "value": -0.66667
+                    },
+                    {
+                        "label": "R4",
+                        "value": -1
+                    },
+                    {
+                        "label": "R5",
+                        "value": 1.33
+                    }
                 ]
             }
         ],

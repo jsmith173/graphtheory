@@ -1,14 +1,16 @@
 {
     "circuit_no_gens": {
-        "N": 2,
+        "N": 4,
         "nodes": [
+            0,
             1,
-            0
+            2,
+            3
         ],
         "gens": [
             {
                 "nodes": [
-                    1,
+                    3,
                     0
                 ],
                 "prop": {
@@ -24,12 +26,82 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "outputs": [
+                    {
+                        "label": "AM1",
+                        "value": -2.5
+                    }
+                ],
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "R2",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -2.5
+                    }
+                ],
+                "other voltages": [
+                    {
+                        "label": "AM1",
+                        "value": 0
+                    },
+                    {
+                        "label": "R1",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "R2",
+                        "value": 2.5
+                    },
+                    {
+                        "label": "VS1",
+                        "value": 5
+                    }
+                ]
+            }
+        ],
         "meters": [],
         "edges": [
             {
                 "nodes": [
-                    1,
-                    0
+                    0,
+                    1
+                ],
+                "prop": {
+                    "label": "AM1",
+                    "match_label": "",
+                    "CompId": 34,
+                    "UniqueID": "T_000000002822E42020250207070718",
+                    "value": 0,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    1
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_000000002822DE4020250207070706",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    2
                 ],
                 "prop": {
                     "label": "R1",
@@ -40,16 +112,14 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "g-ser-simple-ok.tsc"
     },
     "request": {
         "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R1"
-    },
-    "expected": {
-        "valid": 1,
-        "res_imp": 1,
-        "res_req": 0
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0"
     }
 }

@@ -572,7 +572,9 @@ class TCircuitSolver:
 					polarity = 1.0
 				elif ii == AM_MINUS_NODE and jj == SECOND_NODE or ii == AM_PLUS_NODE and jj == FIRST_NODE:
 					polarity = -1.0
-				v = v*polarity
+				#v = v*polarity
+				f, original_dir = self.graph.getdir_from_dctable(self.i_pass, item['prop']['label'], "outputs")
+				
 				self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {cu.fv(v)}A")
 				if polarity < 0:
 					self.log(f"We have considered also that the direction of the {sMeter} does not match the {request_txt} direction on {comp}")
@@ -864,6 +866,8 @@ class TCircuitSolver:
 			self.solution_log.append('Failed: see codes')
 
 		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
+		
+		self.solution['dc_table'] = self.graph.json_data["dctables"]
 		#if self.opts['debug_mode'] == 1:
 		#	self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
 

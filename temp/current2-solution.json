@@ -47,68 +47,6 @@
         "volt_meter_question": false,
         "amper_meter_question": false
     },
-    "edge_values": [
-        {
-            "label": "R1",
-            "nodes": [
-                0,
-                2
-            ],
-            "current_items": [
-                {
-                    "current": 4.0,
-                    "original_dir": true
-                }
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 8.0,
-                    "original_dir": true
-                }
-            ],
-            "voltage": 8.0
-        },
-        {
-            "label": "R2",
-            "nodes": [
-                2,
-                1
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 4.0,
-                    "original_dir": false
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 2.0,
-                    "original_dir": false
-                }
-            ],
-            "voltage": -4.0
-        },
-        {
-            "label": "R3",
-            "nodes": [
-                1,
-                0
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 4.0,
-                    "original_dir": false
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 2.0,
-                    "original_dir": false
-                }
-            ],
-            "voltage": -4.0
-        }
-    ],
     "calculation": {
         "solution": [
             "*** Solution by TINA assisted by AI ***",

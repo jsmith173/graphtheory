@@ -53,68 +53,6 @@
         "volt_meter_question": false,
         "amper_meter_question": false
     },
-    "edge_values": [
-        {
-            "label": "R1",
-            "nodes": [
-                1,
-                3
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 1.064516129032258,
-                    "original_dir": true
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 1.064516129032258,
-                    "original_dir": true
-                }
-            ],
-            "current": 1.064516129032258
-        },
-        {
-            "label": "R3",
-            "nodes": [
-                0,
-                2
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 3.193548387096774,
-                    "original_dir": false
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 1.064516129032258,
-                    "original_dir": false
-                }
-            ],
-            "current": -1.064516129032258
-        },
-        {
-            "label": "R5",
-            "nodes": [
-                2,
-                3
-            ],
-            "voltage_items": [
-                {
-                    "voltage": 1.7419354838709675,
-                    "original_dir": false
-                }
-            ],
-            "current_items": [
-                {
-                    "current": 0.8709677419354839,
-                    "original_dir": false
-                }
-            ],
-            "current": -0.8709677419354839
-        }
-    ],
     "calculation": {
         "solution": [
             "*** Solution by TINA assisted by AI ***",

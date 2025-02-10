@@ -54,6 +54,32 @@
                         "label": "VS1",
                         "value": -1.06
                     }
+                ],
+                "other voltages": [
+                    {
+                        "label": "R1",
+                        "value": 1.06
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0.77419
+                    },
+                    {
+                        "label": "R3",
+                        "value": -3.19
+                    },
+                    {
+                        "label": "R4",
+                        "value": -0.96774
+                    },
+                    {
+                        "label": "R5",
+                        "value": -1.74
+                    },
+                    {
+                        "label": "VS1",
+                        "value": 6
+                    }
                 ]
             }
         ],

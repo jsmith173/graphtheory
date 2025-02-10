@@ -1,5 +1,65 @@
 {
-    "superposition": [],
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "Rc0=R3",
+                "R1 and Rc0 connected in series so Rb0=R1+Rc0=2Ohm",
+                "R5 and Rb0 connected in parallel so Ra0=R5*Rb0/(R5+Rb0)=1.33Ohm",
+                "The total resistance is Ra0 = 1.33Ohm"
+            ],
+            "total_impedance_txt": [
+                "R1 and R3 connected in series so Rb0=R1+R3=2Ohm",
+                "R5 and Rb0 connected in parallel so Ra0=R5*Rb0/(R5+Rb0)=1.33Ohm",
+                "The total resistance is Ra0 = 1.33Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "T_047B1FC020240428081016",
+                    "value": 1,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        },
+        {
+            "total_impedance_ori_txt": [
+                "R5 and R1 connected in series so Rb1=R5+R1=5Ohm",
+                "R3 and Rb1 connected in series so Ra1=R3+Rb1=6Ohm",
+                "The total resistance is Ra1 = 6Ohm"
+            ],
+            "total_impedance_txt": [
+                "R5 and R1 connected in series so Rb1=R5+R1=5Ohm",
+                "R3 and Rb1 connected in series so Ra1=R3+Rb1=6Ohm",
+                "The total resistance is Ra1 = 6Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    3,
+                    0
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_1F27FA0020240204131136",
+                    "value": 6,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
     "circuit": [
         "Netlist (component name, nodes)",
         "R5 2 1",
@@ -8,16 +68,15 @@
         ""
     ],
     "request": {
-        "text": "",
+        "text": "What is the current on R1?",
         "cmd": "get_current",
-        "comp": "Io",
+        "comp": "R1",
         "options": "<none>",
         "qid": "0",
         "req_on_gen": false,
         "volt_meter_question": false,
         "amper_meter_question": false
     },
-    "edge_values": [],
     "calculation": {
         "solution": [
             "*** Solution by TINA assisted by AI ***",
@@ -25,17 +84,109 @@
             "",
             ">> Pass1 started ...",
             ">> Gen processing: IS1 ...",
-            "The component Io removed from the graph so we break this pass.",
+            "At first we calculate the total resistance between the generator nodes (IS1)",
+            "R1 and R3 connected in series so Rb0=R1+R3=2Ohm",
+            "R5 and Rb0 connected in parallel so Ra0=R5*Rb0/(R5+Rb0)=1.33Ohm",
+            "The total resistance is Ra0 = 1.33Ohm",
+            "",
+            "Now we calculate the current on R1",
+            "We know that the voltage between IS1 nodes is 1.33V, because the generator current is Igen = 1A and the resistance between the generator nodes is Rtot = 1.33Ohm so the voltage between the generator nodes is Igen*Rtot = 1.33V",
+            "All voltage generators have been replaced with a short circuit.",
+            "All current generators except for IS1 have been replaced with an open circuit.",
+            "",
+            "(1) The components R5,Rb0 connected in parallel. The voltage on Rb0 is 1.33V because the voltage on Ra0 is 1.33V",
+            "",
+            "(2) The components R1,R3 connected in series.",
+            "(2) The voltage between this components starting and ending node is 1.33V.",
+            "(2) R1 is in the voltage divider so the voltage on R1 is R1/Rb0*1.33V = 667mV. ",
+            "(2) The current on R1 is the 'voltage on R1 / R1' = 667mA .",
+            "",
             ">> Pass2 started ...",
             ">> Gen processing: VS1 ...",
-            "The component Io removed from the graph so we break this pass.",
+            "At first we calculate the total resistance between the generator nodes (VS1)",
+            "R5 and R1 connected in series so Rb1=R5+R1=5Ohm",
+            "R3 and Rb1 connected in series so Ra1=R3+Rb1=6Ohm",
+            "The total resistance is Ra1 = 6Ohm",
             "",
-            "Now we are using superposition to calculate the current on Io",
-            "Failed: see codes"
+            "Now we calculate the current on R1",
+            "We know that the voltage between VS1 nodes is 6V.",
+            "All voltage generators except for VS1 have been replaced with a short circuit.",
+            "All current generators have been replaced with an open circuit.",
+            "",
+            "(3) The components R3,Rb1 connected in series.",
+            "(3) The voltage between this components starting and ending node is 6V.",
+            "(3) Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*6V = 5V. ",
+            "(3) The current on Rb1 is the 'voltage on Rb1 / Rb1' = 1A .",
+            "",
+            "(4) The components R5,R1 connected in series.",
+            "(4) The voltage between this components starting and ending node is 5V.",
+            "(4) R1 is in the voltage divider so the voltage on R1 is R1/Rb1*5V = 1V. ",
+            "(4) The current on R1 is the 'voltage on R1 / R1' = 1A .",
+            "",
+            "",
+            "Now we are using superposition to calculate the current on R1",
+            "Let's summarize the calculations from the previous section.",
+            "When you see subtraction here it means that the original direction reversed.",
+            "'current on R1' = 667mA+1A = 1.67A",
+            "*** Passed ***: expected: 1.67, got: 1.67"
+        ],
+        "block_labels": [
+            {
+                "label": "Rb0",
+                "origin": "series",
+                "value": "2Ohm",
+                "labels": [
+                    "R1",
+                    "R3"
+                ],
+                "unique_labels": [
+                    "T_1F39B85020240130111157",
+                    "T_1F39C23020240130111206"
+                ]
+            },
+            {
+                "label": "Ra0",
+                "origin": "parallel",
+                "value": "1.33Ohm",
+                "labels": [
+                    "R5",
+                    "Rb0"
+                ],
+                "unique_labels": [
+                    "T_1F39CC1020240130111214",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rb1",
+                "origin": "series",
+                "value": "5Ohm",
+                "labels": [
+                    "R5",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "T_1F39CC1020240130111214",
+                    "T_1F39B85020240130111157"
+                ]
+            },
+            {
+                "label": "Ra1",
+                "origin": "series",
+                "value": "6Ohm",
+                "labels": [
+                    "R3",
+                    "Rb1"
+                ],
+                "unique_labels": [
+                    "T_1F39C23020240130111206",
+                    "<block>"
+                ]
+            }
         ],
         "fn": "data/g-grid1-ok-with vs and is.json",
-        "valid": 0,
-        "error": 1,
-        "status": "Fatal error: Comp not found while trying to calculate superposition: Io"
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
     }
 }

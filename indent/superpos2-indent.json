@@ -57,6 +57,42 @@
                         "label": "VS2",
                         "value": 0
                     }
+                ],
+                "other voltages": [
+                    {
+                        "label": "IS1",
+                        "value": 0
+                    },
+                    {
+                        "label": "R1",
+                        "value": 0
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0
+                    },
+                    {
+                        "label": "VM1",
+                        "value": 0
+                    },
+                    {
+                        "label": "VM2",
+                        "value": 0
+                    },
+                    {
+                        "label": "VS2",
+                        "value": 0
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": 0
+                    },
+                    {
+                        "label": "VM2",
+                        "value": 0
+                    }
                 ]
             },
             {
@@ -72,6 +108,42 @@
                     {
                         "label": "VS2",
                         "value": 0.005
+                    }
+                ],
+                "other voltages": [
+                    {
+                        "label": "IS1",
+                        "value": -5
+                    },
+                    {
+                        "label": "R1",
+                        "value": 5
+                    },
+                    {
+                        "label": "R2",
+                        "value": -5
+                    },
+                    {
+                        "label": "VM1",
+                        "value": -5
+                    },
+                    {
+                        "label": "VM2",
+                        "value": 5
+                    },
+                    {
+                        "label": "VS2",
+                        "value": 0
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": -5
+                    },
+                    {
+                        "label": "VM2",
+                        "value": 5
                     }
                 ]
             }
