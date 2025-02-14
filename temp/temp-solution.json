@@ -38,14 +38,13 @@
     ],
     "request": {
         "text": "",
-        "cmd": "get_current",
-        "comp": "R2",
+        "cmd": "get_impedance",
+        "comp": "",
         "options": "<none>",
         "qid": "0",
         "req_on_gen": false,
         "volt_meter_question": false,
-        "amper_meter_question": true,
-        "comp_ori": "AM1"
+        "amper_meter_question": false
     },
     "dc_table": [
         {
@@ -94,21 +93,7 @@
             "*** Solution by TINA assisted by AI ***",
             "At first we calculate the total resistance between the generator nodes (VS1)",
             "R2 and R1 connected in series so Ra=R2+R1=2Ohm",
-            "The total resistance is Ra = 2Ohm",
-            "",
-            "Now we calculate the current on R2",
-            "We know that the voltage between VS1 nodes is 5V.",
-            "",
-            "(1) The components R2,R1 connected in series.",
-            "(1) The voltage between this components starting and ending node is 5V.",
-            "(1) R2 is in the voltage divider so the voltage on R2 is Rb/Ra*5V = 2.5V. ",
-            "(1) The current on R2 is the 'voltage on R2 / Rb' = 2.5A .",
-            "",
-            "(2) The current on R2 is the 'voltage on R2 / R2' = 2.5A .",
-            "",
-            "To answer the original question: because the AM1 ampermeter connected to R2 in series so the current on AM1 is -2.5A",
-            "We have considered also that the direction of the ampermeter does not match the current direction on R2",
-            "We have considered also the sign of the current on R2"
+            "The total resistance is Ra = 2Ohm"
         ],
         "block_labels": [
             {

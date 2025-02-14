@@ -471,7 +471,8 @@ class TCircuitSolver:
 
 		comp = self.request["comp"]
 		request_txt = cu.get_request_txt(self.request)
-		self.graph.calc_final_nodal_edges(request_txt)
+		if self.request['cmd'] != 'get_impedance':
+			self.graph.calc_final_nodal_edges(request_txt)
 
 		if self.graph.use_superposition:
 			self.log(f"")
@@ -572,9 +573,7 @@ class TCircuitSolver:
 					polarity = 1.0
 				elif ii == AM_MINUS_NODE and jj == SECOND_NODE or ii == AM_PLUS_NODE and jj == FIRST_NODE:
 					polarity = -1.0
-				#v = v*polarity
-				f, original_dir = self.graph.getdir_from_dctable(self.i_pass, item['prop']['label'], "outputs")
-				
+				v = v*polarity			
 				self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {cu.fv(v)}A")
 				if polarity < 0:
 					self.log(f"We have considered also that the direction of the {sMeter} does not match the {request_txt} direction on {comp}")
@@ -746,7 +745,7 @@ class TCircuitSolver:
 		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
 		if gen_name == comp_label:
 			self.request['req_on_gen'] = True
-		else:	
+		elif self.request['cmd'] != 'get_impedance':	
 			status = self.graph.find_edge_in_G(label)
 			if not status:
 				self.log_info(f"The component {label} removed from the graph so we break this pass.")
@@ -802,45 +801,46 @@ class TCircuitSolver:
 
 		self.log(f"At first we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
 		self.logl(self.total_impedance_txt)
-		self.log("")
-		self.log(f"Now we calculate the {request_txt} on {comp_label}")
+		if self.request['cmd'] != 'get_impedance':
+			self.log("")
+			self.log(f"Now we calculate the {request_txt} on {comp_label}")
 
-		val_str = f"{cu.fv(gen_new_value['value'])}{gen_new_value['unit']}"
-		if gen_new_value['quantity'] == 'voltage':
-			self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
-		else:	
-			voltage_str = f"{cu.fv(voltage_val)}V"
-			self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
-			          f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {cu.fv(T.prop['impedance'])}Ohm so "
-				 	  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
-
-		if self.graph.use_superposition:
-			gen_comp_id = self.gen['prop']['CompId']
-			is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
-			if is_v_gen:
-				self.log(f"All voltage generators except for {gen_name} have been replaced with a short circuit.")
-				self.log(f"All current generators have been replaced with an open circuit.")
-			else:
-				self.log(f"All voltage generators have been replaced with a short circuit.")
-				self.log(f"All current generators except for {gen_name} have been replaced with an open circuit.")
-
-		self.used_gens.append(gen_name)	
-		self.log("")
-
-		if self.request['req_on_gen']:
-			status, value = self.graph.get_node_val(T, 'impedance'); impedance = value
-			gen_new_value = self.get_gen_value()
+			val_str = f"{cu.fv(gen_new_value['value'])}{gen_new_value['unit']}"
 			if gen_new_value['quantity'] == 'voltage':
-				current = gen_new_value['value']/T.prop['impedance']
-				if self.request['cmd'] == 'get_current':
-					self.log(f"We know that the voltage between {gen_name} nodes is {cu.fv(gen_new_value['value'])}V.")
-					self.log(f"We calculated previously the {self.get_impedance_str()} between {gen_name} nodes: this is {cu.fv(impedance)}Ohm.")
-					self.log(f"So the current on {gen_name} is {cu.fv(current)}A.")
-		else:
-			self.conf_preorder_test = 1; self.stopped = False
-			self.walk_preorder(T)
-			self.conf_preorder_test = 0; self.stopped = False
-			self.walk_preorder(T)
+				self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
+			else:	
+				voltage_str = f"{cu.fv(voltage_val)}V"
+				self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
+						  f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {cu.fv(T.prop['impedance'])}Ohm so "
+						  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
+
+			if self.graph.use_superposition:
+				gen_comp_id = self.gen['prop']['CompId']
+				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
+				if is_v_gen:
+					self.log(f"All voltage generators except for {gen_name} have been replaced with a short circuit.")
+					self.log(f"All current generators have been replaced with an open circuit.")
+				else:
+					self.log(f"All voltage generators have been replaced with a short circuit.")
+					self.log(f"All current generators except for {gen_name} have been replaced with an open circuit.")
+
+			self.used_gens.append(gen_name)	
+			self.log("")
+
+			if self.request['req_on_gen']:
+				status, value = self.graph.get_node_val(T, 'impedance'); impedance = value
+				gen_new_value = self.get_gen_value()
+				if gen_new_value['quantity'] == 'voltage':
+					current = gen_new_value['value']/T.prop['impedance']
+					if self.request['cmd'] == 'get_current':
+						self.log(f"We know that the voltage between {gen_name} nodes is {cu.fv(gen_new_value['value'])}V.")
+						self.log(f"We calculated previously the {self.get_impedance_str()} between {gen_name} nodes: this is {cu.fv(impedance)}Ohm.")
+						self.log(f"So the current on {gen_name} is {cu.fv(current)}A.")
+			else:
+				self.conf_preorder_test = 1; self.stopped = False
+				self.walk_preorder(T)
+				self.conf_preorder_test = 0; self.stopped = False
+				self.walk_preorder(T)
 			
 		pass_item = {}
 		if self.graph.opts['debug_mode'] == 1:	
@@ -867,7 +867,6 @@ class TCircuitSolver:
 
 		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
 		
-		self.solution['dc_table'] = self.graph.json_data["dctables"]
 		#if self.opts['debug_mode'] == 1:
 		#	self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
 

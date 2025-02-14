@@ -39,14 +39,13 @@
 	</circuit>
 	<request>
 		<text/>
-		<cmd>get_current</cmd>
-		<comp>R2</comp>
+		<cmd>get_impedance</cmd>
+		<comp/>
 		<options>&lt;none&gt;</options>
 		<qid>0</qid>
 		<req_on_gen>false</req_on_gen>
 		<volt_meter_question>false</volt_meter_question>
-		<amper_meter_question>true</amper_meter_question>
-		<comp_ori>AM1</comp_ori>
+		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<dc_table>
 		<item>
@@ -96,20 +95,6 @@
 			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
 			<item>R2 and R1 connected in series so Ra=R2+R1=2Ohm</item>
 			<item>The total resistance is Ra = 2Ohm</item>
-			<item/>
-			<item>Now we calculate the current on R2</item>
-			<item>We know that the voltage between VS1 nodes is 5V.</item>
-			<item/>
-			<item>(1) The components R2,R1 connected in series.</item>
-			<item>(1) The voltage between this components starting and ending node is 5V.</item>
-			<item>(1) R2 is in the voltage divider so the voltage on R2 is Rb/Ra*5V = 2.5V. </item>
-			<item>(1) The current on R2 is the 'voltage on R2 / Rb' = 2.5A .</item>
-			<item/>
-			<item>(2) The current on R2 is the 'voltage on R2 / R2' = 2.5A .</item>
-			<item/>
-			<item>To answer the original question: because the AM1 ampermeter connected to R2 in series so the current on AM1 is -2.5A</item>
-			<item>We have considered also that the direction of the ampermeter does not match the current direction on R2</item>
-			<item>We have considered also the sign of the current on R2</item>
 		</solution>
 		<block_labels>
 			<item>

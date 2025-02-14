@@ -76,8 +76,8 @@ def run():
 
 	test_request = {
 		"text": "",
-		"cmd": "get_current",
-		"comp": "R5",
+		"cmd": "get_impedance",
+		"comp": "",
 		"options": "<none>",
 		"qid": "0"
 	}
@@ -105,7 +105,7 @@ def run():
 	opts['test_D'] = 1
 	opts['log_info'] = 1
 	opts['override_request'] = 1
-	opts['request'] = test_request_am
+	opts['request'] = test_request
 
 	if mode_release == 1:
 		opts['mode_all_files'] = 0

@@ -45,6 +45,8 @@ def get_request_txt(request):
 		return "voltage"
 	elif request['cmd'] == "get_current":
 		return "current"
+	elif request['cmd'] == "get_impedance":
+		return "impedance"
 	else:
 		raise Exception('get_request_txt')
 
