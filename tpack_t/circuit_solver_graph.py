@@ -6,11 +6,12 @@ from graphtheory.seriesparallel.spnodes import node_global_init
 import os, json
 from pathlib import Path
 from json2xml import json2xml
-from copy import copy
+from copy import copy, deepcopy
 from tpack_t import circuit_solver_util as cu
 import math, cmath
 
 RES_ = 9; CAP_ = 10; IND_ = 11; 
+RESMET_ = 8; RESMET2_ = 98
 CSOUR_ = 13; VSOUR_ = 14; CGEN_ = 15; VGEN_ = 16; Battery_ = 67
 AMPER_METER_ = 6; AMPER_METER2_ = 34
 
@@ -25,6 +26,24 @@ FLAGS_OPEN = 3
 RES_OPEN_CIRCUIT = 1e18
 
 def_weight = 1
+
+dummy_gen = {
+                "nodes": [
+                    0,
+                    0
+                ],
+                "prop": {
+                    "label": "",
+                    "match_label": "",
+                    "CompId": 8,
+                    "UniqueID": "",
+                    "value": 0,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
 
 split_edge_prop = {
 	"label": "<split>",
@@ -75,14 +94,35 @@ class TCircuitSolverGraph:
 			self.expected_key = json_data_l['expected']
 		else:
 			self.expected_key = {}
-		if len(self.json_data['gens']) == 0:
-			raise Exception('Generator not found')
+		gen_found = True
+		if len(self.json_data['gens']) > 0 or self.find_ohm_meter():
+			if len(self.json_data['gens']) == 0:
+				gen_found = False
+				new_gen = deepcopy(dummy_gen)
+				new_gen['nodes'] = self.meter_prop['nodes']
+				new_gen['prop']['label'] = self.meter_prop['prop']['label']
+				if self.meter_prop['prop']['CompId'] == RESMET2_:
+					ac_gen = json.loads('{}')
+					ac_gen['mode'] = 1
+					ac_gen['AbsV'] = 1
+					ac_gen['Phase'] = -90
+					ac_gen['Freq'] = self.meter_prop['prop']['value']
+					new_gen['prop']['ac_gen'] = ac_gen
+				self.json_data['gens'].append(new_gen)
+			pass
+		else:	
+			raise Exception('Generator or Ohm meter not found')
+			
+		if gen_found and self.find_ohm_meter():
+			raise Exception('I found generators and an Ohm meter. Generators are not allowed if there is also an Ohm meter')
+			
 		self.gen = self.json_data['gens'][0]
 
 		if self.opts['override_request'] == 1:
 			self.request = self.opts['request']
 		else:	
 			self.request = json_data_l['request']
+		self.request['ohm_meter_question'] = self.find_ohm_meter()
 			
 		# options = 'dy': use delta-y conversion if possible	
 		if self.request['options'] == 'dy':
@@ -137,6 +177,14 @@ class TCircuitSolverGraph:
 
 		return False, {}	
 
+	def find_ohm_meter(self):
+		for item in self.json_data["meters"]:
+			prop = item["prop"]
+			if prop["CompId"] == RESMET_ or prop["CompId"] == RESMET2_:
+				self.meter_prop = item
+				return True
+		return False
+		
 	def get_graph(self, circuit_key, directed=False):
 		N = self.json_data["N"]; self.MaxGR = 0
 		self.G = Graph(N, directed=directed)

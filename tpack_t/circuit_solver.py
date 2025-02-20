@@ -160,7 +160,10 @@ class TCircuitSolver:
 	def finalize_calc_impedance(self, top):
 		status, c = self.graph.get_label_prop(top)
 		status, value = self.graph.get_node_val(top, 'impedance')
-		s = f"The total {self.get_impedance_str()} is {c} = {cu.fv(value)}Ohm"	
+		if self.request['ohm_meter_question']:			
+			s = f"The ohm meter shows {c} = {cu.fv(value)}Ohm"	
+		else:	
+			s = f"The total {self.get_impedance_str()} is {c} = {cu.fv(value)}Ohm"	
 		item = self.make_item_impedance(s)
 		self.total_impedance.append(item)
 		self.replaced_one_items = self.process_impedance()
@@ -471,7 +474,7 @@ class TCircuitSolver:
 
 		comp = self.request["comp"]
 		request_txt = cu.get_request_txt(self.request)
-		if self.request['cmd'] != 'get_impedance':
+		if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
 			self.graph.calc_final_nodal_edges(request_txt)
 
 		if self.graph.use_superposition:
@@ -494,7 +497,7 @@ class TCircuitSolver:
 		    self.request['cmd'] == 'get_current' and self.request['amper_meter_question']):
 			self.answer_meter()
 
-		if self.has_expected_key:
+		if self.has_expected_key and not self.request['ohm_meter_question']:
 			v, v_str = self.get_result()
 			v1 = abs(v)
 			v2 = abs(self.expected_key['res_req'])
@@ -658,7 +661,7 @@ class TCircuitSolver:
 		self.stop_solver = False; nInserted = 0
 
 		gen_comp_id = self.gen['prop']['CompId']
-		is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
+		is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 		
 		#init 'run_pass'
 		#voltage gens: add extra edge before 'get_graph'
@@ -667,7 +670,7 @@ class TCircuitSolver:
 				gen = self.gens[j]
 
 				gen_comp_id = gen['prop']['CompId']
-				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
+				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 
 				if is_v_gen:
 					item = self.graph.create_item(gen, j, 0.0, cg.FLAGS_SHORT)
@@ -745,7 +748,7 @@ class TCircuitSolver:
 		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
 		if gen_name == comp_label:
 			self.request['req_on_gen'] = True
-		elif self.request['cmd'] != 'get_impedance':	
+		elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':	
 			status = self.graph.find_edge_in_G(label)
 			if not status:
 				self.log_info(f"The component {label} removed from the graph so we break this pass.")
@@ -780,13 +783,13 @@ class TCircuitSolver:
 			self.unit = "V"
 		elif self.request['cmd'] == 'get_current':
 			self.unit = "A"
-		elif self.request['cmd'] == 'get_impedance':
+		elif self.request['cmd'] == 'get_impedance' or self.request['cmd'] == 'get_total_impedance':
 			self.unit = "Ohm"
 		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
 		request_txt = cu.get_request_txt(self.request)
 		if i_pass == 0:
 			if ac_gen['mode'] == 1:
-				freq = ac_gen['FreqStr']
+				freq = cu.fv(ac_gen['Freq'])
 				self.log(f"This is an AC calculation")
 				self.log(f"We know that generator frequency is f={freq} Hz, w=2*pi*f")
 
@@ -799,9 +802,10 @@ class TCircuitSolver:
 			voltage_val = T.prop['current']*T.prop['impedance']	
 			self.graph.set_node_val(T, voltage_val, '', True, 'voltage', self.gen['nodes']) 
 
-		self.log(f"At first we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
+		if not self.request['ohm_meter_question']:
+			self.log(f"At first we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
 		self.logl(self.total_impedance_txt)
-		if self.request['cmd'] != 'get_impedance':
+		if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
 			self.log("")
 			self.log(f"Now we calculate the {request_txt} on {comp_label}")
 

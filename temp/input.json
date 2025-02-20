@@ -1,23 +1,22 @@
 {
-    "N": 4,
+    "N": 3,
     "nodes": [
-        0,
         1,
-        2,
-        3
+        0,
+        2
     ],
     "gens": [
         {
             "nodes": [
-                3,
+                2,
                 0
             ],
             "prop": {
-                "label": "VS1",
+                "label": "ZM1",
                 "match_label": "",
-                "CompId": 14,
-                "UniqueID": "T_1F41FB4020240129133922",
-                "value": 5,
+                "CompId": 8,
+                "UniqueID": "",
+                "value": 0,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -25,61 +24,35 @@
             }
         }
     ],
-    "dctables": [
+    "dctables": [],
+    "meters": [
         {
-            "outputs": [
-                {
-                    "label": "AM1",
-                    "value": -2.5
-                }
+            "nodes": [
+                2,
+                0
             ],
-            "currents": [
-                {
-                    "label": "R1",
-                    "value": 2.5
-                },
-                {
-                    "label": "R2",
-                    "value": 2.5
-                },
-                {
-                    "label": "VS1",
-                    "value": -2.5
-                }
-            ],
-            "other voltages": [
-                {
-                    "label": "AM1",
-                    "value": 0
-                },
-                {
-                    "label": "R1",
-                    "value": 2.5
-                },
-                {
-                    "label": "R2",
-                    "value": 2.5
-                },
-                {
-                    "label": "VS1",
-                    "value": 5
-                }
-            ]
+            "prop": {
+                "label": "ZM1",
+                "match_label": "",
+                "CompId": 8,
+                "UniqueID": "T_0000000026FAEE8020250217125222",
+                "value": 0,
+                "flags": 1
+            }
         }
     ],
-    "meters": [],
     "edges": [
         {
             "nodes": [
-                0,
-                1
+                1,
+                0
             ],
             "prop": {
-                "label": "AM1",
+                "label": "R2",
                 "match_label": "",
-                "CompId": 34,
-                "UniqueID": "T_000000002822E42020250207070718",
-                "value": 0,
+                "CompId": 9,
+                "UniqueID": "T_0000000026FACB4020250217125228",
+                "value": 1,
                 "flags": 1
             }
         },
@@ -89,28 +62,14 @@
                 1
             ],
             "prop": {
-                "label": "R2",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_000000002822DE4020250207070706",
-                "value": 1,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                3,
-                2
-            ],
-            "prop": {
                 "label": "R1",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F41EC7020240129133833",
+                "UniqueID": "T_0000000026FAD12020250217125226",
                 "value": 1,
                 "flags": 1
             }
         }
     ],
-    "circ_name": "g-ser-simple-ok.tsc"
+    "circ_name": "ohm-1-t.tsc"
 }

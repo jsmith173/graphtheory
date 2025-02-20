@@ -47,6 +47,8 @@ def get_request_txt(request):
 		return "current"
 	elif request['cmd'] == "get_impedance":
 		return "impedance"
+	elif request['cmd'] == "get_total_impedance":
+		return "total_impedance"
 	else:
 		raise Exception('get_request_txt')
 

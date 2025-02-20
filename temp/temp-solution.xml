@@ -3,25 +3,24 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>Rb=R2</item>
-				<item>Rb and R1 connected in series so Ra=Rb+R1=2Ohm</item>
-				<item>The total resistance is Ra = 2Ohm</item>
+				<item>R2 and R1 connected in series so Ra=R2+R1=2Ohm</item>
+				<item>The ohm meter shows Ra = 2Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
 				<item>R2 and R1 connected in series so Ra=R2+R1=2Ohm</item>
-				<item>The total resistance is Ra = 2Ohm</item>
+				<item>The ohm meter shows Ra = 2Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
-					<item>3</item>
+					<item>2</item>
 					<item>0</item>
 				</nodes>
 				<prop>
-					<label>VS1</label>
+					<label>ZM1</label>
 					<match_label/>
-					<CompId>14</CompId>
-					<UniqueID>T_1F41FB4020240129133922</UniqueID>
-					<value>5</value>
+					<CompId>8</CompId>
+					<UniqueID/>
+					<value>0</value>
 					<flags>1</flags>
 					<ac_gen>
 						<mode>0</mode>
@@ -32,69 +31,26 @@
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>AM1 0 1</item>
-		<item>R2 2 1</item>
-		<item>R1 3 2</item>
+		<item>R2 1 0</item>
+		<item>R1 2 1</item>
 		<item/>
 	</circuit>
 	<request>
-		<text/>
-		<cmd>get_impedance</cmd>
+		<text>What is the total resistance on ?</text>
+		<cmd>get_total_impedance</cmd>
 		<comp/>
 		<options>&lt;none&gt;</options>
 		<qid>0</qid>
+		<ohm_meter_question>true</ohm_meter_question>
 		<req_on_gen>false</req_on_gen>
 		<volt_meter_question>false</volt_meter_question>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
-	<dc_table>
-		<item>
-			<outputs>
-				<item>
-					<label>AM1</label>
-					<value>-2.5</value>
-				</item>
-			</outputs>
-			<currents>
-				<item>
-					<label>R1</label>
-					<value>2.5</value>
-				</item>
-				<item>
-					<label>R2</label>
-					<value>2.5</value>
-				</item>
-				<item>
-					<label>VS1</label>
-					<value>-2.5</value>
-				</item>
-			</currents>
-			<other_voltages>
-				<item>
-					<label>AM1</label>
-					<value>0</value>
-				</item>
-				<item>
-					<label>R1</label>
-					<value>2.5</value>
-				</item>
-				<item>
-					<label>R2</label>
-					<value>2.5</value>
-				</item>
-				<item>
-					<label>VS1</label>
-					<value>5</value>
-				</item>
-			</other_voltages>
-		</item>
-	</dc_table>
 	<calculation>
 		<solution>
 			<item>*** Solution by TINA assisted by AI ***</item>
-			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
 			<item>R2 and R1 connected in series so Ra=R2+R1=2Ohm</item>
-			<item>The total resistance is Ra = 2Ohm</item>
+			<item>The ohm meter shows Ra = 2Ohm</item>
 		</solution>
 		<block_labels>
 			<item>
@@ -106,12 +62,12 @@
 					<item>R1</item>
 				</labels>
 				<unique_labels>
-					<item>T_000000002822DE4020250207070706</item>
-					<item>T_1F41EC7020240129133833</item>
+					<item>T_0000000026FACB4020250217125228</item>
+					<item>T_0000000026FAD12020250217125226</item>
 				</unique_labels>
 			</item>
 		</block_labels>
-		<fn>data/g-ser-simple-ok.json</fn>
+		<fn>data/ohm-1-t.json</fn>
 		<valid>1</valid>
 		<error>0</error>
 		<status>OK</status>

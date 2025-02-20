@@ -77,7 +77,7 @@ def run():
 	test_request = {
 		"text": "",
 		"cmd": "get_impedance",
-		"comp": "",
+		"comp": "ZM1",
 		"options": "<none>",
 		"qid": "0"
 	}
@@ -104,7 +104,7 @@ def run():
 	opts['test_Y'] = 1
 	opts['test_D'] = 1
 	opts['log_info'] = 1
-	opts['override_request'] = 1
+	opts['override_request'] = 0
 	opts['request'] = test_request
 
 	if mode_release == 1:
@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'g-ser-simple-ok.json'	
+		test_file = 'ohm-1-t.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0
