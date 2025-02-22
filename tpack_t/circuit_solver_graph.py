@@ -967,7 +967,12 @@ class TCircuitSolverGraph:
 		return False	
 
 	def getdir_from_dctable(self, i_pass, label, key):
-		dctable = self.json_data["dctables"][self.i_pass]
+		# ha csak ellenallasmero van
+		try:
+			dctable = self.json_data["dctables"][self.i_pass]
+		except:	
+			return False, False
+		
 		res = True; f = False
 		idx = self.find_in_json(label)
 

@@ -33,6 +33,64 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 1
+                    },
+                    {
+                        "label": "R10",
+                        "value": 1
+                    },
+                    {
+                        "label": "R11",
+                        "value": 1
+                    },
+                    {
+                        "label": "R12",
+                        "value": 1
+                    },
+                    {
+                        "label": "R2",
+                        "value": 1
+                    },
+                    {
+                        "label": "R3",
+                        "value": 1
+                    },
+                    {
+                        "label": "R4",
+                        "value": 1
+                    },
+                    {
+                        "label": "R5",
+                        "value": 1
+                    },
+                    {
+                        "label": "R6",
+                        "value": 1
+                    },
+                    {
+                        "label": "R7",
+                        "value": 1
+                    },
+                    {
+                        "label": "R8",
+                        "value": 1
+                    },
+                    {
+                        "label": "R9",
+                        "value": 1
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -3
+                    }
+                ]
+            }
+        ],
         "meters": [],
         "edges": [
             {
@@ -203,16 +261,18 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "g-ser-par5.tsc"
     },
     "request": {
         "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R1"
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0"
     },
     "expected": {
         "valid": 1,
-        "res_imp": 2,
-        "res_req": 0
+        "res_imp": 2
     }
 }

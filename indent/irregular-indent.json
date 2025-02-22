@@ -14,6 +14,7 @@
             ],
             "prop": {
                 "label": "VS1",
+                "match_label": "",
                 "CompId": 14,
                 "UniqueID": "T_1F41FB4020240129133922",
                 "value": 6.0,
@@ -23,6 +24,7 @@
                 }
             }
         },
+        "meters": [],
         "edges": [
             {
                 "nodes": [
@@ -31,6 +33,7 @@
                 ],
                 "prop": {
                     "label": "R3",
+                    "match_label": "",
                     "CompId": 9,
                     "UniqueID": "T_1F2AE99020240203083907",
                     "value": 1.0,
@@ -44,6 +47,7 @@
                 ],
                 "prop": {
                     "label": "R1",
+                    "match_label": "",
                     "CompId": 9,
                     "UniqueID": "T_1F41EC7020240129133833",
                     "value": 1.0,

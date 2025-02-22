@@ -30,6 +30,48 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R2",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R3",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R4",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R5",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R6",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R7",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R8",
+                        "value": 1.6667
+                    },
+                    {
+                        "label": "R9",
+                        "value": 1.6667
+                    }
+                ]
+            }
+        ],
         "meters": [],
         "edges": [
             {
@@ -158,11 +200,14 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "battery.tsc"
     },
     "request": {
         "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R1"
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0"
     }
 }

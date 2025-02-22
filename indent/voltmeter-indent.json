@@ -26,6 +26,28 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 2
+                    },
+                    {
+                        "label": "R2",
+                        "value": 2
+                    },
+                    {
+                        "label": "R3",
+                        "value": 2
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -2
+                    }
+                ]
+            }
+        ],
         "meters": [
             {
                 "nodes": [
@@ -85,11 +107,14 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "voltmeter.tsc"
     },
     "request": {
         "text": "What is the voltage on VM1?",
         "cmd": "get_voltage",
-        "comp": "VM1"
+        "comp": "VM1",
+        "options": "<none>",
+        "qid": "0"
     }
 }

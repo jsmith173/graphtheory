@@ -28,6 +28,36 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "R1",
+                        "value": 0.005
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0.005
+                    },
+                    {
+                        "label": "R3",
+                        "value": 0.005
+                    },
+                    {
+                        "label": "R4",
+                        "value": 0.005
+                    },
+                    {
+                        "label": "R5",
+                        "value": 0.005
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -0.025
+                    }
+                ]
+            }
+        ],
         "meters": [],
         "edges": [
             {
@@ -156,11 +186,14 @@
                     "flags": 0
                 }
             }
-        ]
+        ],
+        "circ_name": "par5.tsc"
     },
     "request": {
         "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R1"
+        "comp": "R1",
+        "options": "<none>",
+        "qid": "0"
     }
 }

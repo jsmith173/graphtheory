@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'ohm-1-t.json'	
+		test_file = 'sp3-ai.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0

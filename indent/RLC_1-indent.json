@@ -30,6 +30,24 @@
                 }
             }
         ],
+        "dctables": [
+            {
+                "currents": [
+                    {
+                        "label": "L",
+                        "value": 0
+                    },
+                    {
+                        "label": "R",
+                        "value": 0
+                    },
+                    {
+                        "label": "Source",
+                        "value": 0
+                    }
+                ]
+            }
+        ],
         "meters": [
             {
                 "nodes": [
@@ -89,11 +107,14 @@
                     "flags": 1
                 }
             }
-        ]
+        ],
+        "circ_name": "rlc_1.tsc"
     },
     "request": {
         "text": "What is the voltage on C?",
         "cmd": "get_voltage",
-        "comp": "C"
+        "comp": "C",
+        "options": "<none>",
+        "qid": "0"
     }
 }

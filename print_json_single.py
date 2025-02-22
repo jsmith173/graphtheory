@@ -1,4 +1,4 @@
-import json, os
+import json, os, glob
 from pathlib import Path
 
 def dump_list(l1, fn):
@@ -13,11 +13,10 @@ if not os.path.isdir('temp'):
 if not os.path.isdir('indent'):
 	os.mkdir('indent')
 
-with open("data/filelist.json", 'r') as f:
-	file_list = json.load(f)
+file_list = glob.glob("data/*.json")
 
-for fn in file_list['filelist']:
-	fn_ = f"data/{fn}"
+for fn in file_list:
+	fn_ = f"{fn}"
 	fn2 = Path(fn_)
 	fn_wo_ext = str(fn2.with_suffix(''))
 	fn2 = Path(fn_wo_ext)
