@@ -76,8 +76,8 @@ def run():
 
 	test_request = {
 		"text": "",
-		"cmd": "get_impedance",
-		"comp": "ZM1",
+		"cmd": "get_current",
+		"comp": "R1",
 		"options": "<none>",
 		"qid": "0"
 	}
@@ -114,7 +114,7 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'sp3-ai.json'	
+		test_file = 'temp.json'	
 
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0

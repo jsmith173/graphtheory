@@ -91,9 +91,11 @@ class TCircuitSolver:
 			a = arr[0]; b = arr[1]
 			a_l = arr_left[0]; b_l = arr_left[1]
 			if top.type == "series":
-				s = f"{a_l} and {b_l} connected in series so {c}={a}+{b}={cu.fv(v)}Ohm"	
+				s1 = cu.fv(values[0])+"Ohm"; s2 = cu.fv(values[1])+"Ohm"
+				s = f"{a_l} and {b_l} connected in series so {c}={a}+{b}={s1}+{s2}={cu.fv(v)}Ohm"	
 			if top.type == "parallel":
-				s = f"{a_l} and {b_l} connected in parallel so {c}={a}*{b}/({a}+{b})={cu.fv(v)}Ohm"
+				s1 = cu.fv(values[0])+"Ohm"; s2 = cu.fv(values[1])+"Ohm"
+				s = f"{a_l} and {b_l} connected in parallel so {c}={a}*{b}/({a}+{b})={s1}*{s2}/({s1}+{s2})={cu.fv(v)}Ohm"
 			tmp = {}; tmp['name'] = c; tmp['value_str'] = f"{cu.fv(v)}Ohm"; self.calc_symbols.append(tmp)
 			one_item = False; s_left = a_l; s_right = b_l
 		s_top = c	
@@ -364,16 +366,16 @@ class TCircuitSolver:
 					M = f"({self.lc}) "; self.lc = self.lc+1
 					if len(labels) == 1:
 						if top_label != labels[i]:
-							self.log(f"{M}The voltage on {labels[i]} is {cu.fv(voltage)}V because the voltage is {cu.fv(voltage)}V on {top_label}") 
+							self.log(f"The voltage on {labels[i]} is {cu.fv(voltage)}V because the voltage is {cu.fv(voltage)}V on {top_label}") 
 					else:
-						self.log(f"{M}The components {label_list} connected in series.")
-						self.log(f"{M}The voltage between this components starting and ending node is {cu.fv(voltage)}V.") 
-						self.log(f"{M}{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
-			                     f"{labels_z[i]}/{top_label}*{cu.fv(voltage)}V = {cu.fv(new_val[i])}V. ")
+						self.log(f"The components {label_list} connected in series.")
+						self.log(f"The voltage between this components starting and ending node is {cu.fv(voltage)}V") 
+						self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
+			                     f"{labels_z[i]}/{top_label}*{cu.fv(voltage)}V = {cu.fv(new_val[i])}V ")
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current':
-						self.log(f"{M}The current on {labels[i]} is the 'voltage on {labels[i]} / {labels_z[i]}' = {cu.fv(new_val[i]/impedance[i])}A .")
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]} / {labels_z[i]} = {cu.fv(new_val[i]/impedance[i])}A")
 					self.log("")
 
 				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node) 
@@ -394,12 +396,12 @@ class TCircuitSolver:
 					else:
 						s = labels[i]
 					M = f"({self.lc}) "; self.lc = self.lc+1
-					self.log(f"{M}The components {label_list} connected in parallel. The voltage on {s} is {cu.fv(voltage)}V because the voltage on {top_label} is {cu.fv(voltage)}V")
+					self.log(f"The components {label_list} connected in parallel. The voltage on {s} is {cu.fv(voltage)}V because the voltage on {top_label} is {cu.fv(voltage)}V")
 					self.log("")
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current' and nodes[i].type == "edge":
-						self.log(f"{M}The current on {labels[i]} is the 'voltage on {labels[i]} / {labels_z[i]}' = {cu.fv(new_val[i])}A .")
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]} / {labels_z[i]} = {cu.fv(new_val[i])}A ")
 		else:
 			pass
 		if is_req_label:
@@ -907,8 +909,14 @@ class TCircuitSolver:
 
 		if save_files:
 			cu.dump_list(self.solution, f"temp/{self.fn_base_wo_ext}-solution.json")
-			cu.dump_list(self.solution, f"temp/temp-solution.json")
-
+			cu.dump_list(self.solution, f"temp/temp-solution.json")		
+			
+			json_array = self.solution["calculation"]["solution"]
+			json_string = json.dumps(json_array, indent=4)
+			with open('temp/output.txt', 'w') as text_file:
+				for item in json_array:
+					text_file.write(item+'\n')
+		
 			if self.opts['mode_all_files'] == 0:
 				f = open(f"temp/{self.fn_base_wo_ext}-solution.xml", "w")
 				f.write(json2xml.Json2xml(self.solution, wrapper="all", pretty=True, attr_type=False).to_xml())

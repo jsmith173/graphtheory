@@ -30,6 +30,12 @@
         ],
         "dctables": [
             {
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": 2
+                    }
+                ],
                 "currents": [
                     {
                         "label": "R1",
@@ -54,6 +60,40 @@
                     {
                         "label": "VS1",
                         "value": -2
+                    }
+                ],
+                "other voltages": [
+                    {
+                        "label": "AM1",
+                        "value": 0
+                    },
+                    {
+                        "label": "R1",
+                        "value": 2
+                    },
+                    {
+                        "label": "R2",
+                        "value": 1
+                    },
+                    {
+                        "label": "R3",
+                        "value": -2
+                    },
+                    {
+                        "label": "R4",
+                        "value": -1
+                    },
+                    {
+                        "label": "R5",
+                        "value": -2
+                    },
+                    {
+                        "label": "VM1",
+                        "value": 2
+                    },
+                    {
+                        "label": "VS1",
+                        "value": 6
                     }
                 ]
             }
@@ -163,14 +203,10 @@
         "circ_name": "g-grid1-ok.tsc"
     },
     "request": {
-        "text": "What is the voltage on R4?",
+        "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
-        "comp": "R4",
+        "comp": "R1",
         "options": "<none>",
         "qid": "0"
-    },
-    "expected": {
-        "valid": 1,
-        "res_imp": 3
     }
 }

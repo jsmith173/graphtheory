@@ -59,7 +59,7 @@ def fv(v):
 		fi = math.degrees(res[1]); fi_num = p.Float(fi)
 		r_str = f'{r_num:.{PRECISION}H}'
 		fi_str = f'{fi_num:.{PRECISION}H}'
-		return f"'{r_str} / {fi_str}\N{DEGREE SIGN}'"
+		return f"{r_str} / {fi_str}\N{DEGREE SIGN} "
 	else:
 		#removing trailing zeros (and .) if needed
 		num = p.Float(v)

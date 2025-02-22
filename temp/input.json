@@ -1,28 +1,29 @@
 {
-    "N": 6,
+    "N": 4,
     "nodes": [
         1,
-        0,
         2,
         3,
-        4,
-        5
+        0
     ],
     "gens": [
         {
             "nodes": [
-                4,
+                1,
                 0
             ],
             "prop": {
-                "label": "Req",
+                "label": "ZM1",
                 "match_label": "",
                 "CompId": 8,
                 "UniqueID": "",
                 "value": 0,
                 "flags": 1,
                 "ac_gen": {
-                    "mode": 0
+                    "mode": 1,
+                    "AbsV": 1,
+                    "Phase": -90,
+                    "Freq": 100000
                 }
             }
         }
@@ -31,15 +32,15 @@
     "meters": [
         {
             "nodes": [
-                4,
+                1,
                 0
             ],
             "prop": {
-                "label": "Req",
+                "label": "ZM1",
                 "match_label": "",
-                "CompId": 8,
-                "UniqueID": "T_09BED88020230510135127",
-                "value": 0,
+                "CompId": 98,
+                "UniqueID": "T_00000000282F219020250220060605",
+                "value": 100000,
                 "flags": 1
             }
         }
@@ -48,115 +49,45 @@
         {
             "nodes": [
                 1,
-                0
-            ],
-            "prop": {
-                "label": "R1",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09BEE75020230510135127",
-                "value": 3,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                2,
-                1
-            ],
-            "prop": {
-                "label": "R5",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09BEFB1020230510135127",
-                "value": 3,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                2,
-                0
-            ],
-            "prop": {
-                "label": "R6",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09BF000020230510135127",
-                "value": 3,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                3,
-                4
-            ],
-            "prop": {
-                "label": "R4",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09BEEC4020230510135127",
-                "value": 1.2,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                3,
                 2
             ],
             "prop": {
-                "label": "R3",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09BEC9B020230510135127",
-                "value": 1,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                0,
-                4
-            ],
-            "prop": {
-                "label": "R2",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09BECEA020230510135127",
-                "value": 4,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                0,
-                5
-            ],
-            "prop": {
                 "label": "R1",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_09BED39020230510135127",
-                "value": 3,
+                "UniqueID": "T_00000000282EECB020250220055225",
+                "value": 100,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                5,
-                1
+                3,
+                0
             ],
             "prop": {
-                "label": "<split>R1",
+                "label": "C1",
                 "match_label": "",
-                "CompId": 0,
-                "UniqueID": "<CompNil>",
-                "value": 0,
-                "flags": 0
+                "CompId": 10,
+                "UniqueID": "T_0462B9F020050601152444",
+                "value": 1e-09,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                2,
+                3
+            ],
+            "prop": {
+                "label": "L1",
+                "match_label": "",
+                "CompId": 11,
+                "UniqueID": "T_0462B74C20050601152444",
+                "value": 0.001,
+                "flags": 1
             }
         }
     ],
-    "circ_name": "sp3-ai.tsc"
+    "circ_name": "ohm-ac-1.tsc"
 }

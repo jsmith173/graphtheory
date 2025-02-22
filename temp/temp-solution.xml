@@ -3,38 +3,32 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>Rf=R1</item>
-				<item>R1 and Rf connected in parallel so Re=R1*Rf/(R1+Rf)=1.5Ohm</item>
-				<item>Re and R5 connected in series so Rd=Re+R5=4.5Ohm</item>
-				<item>R6 and Rd connected in parallel so Rc=R6*Rd/(R6+Rd)=1.8Ohm</item>
-				<item>R3 and R4 connected in series so Rg=R3+R4=2.2Ohm</item>
-				<item>Rc and Rg connected in series so Rb=Rc+Rg=4Ohm</item>
-				<item>R2 and Rb connected in parallel so Ra=R2*Rb/(R2+Rb)=2Ohm</item>
-				<item>The ohm meter shows Ra = 2Ohm</item>
+				<item>L1 and R1 connected in series so Zb=j*w*L1+R1=628 / 90° Ohm+100 / 0° Ohm=636 / 81° Ohm</item>
+				<item>C1 and Zb connected in series so Za=1/(j*w*C1)+Zb=1.59k / -90° Ohm+636 / 81° Ohm=968 / -84.1° Ohm</item>
+				<item>The ohm meter shows Za = 968 / -84.1° Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>R1 and R1 connected in parallel so Re=R1*R1/(R1+R1)=1.5Ohm</item>
-				<item>Re and R5 connected in series so Rd=Re+R5=4.5Ohm</item>
-				<item>R6 and Rd connected in parallel so Rc=R6*Rd/(R6+Rd)=1.8Ohm</item>
-				<item>R3 and R4 connected in series so Rg=R3+R4=2.2Ohm</item>
-				<item>Rc and Rg connected in series so Rb=Rc+Rg=4Ohm</item>
-				<item>R2 and Rb connected in parallel so Ra=R2*Rb/(R2+Rb)=2Ohm</item>
-				<item>The ohm meter shows Ra = 2Ohm</item>
+				<item>L1 and R1 connected in series so Zb=j*w*L1+R1=628 / 90° Ohm+100 / 0° Ohm=636 / 81° Ohm</item>
+				<item>C1 and Zb connected in series so Za=1/(j*w*C1)+Zb=1.59k / -90° Ohm+636 / 81° Ohm=968 / -84.1° Ohm</item>
+				<item>The ohm meter shows Za = 968 / -84.1° Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
-					<item>4</item>
+					<item>1</item>
 					<item>0</item>
 				</nodes>
 				<prop>
-					<label>Req</label>
+					<label>ZM1</label>
 					<match_label/>
 					<CompId>8</CompId>
 					<UniqueID/>
 					<value>0</value>
 					<flags>1</flags>
 					<ac_gen>
-						<mode>0</mode>
+						<mode>1</mode>
+						<AbsV>1</AbsV>
+						<Phase>-90</Phase>
+						<Freq>100000</Freq>
 					</ac_gen>
 				</prop>
 			</gen>
@@ -42,119 +36,61 @@
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>R1 1 0</item>
-		<item>R5 2 1</item>
-		<item>R6 2 0</item>
-		<item>R4 3 4</item>
-		<item>R3 3 2</item>
-		<item>R2 0 4</item>
-		<item>R1 0 5</item>
-		<item>&lt;split&gt;R1 5 1</item>
+		<item>R1 1 2</item>
+		<item>C1 3 0</item>
+		<item>L1 2 3</item>
 		<item/>
 	</circuit>
 	<request>
-		<text>What is the total resistance on ?</text>
-		<cmd>get_total_impedance</cmd>
+		<text>What is the resistance on ZM1?</text>
+		<cmd>get_impedance</cmd>
 		<comp/>
 		<options>&lt;none&gt;</options>
 		<qid>0</qid>
 		<ohm_meter_question>true</ohm_meter_question>
 		<req_on_gen>false</req_on_gen>
-		<volt_meter_question>false</volt_meter_question>
+		<volt_meter_question>true</volt_meter_question>
+		<comp_ori>ZM1</comp_ori>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
 		<solution>
 			<item>*** Solution by TINA assisted by AI ***</item>
-			<item>R1 and R1 connected in parallel so Re=R1*R1/(R1+R1)=1.5Ohm</item>
-			<item>Re and R5 connected in series so Rd=Re+R5=4.5Ohm</item>
-			<item>R6 and Rd connected in parallel so Rc=R6*Rd/(R6+Rd)=1.8Ohm</item>
-			<item>R3 and R4 connected in series so Rg=R3+R4=2.2Ohm</item>
-			<item>Rc and Rg connected in series so Rb=Rc+Rg=4Ohm</item>
-			<item>R2 and Rb connected in parallel so Ra=R2*Rb/(R2+Rb)=2Ohm</item>
-			<item>The ohm meter shows Ra = 2Ohm</item>
+			<item>This is an AC calculation</item>
+			<item>We know that generator frequency is f=100k Hz, w=2*pi*f</item>
+			<item>L1 and R1 connected in series so Zb=j*w*L1+R1=628 / 90° Ohm+100 / 0° Ohm=636 / 81° Ohm</item>
+			<item>C1 and Zb connected in series so Za=1/(j*w*C1)+Zb=1.59k / -90° Ohm+636 / 81° Ohm=968 / -84.1° Ohm</item>
+			<item>The ohm meter shows Za = 968 / -84.1° Ohm</item>
 		</solution>
 		<block_labels>
 			<item>
-				<label>Re</label>
-				<origin>parallel</origin>
-				<value>1.5Ohm</value>
+				<label>Zb</label>
+				<origin>series</origin>
+				<value>636 / 81° Ohm</value>
 				<labels>
+					<item>L1</item>
 					<item>R1</item>
-					<item>R1</item>
 				</labels>
 				<unique_labels>
-					<item>T_09BEE75020230510135127</item>
-					<item>T_09BEE75020230510135127</item>
+					<item>T_0462B74C20050601152444</item>
+					<item>T_00000000282EECB020250220055225</item>
 				</unique_labels>
 			</item>
 			<item>
-				<label>Rd</label>
+				<label>Za</label>
 				<origin>series</origin>
-				<value>4.5Ohm</value>
+				<value>968 / -84.1° Ohm</value>
 				<labels>
-					<item>Re</item>
-					<item>R5</item>
+					<item>C1</item>
+					<item>Zb</item>
 				</labels>
 				<unique_labels>
-					<item>&lt;block&gt;</item>
-					<item>T_09BEFB1020230510135127</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rc</label>
-				<origin>parallel</origin>
-				<value>1.8Ohm</value>
-				<labels>
-					<item>R6</item>
-					<item>Rd</item>
-				</labels>
-				<unique_labels>
-					<item>T_09BF000020230510135127</item>
-					<item>&lt;block&gt;</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rg</label>
-				<origin>series</origin>
-				<value>2.2Ohm</value>
-				<labels>
-					<item>R3</item>
-					<item>R4</item>
-				</labels>
-				<unique_labels>
-					<item>T_09BEC9B020230510135127</item>
-					<item>T_09BEEC4020230510135127</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rb</label>
-				<origin>series</origin>
-				<value>4Ohm</value>
-				<labels>
-					<item>Rc</item>
-					<item>Rg</item>
-				</labels>
-				<unique_labels>
-					<item>&lt;block&gt;</item>
-					<item>&lt;block&gt;</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Ra</label>
-				<origin>parallel</origin>
-				<value>2Ohm</value>
-				<labels>
-					<item>R2</item>
-					<item>Rb</item>
-				</labels>
-				<unique_labels>
-					<item>T_09BECEA020230510135127</item>
+					<item>T_0462B9F020050601152444</item>
 					<item>&lt;block&gt;</item>
 				</unique_labels>
 			</item>
 		</block_labels>
-		<fn>data/sp3-ai.json</fn>
+		<fn>data/temp.json</fn>
 		<valid>1</valid>
 		<error>0</error>
 		<status>OK</status>
