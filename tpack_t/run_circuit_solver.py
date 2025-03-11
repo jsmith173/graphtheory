@@ -28,7 +28,7 @@ def test_one_file(fn, key, opts):
 		print(f"fn: {fn}, {e}")
 	except Exception as e:
 		s = "Fatal error"		
-		solver.write_log(0, f"{s}: {e}", 1)
+		solver.write_log(0, f"{e}", 1)
 		print(f"{s}: {e}")
 
 def test_all_proc(fn, key, opts):

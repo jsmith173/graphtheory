@@ -113,9 +113,6 @@ class TCircuitSolverGraph:
 		else:	
 			raise Exception('Generator or Ohm meter not found')
 			
-		if gen_found and self.find_ohm_meter():
-			raise Exception('I found generators and an Ohm meter. Generators are not allowed if there is also an Ohm meter')
-			
 		self.gen = self.json_data['gens'][0]
 
 		if self.opts['override_request'] == 1:
@@ -123,6 +120,16 @@ class TCircuitSolverGraph:
 		else:	
 			self.request = json_data_l['request']
 		self.request['ohm_meter_question'] = self.find_ohm_meter()
+			
+		if gen_found and self.find_ohm_meter():
+			raise Exception('I found generators and an Ohm meter. Generators are not allowed if there is also an Ohm meter')
+
+		if self.request['cmd'] == 'get_voltage':
+			sTmp = "voltage"
+		elif self.request['cmd'] == 'get_current':
+			sTmp = "current"
+		if not gen_found and self.find_ohm_meter() and (self.request['cmd'] == 'get_voltage' or self.request['cmd'] == 'get_current'):
+			raise Exception(f'You asked about {sTmp}, but I found an ohmmeter in the circuit. If there is an ohmmeter in the circuit, you can only ask about resistance.')
 			
 		# options = 'dy': use delta-y conversion if possible	
 		if self.request['options'] == 'dy':
