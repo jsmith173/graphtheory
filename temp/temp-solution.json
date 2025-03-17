@@ -1,94 +1,40 @@
 {
-    "superposition": [
-        {
-            "total_impedance_ori_txt": [
-                "L1 and R1 connected in series so Zb=j*w*L1+R1=628 / 90° Ohm+100 / 0° Ohm=636 / 81° Ohm",
-                "C1 and Zb connected in series so Za=1/(j*w*C1)+Zb=1.59k / -90° Ohm+636 / 81° Ohm=968 / -84.1° Ohm",
-                "The ohm meter shows Za = 968 / -84.1° Ohm"
-            ],
-            "total_impedance_txt": [
-                "L1 and R1 connected in series so Zb=j*w*L1+R1=628 / 90° Ohm+100 / 0° Ohm=636 / 81° Ohm",
-                "C1 and Zb connected in series so Za=1/(j*w*C1)+Zb=1.59k / -90° Ohm+636 / 81° Ohm=968 / -84.1° Ohm",
-                "The ohm meter shows Za = 968 / -84.1° Ohm"
-            ],
-            "gen": {
-                "nodes": [
-                    1,
-                    0
-                ],
-                "prop": {
-                    "label": "ZM1",
-                    "match_label": "",
-                    "CompId": 8,
-                    "UniqueID": "",
-                    "value": 0,
-                    "flags": 1,
-                    "ac_gen": {
-                        "mode": 1,
-                        "AbsV": 1,
-                        "Phase": -90,
-                        "Freq": 100000
-                    }
-                }
-            }
-        }
-    ],
+    "superposition": [],
     "circuit": [
         "Netlist (component name, nodes)",
-        "R1 1 2",
-        "C1 3 0",
-        "L1 2 3",
+        "R5 1 2",
+        "R4 3 2",
+        "R2 3 1",
+        "R1 2 0",
+        "R3 0 1",
         ""
     ],
     "request": {
-        "text": "What is the resistance on ZM1?",
-        "cmd": "get_impedance",
-        "comp": "",
+        "text": "What is the voltage on R5?",
+        "cmd": "get_voltage",
+        "comp": "R5",
         "options": "<none>",
         "qid": "0",
-        "ohm_meter_question": true,
+        "ohm_meter_question": false,
         "req_on_gen": false,
-        "volt_meter_question": true,
-        "comp_ori": "ZM1",
+        "volt_meter_question": false,
         "amper_meter_question": false
     },
     "calculation": {
         "solution": [
             "*** Solution by TINA assisted by AI ***",
-            "This is an AC calculation",
-            "We know that generator frequency is f=100k Hz, w=2*pi*f",
-            "L1 and R1 connected in series so Zb=j*w*L1+R1=628 / 90° Ohm+100 / 0° Ohm=636 / 81° Ohm",
-            "C1 and Zb connected in series so Za=1/(j*w*C1)+Zb=1.59k / -90° Ohm+636 / 81° Ohm=968 / -84.1° Ohm",
-            "The ohm meter shows Za = 968 / -84.1° Ohm"
+            "This circuit can not be solved by using the standard series-parallel rules",
+            "The R5,R2,R3 components form a star connection. We will convert it to delta connection",
+            "So we can use standard series-parallel rules for impedance calculation",
+            "The new components will be: Rxya=3000.00 Ohm,Rxyb=3000.00 Ohm,Rxyc=3000.00 Ohm",
+            "The following formulas are used in the star to delta conversion: ",
+            "Rxya=(R5*R2+R2*R3+R3*R5)/R3",
+            "Rxyb=(R5*R2+R2*R3+R3*R5)/R5",
+            "Rxyc=(R5*R2+R2*R3+R3*R5)/R2",
+            "",
+            "The component R5 removed from the graph so we break this pass."
         ],
-        "block_labels": [
-            {
-                "label": "Zb",
-                "origin": "series",
-                "value": "636 / 81° Ohm",
-                "labels": [
-                    "L1",
-                    "R1"
-                ],
-                "unique_labels": [
-                    "T_0462B74C20050601152444",
-                    "T_00000000282EECB020250220055225"
-                ]
-            },
-            {
-                "label": "Za",
-                "origin": "series",
-                "value": "968 / -84.1° Ohm",
-                "labels": [
-                    "C1",
-                    "Zb"
-                ],
-                "unique_labels": [
-                    "T_0462B9F020050601152444",
-                    "<block>"
-                ]
-            }
-        ],
+        "block_labels": [],
         "fn": "data/temp.json",
         "valid": 1,
         "error": 0,

@@ -1,23 +1,24 @@
 {
     "circuit_no_gens": {
-        "N": 3,
+        "N": 4,
         "nodes": [
-            2,
             1,
+            2,
+            3,
             0
         ],
         "gens": [
             {
                 "nodes": [
-                    1,
-                    2
+                    3,
+                    0
                 ],
                 "prop": {
-                    "label": "IS1",
+                    "label": "VS1",
                     "match_label": "",
-                    "CompId": 13,
-                    "UniqueID": "T_047B1FC020240428081016",
-                    "value": 1,
+                    "CompId": 14,
+                    "UniqueID": "T_0846E67020091201135340",
+                    "value": 5,
                     "flags": 1,
                     "ac_gen": {
                         "mode": 0
@@ -30,64 +31,137 @@
                 "currents": [
                     {
                         "label": "R1",
-                        "value": 0.66667
+                        "value": 0.00192
+                    },
+                    {
+                        "label": "R2",
+                        "value": 0.00269
                     },
                     {
                         "label": "R3",
-                        "value": -0.66667
+                        "value": -0.00231
+                    },
+                    {
+                        "label": "R4",
+                        "value": 0.00154
                     },
                     {
                         "label": "R5",
-                        "value": 0.33333
+                        "value": 0.00038462
+                    },
+                    {
+                        "label": "VS1",
+                        "value": -0.00423
                     }
                 ],
                 "other voltages": [
                     {
-                        "label": "IS1",
-                        "value": -1.33
+                        "label": "R1",
+                        "value": 1.92
                     },
                     {
-                        "label": "R1",
-                        "value": 0.66667
+                        "label": "R2",
+                        "value": 2.69
                     },
                     {
                         "label": "R3",
-                        "value": -0.66667
+                        "value": -2.31
+                    },
+                    {
+                        "label": "R4",
+                        "value": 3.08
                     },
                     {
                         "label": "R5",
-                        "value": 1.33
+                        "value": 0.38462
+                    },
+                    {
+                        "label": "VM1",
+                        "value": 2.31
+                    },
+                    {
+                        "label": "VS1",
+                        "value": 5
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": 2.31
                     }
                 ]
             }
         ],
-        "meters": [],
+        "meters": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "VM1",
+                    "match_label": "R3",
+                    "CompId": 5,
+                    "UniqueID": "9MRV6QBTDDEL5RFG66HMDDDL",
+                    "value": 0,
+                    "flags": 1
+                }
+            }
+        ],
         "edges": [
             {
                 "nodes": [
-                    2,
-                    1
+                    1,
+                    2
                 ],
                 "prop": {
                     "label": "R5",
                     "match_label": "",
                     "CompId": 9,
-                    "UniqueID": "T_1F39CC1020240130111214",
-                    "value": 4,
+                    "UniqueID": "VBCV9IT7E0OO4MBPNP0R4OJQ",
+                    "value": 1000,
                     "flags": 1
                 }
             },
             {
                 "nodes": [
-                    0,
+                    3,
                     2
                 ],
                 "prop": {
-                    "label": "R3",
+                    "label": "R4",
                     "match_label": "",
                     "CompId": 9,
-                    "UniqueID": "T_1F39C23020240130111206",
-                    "value": 1,
+                    "UniqueID": "BQH9BNLOPVLDMBM0PT97O5I7",
+                    "value": 2000,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    1
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "MD6NJPSA245AVM7PQIFPRV4S",
+                    "value": 1000,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "J7UJTBIREL38D5GB29I465E3",
+                    "value": 1000,
                     "flags": 1
                 }
             },
@@ -97,26 +171,22 @@
                     1
                 ],
                 "prop": {
-                    "label": "R1",
+                    "label": "R3",
                     "match_label": "",
                     "CompId": 9,
-                    "UniqueID": "T_1F39B85020240130111157",
-                    "value": 1,
+                    "UniqueID": "CHV9714E5CQSCEBVLHSFSC70",
+                    "value": 1000,
                     "flags": 1
                 }
             }
         ],
-        "circ_name": "is1.tsc"
+        "circ_name": "bridge square.tsc"
     },
     "request": {
-        "text": "What is the current on R1?",
-        "cmd": "get_current",
-        "comp": "R1",
+        "text": "What is the voltage on R5?",
+        "cmd": "get_voltage",
+        "comp": "R5",
         "options": "<none>",
         "qid": "0"
-    },
-    "expected": {
-        "valid": 1,
-        "res_req": 0.333
     }
 }

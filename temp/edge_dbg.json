@@ -3,35 +3,59 @@
         "source": 1,
         "target": 2,
         "prop": {
-            "label": "R1",
+            "label": "R5",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_00000000282EECB020250220055225",
-            "value": 100,
+            "UniqueID": "VBCV9IT7E0OO4MBPNP0R4OJQ",
+            "value": 1000,
             "flags": 1
         }
     },
     {
         "source": 3,
-        "target": 0,
+        "target": 2,
         "prop": {
-            "label": "C1",
+            "label": "R4",
             "match_label": "",
-            "CompId": 10,
-            "UniqueID": "T_0462B9F020050601152444",
-            "value": 1e-09,
+            "CompId": 9,
+            "UniqueID": "BQH9BNLOPVLDMBM0PT97O5I7",
+            "value": 2000,
+            "flags": 1
+        }
+    },
+    {
+        "source": 3,
+        "target": 1,
+        "prop": {
+            "label": "R2",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "MD6NJPSA245AVM7PQIFPRV4S",
+            "value": 1000,
             "flags": 1
         }
     },
     {
         "source": 2,
-        "target": 3,
+        "target": 0,
         "prop": {
-            "label": "L1",
+            "label": "R1",
             "match_label": "",
-            "CompId": 11,
-            "UniqueID": "T_0462B74C20050601152444",
-            "value": 0.001,
+            "CompId": 9,
+            "UniqueID": "J7UJTBIREL38D5GB29I465E3",
+            "value": 1000,
+            "flags": 1
+        }
+    },
+    {
+        "source": 0,
+        "target": 1,
+        "prop": {
+            "label": "R3",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "CHV9714E5CQSCEBVLHSFSC70",
+            "value": 1000,
             "flags": 1
         }
     }

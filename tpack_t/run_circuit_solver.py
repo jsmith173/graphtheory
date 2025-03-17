@@ -76,8 +76,8 @@ def run():
 
 	test_request = {
 		"text": "",
-		"cmd": "get_current",
-		"comp": "R1",
+		"cmd": "get_voltage",
+		"comp": "R2",
 		"options": "<none>",
 		"qid": "0"
 	}
