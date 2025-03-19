@@ -8,6 +8,7 @@ from pathlib import Path
 from json2xml import json2xml
 from copy import copy, deepcopy
 from tpack_t import circuit_solver_util as cu
+from array import array
 import math, cmath
 
 RES_ = 9; CAP_ = 10; IND_ = 11; 
@@ -22,6 +23,7 @@ FLAGS_NONE = 0
 FLAGS_NORMAL = 1
 FLAGS_SHORT = 2
 FLAGS_OPEN = 3
+F_VOLT_METER_NO_MATCH = 4
 
 RES_OPEN_CIRCUIT = 1e18
 
@@ -63,6 +65,9 @@ class TCircuitSolverGraph:
 		self.show_graph = 0
 		self.show_tree = 0
 		self.show_result = 0
+		self.v_re = array('d', [0.0])
+		self.v_im = array('d', [0.0])
+		self.v_flags = array('b', [0])
 		if opts != None:
 			self.show_graph = opts['debug_mode'] == 1
 			self.show_tree = opts['debug_mode'] == 1
@@ -140,13 +145,18 @@ class TCircuitSolverGraph:
 		self.use_superposition = len(self.json_data['gens']) > 1
 
 		# Replacing volt meter labels in request
-		self.request['volt_meter_question'] = False
+		self.request["volt_meter_question"] = False
+		self.request["volt_meter_no_match"] = False
+		self.request["comp_ori"] = ""
 		for item in self.json_data["meters"]:
 			prop = item["prop"]
-			if self.request["comp"] == prop["label"]:
+			if (prop["flags"] and F_VOLT_METER_NO_MATCH) != 0:
+				#self.request["volt_meter_question"] = True
+				self.request["volt_meter_no_match"] = True
+			elif self.request["comp"] == prop["label"]:
 				self.request["comp_ori"] = self.request["comp"]
 				self.request["comp"] = prop["match_label"]
-				self.request['volt_meter_question'] = True
+				self.request["volt_meter_question"] = True
 				break
 		
 		cu.dump_list(self.json_data, "temp/input.json")
@@ -324,7 +334,16 @@ class TCircuitSolverGraph:
 			n = node.directed_nodes[1]
 			self.update_nodal_edges(node.directed_nodes, v, key, label)
 			self.nodal_voltage_log.append(f"Nodes: {m}, {n}, {key}: {v}, top type: {top_str}")
-
+			
+			if self.check_v_flag(n) and not self.check_v_flag(m):
+				v_old = self.get_v(n)
+				v_new = v_old+v
+				self.set_v(m, v_new)
+			elif self.check_v_flag(m) and not self.check_v_flag(n):
+				v_old = self.get_v(m)
+				v_new = v_old+v
+				self.set_v(n, v_new)
+			
 	def get_label_prop(self, node, calc_impedance=False):
 		status = True
 		if node.type == "series" or node.type == "parallel":
@@ -992,3 +1011,32 @@ class TCircuitSolverGraph:
 					break
 		return f, res			
 
+	def check_v_extend(self, i, L):
+		if i >= L:
+			m = i-L+1
+			self.v_re.extend([0.0]*m)
+			self.v_im.extend([0.0]*m)
+			self.v_flags.extend([0]*m)
+	
+	def set_v(self, i, value):
+		if isinstance(value, complex):
+			re = value.real; im = value.imag
+		else:
+			re = value; im = 0
+		L = len(self.v_re)
+		self.check_v_extend(i, L):
+		self.v_re[i] = re	
+		self.v_im[i] = im
+		self.v_flags[i] = True
+		self.nodal_voltage_log.append(f"The voltage for graph number {i} has been set to {value}V.")
+	
+	def check_v_flag(self, i):
+		L = len(self.v_re)
+		self.check_v_extend(i, L):
+		return self.v_flags[i]
+	
+	def get_v(self, i):
+		L = len(self.v_re)
+		self.check_v_extend(i, L):
+		return self.v_re[i]
+	

@@ -1,41 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <top>
-	<superposition/>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R3 and R2 connected in series so Rb=R3+R2=1Ohm+1Ohm=2Ohm</item>
+				<item>Rb and R1 connected in series so Ra=Rb+R1=2Ohm+1Ohm=3Ohm</item>
+				<item>The total resistance is Ra = 3Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R3 and R2 connected in series so Rb=R3+R2=1Ohm+1Ohm=2Ohm</item>
+				<item>Rb and R1 connected in series so Ra=Rb+R1=2Ohm+1Ohm=3Ohm</item>
+				<item>The total resistance is Ra = 3Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>3</item>
+					<item>0</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_1F41FB4020240129133922</UniqueID>
+					<value>5</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+			<nodal_voltage_log>
+				<item>Nodes: 3, 0, voltage: 5, top type: &lt;none&gt;</item>
+				<item>Node val set: 0: 0</item>
+				<item>Node val set: 3: 5</item>
+				<item>Nodes: 3, 0, current: 1.6666666666666667, top type: &lt;none&gt;</item>
+				<item>Nodes: 2, 0, voltage: 3.333333333333333, top type: series</item>
+				<item>Node val set: 2: 3.333333333333333</item>
+				<item>Nodes: 2, 0, current: 1.6666666666666667, top type: series</item>
+				<item>Nodes: 2, 0, current: 1.6666666666666667, top type: series</item>
+				<item>Nodes: 3, 2, voltage: 1.6666666666666665, top type: series</item>
+				<item>Nodes: 3, 2, current: 1.6666666666666667, top type: series</item>
+				<item>Nodes: 3, 2, current: 1.6666666666666667, top type: series</item>
+			</nodal_voltage_log>
+		</item>
+	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>R5 1 2</item>
-		<item>R4 3 2</item>
-		<item>R2 3 1</item>
-		<item>R1 2 0</item>
-		<item>R3 0 1</item>
+		<item>R3 1 0</item>
+		<item>R2 2 1</item>
+		<item>R1 3 2</item>
 		<item/>
 	</circuit>
 	<request>
-		<text>What is the voltage on R5?</text>
+		<text/>
 		<cmd>get_voltage</cmd>
-		<comp>R5</comp>
+		<comp>R1</comp>
 		<options>&lt;none&gt;</options>
 		<qid>0</qid>
 		<ohm_meter_question>false</ohm_meter_question>
 		<req_on_gen>false</req_on_gen>
 		<volt_meter_question>false</volt_meter_question>
+		<volt_meter_no_match>false</volt_meter_no_match>
+		<comp_ori/>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
 		<solution>
 			<item>*** Solution by TINA assisted by AI ***</item>
-			<item>This circuit can not be solved by using the standard series-parallel rules</item>
-			<item>The R5,R2,R3 components form a star connection. We will convert it to delta connection</item>
-			<item>So we can use standard series-parallel rules for impedance calculation</item>
-			<item>The new components will be: Rxya=3000.00 Ohm,Rxyb=3000.00 Ohm,Rxyc=3000.00 Ohm</item>
-			<item>The following formulas are used in the star to delta conversion: </item>
-			<item>Rxya=(R5*R2+R2*R3+R3*R5)/R3</item>
-			<item>Rxyb=(R5*R2+R2*R3+R3*R5)/R5</item>
-			<item>Rxyc=(R5*R2+R2*R3+R3*R5)/R2</item>
+			<item>At first we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>R3 and R2 connected in series so Rb=R3+R2=1Ohm+1Ohm=2Ohm</item>
+			<item>Rb and R1 connected in series so Ra=Rb+R1=2Ohm+1Ohm=3Ohm</item>
+			<item>The total resistance is Ra = 3Ohm</item>
 			<item/>
-			<item>The component R5 removed from the graph so we break this pass.</item>
+			<item>Now we calculate the voltage on R1</item>
+			<item>We know that the voltage between VS1 nodes is 5V.</item>
+			<item/>
+			<item>The components Rb,R1 connected in series.</item>
+			<item>Label: R1, nodes: 3, 0</item>
+			<item>The voltage between this components starting and ending node is 5V</item>
+			<item>R1 is in the voltage divider so the voltage on R1 is R1/Ra*5V = 1.67V </item>
+			<item/>
 		</solution>
-		<block_labels/>
+		<block_labels>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<value>2Ohm</value>
+				<labels>
+					<item>R3</item>
+					<item>R2</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F2AE99020240203083907</item>
+					<item>T_1F2AE4A020240203083904</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<value>3Ohm</value>
+				<labels>
+					<item>Rb</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F41EC7020240129133833</item>
+				</unique_labels>
+			</item>
+		</block_labels>
 		<fn>data/temp.json</fn>
 		<valid>1</valid>
 		<error>0</error>

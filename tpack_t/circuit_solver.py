@@ -369,6 +369,11 @@ class TCircuitSolver:
 							self.log(f"The voltage on {labels[i]} is {cu.fv(voltage)}V because the voltage is {cu.fv(voltage)}V on {top_label}") 
 					else:
 						self.log(f"The components {label_list} connected in series.")
+						
+						#m = node.directed_nodes[0]
+						#n = node.directed_nodes[1]
+						#self.log(f"Label: {labels[i]}, nodes: {m}, {n}")
+						
 						self.log(f"The voltage between this components starting and ending node is {cu.fv(voltage)}V") 
 						self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
 			                     f"{labels_z[i]}/{top_label}*{cu.fv(voltage)}V = {cu.fv(new_val[i])}V ")
@@ -799,6 +804,8 @@ class TCircuitSolver:
 		# set values on top node
 		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
 		if gen_new_value['quantity'] == 'voltage':
+			self.graph.set_v(T.source, 0)
+			self.graph.set_v(T.target, T.prop['voltage'])
 			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
 		else:
 			voltage_val = T.prop['current']*T.prop['impedance']	

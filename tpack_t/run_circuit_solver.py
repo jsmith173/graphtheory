@@ -77,7 +77,7 @@ def run():
 	test_request = {
 		"text": "",
 		"cmd": "get_voltage",
-		"comp": "R2",
+		"comp": "R1",
 		"options": "<none>",
 		"qid": "0"
 	}
@@ -104,7 +104,7 @@ def run():
 	opts['test_Y'] = 1
 	opts['test_D'] = 1
 	opts['log_info'] = 1
-	opts['override_request'] = 0
+	opts['override_request'] = 1
 	opts['request'] = test_request
 
 	if mode_release == 1:
