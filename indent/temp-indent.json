@@ -2,9 +2,9 @@
     "circuit_no_gens": {
         "N": 4,
         "nodes": [
-            1,
-            0,
             2,
+            0,
+            1,
             3
         ],
         "gens": [
@@ -34,11 +34,11 @@
                         "value": 1.67
                     },
                     {
-                        "label": "R2",
+                        "label": "R3",
                         "value": 1.67
                     },
                     {
-                        "label": "R3",
+                        "label": "V",
                         "value": 1.67
                     },
                     {
@@ -52,25 +52,50 @@
                         "value": 1.67
                     },
                     {
-                        "label": "R2",
+                        "label": "R3",
                         "value": 1.67
                     },
                     {
-                        "label": "R3",
+                        "label": "V",
                         "value": 1.67
+                    },
+                    {
+                        "label": "VM1",
+                        "value": 3.33
                     },
                     {
                         "label": "VS1",
                         "value": 5
                     }
+                ],
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": 3.33
+                    }
                 ]
             }
         ],
-        "meters": [],
-        "edges": [
+        "meters": [
             {
                 "nodes": [
                     1,
+                    0
+                ],
+                "prop": {
+                    "label": "VM1",
+                    "match_label": "",
+                    "CompId": 5,
+                    "UniqueID": "T_0000000026F8908020250319081702",
+                    "value": 0,
+                    "flags": 5
+                }
+            }
+        ],
+        "edges": [
+            {
+                "nodes": [
+                    2,
                     0
                 ],
                 "prop": {
@@ -84,11 +109,11 @@
             },
             {
                 "nodes": [
-                    2,
-                    1
+                    1,
+                    2
                 ],
                 "prop": {
-                    "label": "R2",
+                    "label": "V",
                     "match_label": "",
                     "CompId": 9,
                     "UniqueID": "T_1F2AE4A020240203083904",
@@ -99,7 +124,7 @@
             {
                 "nodes": [
                     3,
-                    2
+                    1
                 ],
                 "prop": {
                     "label": "R1",
@@ -111,12 +136,13 @@
                 }
             }
         ],
-        "circ_name": "g-ser-simple3-ok.tsc"
+        "circ_name": "g-ser-simple3-ok.tsc",
+        "meters_without_labels": 0
     },
     "request": {
-        "text": "What is the voltage on R1?",
+        "text": "What is the voltage on voltmeter?",
         "cmd": "get_voltage",
-        "comp": "R1",
+        "comp": "voltmeter",
         "options": "<none>",
         "qid": "0"
     }

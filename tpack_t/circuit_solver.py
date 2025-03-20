@@ -25,7 +25,7 @@ class RequestException(Exception):
 class TCircuitSolver:
 	def __init__(self, fn_, opts = None):
 		node_global_init()
-		self.debug_impedance = []; self.debug_test_preorder = []; self.solution_log = []; 
+		self.debug_impedance = []; self.debug_test_preorder = []; 
 		self.formula = ''; self.lc = 1; self.stop_solver = False
 
 		self.fn = fn_
@@ -284,14 +284,14 @@ class TCircuitSolver:
 		self.debug_test_preorder.append(s1)
 
 	def log(self, s):
-		self.solution_log.append(s)
+		self.graph.log(s)
 
 	def log_info(self, s):
 		if self.opts['log_info'] == 1:
-			self.solution_log.append(s)
+			self.graph.solution_log.append(s)
 
 	def logl(self, s):
-		self.solution_log.extend(s)
+		self.graph.solution_log.extend(s)
 
 	def find_replaced_one_items(self, a):
 		for item in self.replaced_one_items:
@@ -361,7 +361,7 @@ class TCircuitSolver:
 				#status, block_rules = self.resolve_composed_labels_rules(labels)
  
 				status, M = cu.in_path(nodes[i], self.request_path)
-				if M != "":
+				if M != "" or self.request_path == '':
 					self.last_node = nodes[i]
 					M = f"({self.lc}) "; self.lc = self.lc+1
 					if len(labels) == 1:
@@ -394,7 +394,7 @@ class TCircuitSolver:
 				self.graph.set_node_val(nodes[i], voltage, labels[i], True, 'voltage', directed_nodes, node) 
 				self.graph.set_node_val(nodes[i], new_val[i], labels[i], True, 'current', directed_nodes, node) 
 				status, M = cu.in_path(nodes[i], self.request_path)
-				if M != "":
+				if M != "" or self.request_path == '':
 					self.last_node = nodes[i]
 					if is_req_label:
 						s = self.request['comp']
@@ -540,55 +540,72 @@ class TCircuitSolver:
 		request_txt = cu.get_request_txt(self.request)
 		if request_txt == "voltage":
 			sMeter = "voltmeter"
+		elif request_txt == "current":
+			sMeter = "ampermeter"
 		else:
-			sMeter = "ampermeter"	
+			sMeter = "ohmmeter"	
 
-		meter_name = self.request["comp_ori"]
-		f, meter = self.graph.find_meter(meter_name)
+		show_meter_name = self.request["comp_ori"]
+		if self.request["volt_meter_no_match"]:
+			meter_name = self.request["comp"]
+			f, meter = self.graph.find_meter(meter_name)
 
-		comp = self.request["comp"]
-		idx = self.graph.find_edge_value_by_label(comp)
-		if idx < 0:
-			raise Exception(f"{comp} not found while trying to calculate the meter {meter_name}")
-		value = self.graph.edge_values[idx]
-		v, v_str = self.calc_final_nodal_edge(value, request_txt)
-
-		if request_txt == "voltage":
-			if value['nodes'] == meter['nodes']:
-				polarity = 1.0
-			else:
-				polarity = -1.0	
-			v = v*polarity
-			self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} parallel so the {request_txt} on {meter_name} is {cu.fv(v)}V")
-			if polarity < 0:
-				self.log(f"We have considered also that the polarity of the {sMeter} does not match the {request_txt} direction on {comp}")
-			#if reversed and not self.graph.use_superposition:
-			#	self.log(f"We have considered also that the {request_txt} direction on {comp} is reversed")
+			if request_txt == "voltage":
+				m = meter['nodes'][0]
+				n = meter['nodes'][1]
+				
+				v0 = self.graph.get_v(m)
+				v1 = self.graph.get_v(n)
+				v = v0-v1
+				
+				self.log(f"To answer the original question: because the {sMeter} connected to nodes {m},{n} so the {request_txt} on {show_meter_name} is {cu.fv(v)}V")
 		else:
-			#ampermeters1
-			f = False
-			for i in range(len(meter['nodes'])):
-				item = meter['nodes'][i]
-				for j in range(len(value['nodes'])):
-					item2 = value['nodes'][j]
-					if item2 == item:
-						ii = i; jj = j; f = True; break
-				if f:
-					break
-			# ii: 0: plus node, 1: minus node	
-			# ii=0,jj=1	
-			AM_PLUS_NODE = 0; AM_MINUS_NODE = 1; FIRST_NODE = 0; SECOND_NODE = 1
-			if f:
-				if ii == AM_PLUS_NODE and jj == SECOND_NODE or ii == AM_MINUS_NODE and jj == FIRST_NODE:
+			meter_name = self.request["comp_ori"]
+			f, meter = self.graph.find_meter(meter_name)
+
+			comp = self.request["comp"]
+			idx = self.graph.find_edge_value_by_label(comp)
+			if idx < 0:
+				raise Exception(f"{comp} not found while trying to calculate the meter {meter_name}")
+			value = self.graph.edge_values[idx]
+			v, v_str = self.calc_final_nodal_edge(value, request_txt)
+
+			if request_txt == "voltage":
+				if value['nodes'] == meter['nodes']:
 					polarity = 1.0
-				elif ii == AM_MINUS_NODE and jj == SECOND_NODE or ii == AM_PLUS_NODE and jj == FIRST_NODE:
-					polarity = -1.0
-				v = v*polarity			
-				self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {cu.fv(v)}A")
-				if polarity < 0:
-					self.log(f"We have considered also that the direction of the {sMeter} does not match the {request_txt} direction on {comp}")
+				else:
+					polarity = -1.0	
+				v = v*polarity
+				self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} parallel so the {request_txt} on {meter_name} is {cu.fv(v)}V")
+				#if polarity < 0:
+				#	self.log(f"We have considered also that the polarity of the {sMeter} does not match the {request_txt} direction on {comp}")
+				#if reversed and not self.graph.use_superposition:
+				#	self.log(f"We have considered also that the {request_txt} direction on {comp} is reversed")
+			else:
+				#ampermeters1
+				f = False
+				for i in range(len(meter['nodes'])):
+					item = meter['nodes'][i]
+					for j in range(len(value['nodes'])):
+						item2 = value['nodes'][j]
+						if item2 == item:
+							ii = i; jj = j; f = True; break
+					if f:
+						break
+				# ii: 0: plus node, 1: minus node	
+				# ii=0,jj=1	
+				AM_PLUS_NODE = 0; AM_MINUS_NODE = 1; FIRST_NODE = 0; SECOND_NODE = 1
+				if f:
+					if ii == AM_PLUS_NODE and jj == SECOND_NODE or ii == AM_MINUS_NODE and jj == FIRST_NODE:
+						polarity = 1.0
+					elif ii == AM_MINUS_NODE and jj == SECOND_NODE or ii == AM_PLUS_NODE and jj == FIRST_NODE:
+						polarity = -1.0
+					v = v*polarity			
+					self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {cu.fv(v)}A")
+					#if polarity < 0:
+					#	self.log(f"We have considered also that the direction of the {sMeter} does not match the {request_txt} direction on {comp}")
 
-		self.log(f"We have considered also the sign of the {request_txt} on {comp}")
+		#self.log(f"We have considered also the sign of the {request_txt} on {comp}")
 
 	def calc_final_nodal_edge(self, item, key):
 		items = item[f"{key}_items"]
@@ -710,7 +727,7 @@ class TCircuitSolver:
 		if self.graph.opts['test_Y'] == 1 or self.graph.opts['test_D'] == 1:
 			status = self.graph.check_YD(fixed_ends)
 			if status == 1:
-				self.solution_log.extend(self.graph.yd_log)
+				self.graph.solution_log.extend(self.graph.yd_log)
 				self.graph.update_edges_json()
 			G = self.graph.G
 		T = find_sptree(G, fixed_ends)
@@ -752,14 +769,13 @@ class TCircuitSolver:
 			print("")
 
 		label = self.request['comp']
-		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
+		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']; self.request_path = ''
 		if gen_name == comp_label:
 			self.request['req_on_gen'] = True
-		elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':	
+		elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance' and not self.request["volt_meter_no_match"]:	
 			status = self.graph.find_edge_in_G(label)
 			if not status:
-				self.log_info(f"The component {label} removed from the graph so we break this pass.")
-				return
+				raise Exception(f"The component {label} removed from the graph so we break this pass.")
 			status, self.request_path = self.graph.find_path(label, paths)	
 			if not status:
 				raise RequestException(f"Request error: {label} not found")
@@ -876,7 +892,7 @@ class TCircuitSolver:
 	
 	def write_log(self, valid, status, error_code=0, save_files=True):
 		if error_code > 0:
-			self.solution_log.append('Failed: see codes')
+			self.graph.solution_log.append('Failed: see codes')
 
 		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
 		
@@ -903,7 +919,7 @@ class TCircuitSolver:
 		#self.solution['result'] = result
 
 		calculation = {}
-		calculation['solution'] = self.solution_log
+		calculation['solution'] = self.graph.solution_log
 		if error_code == 0:	
 			calculation['block_labels'] = self.block_labels
 

@@ -15,9 +15,11 @@ RES_ = 9; CAP_ = 10; IND_ = 11;
 RESMET_ = 8; RESMET2_ = 98
 CSOUR_ = 13; VSOUR_ = 14; CGEN_ = 15; VGEN_ = 16; Battery_ = 67
 AMPER_METER_ = 6; AMPER_METER2_ = 34
+VOLTMET_ = 5; VOLTMET2_ = 33
 
 SHORT_CIRCUIT_PREFIX = "Rshortxxx"
 OPEN_CIRCUIT_PREFIX = "Ropenxxx"
+VOLT_METER_NAME = 'voltmeter'
 
 FLAGS_NONE = 0
 FLAGS_NORMAL = 1
@@ -26,6 +28,10 @@ FLAGS_OPEN = 3
 F_VOLT_METER_NO_MATCH = 4
 
 RES_OPEN_CIRCUIT = 1e18
+
+F_VOLT_METER  = 1
+F_OHM_METER   = 2
+F_AMPER_METER = 4
 
 def_weight = 1
 
@@ -57,7 +63,7 @@ split_edge_prop = {
 
 class TCircuitSolverGraph:
 	def __init__(self, fn_, opts = None):
-		self.yd_log = []; self.graph_update = []; self.resistive_comps = []; self.resistive_comps_ = []; self.gen_comps = []; self.yd_labels = []
+		self.yd_log = []; self.graph_update = []; self.resistive_comps = []; self.resistive_comps_ = []; self.gen_comps = []; self.yd_labels = []; self.solution_log = []; 
 		self.graph_debug = []
 		self.try_count = 0; self.try_count_Y = 0; self.try_count_D = 0; self.edge_values = []		
 		self.fn = fn_
@@ -72,6 +78,9 @@ class TCircuitSolverGraph:
 			self.show_graph = opts['debug_mode'] == 1
 			self.show_tree = opts['debug_mode'] == 1
 			self.show_result = opts['debug_mode'] == 1
+
+	def log(self, s):
+		self.solution_log.append(s)
 
 	def prepare(self, circuit_key):
 		self.resistive_comps_.append(RES_)
@@ -147,17 +156,26 @@ class TCircuitSolverGraph:
 		# Replacing volt meter labels in request
 		self.request["volt_meter_question"] = False
 		self.request["volt_meter_no_match"] = False
-		self.request["comp_ori"] = ""
-		for item in self.json_data["meters"]:
-			prop = item["prop"]
-			if (prop["flags"] and F_VOLT_METER_NO_MATCH) != 0:
-				#self.request["volt_meter_question"] = True
-				self.request["volt_meter_no_match"] = True
-			elif self.request["comp"] == prop["label"]:
-				self.request["comp_ori"] = self.request["comp"]
-				self.request["comp"] = prop["match_label"]
-				self.request["volt_meter_question"] = True
-				break
+		self.request["comp_ori"] = self.request["comp"]
+		idx = self.find_edge_value_by_label(self.request["comp"])
+		request_comp_normal = idx >= 0
+
+		if not request_comp_normal and self.request["cmd"] == "get_voltage":
+			for item in self.json_data["meters"]:
+				prop = item["prop"]
+				if self.match_volt_meter(prop["label"]):
+					if (prop["flags"] & F_VOLT_METER_NO_MATCH) != 0:
+						self.request["volt_meter_question"] = True
+						self.request["volt_meter_no_match"] = True
+					else:
+						self.request["volt_meter_question"] = True
+						self.request["comp_ori"] = self.request["comp"]
+						self.request["comp"] = prop["match_label"]
+						break
+
+		if self.request["volt_meter_question"] and self.request["comp"] == VOLT_METER_NAME:
+			status = self.find_volt_meter()
+			self.request["comp"] = self.meter_prop["prop"]["label"]
 		
 		cu.dump_list(self.json_data, "temp/input.json")
 		return self.has_expected_key, self.expected_key, self.gen, self.request
@@ -198,6 +216,17 @@ class TCircuitSolverGraph:
 		for item in self.json_data["meters"]:
 			prop = item["prop"]
 			if prop["CompId"] == RESMET_ or prop["CompId"] == RESMET2_:
+				self.meter_prop = item
+				return True
+		return False
+		
+	def match_volt_meter(self, s):
+		return self.request["comp"] == s or self.request["comp"] == "" or self.request["comp"] == VOLT_METER_NAME
+	
+	def find_volt_meter(self):
+		for item in self.json_data["meters"]:
+			prop = item["prop"]
+			if prop["CompId"] == VOLTMET_ or prop["CompId"] == VOLTMET2_:
 				self.meter_prop = item
 				return True
 		return False
@@ -1024,19 +1053,20 @@ class TCircuitSolverGraph:
 		else:
 			re = value; im = 0
 		L = len(self.v_re)
-		self.check_v_extend(i, L):
+		self.check_v_extend(i, L)
 		self.v_re[i] = re	
 		self.v_im[i] = im
 		self.v_flags[i] = True
-		self.nodal_voltage_log.append(f"The voltage for graph number {i} has been set to {value}V.")
+		if self.request["volt_meter_no_match"]:
+			self.log(f"The voltage for graph number {i} has been set to {cu.fv(value)}V.")
 	
 	def check_v_flag(self, i):
 		L = len(self.v_re)
-		self.check_v_extend(i, L):
+		self.check_v_extend(i, L)
 		return self.v_flags[i]
 	
 	def get_v(self, i):
 		L = len(self.v_re)
-		self.check_v_extend(i, L):
+		self.check_v_extend(i, L)
 		return self.v_re[i]
 	

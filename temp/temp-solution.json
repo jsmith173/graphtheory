@@ -2,13 +2,13 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "R3 and R2 connected in series so Rb=R3+R2=1Ohm+1Ohm=2Ohm",
-                "Rb and R1 connected in series so Ra=Rb+R1=2Ohm+1Ohm=3Ohm",
+                "V and R1 connected in series so Rb=V+R1=1Ohm+1Ohm=2Ohm",
+                "R3 and Rb connected in series so Ra=R3+Rb=1Ohm+2Ohm=3Ohm",
                 "The total resistance is Ra = 3Ohm"
             ],
             "total_impedance_txt": [
-                "R3 and R2 connected in series so Rb=R3+R2=1Ohm+1Ohm=2Ohm",
-                "Rb and R1 connected in series so Ra=Rb+R1=2Ohm+1Ohm=3Ohm",
+                "V and R1 connected in series so Rb=V+R1=1Ohm+1Ohm=2Ohm",
+                "R3 and Rb connected in series so Ra=R3+Rb=1Ohm+2Ohm=3Ohm",
                 "The total resistance is Ra = 3Ohm"
             ],
             "gen": {
@@ -27,58 +27,61 @@
                         "mode": 0
                     }
                 }
-            },
-            "nodal_voltage_log": [
-                "Nodes: 3, 0, voltage: 5, top type: <none>",
-                "Node val set: 0: 0",
-                "Node val set: 3: 5",
-                "Nodes: 3, 0, current: 1.6666666666666667, top type: <none>",
-                "Nodes: 2, 0, voltage: 3.333333333333333, top type: series",
-                "Node val set: 2: 3.333333333333333",
-                "Nodes: 2, 0, current: 1.6666666666666667, top type: series",
-                "Nodes: 2, 0, current: 1.6666666666666667, top type: series",
-                "Nodes: 3, 2, voltage: 1.6666666666666665, top type: series",
-                "Nodes: 3, 2, current: 1.6666666666666667, top type: series",
-                "Nodes: 3, 2, current: 1.6666666666666667, top type: series"
-            ]
+            }
         }
     ],
     "circuit": [
         "Netlist (component name, nodes)",
-        "R3 1 0",
-        "R2 2 1",
-        "R1 3 2",
+        "R3 2 0",
+        "V 1 2",
+        "R1 3 1",
         ""
     ],
     "request": {
-        "text": "",
+        "text": "What is the voltage on voltmeter?",
         "cmd": "get_voltage",
-        "comp": "R1",
+        "comp": "VM1",
         "options": "<none>",
         "qid": "0",
         "ohm_meter_question": false,
         "req_on_gen": false,
-        "volt_meter_question": false,
-        "volt_meter_no_match": false,
-        "comp_ori": "",
+        "volt_meter_question": true,
+        "volt_meter_no_match": true,
+        "comp_ori": "voltmeter",
         "amper_meter_question": false
     },
     "calculation": {
         "solution": [
             "*** Solution by TINA assisted by AI ***",
+            "The voltage for graph number 0 has been set to 0V.",
+            "The voltage for graph number 3 has been set to 5V.",
             "At first we calculate the total resistance between the generator nodes (VS1)",
-            "R3 and R2 connected in series so Rb=R3+R2=1Ohm+1Ohm=2Ohm",
-            "Rb and R1 connected in series so Ra=Rb+R1=2Ohm+1Ohm=3Ohm",
+            "V and R1 connected in series so Rb=V+R1=1Ohm+1Ohm=2Ohm",
+            "R3 and Rb connected in series so Ra=R3+Rb=1Ohm+2Ohm=3Ohm",
             "The total resistance is Ra = 3Ohm",
             "",
-            "Now we calculate the voltage on R1",
+            "Now we calculate the voltage on VM1",
             "We know that the voltage between VS1 nodes is 5V.",
             "",
-            "The components Rb,R1 connected in series.",
-            "Label: R1, nodes: 3, 0",
+            "The voltage for graph number 2 has been set to 1.67V.",
+            "The components R3,Rb connected in series.",
             "The voltage between this components starting and ending node is 5V",
-            "R1 is in the voltage divider so the voltage on R1 is R1/Ra*5V = 1.67V ",
-            ""
+            "R3 is in the voltage divider so the voltage on R3 is R3/Ra*5V = 1.67V ",
+            "",
+            "The components R3,Rb connected in series.",
+            "The voltage between this components starting and ending node is 5V",
+            "Rb is in the voltage divider so the voltage on Rb is Rb/Ra*5V = 3.33V ",
+            "",
+            "The voltage for graph number 1 has been set to 3.33V.",
+            "The components V,R1 connected in series.",
+            "The voltage between this components starting and ending node is 3.33V",
+            "V is in the voltage divider so the voltage on V is V/Rb*3.33V = 1.67V ",
+            "",
+            "The components V,R1 connected in series.",
+            "The voltage between this components starting and ending node is 3.33V",
+            "R1 is in the voltage divider so the voltage on R1 is R1/Rb*3.33V = 1.67V ",
+            "",
+            "To answer the original question: because the voltmeter connected to nodes 1,0 so the voltage on voltmeter is 3.33V"
         ],
         "block_labels": [
             {
@@ -86,12 +89,12 @@
                 "origin": "series",
                 "value": "2Ohm",
                 "labels": [
-                    "R3",
-                    "R2"
+                    "V",
+                    "R1"
                 ],
                 "unique_labels": [
-                    "T_1F2AE99020240203083907",
-                    "T_1F2AE4A020240203083904"
+                    "T_1F2AE4A020240203083904",
+                    "T_1F41EC7020240129133833"
                 ]
             },
             {
@@ -99,12 +102,12 @@
                 "origin": "series",
                 "value": "3Ohm",
                 "labels": [
-                    "Rb",
-                    "R1"
+                    "R3",
+                    "Rb"
                 ],
                 "unique_labels": [
-                    "<block>",
-                    "T_1F41EC7020240129133833"
+                    "T_1F2AE99020240203083907",
+                    "<block>"
                 ]
             }
         ],

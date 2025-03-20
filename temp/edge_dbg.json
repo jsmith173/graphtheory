@@ -1,6 +1,6 @@
 [
     {
-        "source": 1,
+        "source": 2,
         "target": 0,
         "prop": {
             "label": "R3",
@@ -12,10 +12,10 @@
         }
     },
     {
-        "source": 2,
-        "target": 1,
+        "source": 1,
+        "target": 2,
         "prop": {
-            "label": "R2",
+            "label": "V",
             "match_label": "",
             "CompId": 9,
             "UniqueID": "T_1F2AE4A020240203083904",
@@ -25,7 +25,7 @@
     },
     {
         "source": 3,
-        "target": 2,
+        "target": 1,
         "prop": {
             "label": "R1",
             "match_label": "",
