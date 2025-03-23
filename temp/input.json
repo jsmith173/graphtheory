@@ -1,23 +1,22 @@
 {
-    "N": 4,
+    "N": 3,
     "nodes": [
         2,
-        0,
         1,
-        3
+        0
     ],
     "gens": [
         {
             "nodes": [
-                3,
+                2,
                 0
             ],
             "prop": {
-                "label": "VS1",
+                "label": "Vs",
                 "match_label": "",
                 "CompId": 14,
-                "UniqueID": "T_1F41FB4020240129133922",
-                "value": 5,
+                "UniqueID": "T_0955D94020091202135800",
+                "value": 100,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -30,47 +29,39 @@
             "currents": [
                 {
                     "label": "R1",
-                    "value": 1.67
+                    "value": 2
                 },
                 {
-                    "label": "R3",
-                    "value": 1.67
+                    "label": "R2",
+                    "value": 2
                 },
                 {
-                    "label": "V",
-                    "value": 1.67
-                },
-                {
-                    "label": "VS1",
-                    "value": -1.67
-                }
-            ],
-            "other voltages": [
-                {
-                    "label": "R1",
-                    "value": 1.67
-                },
-                {
-                    "label": "R3",
-                    "value": 1.67
-                },
-                {
-                    "label": "V",
-                    "value": 1.67
-                },
-                {
-                    "label": "VM1",
-                    "value": 3.33
-                },
-                {
-                    "label": "VS1",
-                    "value": 5
+                    "label": "Vs",
+                    "value": -2
                 }
             ],
             "outputs": [
                 {
-                    "label": "VM1",
-                    "value": 3.33
+                    "label": "no_label_1",
+                    "value": 60
+                }
+            ],
+            "other voltages": [
+                {
+                    "label": "no_label_1",
+                    "value": 60
+                },
+                {
+                    "label": "R1",
+                    "value": 40
+                },
+                {
+                    "label": "R2",
+                    "value": 60
+                },
+                {
+                    "label": "Vs",
+                    "value": 100
                 }
             ]
         }
@@ -82,12 +73,12 @@
                 0
             ],
             "prop": {
-                "label": "VM1",
-                "match_label": "",
+                "label": "",
+                "match_label": "R2",
                 "CompId": 5,
-                "UniqueID": "T_0000000026F8908020250319081702",
+                "UniqueID": "T_09694B7020091202135800",
                 "value": 0,
-                "flags": 5
+                "flags": 1
             }
         }
     ],
@@ -95,46 +86,32 @@
         {
             "nodes": [
                 2,
-                0
-            ],
-            "prop": {
-                "label": "R3",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_1F2AE99020240203083907",
-                "value": 1,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                1,
-                2
-            ],
-            "prop": {
-                "label": "V",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_1F2AE4A020240203083904",
-                "value": 1,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                3,
                 1
             ],
             "prop": {
                 "label": "R1",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F41EC7020240129133833",
-                "value": 1,
+                "UniqueID": "T_0969468020091202135800",
+                "value": 20,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                1,
+                0
+            ],
+            "prop": {
+                "label": "R2",
+                "match_label": "",
+                "CompId": 9,
+                "UniqueID": "T_0969419020091202135800",
+                "value": 30,
                 "flags": 1
             }
         }
     ],
-    "circ_name": "g-ser-simple3-ok.tsc",
-    "meters_without_labels": 0
+    "circ_name": "vdivide.tsc",
+    "meters_without_labels": 1
 }

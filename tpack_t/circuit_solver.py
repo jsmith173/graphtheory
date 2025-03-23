@@ -562,6 +562,9 @@ class TCircuitSolver:
 		else:
 			meter_name = self.request["comp_ori"]
 			f, meter = self.graph.find_meter(meter_name)
+			if not f and request_txt == "voltage":
+				f = self.graph.find_volt_meter()
+				meter = self.graph.meter_prop
 
 			comp = self.request["comp"]
 			idx = self.graph.find_edge_value_by_label(comp)
