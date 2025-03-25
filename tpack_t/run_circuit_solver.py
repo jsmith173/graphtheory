@@ -1,4 +1,5 @@
 from tpack_t.circuit_solver import TCircuitSolver, SolverException, DummyException, RequestException
+from tpack_t import circuit_solver_graph as cg
 import json, os
 
 
@@ -78,21 +79,21 @@ def run():
 		"text": "",
 		"cmd": "get_voltage",
 		"comp": "R1",
-		"options": "<none>",
+		"options": 0,
 		"qid": "0"
 	}
 	test_request_vm = {
 		"text": "",
 		"cmd": "get_voltage",
 		"comp": "VM1",
-		"options": "<none>",
+		"options": 0,
 		"qid": "0"
 	}
 	test_request_am = {
 		"text": "",
 		"cmd": "get_current",
 		"comp": "AM1",
-		"options": "<none>",
+		"options": 0,
 		"qid": "0"
 	}
 
@@ -105,7 +106,7 @@ def run():
 	opts['test_D'] = 1
 	opts['log_info'] = 1
 	opts['override_request'] = 0
-	opts['request'] = test_request
+	#opts['request'] = test_request
 
 	if mode_release == 1:
 		opts['mode_all_files'] = 0
@@ -114,8 +115,12 @@ def run():
 		opts['log_info'] = 0
 		test_file = 'temp.json'	
 	else:	
-		test_file = 'temp-vdiv.json'	
+		test_file = 'temp.json'	
 
+	with open(f'data/{test_file}', 'r') as f:
+		json_data = json.load(f)
+		opts['request'] = json_data['request']
+		
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0
 		with open('data/filelist.json', 'r') as f:
@@ -123,6 +128,9 @@ def run():
 			filelist = json_data_l['filelist']
 		test_all(filelist, opts)
 	else:	
+		if (opts['request']['options'] & cg.LLM_LOUD) != 0:
+			test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
+		opts['request']['options'] = 0
 		test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
 
 if __name__ == "__main__":

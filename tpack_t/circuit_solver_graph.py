@@ -17,6 +17,12 @@ CSOUR_ = 13; VSOUR_ = 14; CGEN_ = 15; VGEN_ = 16; Battery_ = 67
 AMPER_METER_ = 6; AMPER_METER2_ = 34
 VOLTMET_ = 5; VOLTMET2_ = 33
 
+uVolt    = 'Volt'
+uCurrent = 'Amper'
+uRes     = 'Ohm'
+
+LLM_LOUD = 1
+
 SHORT_CIRCUIT_PREFIX = "Rshortxxx"
 OPEN_CIRCUIT_PREFIX = "Ropenxxx"
 VOLT_METER_NAME = 'voltmeter'
@@ -1058,7 +1064,7 @@ class TCircuitSolverGraph:
 		self.v_im[i] = im
 		self.v_flags[i] = True
 		if self.request["volt_meter_no_match"]:
-			self.log(f"The voltage for graph number {i} has been set to {cu.fv(value)}V.")
+			self.log(f"The voltage for graph number {i} has been set to {cu.fv(value)} {uVoltage}.")
 	
 	def check_v_flag(self, i):
 		L = len(self.v_re)
