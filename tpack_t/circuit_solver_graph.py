@@ -3,6 +3,7 @@ from graphtheory.structures.graphs import Graph
 from graphtheory.structures.factory import GraphFactory
 from graphtheory.seriesparallel.sptrees import find_sptree
 from graphtheory.seriesparallel.spnodes import node_global_init
+from tpack_t import pack_prefix as p
 import os, json
 from pathlib import Path
 from json2xml import json2xml
@@ -10,6 +11,10 @@ from copy import copy, deepcopy
 from tpack_t import circuit_solver_util as cu
 from array import array
 import math, cmath
+
+#for the pack_prefix the actual precision is precision+1 
+PRECISION = 3
+
 
 RES_ = 9; CAP_ = 10; IND_ = 11; 
 RESMET_ = 8; RESMET2_ = 98
@@ -80,6 +85,12 @@ class TCircuitSolverGraph:
 		self.v_re = array('d', [0.0])
 		self.v_im = array('d', [0.0])
 		self.v_flags = array('b', [0])
+		
+		self.sDiv = '/'
+		self.sMul = '*'
+		self.sOmega = 'w'
+		self.sHz = 'Hz'
+		
 		if opts != None:
 			self.show_graph = opts['debug_mode'] == 1
 			self.show_tree = opts['debug_mode'] == 1
@@ -397,11 +408,11 @@ class TCircuitSolverGraph:
 			if calc_impedance:
 				ac_gen = self.gen['prop']['ac_gen']
 				if ac_gen['mode'] == 1:
-					s = "j*w"
+					s = f"j{self.sMul}{self.sOmega}"
 					if comp_id == IND_:
-						label = f"{s}*{label}"
+						label = f"{s}{self.sMul}{label}"
 					elif comp_id == CAP_:
-						label = f"1/({s}*{label})"
+						label = f"1{self.sDiv}({s}{self.sMul}{label})"
 
 		return status, label	
 
@@ -684,7 +695,7 @@ class TCircuitSolverGraph:
 
 		tmp = []; value_list_new_str_list = []
 		for i in range(len(label_list_new)):
-			value_list_new_str_list.append(f"{cu.fv(value_list_new[i])} Ohm")
+			value_list_new_str_list.append(f"{self.fv(value_list_new[i])} Ohm")
 			s = f"{label_list_new[i]}={value_list_new[i]:.2f} Ohm"
 			tmp.append(s)
 
@@ -745,7 +756,7 @@ class TCircuitSolverGraph:
 
 		tmp = []; value_list_new_str_list = []
 		for i in range(len(label_list_new)):
-			value_list_new_str_list.append(f"{cu.fv(value_list_new[i])} Ohm")
+			value_list_new_str_list.append(f"{self.fv(value_list_new[i])} Ohm")
 			s = f"{label_list_new[i]}={value_list_new[i]:.2f} Ohm"
 			tmp.append(s)
 
@@ -1064,7 +1075,7 @@ class TCircuitSolverGraph:
 		self.v_im[i] = im
 		self.v_flags[i] = True
 		if self.request["volt_meter_no_match"]:
-			self.log(f"The voltage for graph number {i} has been set to {cu.fv(value)} {uVoltage}.")
+			self.log(f"The voltage for node number {i} has been set to {self.fv(value)} {uVolt}.")
 	
 	def check_v_flag(self, i):
 		L = len(self.v_re)
@@ -1074,5 +1085,60 @@ class TCircuitSolverGraph:
 	def get_v(self, i):
 		L = len(self.v_re)
 		self.check_v_extend(i, L)
-		return self.v_re[i]
+		c = complex(self.v_re[i], self.v_im[i])
+		return c
+
+	def get_diff_v(self, i, j):
+		L = len(self.v_re)
+		self.check_v_extend(i, L)
+		if abs(self.v_im[i]) > 1e-12 or abs(self.v_im[j]) > 1e-12:
+			c1 = complex(self.v_re[i], self.v_im[i])
+			c2 = complex(self.v_re[j], self.v_im[j])
+			return c1-c2
+		else:	
+			r = self.v_re[i]-self.v_re[j]
+			return r;
+
+	def get_w_speech_unit(self, v_str):
+		last_char = v_str[-1]		
+		last_char_deleted = v_str[:-1]
+		a = last_char
+		if a == 'u':
+			s = ' micro '
+		elif a == 'm':
+			s = ' milli '
+		elif a == 'k':
+			s = ' kilo '
+		elif a == 'M':
+			s = ' mega '
+		else:
+			s = ''	
+		if s == '':	
+			res = v_str
+		else:	
+			res = last_char_deleted+s 	
+		return res
+
+	def fv(self, v):
+		if type(v) is complex:	
+			res = cmath.polar(v)
+			r = res[0]; r_num = p.Float(r)
+			fi = math.degrees(res[1]); fi_num = p.Float(fi)
+			r_str = f'{r_num:.{PRECISION}H}'
+			fi_str = f'{fi_num:.{PRECISION}H}'
+
+			if self.loud:
+				r_str = self.get_w_speech_unit(r_str)
+
+			return f"{r_str} {fi_str}\N{DEGREE SIGN} "
+		else:
+			#removing trailing zeros (and .) if needed
+			num = p.Float(v)
+			v_str = f'{num:.{PRECISION}H}'
+			if self.loud:
+				v_speech_str = self.get_w_speech_unit(v_str)
+				return v_speech_str
+			else:
+				return v_str
+		
 	

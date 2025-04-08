@@ -1,9 +1,5 @@
 import os, json, cmath, math, re
 import graphtheory.seriesparallel.spnodes as sp
-from tpack_t import pack_prefix as p
-
-#for the pack_prefix the actual precision is precision+1 
-PRECISION = 3
 
 def btree_print3(top, level=0):
     if top is None:
@@ -52,20 +48,6 @@ def get_request_txt(request):
 	else:
 		raise Exception('get_request_txt')
 
-def fv(v):
-	if type(v) is complex:	
-		res = cmath.polar(v)
-		r = res[0]; r_num = p.Float(r)
-		fi = math.degrees(res[1]); fi_num = p.Float(fi)
-		r_str = f'{r_num:.{PRECISION}H}'
-		fi_str = f'{fi_num:.{PRECISION}H}'
-		return f"{r_str} / {fi_str}\N{DEGREE SIGN} "
-	else:
-		#removing trailing zeros (and .) if needed
-		num = p.Float(v)
-		v_str = f'{num:.{PRECISION}H}'
-		return v_str
-	
 def replace_all_whole_words(txt, src, repl):
 	pattern = r'\b'; pattern = pattern+src; pattern = pattern+r'\b'
 	result = re.sub(pattern, repl, txt)

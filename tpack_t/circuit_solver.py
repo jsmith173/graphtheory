@@ -44,16 +44,20 @@ class TCircuitSolver:
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
 		
-		self.sDiv = '/'
-		self.sMul = '*'
-		
+		self.graph.loud = False
 		if opts != None and 'request' in opts.keys():
 			if (opts['request']['options'] & cg.LLM_LOUD) != 0:
-				self.sDiv = 'divided by'
-				self.sMul = 'multiplied by'
+				self.graph.sDiv = ' divided by '
+				self.graph.sMul = ' multiplied by '
+				self.graph.sOmega = ' omega '
+				self.graph.sHz = ' hertz '
+				self.graph.loud = True
 			else:	
-				self.sDiv = '/'
-				self.sMul = '*'
+				self.graph.sDiv = '/'
+				self.graph.sMul = '*'
+				self.graph.sOmega = 'w'
+				self.graph.sHz = 'Hz'
+				self.graph.loud = False
 
 	def prepare_solver(self, circuit_key):
 		self.solution = {}
@@ -102,12 +106,12 @@ class TCircuitSolver:
 			a = arr[0]; b = arr[1]
 			a_l = arr_left[0]; b_l = arr_left[1]
 			if top.type == "series":
-				s1 = cu.fv(values[0])+"Ohm"; s2 = cu.fv(values[1])+"Ohm"
-				s = f"{a_l} and {b_l} connected in series so {c}={a}+{b}={s1}+{s2}={cu.fv(v)}Ohm"	
+				s1 = self.graph.fv(values[0])+"Ohm"; s2 = self.graph.fv(values[1])+"Ohm"
+				s = f"{a_l} and {b_l} connected in series so {c}={a}+{b}={s1}+{s2}={self.graph.fv(v)}Ohm"	
 			if top.type == "parallel":
-				s1 = cu.fv(values[0])+"Ohm"; s2 = cu.fv(values[1])+"Ohm"
-				s = f"{a_l} and {b_l} connected in parallel so {c}={a} {self.sMul} {b} {self.sDiv} ({a}+{b})={s1} {self.sMul} {s2} {self.sDiv} ({s1}+{s2})={cu.fv(v)}Ohm"
-			tmp = {}; tmp['name'] = c; tmp['value_str'] = f"{cu.fv(v)}Ohm"; self.calc_symbols.append(tmp)
+				s1 = self.graph.fv(values[0])+"Ohm"; s2 = self.graph.fv(values[1])+"Ohm"
+				s = f"{a_l} and {b_l} connected in parallel so {c}={a}{self.graph.sMul}{b}{self.graph.sDiv}({a}+{b})={s1}{self.graph.sMul}{s2}{self.graph.sDiv}({s1}+{s2})={self.graph.fv(v)}Ohm"
+			tmp = {}; tmp['name'] = c; tmp['value_str'] = f"{self.graph.fv(v)}Ohm"; self.calc_symbols.append(tmp)
 			one_item = False; s_left = a_l; s_right = b_l
 		s_top = c	
 		item = self.make_item_impedance(s, one_item, s_top, s_left, s_right, top, left, right, labels, unique_labels, nodes)	
@@ -174,9 +178,9 @@ class TCircuitSolver:
 		status, c = self.graph.get_label_prop(top)
 		status, value = self.graph.get_node_val(top, 'impedance')
 		if self.request['ohm_meter_question']:			
-			s = f"The ohm meter shows {c} = {cu.fv(value)}Ohm"	
+			s = f"The ohm meter shows {c} = {self.graph.fv(value)}Ohm"	
 		else:	
-			s = f"The total {self.get_impedance_str()} is {c} = {cu.fv(value)}Ohm"	
+			s = f"The total {self.get_impedance_str()} is {c} = {self.graph.fv(value)}Ohm"	
 		item = self.make_item_impedance(s)
 		self.total_impedance.append(item)
 		self.replaced_one_items = self.process_impedance()
@@ -377,7 +381,7 @@ class TCircuitSolver:
 					M = f"({self.lc}) "; self.lc = self.lc+1
 					if len(labels) == 1:
 						if top_label != labels[i]:
-							self.log(f"The voltage on {labels[i]} is {cu.fv(voltage)} {cg.uVoltage} because the voltage is {cu.fv(voltage)} {cg.uVoltage} on {top_label}") 
+							self.log(f"The voltage on {labels[i]} is {self.graph.fv(voltage)} {cg.uVolt} because the voltage is {self.graph.fv(voltage)} {cg.uVolt} on {top_label}") 
 					else:
 						self.log(f"The components {label_list} connected in series.")
 						
@@ -385,22 +389,25 @@ class TCircuitSolver:
 						#n = node.directed_nodes[1]
 						#self.log(f"Label: {labels[i]}, nodes: {m}, {n}")
 						
-						self.log(f"The voltage between this components starting and ending node is {cu.fv(voltage)} {cg.uVolt}") 
+						self.log(f"The voltage between this components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
 						self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
-			                     f"{labels_z[i]} {self.sDiv} {top_label} {self.sMul} {cu.fv(voltage)} {cg.uVolt} = {cu.fv(new_val[i])} {cg.uVolt} ")
+			                     f"{labels_z[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {self.graph.fv(new_val[i])} {cg.uVolt} ")
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current':
-						self.log(f"The current on {labels[i]} is the voltage on {labels[i]} {self.sDiv} {labels_z[i]} = {cu.fv(new_val[i]/impedance[i])} {cg.uCurrent}")
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(new_val[i]/impedance[i])} {cg.uCurrent}")
 					self.log("")
 
 				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node) 
 
 		elif node.type == "parallel":
-			v = impedance[1]/(impedance[0]+impedance[1])*current; new_val.append(v)
-			v = impedance[0]/(impedance[0]+impedance[1])*current; new_val.append(v)
+			if N == 2:
+				v = impedance[1]/(impedance[0]+impedance[1])*current; new_val.append(v)
+				v = impedance[0]/(impedance[0]+impedance[1])*current; new_val.append(v)
+			else:	
+				v = current; new_val.append(v)
 
-			for i in range(2):
+			for i in range(N):
 				directed_nodes = self.graph.get_directed_nodes(node, nodes[i])
 				self.graph.set_node_val(nodes[i], voltage, labels[i], True, 'voltage', directed_nodes, node) 
 				self.graph.set_node_val(nodes[i], new_val[i], labels[i], True, 'current', directed_nodes, node) 
@@ -412,12 +419,12 @@ class TCircuitSolver:
 					else:
 						s = labels[i]
 					M = f"({self.lc}) "; self.lc = self.lc+1
-					self.log(f"The components {label_list} connected in parallel. The voltage on {s} is {cu.fv(voltage)} {cg.uVolt} because the voltage on {top_label} is {cu.fv(voltage)} {cg.uVolt}")
+					self.log(f"The components {label_list} connected in parallel. The voltage on {s} is {self.graph.fv(voltage)} {cg.uVolt} because the voltage on {top_label} is {self.graph.fv(voltage)} {cg.uVolt}")
 					self.log("")
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current' and nodes[i].type == "edge":
-						self.log(f"The current on {labels[i]} is the voltage on {labels[i]} {self.sDiv} {labels_z[i]} = {cu.fv(new_val[i])} {cg.Amper} ")
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(new_val[i])} {cg.Amper} ")
 		else:
 			pass
 		if is_req_label:
@@ -477,7 +484,7 @@ class TCircuitSolver:
 
 		self.graph.debug_graph()
 
-		self.log(f"*** Solution by TINA assisted by AI ***")
+		self.log(f"Solution by TINA assisted by AI")
 
 		if self.graph.use_superposition:
 			#self.logl(self.graph.graph_debug)
@@ -508,7 +515,7 @@ class TCircuitSolver:
 			self.log("When you see subtraction here it means that the original direction reversed.")
 			#self.log("The direction of voltage/current determined by TINA.")
 			v, v_str = self.calc_final_nodal_edge(value, request_txt)
-			self.log(f"'{request_txt} on {comp}' = {v_str} = {cu.fv(v)}{self.unit}")
+			self.log(f"'{request_txt} on {comp}' = {v_str} = {self.graph.fv(v)}{self.unit}")
 
 		#after run_pass
 		if (self.request['cmd'] == 'get_voltage' and self.request['volt_meter_question'] or \
@@ -520,10 +527,10 @@ class TCircuitSolver:
 			v1 = abs(v)
 			v2 = abs(self.expected_key['res_req'])
 			if abs(v1-v2) > 1e-3:
-				self.log_info(f"*** Wrong ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
+				self.log_info(f"*** Wrong ***: expected: {self.graph.fv(self.expected_key['res_req'])}, got: {self.graph.fv(v)}")
 				raise SolverException(f"Solver error: {self.fn}")
 			else:
-				self.log_info(f"*** Passed ***: expected: {cu.fv(self.expected_key['res_req'])}, got: {cu.fv(v)}")
+				self.log_info(f"*** Passed ***: expected: {self.graph.fv(self.expected_key['res_req'])}, got: {self.graph.fv(v)}")
 		
 		self.write_log(1, 'OK', 0, True)
 
@@ -565,11 +572,8 @@ class TCircuitSolver:
 				m = meter['nodes'][0]
 				n = meter['nodes'][1]
 				
-				v0 = self.graph.get_v(m)
-				v1 = self.graph.get_v(n)
-				v = v0-v1
-				
-				self.log(f"To answer the original question: because the {sMeter} connected to nodes {m},{n} so the {request_txt} on {show_meter_name} is {cu.fv(v)} {cg.uVolt}")
+				v = self.graph.get_diff_v(m, n)			
+				self.log(f"To answer the original question: because the {sMeter} connected to nodes {m},{n} so the {request_txt} on {show_meter_name} is {self.graph.fv(v)} {cg.uVolt}")
 		else:
 			meter_name = self.request["comp_ori"]
 			f, meter = self.graph.find_meter(meter_name)
@@ -590,7 +594,7 @@ class TCircuitSolver:
 				else:
 					polarity = -1.0	
 				v = v*polarity
-				self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} parallel so the {request_txt} on {meter_name} is {cu.fv(v)} {cg.uVolt}")
+				self.log(f"To answer the original question: because the {sMeter} connected to {comp} parallel so the {request_txt} on {meter_name} is {self.graph.fv(v)} {cg.uVolt}")
 				#if polarity < 0:
 				#	self.log(f"We have considered also that the polarity of the {sMeter} does not match the {request_txt} direction on {comp}")
 				#if reversed and not self.graph.use_superposition:
@@ -615,7 +619,7 @@ class TCircuitSolver:
 					elif ii == AM_MINUS_NODE and jj == SECOND_NODE or ii == AM_PLUS_NODE and jj == FIRST_NODE:
 						polarity = -1.0
 					v = v*polarity			
-					self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {cu.fv(v)} {cg.uCurrent}")
+					self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {self.graph.fv(v)} {cg.uCurrent}")
 					#if polarity < 0:
 					#	self.log(f"We have considered also that the direction of the {sMeter} does not match the {request_txt} direction on {comp}")
 
@@ -628,17 +632,17 @@ class TCircuitSolver:
 			v0 = item2[key]
 		else:	
 			v0 = -item2[key]
-		v_str = f"{cu.fv(v0)}{self.unit}"
+		v_str = f"{self.graph.fv(v0)}{self.unit}"
 		v = v0; i = 1
 		while i < len(items):
 			item2 = items[i]
 			v0 = item2[key]
 			if item2['original_dir']:
 				v = v+v0
-				v_str = v_str+f"+{cu.fv(v0)}{self.unit}"
+				v_str = v_str+f"+{self.graph.fv(v0)}{self.unit}"
 			else:	
 				v = v-v0
-				v_str = v_str+f"-{cu.fv(v0)}{self.unit}"
+				v_str = v_str+f"-{self.graph.fv(v0)}{self.unit}"
 			i = i+1	
 		return v, v_str
 
@@ -789,7 +793,7 @@ class TCircuitSolver:
 		elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance' and not self.request["volt_meter_no_match"]:	
 			status = self.graph.find_edge_in_G(label)
 			if not status:
-				raise Exception(f"The component {label} removed from the graph so we break this pass.")
+				raise Exception(f"{label} not found in the circuit. Analysis stopped.")
 			status, self.request_path = self.graph.find_path(label, paths)	
 			if not status:
 				raise RequestException(f"Request error: {label} not found")
@@ -823,12 +827,14 @@ class TCircuitSolver:
 		elif self.request['cmd'] == 'get_impedance' or self.request['cmd'] == 'get_total_impedance':
 			self.unit = "Ohm"
 		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
+		if self.request["volt_meter_question"] and comp_label == '':
+			comp_label = 'voltmeter'
 		request_txt = cu.get_request_txt(self.request)
 		if i_pass == 0:
 			if ac_gen['mode'] == 1:
-				freq = cu.fv(ac_gen['Freq'])
+				freq = self.graph.fv(ac_gen['Freq'])
 				self.log(f"This is an AC calculation")
-				self.log(f"We know that generator frequency is f={freq} Hz, w=2*pi*f")
+				self.log(f"We know that the generator frequency is f={freq}{self.graph.sHz}, {self.graph.sOmega}=2{self.graph.sMul}pi{self.graph.sMul}f")
 
 		# calculating voltage/currents
 		# set values on top node
@@ -842,20 +848,20 @@ class TCircuitSolver:
 			self.graph.set_node_val(T, voltage_val, '', True, 'voltage', self.gen['nodes']) 
 
 		if not self.request['ohm_meter_question']:
-			self.log(f"At first we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
+			self.log(f"First we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
 		self.logl(self.total_impedance_txt)
 		if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
 			self.log("")
 			self.log(f"Now we calculate the {request_txt} on {comp_label}")
 
-			val_str = f"{cu.fv(gen_new_value['value'])}{gen_new_value['unit']}"
+			val_str = f"{self.graph.fv(gen_new_value['value'])}{gen_new_value['unit']}"
 			if gen_new_value['quantity'] == 'voltage':
-				val_str = f"{cu.fv(gen_new_value['value'])} {cg.uVolt}"
+				val_str = f"{self.graph.fv(gen_new_value['value'])} {cg.uVolt}"
 				self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
 			else:	
-				voltage_str = f"{cu.fv(voltage_val)} {cg.uVolt}"
+				voltage_str = f"{self.graph.fv(voltage_val)} {cg.uVolt}"
 				self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
-						  f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {cu.fv(T.prop['impedance'])}Ohm so "
+						  f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {self.graph.fv(T.prop['impedance'])}Ohm so "
 						  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
 
 			if self.graph.use_superposition:
@@ -877,9 +883,9 @@ class TCircuitSolver:
 				if gen_new_value['quantity'] == 'voltage':
 					current = gen_new_value['value']/T.prop['impedance']
 					if self.request['cmd'] == 'get_current':
-						self.log(f"We know that the voltage between {gen_name} nodes is {cu.fv(gen_new_value['value'])} {cg.uVolt}.")
-						self.log(f"We calculated previously the {self.get_impedance_str()} between {gen_name} nodes: this is {cu.fv(impedance)}Ohm.")
-						self.log(f"So the current on {gen_name} is {cu.fv(current)} {cg.uCurrent}.")
+						self.log(f"We know that the voltage between {gen_name} nodes is {self.graph.fv(gen_new_value['value'])} {cg.uVolt}.")
+						self.log(f"We calculated previously the {self.get_impedance_str()} between {gen_name} nodes: this is {self.graph.fv(impedance)}Ohm.")
+						self.log(f"So the current on {gen_name} is {self.graph.fv(current)} {cg.uCurrent}.")
 			else:
 				self.conf_preorder_test = 1; self.stopped = False
 				self.walk_preorder(T)
