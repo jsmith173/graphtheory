@@ -98,7 +98,12 @@ class TCircuitSolver:
 		tmp = []; tmp.append(left.source); tmp.append(left.target); nodes.append(tmp)
 		tmp = []; tmp.append(right.source); tmp.append(right.target); nodes.append(tmp)
 
-		if len(arr) == 1:
+		if len(arr) == 0:
+			#dbg
+			c, arr_left = self.prepare_calc_str_impedance(top, left, right, False)
+			c, arr = self.prepare_calc_str_impedance(top, left, right, True)
+
+		elif len(arr) == 1:
 			a = arr[0]
 			s = f"{c}={a}"
 			one_item = True; s_left = a; s_right = "" 
@@ -106,15 +111,26 @@ class TCircuitSolver:
 			a = arr[0]; b = arr[1]
 			a_l = arr_left[0]; b_l = arr_left[1]
 			if top.type == "series":
-				s1 = self.graph.fv(values[0])+"Ohm"; s2 = self.graph.fv(values[1])+"Ohm"
-				s = f"{a_l} and {b_l} connected in series so {c}={a}+{b}={s1}+{s2}={self.graph.fv(v)}Ohm"	
+				if len(values) == 2:
+					s1 = self.graph.fv(values[0])+"Ohm"; s2 = self.graph.fv(values[1])+"Ohm"
+					s = f"{a_l} and {b_l} connected in series so {c}={a}+{b}={s1}+{s2}={self.graph.fv(v)}Ohm"	
+				else:	
+					s1 = self.graph.fv(values[0])+"Ohm"
+					s = f"{c}={a}={s1}={self.graph.fv(v)}Ohm"	
 			if top.type == "parallel":
-				s1 = self.graph.fv(values[0])+"Ohm"; s2 = self.graph.fv(values[1])+"Ohm"
-				s = f"{a_l} and {b_l} connected in parallel so {c}={a}{self.graph.sMul}{b}{self.graph.sDiv}({a}+{b})={s1}{self.graph.sMul}{s2}{self.graph.sDiv}({s1}+{s2})={self.graph.fv(v)}Ohm"
+				if len(values) == 2:
+					s1 = self.graph.fv(values[0])+"Ohm"; s2 = self.graph.fv(values[1])+"Ohm"
+					s = f"{a_l} and {b_l} connected in parallel so {c}={a}{self.graph.sMul}{b}{self.graph.sDiv}({a}+{b})={s1}{self.graph.sMul}{s2}{self.graph.sDiv}({s1}+{s2})={self.graph.fv(v)}Ohm"
+				else:	
+					s1 = self.graph.fv(values[0])+"Ohm"
+					s = f"{c}={a}={s1}={self.graph.fv(v)}Ohm"	
 			tmp = {}; tmp['name'] = c; tmp['value_str'] = f"{self.graph.fv(v)}Ohm"; self.calc_symbols.append(tmp)
 			one_item = False; s_left = a_l; s_right = b_l
-		s_top = c	
-		item = self.make_item_impedance(s, one_item, s_top, s_left, s_right, top, left, right, labels, unique_labels, nodes)	
+		if len(arr) > 0:
+			s_top = c	
+			item = self.make_item_impedance(s, one_item, s_top, s_left, s_right, top, left, right, labels, unique_labels, nodes)	
+		else:
+			item = {}; item['txt'] = ''; item['one_item'] = False; item['s_top'] = ''; item['s_left'] = ''; item['s_right'] = ''
 		return item
 
 	def is_connected(self, a, b):
@@ -424,7 +440,7 @@ class TCircuitSolver:
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current' and nodes[i].type == "edge":
-						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(new_val[i])} {cg.Amper} ")
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(new_val[i])} {cg.uCurrent} ")
 		else:
 			pass
 		if is_req_label:

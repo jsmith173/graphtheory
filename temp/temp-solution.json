@@ -2,17 +2,45 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "Rb=R1",
-                "Ra=Rb",
-                "The total resistance is Ra = 1kOhm"
+                "Ra0=R1",
+                "The total resistance is Ra0 = 1kOhm"
             ],
             "total_impedance_txt": [
-                "The total resistance is Rb = 1kOhm"
+                "The total resistance is R1 = 1kOhm"
             ],
             "gen": {
                 "nodes": [
                     1,
                     2
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "CJOODM269CBMMQCKSJO84ORB",
+                    "value": 0,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        },
+        {
+            "total_impedance_ori_txt": [
+                "",
+                "Ra1=R1=1kOhm=1kOhm",
+                "The total resistance is Ra1 = 1kOhm"
+            ],
+            "total_impedance_txt": [
+                "",
+                "Ra1=R1=1kOhm=1kOhm",
+                "The total resistance is Ra1 = 1kOhm"
+            ],
+            "gen": {
+                "nodes": [
+                    1,
+                    3
                 ],
                 "prop": {
                     "label": "IS1",
@@ -30,9 +58,8 @@
     ],
     "circuit": [
         "Netlist (component name, nodes)",
-        "AM1 2 1",
+        "AM1 3 2",
         "R1 1 3",
-        "<split>R1 3 2",
         ""
     ],
     "request": {
@@ -51,19 +78,57 @@
     "calculation": {
         "solution": [
             "Solution by TINA assisted by AI",
+            "We have more than one generator so we are using superposition to calculate voltages/currents.",
+            "",
+            ">> Pass1 started ...",
+            ">> Gen processing: VS1 ...",
+            "First we calculate the total resistance between the generator nodes (VS1)",
+            "The total resistance is R1 = 1kOhm",
+            "",
+            "Now we calculate the current on R1",
+            "We know that the voltage between VS1 nodes is 0 Volt.",
+            "All voltage generators except for VS1 have been replaced with a short circuit.",
+            "All current generators have been replaced with an open circuit.",
+            "",
+            "The current on R1 is the voltage on R1/R1 = 0 Amper",
+            "",
+            ">> Pass2 started ...",
+            ">> Gen processing: IS1 ...",
             "First we calculate the total resistance between the generator nodes (IS1)",
-            "The total resistance is Rb = 1kOhm",
+            "",
+            "Ra1=R1=1kOhm=1kOhm",
+            "The total resistance is Ra1 = 1kOhm",
             "",
             "Now we calculate the current on R1",
             "We know that the voltage between IS1 nodes is 10 Volt, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 1kOhm so the voltage between the generator nodes is Igen*Rtot = 10 Volt",
+            "All voltage generators have been replaced with a short circuit.",
+            "All current generators except for IS1 have been replaced with an open circuit.",
             "",
-            "The components R1 connected in parallel. The voltage on R1 is 10 Volt because the voltage on Rb is 10 Volt",
+            "The components R1 and Rb1 connected in parallel. The voltage on R1 is 10 Volt because the voltage on Ra1 is 10 Volt",
             "",
-            "The current on R1 is the voltage on R1/R1 = 10m Amper",
+            "The current on R1 is the voltage on R1/R1 = 10m Amper ",
             "",
+            "Now we are using superposition to calculate the current on R1",
+            "Let's summarize the calculations from the previous section.",
+            "When you see subtraction here it means that the original direction reversed.",
+            "'current on R1' = 0A+10mA = 10mA",
             "To answer the original question: because the AM1 ampermeter connected to R1 in series so the current on AM1 is 10m Amper"
         ],
-        "block_labels": [],
+        "block_labels": [
+            {
+                "label": "Ra1",
+                "origin": "parallel",
+                "value": "1kOhm",
+                "labels": [
+                    "R1",
+                    "Rb1"
+                ],
+                "unique_labels": [
+                    "7VVD8SMBN83L27IVBTER04HC",
+                    "<block>"
+                ]
+            }
+        ],
         "fn": "data/temp.json",
         "valid": 1,
         "error": 0,

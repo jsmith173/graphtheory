@@ -3,17 +3,45 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>Rb=R1</item>
-				<item>Ra=Rb</item>
-				<item>The total resistance is Ra = 1kOhm</item>
+				<item>Ra0=R1</item>
+				<item>The total resistance is Ra0 = 1kOhm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>The total resistance is Rb = 1kOhm</item>
+				<item>The total resistance is R1 = 1kOhm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
 					<item>1</item>
 					<item>2</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>CJOODM269CBMMQCKSJO84ORB</UniqueID>
+					<value>0</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+		<item>
+			<total_impedance_ori_txt>
+				<item/>
+				<item>Ra1=R1=1kOhm=1kOhm</item>
+				<item>The total resistance is Ra1 = 1kOhm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item/>
+				<item>Ra1=R1=1kOhm=1kOhm</item>
+				<item>The total resistance is Ra1 = 1kOhm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>1</item>
+					<item>3</item>
 				</nodes>
 				<prop>
 					<label>IS1</label>
@@ -31,9 +59,8 @@
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>AM1 2 1</item>
+		<item>AM1 3 2</item>
 		<item>R1 1 3</item>
-		<item>&lt;split&gt;R1 3 2</item>
 		<item/>
 	</circuit>
 	<request>
@@ -52,19 +79,57 @@
 	<calculation>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
+			<item>We have more than one generator so we are using superposition to calculate voltages/currents.</item>
+			<item/>
+			<item>&gt;&gt; Pass1 started ...</item>
+			<item>&gt;&gt; Gen processing: VS1 ...</item>
+			<item>First we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>The total resistance is R1 = 1kOhm</item>
+			<item/>
+			<item>Now we calculate the current on R1</item>
+			<item>We know that the voltage between VS1 nodes is 0 Volt.</item>
+			<item>All voltage generators except for VS1 have been replaced with a short circuit.</item>
+			<item>All current generators have been replaced with an open circuit.</item>
+			<item/>
+			<item>The current on R1 is the voltage on R1/R1 = 0 Amper</item>
+			<item/>
+			<item>&gt;&gt; Pass2 started ...</item>
+			<item>&gt;&gt; Gen processing: IS1 ...</item>
 			<item>First we calculate the total resistance between the generator nodes (IS1)</item>
-			<item>The total resistance is Rb = 1kOhm</item>
+			<item/>
+			<item>Ra1=R1=1kOhm=1kOhm</item>
+			<item>The total resistance is Ra1 = 1kOhm</item>
 			<item/>
 			<item>Now we calculate the current on R1</item>
 			<item>We know that the voltage between IS1 nodes is 10 Volt, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 1kOhm so the voltage between the generator nodes is Igen*Rtot = 10 Volt</item>
+			<item>All voltage generators have been replaced with a short circuit.</item>
+			<item>All current generators except for IS1 have been replaced with an open circuit.</item>
 			<item/>
-			<item>The components R1 connected in parallel. The voltage on R1 is 10 Volt because the voltage on Rb is 10 Volt</item>
+			<item>The components R1 and Rb1 connected in parallel. The voltage on R1 is 10 Volt because the voltage on Ra1 is 10 Volt</item>
 			<item/>
-			<item>The current on R1 is the voltage on R1/R1 = 10m Amper</item>
+			<item>The current on R1 is the voltage on R1/R1 = 10m Amper </item>
 			<item/>
+			<item>Now we are using superposition to calculate the current on R1</item>
+			<item>Let's summarize the calculations from the previous section.</item>
+			<item>When you see subtraction here it means that the original direction reversed.</item>
+			<item>'current on R1' = 0A+10mA = 10mA</item>
 			<item>To answer the original question: because the AM1 ampermeter connected to R1 in series so the current on AM1 is 10m Amper</item>
 		</solution>
-		<block_labels/>
+		<block_labels>
+			<item>
+				<label>Ra1</label>
+				<origin>parallel</origin>
+				<value>1kOhm</value>
+				<labels>
+					<item>R1</item>
+					<item>Rb1</item>
+				</labels>
+				<unique_labels>
+					<item>7VVD8SMBN83L27IVBTER04HC</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
 		<fn>data/temp.json</fn>
 		<valid>1</valid>
 		<error>0</error>
