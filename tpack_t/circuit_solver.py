@@ -175,9 +175,8 @@ class TCircuitSolver:
 				v = v+value
 		elif node.type == "parallel":
 			if len(values) > 1:
-				for value in values:
-					v = v+1/value
-				v = 1/v	
+				R1 = values[0]; R2 = values[1]
+				v = R1*R2/(R1+R2)
 			elif len(values) == 1:
 				v = values[0]	
 		valid = len(values) > 0
@@ -528,7 +527,7 @@ class TCircuitSolver:
 			value = self.graph.edge_values[idx]
 
 			self.log(f"Let's summarize the calculations from the previous section.")
-			self.log("When you see subtraction here it means that the original direction reversed.")
+			#self.log("When you see subtraction here it means that the original direction reversed.")
 			#self.log("The direction of voltage/current determined by TINA.")
 			v, v_str = self.calc_final_nodal_edge(value, request_txt)
 			self.log(f"'{request_txt} on {comp}' = {v_str} = {self.graph.fv(v)}{self.unit}")
@@ -741,8 +740,8 @@ class TCircuitSolver:
 		self.solution['circuit'] = self.graph.graph_debug
 		self.solution['request'] = self.request
 		if self.graph.use_superposition:
-			self.log(f">> Pass{i_pass+1} started ...")
-			self.log(f">> Gen processing: {self.gen['prop']['label']} ...")
+			#self.log(f"Pass{i_pass+1} started")
+			self.log(f"Processing generator {self.gen['prop']['label']}")
 		
 		self.mod = []
 		#self.set_edge_directions()				
@@ -856,8 +855,7 @@ class TCircuitSolver:
 		# set values on top node
 		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
 		if gen_new_value['quantity'] == 'voltage':
-			self.graph.set_v(T.source, 0)
-			self.graph.set_v(T.target, T.prop['voltage'])
+			#self.graph.set_v(T.target, T.source, T.prop['voltage'])
 			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
 		else:
 			voltage_val = T.prop['current']*T.prop['impedance']	

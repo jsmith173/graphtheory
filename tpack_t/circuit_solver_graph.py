@@ -82,9 +82,24 @@ class TCircuitSolverGraph:
 		self.show_graph = 0
 		self.show_tree = 0
 		self.show_result = 0
-		self.v_re = array('d', [0.0])
-		self.v_im = array('d', [0.0])
-		self.v_flags = array('b', [0])
+
+		# Define dimensions
+		self.num_pass = 20  # Number of layers (index u)
+		self.matrix_size = 100  # Rows and columns (index i and j)
+
+		# Create a 3D matrix initialized with zeros
+		self.v_matrix_re = [
+			[array('d', [0.0] * self.matrix_size) for _ in range(self.matrix_size)] 
+			for _ in range(self.num_pass)
+		]
+		self.v_matrix_im = [
+			[array('d', [0.0] * self.matrix_size) for _ in range(self.matrix_size)] 
+			for _ in range(self.num_pass)
+		]
+		self.v_matrix_f = [
+			[array('b', [0] * self.matrix_size) for _ in range(self.matrix_size)] 
+			for _ in range(self.num_pass)
+		]
 		
 		self.sDiv = '/'
 		self.sMul = '*'
@@ -380,15 +395,8 @@ class TCircuitSolverGraph:
 			n = node.directed_nodes[1]
 			self.update_nodal_edges(node.directed_nodes, v, key, label)
 			self.nodal_voltage_log.append(f"Nodes: {m}, {n}, {key}: {v}, top type: {top_str}")
-			
-			if self.check_v_flag(n) and not self.check_v_flag(m):
-				v_old = self.get_v(n)
-				v_new = v_old+v
-				self.set_v(m, v_new)
-			elif self.check_v_flag(m) and not self.check_v_flag(n):
-				v_old = self.get_v(m)
-				v_new = v_old+v
-				self.set_v(n, v_new)
+			if key == 'voltage':
+				self.set_v(m, n, v)
 			
 	def get_label_prop(self, node, calc_impedance=False):
 		status = True
@@ -1057,46 +1065,69 @@ class TCircuitSolverGraph:
 					break
 		return f, res			
 
-	def check_v_extend(self, i, L):
-		if i >= L:
-			m = i-L+1
-			self.v_re.extend([0.0]*m)
-			self.v_im.extend([0.0]*m)
-			self.v_flags.extend([0]*m)
-	
-	def set_v(self, i, value):
+	def getval_from_dctable(self, i_pass, i, j, key):
+		# ha csak ellenallasmero van
+		res = 0.0; f = False
+		try:
+			dctable = self.json_data["dctables"][self.i_pass]
+		except:	
+			return f, res
+		
+		table = dctable[key]
+		for item in table:
+			if item['nodes'][0] == i and item['nodes'][1] == j:
+				res = item['value']
+				f = True
+				break
+			elif item['nodes'][1] == i and item['nodes'][0] == j:
+				res = -item['value']
+				f = True
+				break
+		return f, res			
+		
+	def set_v(self, i, j, value):
+		f_complex = False; f_diff = False; v_old = 0; v_dctable = 0
 		if isinstance(value, complex):
+			f_complex = True
 			re = value.real; im = value.imag
 		else:
 			re = value; im = 0
-		L = len(self.v_re)
-		self.check_v_extend(i, L)
-		self.v_re[i] = re	
-		self.v_im[i] = im
-		self.v_flags[i] = True
-		if self.request["volt_meter_no_match"]:
-			self.log(f"The voltage for node number {i} has been set to {self.fv(value)} {uVolt}.")
-	
-	def check_v_flag(self, i):
-		L = len(self.v_re)
-		self.check_v_extend(i, L)
-		return self.v_flags[i]
-	
-	def get_v(self, i):
-		L = len(self.v_re)
-		self.check_v_extend(i, L)
-		c = complex(self.v_re[i], self.v_im[i])
-		return c
+		f, v_dctable = self.getval_from_dctable(self.i_pass, i, j, "other voltages")
+		if not f:
+			pass
+			#raise Exception("getval_from_dctable")
+		if f and not f_complex:
+			f_diff = abs(re-v_dctable) > 1e-4
+			if f_diff:
+				a1=1
+			v_old = re
+			re = v_dctable
+			if self.use_superposition:
+				self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(re)} {uVolt}.")
+		if f_complex and self.use_superposition:
+			self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(value)} {uVolt}.")
+		
+		#L = len(self.v_re)
+		#self.check_v_extend(i, L)
+		self.v_matrix_re[self.i_pass][i][j] = re	
+		self.v_matrix_im[self.i_pass][i][j] = im
+		#if self.request["volt_meter_no_match"]:
+		#if f_diff:
+		#	self.log(f">> Diff on TINA vs calculated node value: {i} and {j}: TINA: {self.fv(v_dctable)}, py calc: {self.fv(v_old)}.")
 
 	def get_diff_v(self, i, j):
-		L = len(self.v_re)
-		self.check_v_extend(i, L)
-		if abs(self.v_im[i]) > 1e-12 or abs(self.v_im[j]) > 1e-12:
-			c1 = complex(self.v_re[i], self.v_im[i])
-			c2 = complex(self.v_re[j], self.v_im[j])
+		#L = len(self.v_re)
+		#self.check_v_extend(i, L)
+		im0 = self.v_matrix_im[self.i_pass][i][0];
+		im1 = self.v_matrix_im[self.i_pass][j][0];
+		re0 = self.v_matrix_re[self.i_pass][i][0];
+		re1 = self.v_matrix_re[self.i_pass][j][0];
+		if abs(im0) > 1e-12 or abs(im1) > 1e-12:
+			c1 = complex(re0, im0)
+			c2 = complex(re1, im1)
 			return c1-c2
 		else:	
-			r = self.v_re[i]-self.v_re[j]
+			r = re0-re1
 			return r;
 
 	def get_w_speech_unit(self, v_str):
