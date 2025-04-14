@@ -1,0 +1,153 @@
+{
+    "circuit_no_gens": {
+        "N": 6,
+        "nodes": [
+            1,
+            0,
+            2,
+            3,
+            4,
+            5
+        ],
+        "gens": [],
+        "dctables": [],
+        "meters": [
+            {
+                "nodes": [
+                    4,
+                    0
+                ],
+                "prop": {
+                    "label": "Req",
+                    "match_label": "",
+                    "CompId": 8,
+                    "UniqueID": "T_09BED88020230510135127",
+                    "value": 0,
+                    "flags": 1
+                }
+            }
+        ],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_09BEE75020230510135127",
+                    "value": 3,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    1
+                ],
+                "prop": {
+                    "label": "R5",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_09BEFB1020230510135127",
+                    "value": 3,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "R6",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_09BF000020230510135127",
+                    "value": 3,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    4
+                ],
+                "prop": {
+                    "label": "R4",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_09BEEC4020230510135127",
+                    "value": 1.2,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    3,
+                    2
+                ],
+                "prop": {
+                    "label": "R3",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_09BEC9B020230510135127",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    0,
+                    4
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_09BECEA020230510135127",
+                    "value": 4,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    0,
+                    5
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_09BED39020230510135127",
+                    "value": 3,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    5,
+                    1
+                ],
+                "prop": {
+                    "label": "<split>R1",
+                    "match_label": "",
+                    "CompId": 0,
+                    "UniqueID": "<CompNil>",
+                    "value": 0,
+                    "flags": 0
+                }
+            }
+        ],
+        "circ_name": "sp3-ai.tsc"
+    },
+    "request": {
+        "text": "What is the total resistance on ?",
+        "cmd": "get_total_impedance",
+        "comp": "",
+        "options": "<none>",
+        "qid": "0"
+    }
+}

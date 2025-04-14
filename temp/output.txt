@@ -1,0 +1,13 @@
+Solution by TINA assisted by AI
+First we calculate the total resistance between the generator nodes (VS1)
+R1 and R2 connected in series so Rb=R1+R2=1kOhm+1kOhm=2kOhm
+The total resistance is Rb = 2kOhm
+
+Now we calculate the voltage on R1
+We know that the voltage between VS1 nodes is 5 Volt.
+
+
+The components R1 and R2 connected in series.
+The voltage between this components starting and ending node is 5 Volt
+R1 is in the voltage divider so the voltage on R1 is R1/Rb*5 Volt = 2.5 Volt 
+

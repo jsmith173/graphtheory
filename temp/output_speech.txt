@@ -1,0 +1,39 @@
+Solution by TINA assisted by AI
+This is an AC calculation
+We know that generator frequency is f=300 hertz ,  omega =2 multiplied by pi multiplied by f
+The voltage for node number 0 has been set to 0 Volt.
+The voltage for node number 1 has been set to 20 / 0°  Volt.
+At first we calculate the total impedance between the generator nodes (vs(t))
+C and R2 connected in parallel so Zb=1 divided by (j multiplied by  omega  multiplied by C) multiplied by R2 divided by (1 divided by (j multiplied by  omega  multiplied by C)+R2)=5.31 kilo  / -90° Ohm multiplied by 4 kilo  / 0° Ohm divided by (5.31 kilo  / -90° Ohm+4 kilo  / 0° Ohm)=3.19 kilo  / -37° Ohm
+L and R1 connected in series so Zd=j multiplied by  omega  multiplied by L+R1=2.49 kilo  / 90° Ohm+2 kilo  / 0° Ohm=3.19 kilo  / 51.2° Ohm
+Zb and Zd connected in series so Za=Zb+Zd=3.19 kilo  / -37° Ohm+3.19 kilo  / 51.2° Ohm=4.59 kilo  / 7.11° Ohm
+The total impedance is Za = 4.59 kilo  / 7.11° Ohm
+
+Now we calculate the voltage on v1
+We know that the voltage between vs(t) nodes is 20 / 0°  Volt.
+
+The voltage for node number 2 has been set to 13.9 / -44.1°  Volt.
+The components Zb and Zd connected in series.
+The voltage between this components starting and ending node is 20 / 0°  Volt
+Zb is in the voltage divider so the voltage on Zb is Zb divided by Za multiplied by 20 / 0°  Volt = 13.9 / -44.1°  Volt 
+
+The components Zb and Zd connected in series.
+The voltage between this components starting and ending node is 20 / 0°  Volt
+Zd is in the voltage divider so the voltage on Zd is Zd divided by Za multiplied by 20 / 0°  Volt = 13.9 / 44.1°  Volt 
+
+The components C and R2 connected in parallel. The voltage on C is 13.9 / -44.1°  Volt because the voltage on Zb is 13.9 / -44.1°  Volt
+
+The components C and R2 connected in parallel. The voltage on R2 is 13.9 / -44.1°  Volt because the voltage on Zb is 13.9 / -44.1°  Volt
+
+The voltage for node number 4 has been set to 13.9 / -44.1°  Volt.
+
+The voltage for node number 3 has been set to 11.4 / 5.43°  Volt.
+The components L and R1 connected in series.
+The voltage between this components starting and ending node is 13.9 / 44.1°  Volt
+L is in the voltage divider so the voltage on L is j multiplied by  omega  multiplied by L divided by Zd multiplied by 13.9 / 44.1°  Volt = 10.9 / 82.9°  Volt 
+
+The components L and R1 connected in series.
+The voltage between this components starting and ending node is 13.9 / 44.1°  Volt
+R1 is in the voltage divider so the voltage on R1 is R1 divided by Zd multiplied by 13.9 / 44.1°  Volt = 8.72 / -7.11°  Volt 
+
+To answer the original question: because the voltmeter connected to nodes 1,2 so the voltage on v1 is 13.9 / 44.1°  Volt

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>L1 and R1 connected in series so Zb=j*w*L1+R1='636 / 81°'Ohm</item>
+				<item>C1 and Zb connected in series so Za=1/(j*w*C1)+Zb='968 / -84.1°'Ohm</item>
+				<item>The total impedance is Za = '968 / -84.1°'Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>L1 and R1 connected in series so Zb=j*w*L1+R1='636 / 81°'Ohm</item>
+				<item>C1 and Zb connected in series so Za=1/(j*w*C1)+Zb='968 / -84.1°'Ohm</item>
+				<item>The total impedance is Za = '968 / -84.1°'Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>1</item>
+					<item>0</item>
+				</nodes>
+				<prop>
+					<label>Source</label>
+					<match_label/>
+					<CompId>16</CompId>
+					<UniqueID>T_0464B25C20050601152444</UniqueID>
+					<value>0</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>1</mode>
+						<AbsV>1</AbsV>
+						<Phase>-90</Phase>
+						<Freq>100000</Freq>
+						<FreqStr>100k</FreqStr>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+	</superposition>
+	<circuit>
+		<item>Netlist (component name, nodes)</item>
+		<item>R1 1 2</item>
+		<item>C1 3 0</item>
+		<item>L1 2 3</item>
+		<item/>
+	</circuit>
+	<request>
+		<text>What is the voltage on C1?</text>
+		<cmd>get_voltage</cmd>
+		<comp>C1</comp>
+		<options>&lt;none&gt;</options>
+		<qid>0</qid>
+		<ohm_meter_question>false</ohm_meter_question>
+		<req_on_gen>false</req_on_gen>
+		<volt_meter_question>false</volt_meter_question>
+		<amper_meter_question>false</amper_meter_question>
+	</request>
+	<calculation>
+		<solution>
+			<item>*** Solution by TINA assisted by AI ***</item>
+			<item>This is an AC calculation</item>
+			<item>We know that generator frequency is f=100k Hz, w=2*pi*f</item>
+			<item>At first we calculate the total impedance between the generator nodes (Source)</item>
+			<item>L1 and R1 connected in series so Zb=j*w*L1+R1='636 / 81°'Ohm</item>
+			<item>C1 and Zb connected in series so Za=1/(j*w*C1)+Zb='968 / -84.1°'Ohm</item>
+			<item>The total impedance is Za = '968 / -84.1°'Ohm</item>
+			<item/>
+			<item>Now we calculate the voltage on C1</item>
+			<item>We know that the voltage between Source nodes is '1 / -90°'V.</item>
+			<item/>
+			<item>(1) The components C1,Zb connected in series.</item>
+			<item>(1) The voltage between this components starting and ending node is '1 / -90°'V.</item>
+			<item>(1) C1 is in the voltage divider so the voltage on C1 is 1/(j*w*C1)/Za*'1 / -90°'V = '1.64 / -95.9°'V. </item>
+			<item/>
+		</solution>
+		<block_labels>
+			<item>
+				<label>Zb</label>
+				<origin>series</origin>
+				<value>'636 / 81°'Ohm</value>
+				<labels>
+					<item>L1</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>T_0462B74C20050601152444</item>
+					<item>T_00000000282EECB020250220055225</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Za</label>
+				<origin>series</origin>
+				<value>'968 / -84.1°'Ohm</value>
+				<labels>
+					<item>C1</item>
+					<item>Zb</item>
+				</labels>
+				<unique_labels>
+					<item>T_0462B9F020050601152444</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
+		<fn>data/ac-1.json</fn>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
+	</calculation>
+</all>

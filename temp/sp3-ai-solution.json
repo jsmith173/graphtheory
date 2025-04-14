@@ -1,0 +1,161 @@
+{
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "Rf=R1",
+                "R1 and Rf connected in parallel so Re=R1*Rf/(R1+Rf)=1.5Ohm",
+                "Re and R5 connected in series so Rd=Re+R5=4.5Ohm",
+                "R6 and Rd connected in parallel so Rc=R6*Rd/(R6+Rd)=1.8Ohm",
+                "R3 and R4 connected in series so Rg=R3+R4=2.2Ohm",
+                "Rc and Rg connected in series so Rb=Rc+Rg=4Ohm",
+                "R2 and Rb connected in parallel so Ra=R2*Rb/(R2+Rb)=2Ohm",
+                "The ohm meter shows Ra = 2Ohm"
+            ],
+            "total_impedance_txt": [
+                "R1 and R1 connected in parallel so Re=R1*R1/(R1+R1)=1.5Ohm",
+                "Re and R5 connected in series so Rd=Re+R5=4.5Ohm",
+                "R6 and Rd connected in parallel so Rc=R6*Rd/(R6+Rd)=1.8Ohm",
+                "R3 and R4 connected in series so Rg=R3+R4=2.2Ohm",
+                "Rc and Rg connected in series so Rb=Rc+Rg=4Ohm",
+                "R2 and Rb connected in parallel so Ra=R2*Rb/(R2+Rb)=2Ohm",
+                "The ohm meter shows Ra = 2Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    4,
+                    0
+                ],
+                "prop": {
+                    "label": "Req",
+                    "match_label": "",
+                    "CompId": 8,
+                    "UniqueID": "",
+                    "value": 0,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R1 1 0",
+        "R5 2 1",
+        "R6 2 0",
+        "R4 3 4",
+        "R3 3 2",
+        "R2 0 4",
+        "R1 0 5",
+        "<split>R1 5 1",
+        ""
+    ],
+    "request": {
+        "text": "What is the total resistance on ?",
+        "cmd": "get_total_impedance",
+        "comp": "",
+        "options": "<none>",
+        "qid": "0",
+        "ohm_meter_question": true,
+        "req_on_gen": false,
+        "volt_meter_question": false,
+        "amper_meter_question": false
+    },
+    "calculation": {
+        "solution": [
+            "*** Solution by TINA assisted by AI ***",
+            "R1 and R1 connected in parallel so Re=R1*R1/(R1+R1)=1.5Ohm",
+            "Re and R5 connected in series so Rd=Re+R5=4.5Ohm",
+            "R6 and Rd connected in parallel so Rc=R6*Rd/(R6+Rd)=1.8Ohm",
+            "R3 and R4 connected in series so Rg=R3+R4=2.2Ohm",
+            "Rc and Rg connected in series so Rb=Rc+Rg=4Ohm",
+            "R2 and Rb connected in parallel so Ra=R2*Rb/(R2+Rb)=2Ohm",
+            "The ohm meter shows Ra = 2Ohm"
+        ],
+        "block_labels": [
+            {
+                "label": "Re",
+                "origin": "parallel",
+                "value": "1.5Ohm",
+                "labels": [
+                    "R1",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "T_09BEE75020230510135127",
+                    "T_09BEE75020230510135127"
+                ]
+            },
+            {
+                "label": "Rd",
+                "origin": "series",
+                "value": "4.5Ohm",
+                "labels": [
+                    "Re",
+                    "R5"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "T_09BEFB1020230510135127"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "parallel",
+                "value": "1.8Ohm",
+                "labels": [
+                    "R6",
+                    "Rd"
+                ],
+                "unique_labels": [
+                    "T_09BF000020230510135127",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rg",
+                "origin": "series",
+                "value": "2.2Ohm",
+                "labels": [
+                    "R3",
+                    "R4"
+                ],
+                "unique_labels": [
+                    "T_09BEC9B020230510135127",
+                    "T_09BEEC4020230510135127"
+                ]
+            },
+            {
+                "label": "Rb",
+                "origin": "series",
+                "value": "4Ohm",
+                "labels": [
+                    "Rc",
+                    "Rg"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Ra",
+                "origin": "parallel",
+                "value": "2Ohm",
+                "labels": [
+                    "R2",
+                    "Rb"
+                ],
+                "unique_labels": [
+                    "T_09BECEA020230510135127",
+                    "<block>"
+                ]
+            }
+        ],
+        "fn": "data/sp3-ai.json",
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
+    }
+}

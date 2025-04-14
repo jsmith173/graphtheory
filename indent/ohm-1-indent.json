@@ -1,0 +1,66 @@
+{
+    "circuit_no_gens": {
+        "N": 3,
+        "nodes": [
+            1,
+            0,
+            2
+        ],
+        "gens": [],
+        "dctables": [],
+        "meters": [
+            {
+                "nodes": [
+                    2,
+                    0
+                ],
+                "prop": {
+                    "label": "ZM1",
+                    "match_label": "",
+                    "CompId": 8,
+                    "UniqueID": "T_0000000026FAEE8020250217125222",
+                    "value": 0,
+                    "flags": 1
+                }
+            }
+        ],
+        "edges": [
+            {
+                "nodes": [
+                    1,
+                    0
+                ],
+                "prop": {
+                    "label": "R2",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_0000000026FACB4020250217125228",
+                    "value": 1,
+                    "flags": 1
+                }
+            },
+            {
+                "nodes": [
+                    2,
+                    1
+                ],
+                "prop": {
+                    "label": "R1",
+                    "match_label": "",
+                    "CompId": 9,
+                    "UniqueID": "T_0000000026FAD12020250217125226",
+                    "value": 1,
+                    "flags": 1
+                }
+            }
+        ],
+        "circ_name": "ohm-1.tsc"
+    },
+    "request": {
+        "text": "What is the resistance on ZM1?",
+        "cmd": "get_impedance",
+        "comp": "ZM1",
+        "options": "<none>",
+        "qid": "0"
+    }
+}
