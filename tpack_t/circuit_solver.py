@@ -13,6 +13,12 @@ import math, cmath, copy
 
 def_weight = 1
 
+def pos_fn(sub, s):
+	sub_ = sub.lower()
+	s_ = s.lower()
+	index = s_.find(sub_)
+	return index
+
 class SolverException(Exception):
     pass
 	
@@ -110,7 +116,13 @@ class TCircuitSolver:
 		else:	
 			a = arr[0]; b = arr[1]
 			a_l = arr_left[0]; b_l = arr_left[1]
-			if top.type == "series":
+			
+			if pos_fn(cg.SHORT_CIRCUIT_PREFIX, a_l) >= 0:
+				v0 = values[1]; values = []; values.append(v0); a = arr[1]
+			elif pos_fn(cg.SHORT_CIRCUIT_PREFIX, b_l) >= 0:
+				v0 = values[0]; values = []; values.append(v0); a = arr[0]		
+			
+			if top.type == "series":		
 				if len(values) == 2:
 					s1 = self.graph.fv(values[0])+"Ohm"; s2 = self.graph.fv(values[1])+"Ohm"
 					s = f"{a_l} and {b_l} connected in series so {c}={a}+{b}={s1}+{s2}={self.graph.fv(v)}Ohm"	
@@ -399,10 +411,6 @@ class TCircuitSolver:
 							self.log(f"The voltage on {labels[i]} is {self.graph.fv(voltage)} {cg.uVolt} because the voltage is {self.graph.fv(voltage)} {cg.uVolt} on {top_label}") 
 					else:
 						self.log(f"The components {label_list} connected in series.")
-						
-						#m = node.directed_nodes[0]
-						#n = node.directed_nodes[1]
-						#self.log(f"Label: {labels[i]}, nodes: {m}, {n}")
 						
 						self.log(f"The voltage between this components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
 						self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
@@ -730,7 +738,7 @@ class TCircuitSolver:
 				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 
 				if is_v_gen:
-					item = self.graph.create_item(gen, j, 0.0, cg.FLAGS_SHORT)
+					item = self.graph.create_item(gen, j, 0.0)
 					self.graph.json_data["edges"].append(item)
 					nInserted += 1
 

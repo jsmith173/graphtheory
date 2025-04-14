@@ -28,7 +28,7 @@ uRes     = 'Ohm'
 
 LLM_LOUD = 1
 
-SHORT_CIRCUIT_PREFIX = "Rshortxxx"
+SHORT_CIRCUIT_PREFIX = "RGenZero"
 OPEN_CIRCUIT_PREFIX = "Ropenxxx"
 VOLT_METER_NAME = 'voltmeter'
 
@@ -996,18 +996,15 @@ class TCircuitSolverGraph:
 			s = f"{comp_str}x{a}{post_str}"
 		return f_inc, s
 
-	def create_item(self, gen, m, value, flags):
+	def create_item(self, gen, m, value):
 		item = {}; prop = {}
 		item["nodes"] = gen["nodes"]	
-		if flags == FLAGS_SHORT:
-			prop["label"] = f"{SHORT_CIRCUIT_PREFIX}{m}"
-		else:
-			prop["label"] = f"{OPEN_CIRCUIT_PREFIX}{m}"
+		prop["label"] = f"{SHORT_CIRCUIT_PREFIX}{m}"
 		prop["match_label"] = ""
 		prop["CompId"] = RES_
 		prop["UniqueID"] = "<none>"
 		prop["value"] = value
-		prop["flags"] = flags
+		prop["flags"] = FLAGS_NORMAL
 		item["prop"] = prop
 		return item
 
@@ -1102,7 +1099,8 @@ class TCircuitSolverGraph:
 				a1=1
 			v_old = re
 			re = v_dctable
-			if self.use_superposition:
+			f_diff_stored = abs(self.v_matrix_re[self.i_pass][i][j]-re) > 1e-4
+			if self.use_superposition and f_diff_stored:
 				self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(re)} {uVolt}.")
 		if f_complex and self.use_superposition:
 			self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(value)} {uVolt}.")
