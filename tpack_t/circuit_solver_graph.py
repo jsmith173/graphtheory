@@ -27,6 +27,7 @@ uCurrent = 'Amper'
 uRes     = 'Ohm'
 
 LLM_LOUD = 1
+LLM_ADD_SOL_TXT = 4
 
 SHORT_CIRCUIT_PREFIX = "RGenZero"
 OPEN_CIRCUIT_PREFIX = "Ropenxxx"
@@ -101,6 +102,7 @@ class TCircuitSolverGraph:
 			for _ in range(self.num_pass)
 		]
 		
+		self.log_state_v = {}
 		self.sDiv = '/'
 		self.sMul = '*'
 		self.sOmega = 'w'
@@ -1083,6 +1085,8 @@ class TCircuitSolverGraph:
 		return f, res			
 		
 	def set_v(self, i, j, value):
+		self.log_state_v = {}
+		self.log_state_v['changed'] = False
 		f_complex = False; f_diff = False; v_old = 0; v_dctable = 0
 		if isinstance(value, complex):
 			f_complex = True
@@ -1101,9 +1105,17 @@ class TCircuitSolverGraph:
 			re = v_dctable
 			f_diff_stored = abs(self.v_matrix_re[self.i_pass][i][j]-re) > 1e-4
 			if self.use_superposition and f_diff_stored:
-				self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(re)} {uVolt}.")
+				self.log_state_v['changed'] = True
+				self.log_state_v['i'] = i
+				self.log_state_v['j'] = j
+				self.log_state_v['txt1'] = self.fv(re)
+				#self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(re)} {uVolt}.")
 		if f_complex and self.use_superposition:
-			self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(value)} {uVolt}.")
+			#self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(value)} {uVolt}.")
+			self.log_state_v['changed'] = True
+			self.log_state_v['i'] = i
+			self.log_state_v['j'] = j
+			self.log_state_v['txt1'] = self.fv(value)
 		
 		#L = len(self.v_re)
 		#self.check_v_extend(i, L)

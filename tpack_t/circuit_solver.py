@@ -49,6 +49,7 @@ class TCircuitSolver:
 		
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
+		self.ignored_resistances = []
 		
 		self.graph.loud = False
 		if opts != None and 'request' in opts.keys():
@@ -108,6 +109,9 @@ class TCircuitSolver:
 			#dbg
 			c, arr_left = self.prepare_calc_str_impedance(top, left, right, False)
 			c, arr = self.prepare_calc_str_impedance(top, left, right, True)
+			if not(c in self.ignored_resistances):
+				self.log(f"{c} represents a temporary resistance with a value of 0")
+				self.ignored_resistances.append(c)
 
 		elif len(arr) == 1:
 			a = arr[0]
@@ -412,9 +416,20 @@ class TCircuitSolver:
 					else:
 						self.log(f"The components {label_list} connected in series.")
 						
+						if self.graph.log_state_v['changed']:
+							m = self.graph.log_state_v['i']
+							n = self.graph.log_state_v['j']
+							s_new_val = self.graph.log_state_v['txt1'] 
+							s_nodes = f"(node numbers {m} and {n})"
+						else:
+							s_new_val = self.graph.fv(new_val[i])
+							s_nodes = ""
+							
 						self.log(f"The voltage between this components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
+						
 						self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
-			                     f"{labels_z[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {self.graph.fv(new_val[i])} {cg.uVolt} ")
+			                     f"{labels_z[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {s_new_val} {cg.uVolt} {s_nodes}")
+								 
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current':
@@ -507,11 +522,13 @@ class TCircuitSolver:
 
 		self.graph.debug_graph()
 
-		self.log(f"Solution by TINA assisted by AI")
+		if (self.opts['request']['options'] & cg.LLM_ADD_SOL_TXT) != 0:
+			self.log(f"Solution by TINA assisted by AI")
 
 		if self.graph.use_superposition:
 			#self.logl(self.graph.graph_debug)
 			self.log("We have more than one generator so we are using superposition to calculate voltages/currents.")
+			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to 0 Ohm resistances, used during superposition.")
 			self.log("")
 
 		#replacing generators
@@ -749,7 +766,7 @@ class TCircuitSolver:
 		self.solution['request'] = self.request
 		if self.graph.use_superposition:
 			#self.log(f"Pass{i_pass+1} started")
-			self.log(f"Processing generator {self.gen['prop']['label']}")
+			self.log(f"## Processing generator {self.gen['prop']['label']}")
 		
 		self.mod = []
 		#self.set_edge_directions()				
@@ -826,6 +843,7 @@ class TCircuitSolver:
 
 		#calculating the impedance
 		self.prev_type = None; self.calc_symbols = []
+		self.ignored_resistances = []
 		self.walk_postorder(T)
 		self.finalize_calc_impedance(T)
 		if self.has_expected_key:

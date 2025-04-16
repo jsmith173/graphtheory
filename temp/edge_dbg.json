@@ -1,9 +1,9 @@
 [
     {
         "source": 4,
-        "target": 2,
+        "target": 0,
         "prop": {
-            "label": "<split>VS1",
+            "label": "<split>Vs",
             "match_label": "",
             "CompId": 0,
             "UniqueID": "<CompNil>",
@@ -18,20 +18,32 @@
             "label": "R2",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_000000002687A22020250414072158",
+            "UniqueID": "NNLCI0KS8CCJ7CVP2FJ5I3B4",
             "value": 1000,
             "flags": 1
         }
     },
     {
-        "source": 3,
-        "target": 1,
+        "source": 2,
+        "target": 3,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_000000002687D12020250413073837",
-            "value": 1000,
+            "UniqueID": "T_09F5D39020230605185844",
+            "value": 10,
+            "flags": 1
+        }
+    },
+    {
+        "source": 1,
+        "target": 0,
+        "prop": {
+            "label": "R",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_09F5D88020230605185844",
+            "value": 10,
             "flags": 1
         }
     }
