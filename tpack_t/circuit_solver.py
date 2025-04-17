@@ -766,7 +766,7 @@ class TCircuitSolver:
 		self.solution['request'] = self.request
 		if self.graph.use_superposition:
 			#self.log(f"Pass{i_pass+1} started")
-			self.log(f"## Processing generator {self.gen['prop']['label']}")
+			self.log(f"###Processing generator {self.gen['prop']['label']}")
 		
 		self.mod = []
 		#self.set_edge_directions()				

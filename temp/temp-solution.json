@@ -2,56 +2,20 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "Rc0=R1=1kOhm=1kOhm",
-                "R2 and Rc0 connected in series so Rb0=R2+Rc0=1kOhm+1kOhm=2kOhm",
-                "",
-                "Ra0=Rb0=2kOhm=2kOhm",
-                "The total resistance is Ra0 = 2kOhm"
+                "R2 and R3 connected in series so Rc=R2+R3=1kOhm+1kOhm=2kOhm",
+                "Rb=Rc",
+                "R1 and Rb connected in series so Ra=R1+Rb=1kOhm+2kOhm=3kOhm",
+                "The total resistance is Ra = 3kOhm"
             ],
             "total_impedance_txt": [
-                "Rc0=R1=1kOhm=1kOhm",
-                "R2 and Rc0 connected in series so Rb0=R2+Rc0=1kOhm+1kOhm=2kOhm",
-                "",
-                "Ra0=Rb0=2kOhm=2kOhm",
-                "The total resistance is Ra0 = 2kOhm"
-            ],
-            "gen": {
-                "nodes": [
-                    1,
-                    5
-                ],
-                "prop": {
-                    "label": "VS2",
-                    "match_label": "",
-                    "CompId": 14,
-                    "UniqueID": "T_0000000027B2005020250416090654",
-                    "value": 5,
-                    "flags": 1,
-                    "ac_gen": {
-                        "mode": 0
-                    }
-                }
-            }
-        },
-        {
-            "total_impedance_ori_txt": [
-                "Rc1=R2=1kOhm=1kOhm",
-                "R1 and Rc1 connected in series so Rb1=R1+Rc1=1kOhm+1kOhm=2kOhm",
-                "",
-                "Ra1=Rb1=2kOhm=2kOhm",
-                "The total resistance is Ra1 = 2kOhm"
-            ],
-            "total_impedance_txt": [
-                "Rc1=R2=1kOhm=1kOhm",
-                "R1 and Rc1 connected in series so Rb1=R1+Rc1=1kOhm+1kOhm=2kOhm",
-                "",
-                "Ra1=Rb1=2kOhm=2kOhm",
-                "The total resistance is Ra1 = 2kOhm"
+                "R2 and R3 connected in series so Rc=R2+R3=1kOhm+1kOhm=2kOhm",
+                "R1 and Rc connected in series so Ra=R1+Rc=1kOhm+2kOhm=3kOhm",
+                "The total resistance is Ra = 3kOhm"
             ],
             "gen": {
                 "nodes": [
                     3,
-                    6
+                    5
                 ],
                 "prop": {
                     "label": "VS1",
@@ -69,8 +33,8 @@
     ],
     "circuit": [
         "Netlist (component name, nodes)",
-        "<split>VS2 5 2",
-        "<split>VS1 6 2",
+        "<split>VS1 5 2",
+        "R3 1 2",
         "R2 4 1",
         "R1 3 4",
         ""
@@ -78,151 +42,70 @@
     "request": {
         "text": "What is the voltage on VM1?",
         "cmd": "get_voltage",
-        "comp": "R1",
-        "options": 0,
+        "comp": "VM1",
+        "options": 4,
         "qid": "0",
         "ohm_meter_question": false,
         "req_on_gen": false,
         "volt_meter_question": true,
-        "volt_meter_no_match": false,
+        "volt_meter_no_match": true,
         "comp_ori": "VM1",
         "amper_meter_question": false
     },
     "calculation": {
         "solution": [
-            "We have more than one generator so we are using superposition to calculate voltages/currents.",
-            "Names starting with RGenZero refer to 0 Ohm resistances, used during superposition.",
-            "",
-            "## Processing generator VS2",
-            "Rd0 represents a temporary resistance with a value of 0",
-            "First we calculate the total resistance between the generator nodes (VS2)",
-            "Rc0=R1=1kOhm=1kOhm",
-            "R2 and Rc0 connected in series so Rb0=R2+Rc0=1kOhm+1kOhm=2kOhm",
-            "",
-            "Ra0=Rb0=2kOhm=2kOhm",
-            "The total resistance is Ra0 = 2kOhm",
-            "",
-            "Now we calculate the voltage on R1",
-            "We know that the voltage between VS2 nodes is 5 Volt.",
-            "All voltage generators except for VS2 have been replaced with a short circuit.",
-            "All current generators have been replaced with an open circuit.",
-            "",
-            "The components Rb0 and Rd0 connected in series.",
-            "The voltage between this components starting and ending node is 5 Volt",
-            "Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*5 Volt = 5 Volt ",
-            "",
-            "The components R2 and Rc0 connected in series.",
-            "The voltage between this components starting and ending node is 5 Volt",
-            "Rc0 is in the voltage divider so the voltage on Rc0 is Rc0/Rb0*5 Volt = 2.5 Volt ",
-            "",
-            "The components R1 and RGenZero1 connected in series.",
-            "The voltage between this components starting and ending node is 2.5 Volt",
-            "R1 is in the voltage divider so the voltage on R1 is R1/Rc0*2.5 Volt = 2.5 Volt (node numbers 4 and 3)",
-            "",
-            "## Processing generator VS1",
-            "Rd1 represents a temporary resistance with a value of 0",
+            "Solution by TINA assisted by AI",
             "First we calculate the total resistance between the generator nodes (VS1)",
-            "Rc1=R2=1kOhm=1kOhm",
-            "R1 and Rc1 connected in series so Rb1=R1+Rc1=1kOhm+1kOhm=2kOhm",
+            "R2 and R3 connected in series so Rc=R2+R3=1kOhm+1kOhm=2kOhm",
+            "R1 and Rc connected in series so Ra=R1+Rc=1kOhm+2kOhm=3kOhm",
+            "The total resistance is Ra = 3kOhm",
             "",
-            "Ra1=Rb1=2kOhm=2kOhm",
-            "The total resistance is Ra1 = 2kOhm",
-            "",
-            "Now we calculate the voltage on R1",
+            "Now we calculate the voltage on VM1",
             "We know that the voltage between VS1 nodes is 5 Volt.",
-            "All voltage generators except for VS1 have been replaced with a short circuit.",
-            "All current generators have been replaced with an open circuit.",
             "",
-            "The components Rb1 and Rd1 connected in series.",
+            "The components R1 and Rc connected in series.",
             "The voltage between this components starting and ending node is 5 Volt",
-            "Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*5 Volt = 5 Volt ",
+            "R1 is in the voltage divider so the voltage on R1 is R1/Ra*5 Volt = 1.67 Volt ",
             "",
-            "The components R1 and Rc1 connected in series.",
+            "The components R1 and Rc connected in series.",
             "The voltage between this components starting and ending node is 5 Volt",
-            "R1 is in the voltage divider so the voltage on R1 is R1/Rb1*5 Volt = 2.5 Volt (node numbers 3 and 4)",
+            "Rc is in the voltage divider so the voltage on Rc is Rb/Ra*5 Volt = 3.33 Volt ",
             "",
             "",
-            "Now we are using superposition to calculate the voltage on R1",
-            "Let's summarize the calculations from the previous section.",
-            "'voltage on R1' = -2.5V+2.5V = 0V",
-            "To answer the original question: because the voltmeter connected to R1 parallel so the voltage on VM1 is 0 Volt"
+            "The components R2 and R3 connected in series.",
+            "The voltage between this components starting and ending node is 3.33 Volt",
+            "R2 is in the voltage divider so the voltage on R2 is R2/Rc*3.33 Volt = 1.67 Volt ",
+            "",
+            "The components R2 and R3 connected in series.",
+            "The voltage between this components starting and ending node is 3.33 Volt",
+            "R3 is in the voltage divider so the voltage on R3 is R3/Rc*3.33 Volt = 1.67 Volt ",
+            "",
+            "To answer the original question: because the voltmeter connected to nodes 3,1 so the voltage on VM1 is 0 Volt"
         ],
         "block_labels": [
             {
-                "label": "Rc0",
-                "origin": "series",
-                "value": "1kOhm",
-                "labels": [
-                    "R1",
-                    "RGenZero1"
-                ],
-                "unique_labels": [
-                    "T_000000002687D12020250413073837",
-                    "<none>"
-                ]
-            },
-            {
-                "label": "Rb0",
+                "label": "Rc",
                 "origin": "series",
                 "value": "2kOhm",
                 "labels": [
                     "R2",
-                    "Rc0"
+                    "R3"
                 ],
                 "unique_labels": [
                     "T_000000002687A22020250414072158",
-                    "<block>"
+                    "T_000000002608D12020250416154502"
                 ]
             },
             {
-                "label": "Ra0",
+                "label": "Ra",
                 "origin": "series",
-                "value": "2kOhm",
-                "labels": [
-                    "Rb0",
-                    "Rd0"
-                ],
-                "unique_labels": [
-                    "<block>",
-                    "<block>"
-                ]
-            },
-            {
-                "label": "Rc1",
-                "origin": "series",
-                "value": "1kOhm",
-                "labels": [
-                    "R2",
-                    "RGenZero0"
-                ],
-                "unique_labels": [
-                    "T_000000002687A22020250414072158",
-                    "<none>"
-                ]
-            },
-            {
-                "label": "Rb1",
-                "origin": "series",
-                "value": "2kOhm",
+                "value": "3kOhm",
                 "labels": [
                     "R1",
-                    "Rc1"
+                    "Rc"
                 ],
                 "unique_labels": [
                     "T_000000002687D12020250413073837",
-                    "<block>"
-                ]
-            },
-            {
-                "label": "Ra1",
-                "origin": "series",
-                "value": "2kOhm",
-                "labels": [
-                    "Rb1",
-                    "Rd1"
-                ],
-                "unique_labels": [
-                    "<block>",
                     "<block>"
                 ]
             }
