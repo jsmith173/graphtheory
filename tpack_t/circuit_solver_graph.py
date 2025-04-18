@@ -87,7 +87,10 @@ class TCircuitSolverGraph:
 		# Define dimensions
 		self.num_pass = 20  # Number of layers (index u)
 		self.matrix_size = 100  # Rows and columns (index i and j)
+		self.max_node_num = 100  
 
+		self.gen_node_can_change = False
+		
 		# Create a 3D matrix initialized with zeros
 		self.v_matrix_re = [
 			[array('d', [0.0] * self.matrix_size) for _ in range(self.matrix_size)] 
@@ -101,8 +104,14 @@ class TCircuitSolverGraph:
 			[array('b', [0] * self.matrix_size) for _ in range(self.matrix_size)] 
 			for _ in range(self.num_pass)
 		]
+		self.v_re = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
+		self.v_im = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
+		self.v_flags = [array('b', [0] * self.max_node_num) for _ in range(self.num_pass)]
+		self.GND = [array('i', [0] * 100) for _ in range(self.num_pass)]
+		self.max_node = 0
 		
 		self.log_state_v = {}
+		self.log_state_v['changed'] = False
 		self.sDiv = '/'
 		self.sMul = '*'
 		self.sOmega = 'w'
@@ -398,7 +407,7 @@ class TCircuitSolverGraph:
 			self.update_nodal_edges(node.directed_nodes, v, key, label)
 			self.nodal_voltage_log.append(f"Nodes: {m}, {n}, {key}: {v}, top type: {top_str}")
 			if key == 'voltage':
-				self.set_v(m, n, v)
+				self.set_v(node, m, n, v)
 			
 	def get_label_prop(self, node, calc_impedance=False):
 		status = True
@@ -1084,46 +1093,48 @@ class TCircuitSolverGraph:
 				break
 		return f, res			
 		
-	def set_v(self, i, j, value):
-		self.log_state_v = {}
-		self.log_state_v['changed'] = False
-		f_complex = False; f_diff = False; v_old = 0; v_dctable = 0
+	def is_gen_node(self, i):
+		return self.gen['nodes'][0] == i or self.gen['nodes'][1] == i
+		
+	def set_v(self, node, i, j, value):
 		if isinstance(value, complex):
 			f_complex = True
 			re = value.real; im = value.imag
 		else:
 			re = value; im = 0
-		f, v_dctable = self.getval_from_dctable(self.i_pass, i, j, "other voltages")
-		if not f:
+		self.log(f"xxx The voltage between node numbers {i} and {j} setting to {self.fv(value)} {uVolt} ... starting ...")
+
+		f_set = True
+		if i == 0:
+			m = j
+		elif self.v_flags[self.i_pass][i] and self.v_flags[self.i_pass][j]:	
+			f_set = False
 			pass
-			#raise Exception("getval_from_dctable")
-		if f and not f_complex:
-			f_diff = abs(re-v_dctable) > 1e-4
-			if f_diff:
-				a1=1
-			v_old = re
-			re = v_dctable
-			f_diff_stored = abs(self.v_matrix_re[self.i_pass][i][j]-re) > 1e-4
-			if self.use_superposition and f_diff_stored:
-				self.log_state_v['changed'] = True
-				self.log_state_v['i'] = i
-				self.log_state_v['j'] = j
-				self.log_state_v['txt1'] = self.fv(re)
-				#self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(re)} {uVolt}.")
-		if f_complex and self.use_superposition:
-			#self.log(f"The voltage between node numbers {i} and {j} has been set to {self.fv(value)} {uVolt}.")
-			self.log_state_v['changed'] = True
-			self.log_state_v['i'] = i
-			self.log_state_v['j'] = j
-			self.log_state_v['txt1'] = self.fv(value)
-		
-		#L = len(self.v_re)
-		#self.check_v_extend(i, L)
-		self.v_matrix_re[self.i_pass][i][j] = re	
-		self.v_matrix_im[self.i_pass][i][j] = im
-		#if self.request["volt_meter_no_match"]:
-		#if f_diff:
-		#	self.log(f">> Diff on TINA vs calculated node value: {i} and {j}: TINA: {self.fv(v_dctable)}, py calc: {self.fv(v_old)}.")
+		elif self.gen_node_can_change and self.is_gen_node(i):
+			m = i
+		elif not self.gen_node_can_change and self.is_gen_node(i):
+			m = j
+		elif self.v_flags[self.i_pass][i]:	
+			m = j
+		else:
+			m = i
+
+		if f_set:
+			self.set_v_pot(m, value)
+
+	def set_v_pot(self, m, value):
+		if isinstance(value, complex):
+			f_complex = True
+			re = value.real; im = value.imag
+		else:
+			re = value; im = 0
+		self.log(f"xxx The node potential for node number {m} setting to {self.fv(value)} {uVolt}")
+
+		self.v_re[self.i_pass][m] = re	
+		self.v_im[self.i_pass][m] = im
+		self.v_flags[self.i_pass][m] = True
+		if m > self.max_node:
+			self.max_node = m
 
 	def get_diff_v(self, i, j):
 		#L = len(self.v_re)
@@ -1138,7 +1149,7 @@ class TCircuitSolverGraph:
 			return c1-c2
 		else:	
 			r = re0-re1
-			return r;
+			return r
 
 	def get_w_speech_unit(self, v_str):
 		last_char = v_str[-1]		

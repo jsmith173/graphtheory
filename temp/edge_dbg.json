@@ -1,49 +1,73 @@
 [
     {
-        "source": 5,
-        "target": 2,
-        "prop": {
-            "label": "<split>VS1",
-            "match_label": "",
-            "CompId": 0,
-            "UniqueID": "<CompNil>",
-            "value": 0,
-            "flags": 0
-        }
-    },
-    {
         "source": 1,
         "target": 2,
         "prop": {
-            "label": "R3",
+            "label": "R6",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_000000002608D12020250416154502",
-            "value": 1000,
+            "UniqueID": "T_000000002687C56020250418145626",
+            "value": 0,
             "flags": 1
         }
     },
     {
         "source": 4,
-        "target": 1,
+        "target": 5,
         "prop": {
-            "label": "R2",
+            "label": "R5",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_000000002687A22020250414072158",
-            "value": 1000,
+            "UniqueID": "T_1F39CC1020240130111214",
+            "value": 2,
             "flags": 1
         }
     },
     {
-        "source": 3,
+        "source": 4,
+        "target": 0,
+        "prop": {
+            "label": "R4",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_1F39C72020240130111211",
+            "value": 5,
+            "flags": 1
+        }
+    },
+    {
+        "source": 1,
         "target": 4,
+        "prop": {
+            "label": "R3",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_1F39C23020240130111206",
+            "value": 3,
+            "flags": 1
+        }
+    },
+    {
+        "source": 5,
+        "target": 3,
+        "prop": {
+            "label": "R2",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_1F39BD4020240130111203",
+            "value": 4,
+            "flags": 1
+        }
+    },
+    {
+        "source": 2,
+        "target": 5,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_000000002687D12020250413073837",
-            "value": 1000,
+            "UniqueID": "T_1F39B85020240130111157",
+            "value": 1,
             "flags": 1
         }
     }

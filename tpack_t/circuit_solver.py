@@ -50,6 +50,7 @@ class TCircuitSolver:
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
 		self.ignored_resistances = []
+		self.node_potentials = []
 		
 		self.graph.loud = False
 		if opts != None and 'request' in opts.keys():
@@ -535,7 +536,7 @@ class TCircuitSolver:
 		for i in range(len(self.gens)):
 			self.gen = self.gens[i]
 			self.graph.i_pass = i
-			self.run_pass(circuit_key, i)
+			self.run_pass(circuit_key, i)		
 
 		comp = self.request["comp"]
 		request_txt = cu.get_request_txt(self.request)
@@ -879,7 +880,15 @@ class TCircuitSolver:
 
 		# calculating voltage/currents
 		# set values on top node
+		self.log(f"xxx Gen: set voltage...")
+		self.log(f"xxx GND is: {self.gen['nodes'][1]}")
+		self.graph.GND[i_pass] = self.gen['nodes'][1]
+		#self.graph.set_v_pot(self.gen['nodes'][1], 0)	
+		self.graph.gen_node_can_change = True	
 		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
+		self.graph.set_v_pot(self.graph.GND[i_pass], 0.0)		
+		self.graph.set_v_pot(self.gen['nodes'][0], gen_new_value['value'])		
+		self.graph.gen_node_can_change = False
 		if gen_new_value['quantity'] == 'voltage':
 			#self.graph.set_v(T.target, T.source, T.prop['voltage'])
 			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
@@ -948,8 +957,13 @@ class TCircuitSolver:
 			list_ = self.graph.json_data["edges"]
 			N = len(list_)
 			list_.pop(N-1)
-
-
+			
+		node_potentials_pass = []
+		for i in range(self.graph.max_node+1):
+			r = self.graph.fv(self.graph.v_re[0][i])
+			s = f'VP_{i} = {r}'
+			node_potentials_pass.append(s)
+		self.node_potentials.append(node_potentials_pass)	
 	
 	def write_log(self, valid, status, error_code=0, save_files=True):
 		if error_code > 0:
@@ -981,6 +995,7 @@ class TCircuitSolver:
 
 		calculation = {}
 		calculation['solution'] = self.graph.solution_log
+		calculation['node_potentials'] = self.node_potentials
 		if error_code == 0:	
 			calculation['block_labels'] = self.block_labels
 
