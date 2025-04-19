@@ -217,12 +217,12 @@
                 "VP_5 = 774m, assigned: 1"
             ],
             [
-                "VP_0 = 0, assigned: 1",
-                "VP_1 = 4, assigned: 1",
-                "VP_2 = 1.84, assigned: 1",
-                "VP_3 = -4.16, assigned: 1",
-                "VP_4 = 968m, assigned: 1",
-                "VP_5 = 3.23, assigned: 1"
+                "VP_0 = 0, assigned (and): 1",
+                "VP_1 = 4, assigned (and): 1",
+                "VP_2 = 1.84, assigned (and): 0",
+                "VP_3 = -4.16, assigned (and): 0",
+                "VP_4 = 968m, assigned (and): 1",
+                "VP_5 = 3.23, assigned (and): 1"
             ]
         ],
         "block_labels": [

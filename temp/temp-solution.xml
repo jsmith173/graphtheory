@@ -218,12 +218,12 @@
 				<item>VP_5 = 774m, assigned: 1</item>
 			</item>
 			<item>
-				<item>VP_0 = 0, assigned: 1</item>
-				<item>VP_1 = 4, assigned: 1</item>
-				<item>VP_2 = 1.84, assigned: 1</item>
-				<item>VP_3 = -4.16, assigned: 1</item>
-				<item>VP_4 = 968m, assigned: 1</item>
-				<item>VP_5 = 3.23, assigned: 1</item>
+				<item>VP_0 = 0, assigned (and): 1</item>
+				<item>VP_1 = 4, assigned (and): 1</item>
+				<item>VP_2 = 1.84, assigned (and): 0</item>
+				<item>VP_3 = -4.16, assigned (and): 0</item>
+				<item>VP_4 = 968m, assigned (and): 1</item>
+				<item>VP_5 = 3.23, assigned (and): 1</item>
 			</item>
 		</node_potentials>
 		<block_labels>

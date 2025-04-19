@@ -541,12 +541,13 @@ class TCircuitSolver:
 		node_potentials_pass = []
 		for i in range(self.graph.max_node+1):
 			r = 0.0
+			flag = True
 			for j in range(len(self.gens)):
-				flag = self.graph.v_flags[j][i]
+				flag = flag and self.graph.v_flags[j][i]
 				tmp = self.graph.v_re[j][i]
 				r += tmp
 			s0 = self.graph.fv(r)		
-			s = f'VP_{i} = {s0}, assigned: {flag}'
+			s = f'VP_{i} = {s0}, assigned (and): {flag}'
 			node_potentials_pass.append(s)		
 		self.node_potentials.append(node_potentials_pass)	
 
