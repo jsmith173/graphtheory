@@ -3,32 +3,67 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>R3 and R6 connected in series so Re=R3+R6=3Ohm+0Ohm=3Ohm</item>
-				<item>Re and R1 connected in series so Rd=Re+R1=3Ohm+1Ohm=4Ohm</item>
-				<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
-				<item>R4 and Rc connected in series so Rb=R4+Rc=5Ohm+1.33Ohm=6.33Ohm</item>
-				<item>Rb and R2 connected in series so Ra=Rb+R2=6.33Ohm+4Ohm=10.3Ohm</item>
-				<item>The total resistance is Ra = 10.3Ohm</item>
+				<item>Re0=R1=1Ohm=1Ohm</item>
+				<item>R3 and Re0 connected in series so Rd0=R3+Re0=3Ohm+1Ohm=4Ohm</item>
+				<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
+				<item>R4 and Rc0 connected in series so Rb0=R4+Rc0=5Ohm+1.33Ohm=6.33Ohm</item>
+				<item>Rb0 and R2 connected in series so Ra0=Rb0+R2=6.33Ohm+4Ohm=10.3Ohm</item>
+				<item>The total resistance is Ra0 = 10.3Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>R3 and R6 connected in series so Re=R3+R6=3Ohm+0Ohm=3Ohm</item>
-				<item>Re and R1 connected in series so Rd=Re+R1=3Ohm+1Ohm=4Ohm</item>
-				<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
-				<item>R4 and Rc connected in series so Rb=R4+Rc=5Ohm+1.33Ohm=6.33Ohm</item>
-				<item>Rb and R2 connected in series so Ra=Rb+R2=6.33Ohm+4Ohm=10.3Ohm</item>
-				<item>The total resistance is Ra = 10.3Ohm</item>
+				<item>Re0=R1=1Ohm=1Ohm</item>
+				<item>R3 and Re0 connected in series so Rd0=R3+Re0=3Ohm+1Ohm=4Ohm</item>
+				<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
+				<item>R4 and Rc0 connected in series so Rb0=R4+Rc0=5Ohm+1.33Ohm=6.33Ohm</item>
+				<item>Rb0 and R2 connected in series so Ra0=Rb0+R2=6.33Ohm+4Ohm=10.3Ohm</item>
+				<item>The total resistance is Ra0 = 10.3Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
-					<item>3</item>
+					<item>1</item>
 					<item>0</item>
 				</nodes>
 				<prop>
 					<label>VS2</label>
 					<match_label/>
 					<CompId>14</CompId>
-					<UniqueID>T_1F3AE71020240311071555</UniqueID>
+					<UniqueID>T_0000000027B2BE1020250418152532</UniqueID>
 					<value>4</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+		<item>
+			<total_impedance_ori_txt>
+				<item>Re1=R4=5Ohm=5Ohm</item>
+				<item>R2 and Re1 connected in series so Rd1=R2+Re1=4Ohm+5Ohm=9Ohm</item>
+				<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
+				<item>Rc1 and R3 connected in series so Rb1=Rc1+R3=1.64Ohm+3Ohm=4.64Ohm</item>
+				<item>R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm</item>
+				<item>The total resistance is Ra1 = 5.64Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>Re1=R4=5Ohm=5Ohm</item>
+				<item>R2 and Re1 connected in series so Rd1=R2+Re1=4Ohm+5Ohm=9Ohm</item>
+				<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
+				<item>Rc1 and R3 connected in series so Rb1=Rc1+R3=1.64Ohm+3Ohm=4.64Ohm</item>
+				<item>R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm</item>
+				<item>The total resistance is Ra1 = 5.64Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>2</item>
+					<item>3</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_0000000027B2B83020250418152209</UniqueID>
+					<value>6</value>
 					<flags>1</flags>
 					<ac_gen>
 						<mode>0</mode>
@@ -39,117 +74,192 @@
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>R6 1 2</item>
 		<item>R5 4 5</item>
 		<item>R4 4 0</item>
-		<item>R3 1 4</item>
-		<item>R2 5 3</item>
+		<item>R3 3 4</item>
+		<item>R2 5 1</item>
 		<item>R1 2 5</item>
 		<item/>
 	</circuit>
 	<request>
-		<text>What is the voltage on R1?</text>
+		<text>What is the voltage on R4?</text>
 		<cmd>get_voltage</cmd>
-		<comp>R1</comp>
+		<comp>R4</comp>
 		<options>4</options>
 		<qid>0</qid>
 		<ohm_meter_question>false</ohm_meter_question>
 		<req_on_gen>false</req_on_gen>
 		<volt_meter_question>false</volt_meter_question>
 		<volt_meter_no_match>false</volt_meter_no_match>
-		<comp_ori>R1</comp_ori>
+		<comp_ori>R4</comp_ori>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
+			<item>We have more than one generator so we are using superposition to calculate voltages/currents.</item>
+			<item>Names starting with RGenZero refer to 0 Ohm resistances, used during superposition.</item>
+			<item/>
+			<item>###Processing generator VS2</item>
+			<item>xxx The node potential for node number 0 setting to 0 Volt</item>
 			<item>xxx Gen: set voltage...</item>
 			<item>xxx GND is: 0</item>
-			<item>xxx The voltage between node numbers 3 and 0 setting to 4 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 3 setting to 4 Volt</item>
 			<item>xxx The node potential for node number 0 setting to 0 Volt</item>
-			<item>xxx The node potential for node number 3 setting to 4 Volt</item>
+			<item>xxx The node potential for node number 1 setting to 4 Volt</item>
+			<item>xxx The voltage between node numbers 1 and 0 setting to 4 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 1 setting to 4 Volt</item>
 			<item>First we calculate the total resistance between the generator nodes (VS2)</item>
-			<item>R3 and R6 connected in series so Re=R3+R6=3Ohm+0Ohm=3Ohm</item>
-			<item>Re and R1 connected in series so Rd=Re+R1=3Ohm+1Ohm=4Ohm</item>
-			<item>R5 and Rd connected in parallel so Rc=R5*Rd/(R5+Rd)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
-			<item>R4 and Rc connected in series so Rb=R4+Rc=5Ohm+1.33Ohm=6.33Ohm</item>
-			<item>Rb and R2 connected in series so Ra=Rb+R2=6.33Ohm+4Ohm=10.3Ohm</item>
-			<item>The total resistance is Ra = 10.3Ohm</item>
+			<item>Re0=R1=1Ohm=1Ohm</item>
+			<item>R3 and Re0 connected in series so Rd0=R3+Re0=3Ohm+1Ohm=4Ohm</item>
+			<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
+			<item>R4 and Rc0 connected in series so Rb0=R4+Rc0=5Ohm+1.33Ohm=6.33Ohm</item>
+			<item>Rb0 and R2 connected in series so Ra0=Rb0+R2=6.33Ohm+4Ohm=10.3Ohm</item>
+			<item>The total resistance is Ra0 = 10.3Ohm</item>
 			<item/>
-			<item>Now we calculate the voltage on R1</item>
+			<item>Now we calculate the voltage on R4</item>
 			<item>We know that the voltage between VS2 nodes is 4 Volt.</item>
+			<item>All voltage generators except for VS2 have been replaced with a short circuit.</item>
+			<item>All current generators have been replaced with an open circuit.</item>
 			<item/>
 			<item>xxx The voltage between node numbers 5 and 0 setting to 2.45 Volt ... starting ...</item>
 			<item>xxx The node potential for node number 5 setting to 2.45 Volt</item>
-			<item>The components Rb and R2 connected in series.</item>
+			<item>The components Rb0 and R2 connected in series.</item>
 			<item>The voltage between this components starting and ending node is 4 Volt</item>
-			<item>Rb is in the voltage divider so the voltage on Rb is Rb/Ra*4 Volt = 2.45 Volt </item>
+			<item>Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*4 Volt = 2.45 Volt </item>
 			<item/>
-			<item>xxx The voltage between node numbers 3 and 5 setting to 1.55 Volt ... starting ...</item>
+			<item>xxx The voltage between node numbers 1 and 5 setting to 1.55 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 1 setting to 4 Volt</item>
 			<item>xxx The voltage between node numbers 4 and 0 setting to 1.94 Volt ... starting ...</item>
 			<item>xxx The node potential for node number 4 setting to 1.94 Volt</item>
-			<item>xxx The voltage between node numbers 5 and 4 setting to 516m Volt ... starting ...</item>
-			<item>The components R4 and Rc connected in series.</item>
+			<item>The components R4 and Rc0 connected in series.</item>
 			<item>The voltage between this components starting and ending node is 2.45 Volt</item>
-			<item>Rc is in the voltage divider so the voltage on Rc is Rc/Rb*2.45 Volt = 516m Volt </item>
+			<item>R4 is in the voltage divider so the voltage on R4 is R4/Rb0*2.45 Volt = 1.94 Volt </item>
 			<item/>
 			<item>xxx The voltage between node numbers 5 and 4 setting to 516m Volt ... starting ...</item>
-			<item>xxx The voltage between node numbers 5 and 4 setting to 516m Volt ... starting ...</item>
-			<item>The components R5 and Rd connected in parallel. The voltage on Rd is 516m Volt because the voltage on Rc is 516m Volt</item>
+			<item>xxx The node potential for node number 5 setting to 2.45 Volt</item>
+			<item>###Processing generator VS1</item>
+			<item>xxx Gen: set voltage...</item>
+			<item>xxx GND is: 3</item>
+			<item>xxx The node potential for node number 3 setting to 0 Volt</item>
+			<item>xxx The node potential for node number 2 setting to 6 Volt</item>
+			<item>xxx The voltage between node numbers 2 and 3 setting to 6 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 2 setting to 6 Volt</item>
+			<item>First we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>Re1=R4=5Ohm=5Ohm</item>
+			<item>R2 and Re1 connected in series so Rd1=R2+Re1=4Ohm+5Ohm=9Ohm</item>
+			<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
+			<item>Rc1 and R3 connected in series so Rb1=Rc1+R3=1.64Ohm+3Ohm=4.64Ohm</item>
+			<item>R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm</item>
+			<item>The total resistance is Ra1 = 5.64Ohm</item>
 			<item/>
-			<item>xxx The voltage between node numbers 2 and 4 setting to 387m Volt ... starting ...</item>
-			<item>xxx The node potential for node number 2 setting to 387m Volt</item>
-			<item>xxx The voltage between node numbers 5 and 2 setting to 129m Volt ... starting ...</item>
-			<item>The components Re and R1 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 516m Volt</item>
-			<item>R1 is in the voltage divider so the voltage on R1 is R1/Rd*516m Volt = 129m Volt </item>
+			<item>Now we calculate the voltage on R4</item>
+			<item>We know that the voltage between VS1 nodes is 6 Volt.</item>
+			<item>All voltage generators except for VS1 have been replaced with a short circuit.</item>
+			<item>All current generators have been replaced with an open circuit.</item>
 			<item/>
+			<item>xxx The voltage between node numbers 2 and 5 setting to 1.06 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 5 setting to 4.94 Volt</item>
+			<item>xxx The voltage between node numbers 5 and 3 setting to 4.94 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 5 setting to 4.94 Volt</item>
+			<item>The components R1 and Rb1 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 6 Volt</item>
+			<item>Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*6 Volt = 4.94 Volt </item>
+			<item/>
+			<item>xxx The voltage between node numbers 5 and 4 setting to 1.74 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 4 setting to 3.19 Volt</item>
+			<item>The components Rc1 and R3 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 4.94 Volt</item>
+			<item>Rc1 is in the voltage divider so the voltage on Rc1 is Rc1/Rb1*4.94 Volt = 1.74 Volt </item>
+			<item/>
+			<item>xxx The voltage between node numbers 4 and 3 setting to 3.19 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 4 setting to 3.19 Volt</item>
+			<item>xxx The voltage between node numbers 5 and 4 setting to 1.74 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 5 setting to 4.94 Volt</item>
+			<item>xxx The voltage between node numbers 5 and 4 setting to 1.74 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 5 setting to 4.94 Volt</item>
+			<item>The components R5 and Rd1 connected in parallel. The voltage on Rd1 is 1.74 Volt because the voltage on Rc1 is 1.74 Volt</item>
+			<item/>
+			<item>xxx The voltage between node numbers 5 and 1 setting to 774m Volt ... starting ...</item>
+			<item>xxx The node potential for node number 1 setting to 4.16 Volt</item>
+			<item>xxx The voltage between node numbers 1 and 4 setting to 968m Volt ... starting ...</item>
+			<item>xxx The node potential for node number 1 setting to 4.16 Volt</item>
+			<item>The components R2 and Re1 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 1.74 Volt</item>
+			<item>Re1 is in the voltage divider so the voltage on Re1 is Re1/Rd1*1.74 Volt = 968m Volt </item>
+			<item/>
+			<item>xxx The voltage between node numbers 1 and 0 setting to 0 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 0 setting to 4.16 Volt</item>
+			<item>xxx The voltage between node numbers 0 and 4 setting to 968m Volt ... starting ...</item>
+			<item>xxx The node potential for node number 0 setting to 4.16 Volt</item>
+			<item>The components RGenZero0 and R4 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 968m Volt</item>
+			<item>R4 is in the voltage divider so the voltage on R4 is R4/Re1*968m Volt = 968m Volt </item>
+			<item/>
+			<item/>
+			<item>Now we are using superposition to calculate the voltage on R4</item>
+			<item>Let's summarize the calculations from the previous section.</item>
+			<item>'voltage on R4' = 1.94V-968mV = 968mV</item>
 		</solution>
 		<node_potentials>
 			<item>
-				<item>VP_0 = 0</item>
-				<item>VP_1 = 0</item>
-				<item>VP_2 = 387m</item>
-				<item>VP_3 = 4</item>
-				<item>VP_4 = 1.94</item>
-				<item>VP_5 = 2.45</item>
+				<item>VP_0 = 0, assigned: 1</item>
+				<item>VP_1 = 4, assigned: 1</item>
+				<item>VP_2 = 0, assigned: 0</item>
+				<item>VP_3 = 0, assigned: 0</item>
+				<item>VP_4 = 1.94, assigned: 1</item>
+				<item>VP_5 = 2.45, assigned: 1</item>
+			</item>
+			<item>
+				<item>VP_0 = 0, assigned: 1</item>
+				<item>VP_1 = 0, assigned: 1</item>
+				<item>VP_2 = 1.84, assigned: 1</item>
+				<item>VP_3 = -4.16, assigned: 1</item>
+				<item>VP_4 = -968m, assigned: 1</item>
+				<item>VP_5 = 774m, assigned: 1</item>
+			</item>
+			<item>
+				<item>VP_0 = 0, assigned: 1</item>
+				<item>VP_1 = 4, assigned: 1</item>
+				<item>VP_2 = 1.84, assigned: 1</item>
+				<item>VP_3 = -4.16, assigned: 1</item>
+				<item>VP_4 = 968m, assigned: 1</item>
+				<item>VP_5 = 3.23, assigned: 1</item>
 			</item>
 		</node_potentials>
 		<block_labels>
 			<item>
-				<label>Re</label>
+				<label>Re0</label>
 				<origin>series</origin>
-				<value>3Ohm</value>
+				<value>1Ohm</value>
 				<labels>
-					<item>R3</item>
-					<item>R6</item>
-				</labels>
-				<unique_labels>
-					<item>T_1F39C23020240130111206</item>
-					<item>T_000000002687C56020250418145626</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rd</label>
-				<origin>series</origin>
-				<value>4Ohm</value>
-				<labels>
-					<item>Re</item>
+					<item>RGenZero1</item>
 					<item>R1</item>
 				</labels>
 				<unique_labels>
-					<item>&lt;block&gt;</item>
+					<item>&lt;none&gt;</item>
 					<item>T_1F39B85020240130111157</item>
 				</unique_labels>
 			</item>
 			<item>
-				<label>Rc</label>
+				<label>Rd0</label>
+				<origin>series</origin>
+				<value>4Ohm</value>
+				<labels>
+					<item>R3</item>
+					<item>Re0</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39C23020240130111206</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rc0</label>
 				<origin>parallel</origin>
 				<value>1.33Ohm</value>
 				<labels>
 					<item>R5</item>
-					<item>Rd</item>
+					<item>Rd0</item>
 				</labels>
 				<unique_labels>
 					<item>T_1F39CC1020240130111214</item>
@@ -157,12 +267,12 @@
 				</unique_labels>
 			</item>
 			<item>
-				<label>Rb</label>
+				<label>Rb0</label>
 				<origin>series</origin>
 				<value>6.33Ohm</value>
 				<labels>
 					<item>R4</item>
-					<item>Rc</item>
+					<item>Rc0</item>
 				</labels>
 				<unique_labels>
 					<item>T_1F39C72020240130111211</item>
@@ -170,16 +280,81 @@
 				</unique_labels>
 			</item>
 			<item>
-				<label>Ra</label>
+				<label>Ra0</label>
 				<origin>series</origin>
 				<value>10.3Ohm</value>
 				<labels>
-					<item>Rb</item>
+					<item>Rb0</item>
 					<item>R2</item>
 				</labels>
 				<unique_labels>
 					<item>&lt;block&gt;</item>
 					<item>T_1F39BD4020240130111203</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Re1</label>
+				<origin>series</origin>
+				<value>5Ohm</value>
+				<labels>
+					<item>RGenZero0</item>
+					<item>R4</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;none&gt;</item>
+					<item>T_1F39C72020240130111211</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rd1</label>
+				<origin>series</origin>
+				<value>9Ohm</value>
+				<labels>
+					<item>R2</item>
+					<item>Re1</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39BD4020240130111203</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rc1</label>
+				<origin>parallel</origin>
+				<value>1.64Ohm</value>
+				<labels>
+					<item>R5</item>
+					<item>Rd1</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39CC1020240130111214</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rb1</label>
+				<origin>series</origin>
+				<value>4.64Ohm</value>
+				<labels>
+					<item>Rc1</item>
+					<item>R3</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>T_1F39C23020240130111206</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra1</label>
+				<origin>series</origin>
+				<value>5.64Ohm</value>
+				<labels>
+					<item>R1</item>
+					<item>Rb1</item>
+				</labels>
+				<unique_labels>
+					<item>T_1F39B85020240130111157</item>
+					<item>&lt;block&gt;</item>
 				</unique_labels>
 			</item>
 		</block_labels>

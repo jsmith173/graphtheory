@@ -1104,23 +1104,18 @@ class TCircuitSolverGraph:
 			re = value; im = 0
 		self.log(f"xxx The voltage between node numbers {i} and {j} setting to {self.fv(value)} {uVolt} ... starting ...")
 
-		f_set = True
-		if i == 0:
-			m = j
-		elif self.v_flags[self.i_pass][i] and self.v_flags[self.i_pass][j]:	
-			f_set = False
-			pass
-		elif self.gen_node_can_change and self.is_gen_node(i):
+		f_set = True	
+		if self.v_flags[self.i_pass][j]:
+			re = self.v_re[self.i_pass][j]+re
 			m = i
-		elif not self.gen_node_can_change and self.is_gen_node(i):
+		else:	
+			if not self.v_flags[self.i_pass][i]:
+				self.log(f"xxx Value {i} is unassigned ...")
+			re = self.v_re[self.i_pass][i]-re
 			m = j
-		elif self.v_flags[self.i_pass][i]:	
-			m = j
-		else:
-			m = i
-
+		
 		if f_set:
-			self.set_v_pot(m, value)
+			self.set_v_pot(m, re)
 
 	def set_v_pot(self, m, value):
 		if isinstance(value, complex):

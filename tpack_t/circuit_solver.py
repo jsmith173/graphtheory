@@ -538,6 +538,18 @@ class TCircuitSolver:
 			self.graph.i_pass = i
 			self.run_pass(circuit_key, i)		
 
+		node_potentials_pass = []
+		for i in range(self.graph.max_node+1):
+			r = 0.0
+			for j in range(len(self.gens)):
+				flag = self.graph.v_flags[j][i]
+				tmp = self.graph.v_re[j][i]
+				r += tmp
+			s0 = self.graph.fv(r)		
+			s = f'VP_{i} = {s0}, assigned: {flag}'
+			node_potentials_pass.append(s)		
+		self.node_potentials.append(node_potentials_pass)	
+
 		comp = self.request["comp"]
 		request_txt = cu.get_request_txt(self.request)
 		if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
@@ -880,14 +892,16 @@ class TCircuitSolver:
 
 		# calculating voltage/currents
 		# set values on top node
+		if i_pass == 0:
+			self.graph.set_v_pot(0, 0.0)		
 		self.log(f"xxx Gen: set voltage...")
 		self.log(f"xxx GND is: {self.gen['nodes'][1]}")
 		self.graph.GND[i_pass] = self.gen['nodes'][1]
 		#self.graph.set_v_pot(self.gen['nodes'][1], 0)	
 		self.graph.gen_node_can_change = True	
-		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
 		self.graph.set_v_pot(self.graph.GND[i_pass], 0.0)		
 		self.graph.set_v_pot(self.gen['nodes'][0], gen_new_value['value'])		
+		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
 		self.graph.gen_node_can_change = False
 		if gen_new_value['quantity'] == 'voltage':
 			#self.graph.set_v(T.target, T.source, T.prop['voltage'])
@@ -959,10 +973,17 @@ class TCircuitSolver:
 			list_.pop(N-1)
 			
 		node_potentials_pass = []
+		ref_node = self.graph.GND[0]
+		shift = self.graph.v_re[i_pass][ref_node]
+		a1=1
 		for i in range(self.graph.max_node+1):
-			r = self.graph.fv(self.graph.v_re[0][i])
-			s = f'VP_{i} = {r}'
-			node_potentials_pass.append(s)
+			flag = self.graph.v_flags[i_pass][i]
+			r = self.graph.v_re[i_pass][i]-shift
+			self.graph.v_re[i_pass][i] = r
+			s0 = self.graph.fv(r)
+			
+			s = f'VP_{i} = {s0}, assigned: {flag}'
+			node_potentials_pass.append(s)		
 		self.node_potentials.append(node_potentials_pass)	
 	
 	def write_log(self, valid, status, error_code=0, save_files=True):

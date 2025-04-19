@@ -1,17 +1,5 @@
 [
     {
-        "source": 1,
-        "target": 2,
-        "prop": {
-            "label": "R6",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_000000002687C56020250418145626",
-            "value": 0,
-            "flags": 1
-        }
-    },
-    {
         "source": 4,
         "target": 5,
         "prop": {
@@ -36,7 +24,7 @@
         }
     },
     {
-        "source": 1,
+        "source": 3,
         "target": 4,
         "prop": {
             "label": "R3",
@@ -49,7 +37,7 @@
     },
     {
         "source": 5,
-        "target": 3,
+        "target": 1,
         "prop": {
             "label": "R2",
             "match_label": "",
@@ -68,6 +56,18 @@
             "CompId": 9,
             "UniqueID": "T_1F39B85020240130111157",
             "value": 1,
+            "flags": 1
+        }
+    },
+    {
+        "source": 1,
+        "target": 0,
+        "prop": {
+            "label": "RGenZero0",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "<none>",
+            "value": 0.0,
             "flags": 1
         }
     }

@@ -1,25 +1,42 @@
 {
     "N": 6,
     "nodes": [
-        1,
-        2,
         4,
         5,
         0,
-        3
+        3,
+        1,
+        2
     ],
     "gens": [
         {
             "nodes": [
-                3,
+                1,
                 0
             ],
             "prop": {
                 "label": "VS2",
                 "match_label": "",
                 "CompId": 14,
-                "UniqueID": "T_1F3AE71020240311071555",
+                "UniqueID": "T_0000000027B2BE1020250418152532",
                 "value": 4,
+                "flags": 1,
+                "ac_gen": {
+                    "mode": 0
+                }
+            }
+        },
+        {
+            "nodes": [
+                2,
+                3
+            ],
+            "prop": {
+                "label": "VS1",
+                "match_label": "",
+                "CompId": 14,
+                "UniqueID": "T_0000000027B2B83020250418152209",
+                "value": 6,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -29,20 +46,6 @@
     ],
     "meters": [],
     "edges": [
-        {
-            "nodes": [
-                1,
-                2
-            ],
-            "prop": {
-                "label": "R6",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_000000002687C56020250418145626",
-                "value": 0,
-                "flags": 1
-            }
-        },
         {
             "nodes": [
                 4,
@@ -73,7 +76,7 @@
         },
         {
             "nodes": [
-                1,
+                3,
                 4
             ],
             "prop": {
@@ -88,7 +91,7 @@
         {
             "nodes": [
                 5,
-                3
+                1
             ],
             "prop": {
                 "label": "R2",
@@ -130,14 +133,14 @@
                     "value": -0.38709677419,
                     "nodes": [
                         5,
-                        3
+                        1
                     ]
                 },
                 {
                     "label": "R3",
                     "value": 0.12903225806,
                     "nodes": [
-                        1,
+                        3,
                         4
                     ]
                 },
@@ -158,18 +161,18 @@
                     ]
                 },
                 {
-                    "label": "R6",
-                    "value": 1e+100,
+                    "label": "VS1",
+                    "value": 0.12903225806,
                     "nodes": [
-                        1,
-                        2
+                        2,
+                        3
                     ]
                 },
                 {
                     "label": "VS2",
                     "value": -0.38709677419,
                     "nodes": [
-                        3,
+                        1,
                         0
                     ]
                 }
@@ -188,14 +191,14 @@
                     "value": -1.5483871,
                     "nodes": [
                         5,
-                        3
+                        1
                     ]
                 },
                 {
                     "label": "R3",
                     "value": 0.38709677419,
                     "nodes": [
-                        1,
+                        3,
                         4
                     ]
                 },
@@ -216,18 +219,136 @@
                     ]
                 },
                 {
-                    "label": "R6",
+                    "label": "VS1",
                     "value": 0,
                     "nodes": [
-                        1,
-                        2
+                        2,
+                        3
                     ]
                 },
                 {
                     "label": "VS2",
                     "value": 4,
                     "nodes": [
+                        1,
+                        0
+                    ]
+                }
+            ]
+        },
+        {
+            "currents": [
+                {
+                    "label": "R1",
+                    "value": 1.06451613,
+                    "nodes": [
+                        2,
+                        5
+                    ]
+                },
+                {
+                    "label": "R2",
+                    "value": 0.1935483871,
+                    "nodes": [
+                        5,
+                        1
+                    ]
+                },
+                {
+                    "label": "R3",
+                    "value": -1.06451613,
+                    "nodes": [
                         3,
+                        4
+                    ]
+                },
+                {
+                    "label": "R4",
+                    "value": -0.1935483871,
+                    "nodes": [
+                        4,
+                        0
+                    ]
+                },
+                {
+                    "label": "R5",
+                    "value": -0.87096774194,
+                    "nodes": [
+                        4,
+                        5
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": -1.06451613,
+                    "nodes": [
+                        2,
+                        3
+                    ]
+                },
+                {
+                    "label": "VS2",
+                    "value": 0.1935483871,
+                    "nodes": [
+                        1,
+                        0
+                    ]
+                }
+            ],
+            "other voltages": [
+                {
+                    "label": "R1",
+                    "value": 1.06451613,
+                    "nodes": [
+                        2,
+                        5
+                    ]
+                },
+                {
+                    "label": "R2",
+                    "value": 0.77419354839,
+                    "nodes": [
+                        5,
+                        1
+                    ]
+                },
+                {
+                    "label": "R3",
+                    "value": -3.19354839,
+                    "nodes": [
+                        3,
+                        4
+                    ]
+                },
+                {
+                    "label": "R4",
+                    "value": -0.96774193548,
+                    "nodes": [
+                        4,
+                        0
+                    ]
+                },
+                {
+                    "label": "R5",
+                    "value": -1.74193548,
+                    "nodes": [
+                        4,
+                        5
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": 6,
+                    "nodes": [
+                        2,
+                        3
+                    ]
+                },
+                {
+                    "label": "VS2",
+                    "value": 0,
+                    "nodes": [
+                        1,
                         0
                     ]
                 }
