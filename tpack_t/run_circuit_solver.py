@@ -128,10 +128,17 @@ def run():
 			filelist = json_data_l['filelist']
 		test_all(filelist, opts)
 	else:	
-		if (opts['request']['options'] & cg.LLM_LOUD) != 0:
-			test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
-		opts['request']['options'] = opts['request']['options'] & ~cg.LLM_LOUD
 		test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
+
+		opts['request']['comp'] = 'R2'
+		opts['override_request'] = 1
+		test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
+
+		opts['request']['comp'] = 'R3'
+		opts['override_request'] = 1
+		test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
+
+		a=1
 
 if __name__ == "__main__":
 	run()

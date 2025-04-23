@@ -50,7 +50,7 @@ class TCircuitSolver:
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
 		self.ignored_resistances = []
-		self.node_potentials = []
+		self.node_potentials_dbg = {}
 		
 		self.graph.loud = False
 		if opts != None and 'request' in opts.keys():
@@ -532,7 +532,9 @@ class TCircuitSolver:
 			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to 0 Ohm resistances, used during superposition.")
 			self.log("")
 
-		#replacing generators
+		self.node_potentials_dbg['node_potentials'] = []
+
+		#replacing generators			
 		for i in range(len(self.gens)):
 			self.gen = self.gens[i]
 			self.graph.i_pass = i
@@ -546,10 +548,32 @@ class TCircuitSolver:
 				flag = flag and self.graph.v_flags[j][i]
 				tmp = self.graph.v_re[j][i]
 				r += tmp
+			self.graph.v_potentials_re[i] = r
 			s0 = self.graph.fv(r)		
+			self.graph.v_node_flags[i] = flag
 			s = f'VP_{i} = {s0}, assigned (and): {flag}'
 			node_potentials_pass.append(s)		
-		self.node_potentials.append(node_potentials_pass)	
+		self.node_potentials_dbg['node_potentials'].append(node_potentials_pass)	
+		
+		##
+		self.node_potentials_dbg['item_voltages'] = []
+		dctable = self.graph.json_data["dctables"][0]
+		table = dctable['other voltages']
+		for item in table:
+			new_item = {}
+			i = item['nodes'][0]
+			j = item['nodes'][1]
+			new_item['nodes'] = item['nodes']			
+			new_item['label'] = item['label']
+			if self.graph.find_in_json(item['label']) >= 0:
+				if self.graph.v_node_flags[i] and self.graph.v_node_flags[j]:
+					r = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
+					new_item['value'] = self.graph.fv(r)		
+				else:	
+					new_item['value'] = '<unassigned>'
+				self.node_potentials_dbg['item_voltages'].append(new_item)
+		##
+		
 
 		comp = self.request["comp"]
 		request_txt = cu.get_request_txt(self.request)
@@ -893,17 +917,15 @@ class TCircuitSolver:
 
 		# calculating voltage/currents
 		# set values on top node
-		if i_pass == 0:
-			self.graph.set_v_pot(0, 0.0)		
+		#if i_pass == 0:
+		#	self.graph.set_v_pot(0, 0.0)		
 		self.log(f"xxx Gen: set voltage...")
 		self.log(f"xxx GND is: {self.gen['nodes'][1]}")
 		self.graph.GND[i_pass] = self.gen['nodes'][1]
 		#self.graph.set_v_pot(self.gen['nodes'][1], 0)	
-		self.graph.gen_node_can_change = True	
 		self.graph.set_v_pot(self.graph.GND[i_pass], 0.0)		
 		self.graph.set_v_pot(self.gen['nodes'][0], gen_new_value['value'])		
 		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
-		self.graph.gen_node_can_change = False
 		if gen_new_value['quantity'] == 'voltage':
 			#self.graph.set_v(T.target, T.source, T.prop['voltage'])
 			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
@@ -985,7 +1007,7 @@ class TCircuitSolver:
 			
 			s = f'VP_{i} = {s0}, assigned: {flag}'
 			node_potentials_pass.append(s)		
-		self.node_potentials.append(node_potentials_pass)	
+		self.node_potentials_dbg['node_potentials'].append(node_potentials_pass)	
 	
 	def write_log(self, valid, status, error_code=0, save_files=True):
 		if error_code > 0:
@@ -1017,7 +1039,7 @@ class TCircuitSolver:
 
 		calculation = {}
 		calculation['solution'] = self.graph.solution_log
-		calculation['node_potentials'] = self.node_potentials
+		calculation['node_potentials_dbg'] = self.node_potentials_dbg
 		if error_code == 0:	
 			calculation['block_labels'] = self.block_labels
 

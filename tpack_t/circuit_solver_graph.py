@@ -78,6 +78,7 @@ class TCircuitSolverGraph:
 		self.yd_log = []; self.graph_update = []; self.resistive_comps = []; self.resistive_comps_ = []; self.gen_comps = []; self.yd_labels = []; self.solution_log = []; 
 		self.graph_debug = []
 		self.try_count = 0; self.try_count_Y = 0; self.try_count_D = 0; self.edge_values = []		
+		
 		self.fn = fn_
 		self.opts = opts
 		self.show_graph = 0
@@ -86,26 +87,12 @@ class TCircuitSolverGraph:
 
 		# Define dimensions
 		self.num_pass = 20  # Number of layers (index u)
-		self.matrix_size = 100  # Rows and columns (index i and j)
 		self.max_node_num = 100  
-
-		self.gen_node_can_change = False
-		
-		# Create a 3D matrix initialized with zeros
-		self.v_matrix_re = [
-			[array('d', [0.0] * self.matrix_size) for _ in range(self.matrix_size)] 
-			for _ in range(self.num_pass)
-		]
-		self.v_matrix_im = [
-			[array('d', [0.0] * self.matrix_size) for _ in range(self.matrix_size)] 
-			for _ in range(self.num_pass)
-		]
-		self.v_matrix_f = [
-			[array('b', [0] * self.matrix_size) for _ in range(self.matrix_size)] 
-			for _ in range(self.num_pass)
-		]
+	
 		self.v_re = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
 		self.v_im = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
+		self.v_potentials_re = array('d', [0.0] * self.max_node_num)
+		self.v_node_flags = array('b', [0] * self.max_node_num)
 		self.v_flags = [array('b', [0] * self.max_node_num) for _ in range(self.num_pass)]
 		self.GND = [array('i', [0] * 100) for _ in range(self.num_pass)]
 		self.max_node = 0
@@ -121,6 +108,14 @@ class TCircuitSolverGraph:
 			self.show_graph = opts['debug_mode'] == 1
 			self.show_tree = opts['debug_mode'] == 1
 			self.show_result = opts['debug_mode'] == 1
+
+	def clear_arrays(self):
+		for i in range(len(self.v_re)):
+			self.v_re[i] = 0.0
+		for i in range(len(self.v_im)):
+			self.v_im[i] = 0.0
+		for i in range(len(self.v_flags)):
+			self.v_flags[i] = False		
 
 	def log(self, s):
 		self.solution_log.append(s)
@@ -315,6 +310,9 @@ class TCircuitSolverGraph:
 	def is_resistive(self, edge):
 		return edge.prop['CompId'] in self.resistive_comps_ and edge.prop['flags'] == FLAGS_NORMAL
 
+	def is_resistive_(self, edge):
+		return edge['prop']['CompId'] in self.resistive_comps_ and edge['prop']['flags'] == FLAGS_NORMAL
+		
 	def is_resistive_or_ampmet_compid(self, comp_id):
 		return comp_id == RES_ or comp_id == AMPER_METER_ or comp_id == AMPER_METER2_
 	
@@ -1134,17 +1132,8 @@ class TCircuitSolverGraph:
 	def get_diff_v(self, i, j):
 		#L = len(self.v_re)
 		#self.check_v_extend(i, L)
-		im0 = self.v_matrix_im[self.i_pass][i][0];
-		im1 = self.v_matrix_im[self.i_pass][j][0];
-		re0 = self.v_matrix_re[self.i_pass][i][0];
-		re1 = self.v_matrix_re[self.i_pass][j][0];
-		if abs(im0) > 1e-12 or abs(im1) > 1e-12:
-			c1 = complex(re0, im0)
-			c2 = complex(re1, im1)
-			return c1-c2
-		else:	
-			r = re0-re1
-			return r
+		# TODO
+		return 0
 
 	def get_w_speech_unit(self, v_str):
 		last_char = v_str[-1]		
