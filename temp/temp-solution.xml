@@ -84,14 +84,14 @@
 	<request>
 		<text>What is the voltage on R1?</text>
 		<cmd>get_voltage</cmd>
-		<comp>R3</comp>
+		<comp>R1</comp>
 		<options>4</options>
 		<qid>0</qid>
 		<ohm_meter_question>false</ohm_meter_question>
 		<req_on_gen>false</req_on_gen>
 		<volt_meter_question>false</volt_meter_question>
 		<volt_meter_no_match>false</volt_meter_no_match>
-		<comp_ori>R3</comp_ori>
+		<comp_ori>R1</comp_ori>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
@@ -115,7 +115,7 @@
 			<item>R2 and Rb0 connected in series so Ra0=R2+Rb0=4Ohm+6.33Ohm=10.3Ohm</item>
 			<item>The total resistance is Ra0 = 10.3Ohm</item>
 			<item/>
-			<item>Now we calculate the voltage on R3</item>
+			<item>Now we calculate the voltage on R1</item>
 			<item>We know that the voltage between VS2 nodes is 4 Volt.</item>
 			<item>All voltage generators except for VS2 have been replaced with a short circuit.</item>
 			<item>All current generators have been replaced with an open circuit.</item>
@@ -144,12 +144,20 @@
 			<item/>
 			<item>xxx The voltage between node numbers 6 and 4 setting to 129m Volt ... starting ...</item>
 			<item>xxx The node potential for node number 4 setting to 2.32 Volt</item>
-			<item>xxx The voltage between node numbers 4 and 5 setting to 387m Volt ... starting ...</item>
-			<item>xxx The node potential for node number 4 setting to 2.32 Volt</item>
 			<item>The components Re0 and R3 connected in series.</item>
 			<item>The voltage between this components starting and ending node is 516m Volt</item>
-			<item>R3 is in the voltage divider so the voltage on R3 is R3/Rd0*516m Volt = 387m Volt </item>
+			<item>Re0 is in the voltage divider so the voltage on Re0 is Re0/Rd0*516m Volt = 129m Volt </item>
 			<item/>
+			<item>xxx The voltage between node numbers 4 and 5 setting to 387m Volt ... starting ...</item>
+			<item>xxx The node potential for node number 4 setting to 2.32 Volt</item>
+			<item>xxx The voltage between node numbers 6 and 3 setting to 129m Volt ... starting ...</item>
+			<item>xxx The node potential for node number 3 setting to 2.32 Volt</item>
+			<item>The components R1 and RGenZero1 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 129m Volt</item>
+			<item>R1 is in the voltage divider so the voltage on R1 is R1/Re0*129m Volt = 129m Volt </item>
+			<item/>
+			<item>xxx The voltage between node numbers 3 and 4 setting to 0 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 3 setting to 2.32 Volt</item>
 			<item>###Processing generator VS1</item>
 			<item>xxx Gen: set voltage...</item>
 			<item>xxx GND is: 4</item>
@@ -165,31 +173,23 @@
 			<item>R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm</item>
 			<item>The total resistance is Ra1 = 5.64Ohm</item>
 			<item/>
-			<item>Now we calculate the voltage on R3</item>
+			<item>Now we calculate the voltage on R1</item>
 			<item>We know that the voltage between VS1 nodes is 6 Volt.</item>
 			<item>All voltage generators except for VS1 have been replaced with a short circuit.</item>
 			<item>All current generators have been replaced with an open circuit.</item>
 			<item/>
 			<item>xxx The voltage between node numbers 3 and 6 setting to 1.06 Volt ... starting ...</item>
 			<item>xxx The node potential for node number 6 setting to 4.94 Volt</item>
-			<item>xxx The voltage between node numbers 6 and 4 setting to 4.94 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 6 setting to 4.94 Volt</item>
 			<item>The components R1 and Rb1 connected in series.</item>
 			<item>The voltage between this components starting and ending node is 6 Volt</item>
-			<item>Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*6 Volt = 4.94 Volt </item>
+			<item>R1 is in the voltage divider so the voltage on R1 is R1/Ra1*6 Volt = 1.06 Volt </item>
 			<item/>
-			<item>xxx The voltage between node numbers 6 and 5 setting to 1.74 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 5 setting to 3.19 Volt</item>
-			<item>xxx The voltage between node numbers 5 and 4 setting to 3.19 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 5 setting to 3.19 Volt</item>
-			<item>The components Rc1 and R3 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 4.94 Volt</item>
-			<item>R3 is in the voltage divider so the voltage on R3 is R3/Rb1*4.94 Volt = 3.19 Volt </item>
+			<item>xxx The voltage between node numbers 6 and 4 setting to 4.94 Volt ... starting ...</item>
+			<item>xxx The node potential for node number 6 setting to 4.94 Volt</item>
 			<item/>
-			<item/>
-			<item>Now we are using superposition to calculate the voltage on R3</item>
+			<item>Now we are using superposition to calculate the voltage on R1</item>
 			<item>Let's summarize the calculations from the previous section.</item>
-			<item>'voltage on R3' = 387mV-3.19V = -2.81V</item>
+			<item>'voltage on R1' = -129mV+1.06V = 935mV</item>
 		</solution>
 		<node_potentials_dbg>
 			<node_potentials>
@@ -197,7 +197,7 @@
 					<item>VP_0 = 0, assigned: 0</item>
 					<item>VP_1 = 4, assigned: 1</item>
 					<item>VP_2 = 0, assigned: 1</item>
-					<item>VP_3 = 0, assigned: 0</item>
+					<item>VP_3 = 2.32, assigned: 1</item>
 					<item>VP_4 = 2.32, assigned: 1</item>
 					<item>VP_5 = 1.94, assigned: 1</item>
 					<item>VP_6 = 2.45, assigned: 1</item>
@@ -208,16 +208,16 @@
 					<item>VP_2 = 0, assigned: 0</item>
 					<item>VP_3 = 6, assigned: 1</item>
 					<item>VP_4 = 0, assigned: 1</item>
-					<item>VP_5 = 3.19, assigned: 1</item>
+					<item>VP_5 = 0, assigned: 0</item>
 					<item>VP_6 = 4.94, assigned: 1</item>
 				</item>
 				<item>
 					<item>VP_0 = 0, assigned (and): 0</item>
 					<item>VP_1 = 4, assigned (and): 0</item>
 					<item>VP_2 = 0, assigned (and): 0</item>
-					<item>VP_3 = 6, assigned (and): 0</item>
+					<item>VP_3 = 8.32, assigned (and): 1</item>
 					<item>VP_4 = 2.32, assigned (and): 1</item>
-					<item>VP_5 = 5.13, assigned (and): 1</item>
+					<item>VP_5 = 1.94, assigned (and): 0</item>
 					<item>VP_6 = 7.39, assigned (and): 1</item>
 				</item>
 			</node_potentials>
@@ -228,7 +228,7 @@
 						<item>6</item>
 					</nodes>
 					<label>R1</label>
-					<value>&lt;unassigned&gt;</value>
+					<value>935m</value>
 				</item>
 				<item>
 					<nodes>
@@ -244,7 +244,7 @@
 						<item>5</item>
 					</nodes>
 					<label>R3</label>
-					<value>-2.81</value>
+					<value>&lt;unassigned&gt;</value>
 				</item>
 				<item>
 					<nodes>
@@ -260,7 +260,7 @@
 						<item>6</item>
 					</nodes>
 					<label>R5</label>
-					<value>-2.26</value>
+					<value>&lt;unassigned&gt;</value>
 				</item>
 			</item_voltages>
 		</node_potentials_dbg>
