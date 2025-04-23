@@ -30,10 +30,7 @@ class RequestException(Exception):
 
 class TCircuitSolver:
 	def __init__(self, fn_, opts = None):
-		node_global_init()
-		self.debug_impedance = []; self.debug_test_preorder = []; 
-		self.formula = ''; self.lc = 1; self.stop_solver = False
-
+		# one time init
 		self.fn = fn_
 		fn2 = Path(fn_)
 		self.fn_wo_ext = str(fn2.with_suffix(''))
@@ -45,16 +42,26 @@ class TCircuitSolver:
 		self.fn_base_wo_ext = str(fn2.with_suffix(''))
 
 		self.opts = opts
-		self.graph = TCircuitSolverGraph(self.fn, opts)
 		
+		# allocate
+		self.graph = TCircuitSolverGraph(self.fn, opts)
+
+		self.clean()
+		
+	def clean(self):
+		self.graph.clean()
+
+		node_global_init()
+		self.debug_impedance = []; self.debug_test_preorder = []; 
+		self.formula = ''; self.lc = 1; self.stop_solver = False
+
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
 		self.ignored_resistances = []
 		self.node_potentials_dbg = {}
 		
-		self.graph.loud = False
-		if opts != None and 'request' in opts.keys():
-			if (opts['request']['options'] & cg.LLM_LOUD) != 0:
+		if self.opts != None and 'request' in self.opts.keys():
+			if (self.opts['request']['options'] & cg.LLM_LOUD) != 0:
 				self.graph.sDiv = ' divided by '
 				self.graph.sMul = ' multiplied by '
 				self.graph.sOmega = ' omega '
@@ -66,7 +73,8 @@ class TCircuitSolver:
 				self.graph.sOmega = 'w'
 				self.graph.sHz = 'Hz'
 				self.graph.loud = False
-
+		
+		
 	def prepare_solver(self, circuit_key):
 		self.solution = {}
 		if not os.path.isfile(self.fn):

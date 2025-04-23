@@ -75,30 +75,16 @@ split_edge_prop = {
 
 class TCircuitSolverGraph:
 	def __init__(self, fn_, opts = None):
-		self.yd_log = []; self.graph_update = []; self.resistive_comps = []; self.resistive_comps_ = []; self.gen_comps = []; self.yd_labels = []; self.solution_log = []; 
-		self.graph_debug = []
-		self.try_count = 0; self.try_count_Y = 0; self.try_count_D = 0; self.edge_values = []		
-		
+		# one time init
 		self.fn = fn_
 		self.opts = opts
 		self.show_graph = 0
 		self.show_tree = 0
 		self.show_result = 0
 
-		# Define dimensions
-		self.num_pass = 20  # Number of layers (index u)
+		self.num_pass = 20  
 		self.max_node_num = 100  
-	
-		self.v_re = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
-		self.v_im = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
-		self.v_potentials_re = array('d', [0.0] * self.max_node_num)
-		self.v_node_flags = array('b', [0] * self.max_node_num)
-		self.v_flags = [array('b', [0] * self.max_node_num) for _ in range(self.num_pass)]
-		self.GND = [array('i', [0] * 100) for _ in range(self.num_pass)]
-		self.max_node = 0
-		
-		self.log_state_v = {}
-		self.log_state_v['changed'] = False
+
 		self.sDiv = '/'
 		self.sMul = '*'
 		self.sOmega = 'w'
@@ -109,13 +95,34 @@ class TCircuitSolverGraph:
 			self.show_tree = opts['debug_mode'] == 1
 			self.show_result = opts['debug_mode'] == 1
 
-	def clear_arrays(self):
-		for i in range(len(self.v_re)):
-			self.v_re[i] = 0.0
-		for i in range(len(self.v_im)):
-			self.v_im[i] = 0.0
-		for i in range(len(self.v_flags)):
-			self.v_flags[i] = False		
+		# allocating vars
+		self.v_re = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
+		self.v_im = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
+		self.v_flags = [array('b', [0] * self.max_node_num) for _ in range(self.num_pass)]
+		self.v_potentials_re = array('d', [0.0] * self.max_node_num)
+		self.v_node_flags = array('b', [0] * self.max_node_num)
+		self.GND = [array('i', [0] * 100) for _ in range(self.num_pass)]
+		
+		self.clean()
+		
+	def clean(self):
+		for i in range(self.num_pass):
+			for j in range(self.max_node_num):
+				self.v_re[i][j] = 0.0
+		for i in range(self.num_pass):
+			for j in range(self.max_node_num):
+				self.v_im[i][j] = 0.0
+		for i in range(self.num_pass):
+			for j in range(self.max_node_num):
+				self.v_flags[i][j] = False
+		self.max_node = 0	
+		self.yd_log = []; self.graph_update = []; self.resistive_comps = []; self.resistive_comps_ = []; self.gen_comps = []; self.yd_labels = []; self.solution_log = []; 
+		self.graph_debug = []
+		self.try_count = 0; self.try_count_Y = 0; self.try_count_D = 0; self.edge_values = []			
+		self.loud = False
+	
+		self.log_state_v = {}
+		self.log_state_v['changed'] = False
 
 	def log(self, s):
 		self.solution_log.append(s)
