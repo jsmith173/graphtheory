@@ -46,6 +46,7 @@ class TCircuitSolver:
 		# allocate
 		self.graph = TCircuitSolverGraph(self.fn, opts)
 
+		self.node_potentials_dbg = {}
 		self.clean()
 		
 	def clean(self):
@@ -58,7 +59,6 @@ class TCircuitSolver:
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
 		self.ignored_resistances = []
-		self.node_potentials_dbg = {}
 		
 		if self.opts != None and 'request' in self.opts.keys():
 			if (self.opts['request']['options'] & cg.LLM_LOUD) != 0:
