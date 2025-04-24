@@ -1,145 +1,91 @@
+###Processing generator Is
 xxx Gen: set voltage...
 xxx GND is: 0
 xxx The node potential for node number 0 setting to 0 Volt
-xxx The node potential for node number 2 setting to 5 Volt
-xxx The voltage between node numbers 2 and 0 setting to 5 Volt ... starting ...
-xxx The node potential for node number 2 setting to 5 Volt
-First we calculate the total resistance between the generator nodes (VS1)
-R12 and R11 connected in parallel so Rc=R12*R11/(R12+R11)=2Ohm*2Ohm/(2Ohm+2Ohm)=1Ohm
-Rc and R10 connected in series so Rb=Rc+R10=1Ohm+1Ohm=2Ohm
-R9 and R8 connected in parallel so Rh=R9*R8/(R9+R8)=2Ohm*2Ohm/(2Ohm+2Ohm)=1Ohm
-Rh and R7 connected in series so Rg=Rh+R7=1Ohm+1Ohm=2Ohm
-R4 and R5 connected in series so Rk=R4+R5=1Ohm+1Ohm=2Ohm
-R2 and R1 connected in parallel so Rn=R2*R1/(R2+R1)=2Ohm*2Ohm/(2Ohm+2Ohm)=1Ohm
-Rn and R3 connected in series so Rm=Rn+R3=1Ohm+1Ohm=2Ohm
-Rk and Rm connected in parallel so Rj=Rk*Rm/(Rk+Rm)=2Ohm*2Ohm/(2Ohm+2Ohm)=1Ohm
-Rg and Rj connected in series so Rf=Rg+Rj=2Ohm+1Ohm=3Ohm
-Rf and R6 connected in series so Re=Rf+R6=3Ohm+1Ohm=4Ohm
-Rb and Re connected in parallel so Ra=Rb*Re/(Rb+Re)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm
-The total resistance is Ra = 1.33Ohm
+xxx The node potential for node number 1 setting to 2 Volt
+xxx The voltage between node numbers 1 and 0 setting to 19.8 Volt ... starting ...
+xxx The node potential for node number 1 setting to 19.8 Volt
+First we calculate the total resistance between the generator nodes (Is)
+R1 and R2 connected in series so Rc0=R1+R2=10Ohm+1kOhm=1.01kOhm
+Rb0=Rc0=1.01kOhm=1.01kOhm
+R and Rb0 connected in parallel so Ra0=R*Rb0/(R+Rb0)=10Ohm*1.01kOhm/(10Ohm+1.01kOhm)=9.9Ohm
+The total resistance is Ra0 = 9.9Ohm
 
-Now we calculate the voltage on VM1
-We know that the voltage between VS1 nodes is 5 Volt.
+Now we calculate the voltage on V
+We know that the voltage between Is nodes is 19.8 Volt, because the generator current is Igen = 2A and the resistance between the generator nodes is Rtot = 9.9Ohm so the voltage between the generator nodes is Igen*Rtot = 19.8 Volt
+All voltage generators have been replaced with a short circuit.
+All current generators except for Is have been replaced with an open circuit.
 
-xxx The voltage between node numbers 2 and 0 setting to 5 Volt ... starting ...
-xxx The node potential for node number 2 setting to 5 Volt
-The components Rb and Re connected in parallel. The voltage on Rb is 5 Volt because the voltage on Ra is 5 Volt
+xxx The voltage between node numbers 1 and 0 setting to 19.8 Volt ... starting ...
+xxx The node potential for node number 1 setting to 19.8 Volt
+The components R and Rb0 connected in parallel. The voltage on R is 19.8 Volt because the voltage on Ra0 is 19.8 Volt
 
-xxx The voltage between node numbers 2 and 0 setting to 5 Volt ... starting ...
-xxx The node potential for node number 2 setting to 5 Volt
-The components Rb and Re connected in parallel. The voltage on Re is 5 Volt because the voltage on Ra is 5 Volt
+xxx The voltage between node numbers 1 and 0 setting to 19.8 Volt ... starting ...
+xxx The node potential for node number 1 setting to 19.8 Volt
+The components R and Rb0 connected in parallel. The voltage on Rb0 is 19.8 Volt because the voltage on Ra0 is 19.8 Volt
 
-xxx The voltage between node numbers 3 and 0 setting to 2.5 Volt ... starting ...
-xxx The node potential for node number 3 setting to 2.5 Volt
-The components Rc and R10 connected in series.
-The voltage between this components starting and ending node is 5 Volt
-Rc is in the voltage divider so the voltage on Rc is Rc/Rb*5 Volt = 2.5 Volt 
+xxx The voltage between node numbers 3 and 0 setting to 0 Volt ... starting ...
+xxx The node potential for node number 3 setting to 0 Volt
+The components RGenZero1 and Rc0 connected in series.
+The voltage between this components starting and ending node is 19.8 Volt
+RGenZero1 is in the voltage divider so the voltage on RGenZero1 is RGenZero1/Rb0*19.8 Volt = 0 Volt 
 
-xxx The voltage between node numbers 2 and 3 setting to 2.5 Volt ... starting ...
-xxx The node potential for node number 2 setting to 5 Volt
-The components Rc and R10 connected in series.
-The voltage between this components starting and ending node is 5 Volt
-R10 is in the voltage divider so the voltage on R10 is R10/Rb*5 Volt = 2.5 Volt 
+xxx The voltage between node numbers 1 and 3 setting to 19.8 Volt ... starting ...
+xxx The node potential for node number 1 setting to 19.8 Volt
+The components RGenZero1 and Rc0 connected in series.
+The voltage between this components starting and ending node is 19.8 Volt
+Rc0 is in the voltage divider so the voltage on Rc0 is Rc0/Rb0*19.8 Volt = 19.8 Volt 
 
-xxx The voltage between node numbers 3 and 0 setting to 2.5 Volt ... starting ...
-xxx The node potential for node number 3 setting to 2.5 Volt
-The components R12 and R11 connected in parallel. The voltage on R12 is 2.5 Volt because the voltage on Rc is 2.5 Volt
+xxx The voltage between node numbers 2 and 3 setting to 196m Volt ... starting ...
+xxx The node potential for node number 2 setting to 196m Volt
+The components R1 and R2 connected in series.
+The voltage between this components starting and ending node is 19.8 Volt
+R1 is in the voltage divider so the voltage on R1 is R1/Rc0*19.8 Volt = 196m Volt 
 
-xxx The voltage between node numbers 3 and 0 setting to 2.5 Volt ... starting ...
-xxx The node potential for node number 3 setting to 2.5 Volt
-The components R12 and R11 connected in parallel. The voltage on R11 is 2.5 Volt because the voltage on Rc is 2.5 Volt
+xxx The voltage between node numbers 1 and 2 setting to 19.6 Volt ... starting ...
+xxx The node potential for node number 1 setting to 19.8 Volt
+The components R1 and R2 connected in series.
+The voltage between this components starting and ending node is 19.8 Volt
+R2 is in the voltage divider so the voltage on R2 is R2/Rc0*19.8 Volt = 19.6 Volt 
 
-xxx The voltage between node numbers 3 and 8 setting to 2.5 Volt ... starting ...
-xxx The node potential for node number 8 setting to 0 Volt
+###Processing generator Vs
+xxx Gen: set voltage...
+xxx GND is: 0
+xxx The node potential for node number 0 setting to 0 Volt
+xxx The node potential for node number 3 setting to 10 Volt
+xxx The voltage between node numbers 3 and 0 setting to 10 Volt ... starting ...
+xxx The node potential for node number 3 setting to 10 Volt
+First we calculate the total resistance between the generator nodes (Vs)
+R and R2 connected in series so Rb1=R+R2=10Ohm+1kOhm=1.01kOhm
+Rb1 and R1 connected in series so Ra1=Rb1+R1=1.01kOhm+10Ohm=1.02kOhm
+The total resistance is Ra1 = 1.02kOhm
 
-xxx The voltage between node numbers 5 and 0 setting to 3.75 Volt ... starting ...
-xxx The node potential for node number 5 setting to 3.75 Volt
-The components Rf and R6 connected in series.
-The voltage between this components starting and ending node is 5 Volt
-Rf is in the voltage divider so the voltage on Rf is Rf/Re*5 Volt = 3.75 Volt 
+Now we calculate the voltage on V
+We know that the voltage between Vs nodes is 10 Volt.
+All voltage generators except for Vs have been replaced with a short circuit.
+All current generators have been replaced with an open circuit.
 
-xxx The voltage between node numbers 2 and 5 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 2 setting to 5 Volt
-The components Rf and R6 connected in series.
-The voltage between this components starting and ending node is 5 Volt
-R6 is in the voltage divider so the voltage on R6 is R6/Re*5 Volt = 1.25 Volt 
+xxx The voltage between node numbers 2 and 0 setting to 9.9 Volt ... starting ...
+xxx The node potential for node number 2 setting to 9.9 Volt
+The components Rb1 and R1 connected in series.
+The voltage between this components starting and ending node is 10 Volt
+Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*10 Volt = 9.9 Volt 
 
-xxx The voltage between node numbers 1 and 0 setting to 2.5 Volt ... starting ...
-xxx The node potential for node number 1 setting to 2.5 Volt
-The components Rg and Rj connected in series.
-The voltage between this components starting and ending node is 3.75 Volt
-Rg is in the voltage divider so the voltage on Rg is Rg/Rf*3.75 Volt = 2.5 Volt 
+xxx The voltage between node numbers 3 and 2 setting to 98m Volt ... starting ...
+xxx The node potential for node number 3 setting to 10 Volt
+The components Rb1 and R1 connected in series.
+The voltage between this components starting and ending node is 10 Volt
+R1 is in the voltage divider so the voltage on R1 is R1/Ra1*10 Volt = 98m Volt 
 
-xxx The voltage between node numbers 5 and 1 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 5 setting to 3.75 Volt
-The components Rg and Rj connected in series.
-The voltage between this components starting and ending node is 3.75 Volt
-Rj is in the voltage divider so the voltage on Rj is Rj/Rf*3.75 Volt = 1.25 Volt 
+xxx The voltage between node numbers 1 and 0 setting to 98m Volt ... starting ...
+xxx The node potential for node number 1 setting to 98m Volt
+The components R and R2 connected in series.
+The voltage between this components starting and ending node is 9.9 Volt
+R is in the voltage divider so the voltage on R is R/Rb1*9.9 Volt = 98m Volt 
 
-xxx The voltage between node numbers 4 and 0 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 4 setting to 1.25 Volt
-The components Rh and R7 connected in series.
-The voltage between this components starting and ending node is 2.5 Volt
-Rh is in the voltage divider so the voltage on Rh is Rh/Rg*2.5 Volt = 1.25 Volt 
+xxx The voltage between node numbers 2 and 1 setting to 9.8 Volt ... starting ...
+xxx The node potential for node number 2 setting to 9.9 Volt
+The components R and R2 connected in series.
+The voltage between this components starting and ending node is 9.9 Volt
+R2 is in the voltage divider so the voltage on R2 is R2/Rb1*9.9 Volt = 9.8 Volt 
 
-xxx The voltage between node numbers 1 and 4 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 1 setting to 2.5 Volt
-The components Rh and R7 connected in series.
-The voltage between this components starting and ending node is 2.5 Volt
-R7 is in the voltage divider so the voltage on R7 is R7/Rg*2.5 Volt = 1.25 Volt 
-
-xxx The voltage between node numbers 4 and 0 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 4 setting to 1.25 Volt
-The components R9 and R8 connected in parallel. The voltage on R9 is 1.25 Volt because the voltage on Rh is 1.25 Volt
-
-xxx The voltage between node numbers 4 and 0 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 4 setting to 1.25 Volt
-The components R9 and R8 connected in parallel. The voltage on R8 is 1.25 Volt because the voltage on Rh is 1.25 Volt
-
-xxx The voltage between node numbers 4 and 9 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 9 setting to 0 Volt
-
-xxx The voltage between node numbers 5 and 1 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 5 setting to 3.75 Volt
-The components Rk and Rm connected in parallel. The voltage on Rk is 1.25 Volt because the voltage on Rj is 1.25 Volt
-
-xxx The voltage between node numbers 5 and 1 setting to 1.25 Volt ... starting ...
-xxx The node potential for node number 5 setting to 3.75 Volt
-The components Rk and Rm connected in parallel. The voltage on Rm is 1.25 Volt because the voltage on Rj is 1.25 Volt
-
-xxx The voltage between node numbers 6 and 1 setting to 625m Volt ... starting ...
-xxx The node potential for node number 6 setting to 3.12 Volt
-The components R4 and R5 connected in series.
-The voltage between this components starting and ending node is 1.25 Volt
-R4 is in the voltage divider so the voltage on R4 is R4/Rk*1.25 Volt = 625m Volt 
-
-xxx The voltage between node numbers 5 and 6 setting to 625m Volt ... starting ...
-xxx The node potential for node number 5 setting to 3.75 Volt
-The components R4 and R5 connected in series.
-The voltage between this components starting and ending node is 1.25 Volt
-R5 is in the voltage divider so the voltage on R5 is R5/Rk*1.25 Volt = 625m Volt 
-
-xxx The voltage between node numbers 7 and 1 setting to 625m Volt ... starting ...
-xxx The node potential for node number 7 setting to 3.12 Volt
-The components Rn and R3 connected in series.
-The voltage between this components starting and ending node is 1.25 Volt
-Rn is in the voltage divider so the voltage on Rn is Rn/Rm*1.25 Volt = 625m Volt 
-
-xxx The voltage between node numbers 5 and 7 setting to 625m Volt ... starting ...
-xxx The node potential for node number 5 setting to 3.75 Volt
-The components Rn and R3 connected in series.
-The voltage between this components starting and ending node is 1.25 Volt
-R3 is in the voltage divider so the voltage on R3 is R3/Rm*1.25 Volt = 625m Volt 
-
-xxx The voltage between node numbers 7 and 1 setting to 625m Volt ... starting ...
-xxx The node potential for node number 7 setting to 3.12 Volt
-The components R2 and R1 connected in parallel. The voltage on R2 is 625m Volt because the voltage on Rn is 625m Volt
-
-xxx The voltage between node numbers 7 and 1 setting to 625m Volt ... starting ...
-xxx The node potential for node number 7 setting to 3.12 Volt
-The components R2 and R1 connected in parallel. The voltage on R1 is 625m Volt because the voltage on Rn is 625m Volt
-
-xxx The voltage between node numbers 7 and 10 setting to 625m Volt ... starting ...
-xxx The node potential for node number 10 setting to 2.5 Volt
-
-To answer the original question: because the voltmeter connected to nodes 1,0 so the voltage on VM1 is 2.5 Volt
