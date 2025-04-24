@@ -54,7 +54,7 @@ class TCircuitSolver:
 
 		node_global_init()
 		self.debug_impedance = []; self.debug_test_preorder = []; 
-		self.formula = ''; self.lc = 1; self.stop_solver = False
+		self.formula = ''; self.lc = 1; self.solver_silent = False
 
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
@@ -339,7 +339,8 @@ class TCircuitSolver:
 		self.debug_test_preorder.append(s1)
 
 	def log(self, s):
-		self.graph.log(s)
+		if not self.solver_silent:
+			self.graph.log(s)
 
 	def log_info(self, s):
 		if self.opts['log_info'] == 1:
@@ -357,8 +358,8 @@ class TCircuitSolver:
 	def calc_circuit(self, node, left, right, level):
 		new_val = []; labels = []; labels_ = []; nodes = []; ltype = left.type; rtype = right.type; aStatus = []; labels_z_ = []; labels_z = []
 
-		if self.stop_solver:
-			return
+		#if self.solver_silent:
+		#	return
 		
 		impedance = self.graph.get_vals(left, right, 'impedance'); N = len(impedance)
 
@@ -475,7 +476,7 @@ class TCircuitSolver:
 		else:
 			pass
 		if is_req_label:
-			self.stop_solver = True
+			self.solver_silent = True
 
 	def walk_preorder(self, top, level=0):
 		if top is None or self.stopped:
@@ -550,55 +551,49 @@ class TCircuitSolver:
 		self.node_potentials_dbg['node_potentials'] = []
 		self.node_potentials_dbg['item_voltages'] = []
 
-		#replacing generators			
-		for label in ["R2","R1"]:	
-			idx = self.graph.find_in_json(label)
-			comp = self.graph.json_data["edges"][idx]
-			
-			self.request['comp'] = label
-			self.run_proc(circuit_key)
+		# runs 'passes' (for superpositions)
+		self.run_proc(circuit_key)
 
-			node_potentials_pass = []
-			for i in range(self.graph.max_node+1):
-				r = 0.0
-				flag = True
-				for j in range(len(self.gens)):
-					flag = flag and self.graph.v_flags[j][i]
-					tmp = self.graph.v_re[j][i]
-					r += tmp
-					
-				if self.graph.match_node(comp, i):				
-					self.graph.v_potentials_re[i] = r
-					s0 = self.graph.fv(r)		
-					self.graph.v_node_flags[i] = self.graph.v_node_flags[i] or flag
-					s = f'VP_{i} = {s0}, assigned (and): {flag}'
-					node_potentials_pass.append(s)		
-			self.node_potentials_dbg['node_potentials'].append(node_potentials_pass)	
-			
-			self.write_log(1, 'OK', 0, True)
-			a=1
-	
-			##
-			self.node_potentials_dbg['item_voltages'] = []
-			dctable = self.graph.json_data["dctables"][0]
-			table = dctable['other voltages']
-			for item in table:
-				new_item = {}
-				i = item['nodes'][0]
-				j = item['nodes'][1]
-				new_item['nodes'] = item['nodes']			
-				new_item['label'] = item['label']
-				if self.graph.find_in_json(item['label']) >= 0:
-					if self.graph.v_node_flags[i] and self.graph.v_node_flags[j]:
-						r = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
-						new_item['value'] = self.graph.fv(r)		
-					else:	
-						new_item['value'] = '<unassigned>'
-					self.node_potentials_dbg['item_voltages'].append(new_item)
-			##
-	
-			self.write_log(1, 'OK', 0, True)
-			a=1
+		node_potentials_pass = []
+		for i in range(self.graph.max_node+1):
+			r = 0.0
+			flag = True
+			for j in range(len(self.gens)):
+				flag = flag and self.graph.v_flags[j][i]
+				tmp = self.graph.v_re[j][i]
+				r += tmp
+				
+			self.graph.v_potentials_re[i] = r
+			s0 = self.graph.fv(r)		
+			self.graph.v_node_flags[i] = self.graph.v_node_flags[i] or flag
+			s = f'VP_{i} = {s0}, assigned (and): {flag}'
+			node_potentials_pass.append(s)		
+		self.node_potentials_dbg['node_potentials'].append(node_potentials_pass)	
+		
+		self.write_log(1, 'OK', 0, True)
+		a=1
+
+		##
+		self.node_potentials_dbg['item_voltages'] = []
+		dctable = self.graph.json_data["dctables"][0]
+		table = dctable['other voltages']
+		for item in table:
+			new_item = {}
+			i = item['nodes'][0]
+			j = item['nodes'][1]
+			new_item['nodes'] = item['nodes']			
+			new_item['label'] = item['label']
+			if self.graph.find_in_json(item['label']) >= 0:
+				if self.graph.v_node_flags[i] and self.graph.v_node_flags[j]:
+					r = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
+					new_item['value'] = self.graph.fv(r)		
+				else:	
+					new_item['value'] = '<unassigned>'
+				self.node_potentials_dbg['item_voltages'].append(new_item)
+		##
+
+		self.write_log(1, 'OK', 0, True)
+		a=1
 
 		comp = self.request["comp"]
 		request_txt = cu.get_request_txt(self.request)
@@ -803,7 +798,7 @@ class TCircuitSolver:
 		self.total_impedance_txt = []
 		self.total_impedance = []
 		self.graph.nodal_voltage_log = []
-		self.stop_solver = False; nInserted = 0
+		self.solver_silent = False; nInserted = 0
 
 		gen_comp_id = self.gen['prop']['CompId']
 		is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
@@ -1014,12 +1009,13 @@ class TCircuitSolver:
 
 		self.write_log(1, 'OK', 0, False)
 
-		#finalize 'run_pass'
+		#finalize 'run_pass' (one pass)
 		for i in range(nInserted):
 			list_ = self.graph.json_data["edges"]
 			N = len(list_)
 			list_.pop(N-1)
 			
+		#finalize 'run_pass' (one pass)
 		node_potentials_pass = []
 		ref_node = self.graph.GND[0]
 		shift = self.graph.v_re[i_pass][ref_node]

@@ -1142,10 +1142,8 @@ class TCircuitSolverGraph:
 			self.max_node = m
 
 	def get_diff_v(self, i, j):
-		#L = len(self.v_re)
-		#self.check_v_extend(i, L)
-		# TODO
-		return 0
+		r = self.v_potentials_re[i]-self.v_potentials_re[j]
+		return r
 
 	def get_w_speech_unit(self, v_str):
 		last_char = v_str[-1]		
