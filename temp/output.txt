@@ -1,7 +1,3 @@
-Solution by TINA assisted by AI
-We have more than one generator so we are using superposition to calculate voltages/currents.
-Names starting with RGenZero refer to 0 Ohm resistances, used during superposition.
-
 ###Processing generator VS2
 xxx Gen: set voltage...
 xxx GND is: 2

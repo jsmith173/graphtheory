@@ -69,17 +69,79 @@
                     }
                 }
             }
+        },
+        {
+            "total_impedance_ori_txt": [
+                "Re0=R1=1Ohm=1Ohm",
+                "Re0 and R3 connected in series so Rd0=Re0+R3=1Ohm+3Ohm=4Ohm",
+                "R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm",
+                "Rc0 and R4 connected in series so Rb0=Rc0+R4=1.33Ohm+5Ohm=6.33Ohm",
+                "R2 and Rb0 connected in series so Ra0=R2+Rb0=4Ohm+6.33Ohm=10.3Ohm",
+                "The total resistance is Ra0 = 10.3Ohm"
+            ],
+            "total_impedance_txt": [
+                "Re0=R1=1Ohm=1Ohm",
+                "Re0 and R3 connected in series so Rd0=Re0+R3=1Ohm+3Ohm=4Ohm",
+                "R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm",
+                "Rc0 and R4 connected in series so Rb0=Rc0+R4=1.33Ohm+5Ohm=6.33Ohm",
+                "R2 and Rb0 connected in series so Ra0=R2+Rb0=4Ohm+6.33Ohm=10.3Ohm",
+                "The total resistance is Ra0 = 10.3Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    1,
+                    2
+                ],
+                "prop": {
+                    "label": "VS2",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_0000000027B2BE1020250418152532",
+                    "value": 4,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        },
+        {
+            "total_impedance_ori_txt": [
+                "Re1=R2=4Ohm=4Ohm",
+                "Re1 and R4 connected in series so Rd1=Re1+R4=4Ohm+5Ohm=9Ohm",
+                "R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm",
+                "Rc1 and R3 connected in series so Rb1=Rc1+R3=1.64Ohm+3Ohm=4.64Ohm",
+                "R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm",
+                "The total resistance is Ra1 = 5.64Ohm"
+            ],
+            "total_impedance_txt": [
+                "Re1=R2=4Ohm=4Ohm",
+                "Re1 and R4 connected in series so Rd1=Re1+R4=4Ohm+5Ohm=9Ohm",
+                "R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm",
+                "Rc1 and R3 connected in series so Rb1=Rc1+R3=1.64Ohm+3Ohm=4.64Ohm",
+                "R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm",
+                "The total resistance is Ra1 = 5.64Ohm"
+            ],
+            "gen": {
+                "nodes": [
+                    3,
+                    4
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_0000000027B2B83020250418152209",
+                    "value": 6,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
         }
     ],
-    "circuit": [
-        "Netlist (component name, nodes)",
-        "R5 5 6",
-        "R4 5 2",
-        "R3 4 5",
-        "R2 6 1",
-        "R1 3 6",
-        ""
-    ],
+    "circuit": [],
     "request": {
         "text": "What is the voltage on R1?",
         "cmd": "get_voltage",
@@ -95,10 +157,6 @@
     },
     "calculation": {
         "solution": [
-            "Solution by TINA assisted by AI",
-            "We have more than one generator so we are using superposition to calculate voltages/currents.",
-            "Names starting with RGenZero refer to 0 Ohm resistances, used during superposition.",
-            "",
             "###Processing generator VS2",
             "xxx Gen: set voltage...",
             "xxx GND is: 2",
@@ -196,6 +254,28 @@
                     "VP_0 = 0, assigned: 0",
                     "VP_1 = 4, assigned: 1",
                     "VP_2 = 0, assigned: 1",
+                    "VP_3 = 0, assigned: 0",
+                    "VP_4 = 0, assigned: 0",
+                    "VP_5 = 0, assigned: 0",
+                    "VP_6 = 2.45, assigned: 1"
+                ],
+                [
+                    "VP_0 = -4.16, assigned: 0",
+                    "VP_1 = 0, assigned: 1",
+                    "VP_2 = 0, assigned: 1",
+                    "VP_3 = 1.84, assigned: 1",
+                    "VP_4 = -4.16, assigned: 1",
+                    "VP_5 = -968m, assigned: 1",
+                    "VP_6 = 774m, assigned: 1"
+                ],
+                [
+                    "VP_1 = 4, assigned (and): 1",
+                    "VP_6 = 3.23, assigned (and): 1"
+                ],
+                [
+                    "VP_0 = 0, assigned: 0",
+                    "VP_1 = 4, assigned: 1",
+                    "VP_2 = 0, assigned: 1",
                     "VP_3 = 2.32, assigned: 1",
                     "VP_4 = 2.32, assigned: 1",
                     "VP_5 = 1.94, assigned: 1",
@@ -211,12 +291,7 @@
                     "VP_6 = 4.94, assigned: 1"
                 ],
                 [
-                    "VP_0 = 0, assigned (and): 0",
-                    "VP_1 = 4, assigned (and): 0",
-                    "VP_2 = 0, assigned (and): 0",
                     "VP_3 = 8.32, assigned (and): 1",
-                    "VP_4 = 2.32, assigned (and): 1",
-                    "VP_5 = 1.94, assigned (and): 0",
                     "VP_6 = 7.39, assigned (and): 1"
                 ]
             ],
@@ -235,7 +310,7 @@
                         1
                     ],
                     "label": "R2",
-                    "value": "<unassigned>"
+                    "value": "3.39"
                 },
                 {
                     "nodes": [

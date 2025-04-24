@@ -71,16 +71,78 @@
 				</prop>
 			</gen>
 		</item>
+		<item>
+			<total_impedance_ori_txt>
+				<item>Re0=R1=1Ohm=1Ohm</item>
+				<item>Re0 and R3 connected in series so Rd0=Re0+R3=1Ohm+3Ohm=4Ohm</item>
+				<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
+				<item>Rc0 and R4 connected in series so Rb0=Rc0+R4=1.33Ohm+5Ohm=6.33Ohm</item>
+				<item>R2 and Rb0 connected in series so Ra0=R2+Rb0=4Ohm+6.33Ohm=10.3Ohm</item>
+				<item>The total resistance is Ra0 = 10.3Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>Re0=R1=1Ohm=1Ohm</item>
+				<item>Re0 and R3 connected in series so Rd0=Re0+R3=1Ohm+3Ohm=4Ohm</item>
+				<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
+				<item>Rc0 and R4 connected in series so Rb0=Rc0+R4=1.33Ohm+5Ohm=6.33Ohm</item>
+				<item>R2 and Rb0 connected in series so Ra0=R2+Rb0=4Ohm+6.33Ohm=10.3Ohm</item>
+				<item>The total resistance is Ra0 = 10.3Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>1</item>
+					<item>2</item>
+				</nodes>
+				<prop>
+					<label>VS2</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_0000000027B2BE1020250418152532</UniqueID>
+					<value>4</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+		<item>
+			<total_impedance_ori_txt>
+				<item>Re1=R2=4Ohm=4Ohm</item>
+				<item>Re1 and R4 connected in series so Rd1=Re1+R4=4Ohm+5Ohm=9Ohm</item>
+				<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
+				<item>Rc1 and R3 connected in series so Rb1=Rc1+R3=1.64Ohm+3Ohm=4.64Ohm</item>
+				<item>R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm</item>
+				<item>The total resistance is Ra1 = 5.64Ohm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>Re1=R2=4Ohm=4Ohm</item>
+				<item>Re1 and R4 connected in series so Rd1=Re1+R4=4Ohm+5Ohm=9Ohm</item>
+				<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
+				<item>Rc1 and R3 connected in series so Rb1=Rc1+R3=1.64Ohm+3Ohm=4.64Ohm</item>
+				<item>R1 and Rb1 connected in series so Ra1=R1+Rb1=1Ohm+4.64Ohm=5.64Ohm</item>
+				<item>The total resistance is Ra1 = 5.64Ohm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>3</item>
+					<item>4</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_0000000027B2B83020250418152209</UniqueID>
+					<value>6</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
 	</superposition>
-	<circuit>
-		<item>Netlist (component name, nodes)</item>
-		<item>R5 5 6</item>
-		<item>R4 5 2</item>
-		<item>R3 4 5</item>
-		<item>R2 6 1</item>
-		<item>R1 3 6</item>
-		<item/>
-	</circuit>
+	<circuit/>
 	<request>
 		<text>What is the voltage on R1?</text>
 		<cmd>get_voltage</cmd>
@@ -96,10 +158,6 @@
 	</request>
 	<calculation>
 		<solution>
-			<item>Solution by TINA assisted by AI</item>
-			<item>We have more than one generator so we are using superposition to calculate voltages/currents.</item>
-			<item>Names starting with RGenZero refer to 0 Ohm resistances, used during superposition.</item>
-			<item/>
 			<item>###Processing generator VS2</item>
 			<item>xxx Gen: set voltage...</item>
 			<item>xxx GND is: 2</item>
@@ -197,6 +255,28 @@
 					<item>VP_0 = 0, assigned: 0</item>
 					<item>VP_1 = 4, assigned: 1</item>
 					<item>VP_2 = 0, assigned: 1</item>
+					<item>VP_3 = 0, assigned: 0</item>
+					<item>VP_4 = 0, assigned: 0</item>
+					<item>VP_5 = 0, assigned: 0</item>
+					<item>VP_6 = 2.45, assigned: 1</item>
+				</item>
+				<item>
+					<item>VP_0 = -4.16, assigned: 0</item>
+					<item>VP_1 = 0, assigned: 1</item>
+					<item>VP_2 = 0, assigned: 1</item>
+					<item>VP_3 = 1.84, assigned: 1</item>
+					<item>VP_4 = -4.16, assigned: 1</item>
+					<item>VP_5 = -968m, assigned: 1</item>
+					<item>VP_6 = 774m, assigned: 1</item>
+				</item>
+				<item>
+					<item>VP_1 = 4, assigned (and): 1</item>
+					<item>VP_6 = 3.23, assigned (and): 1</item>
+				</item>
+				<item>
+					<item>VP_0 = 0, assigned: 0</item>
+					<item>VP_1 = 4, assigned: 1</item>
+					<item>VP_2 = 0, assigned: 1</item>
 					<item>VP_3 = 2.32, assigned: 1</item>
 					<item>VP_4 = 2.32, assigned: 1</item>
 					<item>VP_5 = 1.94, assigned: 1</item>
@@ -212,12 +292,7 @@
 					<item>VP_6 = 4.94, assigned: 1</item>
 				</item>
 				<item>
-					<item>VP_0 = 0, assigned (and): 0</item>
-					<item>VP_1 = 4, assigned (and): 0</item>
-					<item>VP_2 = 0, assigned (and): 0</item>
 					<item>VP_3 = 8.32, assigned (and): 1</item>
-					<item>VP_4 = 2.32, assigned (and): 1</item>
-					<item>VP_5 = 1.94, assigned (and): 0</item>
 					<item>VP_6 = 7.39, assigned (and): 1</item>
 				</item>
 			</node_potentials>
@@ -236,7 +311,7 @@
 						<item>1</item>
 					</nodes>
 					<label>R2</label>
-					<value>&lt;unassigned&gt;</value>
+					<value>3.39</value>
 				</item>
 				<item>
 					<nodes>

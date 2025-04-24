@@ -85,6 +85,8 @@ class TCircuitSolverGraph:
 		self.num_pass = 20  
 		self.max_node_num = 100  
 
+		self.resistive_comps = []; self.resistive_comps_ = []; self.gen_comps = [];
+
 		self.sDiv = '/'
 		self.sMul = '*'
 		self.sOmega = 'w'
@@ -116,7 +118,7 @@ class TCircuitSolverGraph:
 			for j in range(self.max_node_num):
 				self.v_flags[i][j] = False
 		self.max_node = 0	
-		self.yd_log = []; self.graph_update = []; self.resistive_comps = []; self.resistive_comps_ = []; self.gen_comps = []; self.yd_labels = []; self.solution_log = []; 
+		self.yd_log = []; self.graph_update = [];  self.yd_labels = []; self.solution_log = []
 		self.graph_debug = []
 		self.try_count = 0; self.try_count_Y = 0; self.try_count_D = 0; self.edge_values = []			
 		self.loud = False
@@ -901,6 +903,9 @@ class TCircuitSolverGraph:
 			i = i+1
 		return -1, False	
 	
+	def match_node(self, edge, m):
+		return edge['nodes'][0] == m or edge['nodes'][1] == m
+		
 	def find_edge_value(self, nodes, label):
 		for i in range(len(self.edge_values)):
 			item = self.edge_values[i]
