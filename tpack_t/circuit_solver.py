@@ -824,7 +824,7 @@ class TCircuitSolver:
 				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 
 				if is_v_gen:
-					item = self.graph.create_item(gen, j, 0.0)
+					item = self.graph.create_item(gen, j, cg.RMIN)
 					self.graph.json_data["edges"].append(item)
 					nInserted += 1
 

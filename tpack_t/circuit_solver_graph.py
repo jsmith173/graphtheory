@@ -14,6 +14,7 @@ import math, cmath
 
 #for the pack_prefix the actual precision is precision+1 
 PRECISION = 3
+RMIN = 1e-12
 
 
 RES_ = 9; CAP_ = 10; IND_ = 11; 
@@ -1206,6 +1207,8 @@ class TCircuitSolverGraph:
 			return f"{r_str} {fi_str}\N{DEGREE SIGN} "
 		else:
 			#removing trailing zeros (and .) if needed
+			if abs(v) < RMIN:
+				v = 0.0
 			num = p.Float(v)
 			v_str = f'{num:.{PRECISION}H}'
 			if self.loud:
