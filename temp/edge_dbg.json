@@ -7,13 +7,13 @@
             "match_label": "",
             "CompId": 9,
             "UniqueID": "NNLCI0KS8CCJ7CVP2FJ5I3B4",
-            "value": 1000,
+            "value": 30,
             "flags": 1
         }
     },
     {
         "source": 2,
-        "target": 3,
+        "target": 0,
         "prop": {
             "label": "R1",
             "match_label": "",

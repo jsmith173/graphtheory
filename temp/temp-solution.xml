@@ -3,16 +3,14 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>R1 and R2 connected in series so Rc0=R1+R2=10Ohm+1kOhm=1.01kOhm</item>
-				<item>Rb0=Rc0=1.01kOhm=1.01kOhm</item>
-				<item>R and Rb0 connected in parallel so Ra0=R*Rb0/(R+Rb0)=10Ohm*1.01kOhm/(10Ohm+1.01kOhm)=9.9Ohm</item>
-				<item>The total resistance is Ra0 = 9.9Ohm</item>
+				<item>R1 and R2 connected in series so Rb=R1+R2=10Ohm+30Ohm=40Ohm</item>
+				<item>R and Rb connected in parallel so Ra=R*Rb/(R+Rb)=10Ohm*40Ohm/(10Ohm+40Ohm)=8Ohm</item>
+				<item>The total resistance is Ra = 8Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>R1 and R2 connected in series so Rc0=R1+R2=10Ohm+1kOhm=1.01kOhm</item>
-				<item>Rb0=Rc0=1.01kOhm=1.01kOhm</item>
-				<item>R and Rb0 connected in parallel so Ra0=R*Rb0/(R+Rb0)=10Ohm*1.01kOhm/(10Ohm+1.01kOhm)=9.9Ohm</item>
-				<item>The total resistance is Ra0 = 9.9Ohm</item>
+				<item>R1 and R2 connected in series so Rb=R1+R2=10Ohm+30Ohm=40Ohm</item>
+				<item>R and Rb connected in parallel so Ra=R*Rb/(R+Rb)=10Ohm*40Ohm/(10Ohm+40Ohm)=8Ohm</item>
+				<item>The total resistance is Ra = 8Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
@@ -32,163 +30,60 @@
 				</prop>
 			</gen>
 		</item>
-		<item>
-			<total_impedance_ori_txt>
-				<item>R and R2 connected in series so Rb1=R+R2=10Ohm+1kOhm=1.01kOhm</item>
-				<item>Rb1 and R1 connected in series so Ra1=Rb1+R1=1.01kOhm+10Ohm=1.02kOhm</item>
-				<item>The total resistance is Ra1 = 1.02kOhm</item>
-			</total_impedance_ori_txt>
-			<total_impedance_txt>
-				<item>R and R2 connected in series so Rb1=R+R2=10Ohm+1kOhm=1.01kOhm</item>
-				<item>Rb1 and R1 connected in series so Ra1=Rb1+R1=1.01kOhm+10Ohm=1.02kOhm</item>
-				<item>The total resistance is Ra1 = 1.02kOhm</item>
-			</total_impedance_txt>
-			<gen>
-				<nodes>
-					<item>3</item>
-					<item>0</item>
-				</nodes>
-				<prop>
-					<label>Vs</label>
-					<match_label/>
-					<CompId>14</CompId>
-					<UniqueID>T_09F5DD7020230605185844</UniqueID>
-					<value>10</value>
-					<flags>1</flags>
-					<ac_gen>
-						<mode>0</mode>
-					</ac_gen>
-				</prop>
-			</gen>
-		</item>
 	</superposition>
 	<circuit/>
 	<request>
-		<text>What is the voltage on V?</text>
+		<text>What is the voltage on VM1?</text>
 		<cmd>get_voltage</cmd>
-		<comp>V</comp>
+		<comp>VM1</comp>
 		<options>4</options>
 		<qid>0</qid>
 		<ohm_meter_question>false</ohm_meter_question>
 		<req_on_gen>false</req_on_gen>
 		<volt_meter_question>true</volt_meter_question>
 		<volt_meter_no_match>true</volt_meter_no_match>
-		<comp_ori>V</comp_ori>
+		<comp_ori>VM1</comp_ori>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
 		<solution>
-			<item>###Processing generator Is</item>
-			<item>xxx Gen: set voltage...</item>
-			<item>xxx GND is: 0</item>
-			<item>xxx The node potential for node number 0 setting to 0 Volt</item>
-			<item>xxx The node potential for node number 1 setting to 2 Volt</item>
-			<item>xxx The voltage between node numbers 1 and 0 setting to 19.8 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 1 setting to 19.8 Volt</item>
+			<item>The voltage of node 0 was set to 0 Volt (generator Is negativ pole)</item>
+			<item>The voltage of node 1 was set to -16 Volt (generator Is voltage)</item>
+			<item/>
 			<item>First we calculate the total resistance between the generator nodes (Is)</item>
-			<item>R1 and R2 connected in series so Rc0=R1+R2=10Ohm+1kOhm=1.01kOhm</item>
-			<item>Rb0=Rc0=1.01kOhm=1.01kOhm</item>
-			<item>R and Rb0 connected in parallel so Ra0=R*Rb0/(R+Rb0)=10Ohm*1.01kOhm/(10Ohm+1.01kOhm)=9.9Ohm</item>
-			<item>The total resistance is Ra0 = 9.9Ohm</item>
+			<item>R1 and R2 connected in series so Rb=R1+R2=10Ohm+30Ohm=40Ohm</item>
+			<item>R and Rb connected in parallel so Ra=R*Rb/(R+Rb)=10Ohm*40Ohm/(10Ohm+40Ohm)=8Ohm</item>
+			<item>The total resistance is Ra = 8Ohm</item>
 			<item/>
-			<item>Now we calculate the voltage on V</item>
-			<item>We know that the voltage between Is nodes is 19.8 Volt, because the generator current is Igen = 2A and the resistance between the generator nodes is Rtot = 9.9Ohm so the voltage between the generator nodes is Igen*Rtot = 19.8 Volt</item>
-			<item>All voltage generators have been replaced with a short circuit.</item>
-			<item>All current generators except for Is have been replaced with an open circuit.</item>
+			<item>Now we calculate the voltage on VM1</item>
+			<item>We know that the voltage between Is nodes is 16 Volt, because the generator current is Igen = 2A and the resistance between the generator nodes is Rtot = 8Ohm so the voltage between the generator nodes is Igen*Rtot = 16 Volt</item>
 			<item/>
-			<item>xxx The voltage between node numbers 1 and 0 setting to 19.8 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 1 setting to 19.8 Volt</item>
-			<item>The components R and Rb0 connected in parallel. The voltage on R is 19.8 Volt because the voltage on Ra0 is 19.8 Volt</item>
+			<item>The components R and Rb connected in parallel. The voltage on R is -16 Volt because the voltage on Ra is -16 Volt</item>
 			<item/>
-			<item>xxx The voltage between node numbers 1 and 0 setting to 19.8 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 1 setting to 19.8 Volt</item>
-			<item>The components R and Rb0 connected in parallel. The voltage on Rb0 is 19.8 Volt because the voltage on Ra0 is 19.8 Volt</item>
+			<item>The components R and Rb connected in parallel. The voltage on Rb is -16 Volt because the voltage on Ra is -16 Volt</item>
 			<item/>
-			<item>xxx The voltage between node numbers 3 and 0 setting to 0 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 3 setting to 0 Volt</item>
-			<item>The components RGenZero1 and Rc0 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 19.8 Volt</item>
-			<item>RGenZero1 is in the voltage divider so the voltage on RGenZero1 is RGenZero1/Rb0*19.8 Volt = 0 Volt </item>
-			<item/>
-			<item>xxx The voltage between node numbers 1 and 3 setting to 19.8 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 1 setting to 19.8 Volt</item>
-			<item>The components RGenZero1 and Rc0 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 19.8 Volt</item>
-			<item>Rc0 is in the voltage divider so the voltage on Rc0 is Rc0/Rb0*19.8 Volt = 19.8 Volt </item>
-			<item/>
-			<item>xxx The voltage between node numbers 2 and 3 setting to 196m Volt ... starting ...</item>
-			<item>xxx The node potential for node number 2 setting to 196m Volt</item>
+			<item>The voltage of node 2 was set to -4 Volt (R1 and R2 in series)</item>
 			<item>The components R1 and R2 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 19.8 Volt</item>
-			<item>R1 is in the voltage divider so the voltage on R1 is R1/Rc0*19.8 Volt = 196m Volt </item>
+			<item>The voltage between this components starting and ending node is -16 Volt</item>
+			<item>R1 is in the voltage divider so the voltage on R1 is R1/Rb*-16 Volt = -4 Volt </item>
 			<item/>
-			<item>xxx The voltage between node numbers 1 and 2 setting to 19.6 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 1 setting to 19.8 Volt</item>
 			<item>The components R1 and R2 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 19.8 Volt</item>
-			<item>R2 is in the voltage divider so the voltage on R2 is R2/Rc0*19.8 Volt = 19.6 Volt </item>
+			<item>The voltage between this components starting and ending node is -16 Volt</item>
+			<item>R2 is in the voltage divider so the voltage on R2 is R2/Rb*-16 Volt = -12 Volt </item>
 			<item/>
-			<item>###Processing generator Vs</item>
-			<item>xxx Gen: set voltage...</item>
-			<item>xxx GND is: 0</item>
-			<item>xxx The node potential for node number 0 setting to 0 Volt</item>
-			<item>xxx The node potential for node number 3 setting to 10 Volt</item>
-			<item>xxx The voltage between node numbers 3 and 0 setting to 10 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 3 setting to 10 Volt</item>
-			<item>First we calculate the total resistance between the generator nodes (Vs)</item>
-			<item>R and R2 connected in series so Rb1=R+R2=10Ohm+1kOhm=1.01kOhm</item>
-			<item>Rb1 and R1 connected in series so Ra1=Rb1+R1=1.01kOhm+10Ohm=1.02kOhm</item>
-			<item>The total resistance is Ra1 = 1.02kOhm</item>
-			<item/>
-			<item>Now we calculate the voltage on V</item>
-			<item>We know that the voltage between Vs nodes is 10 Volt.</item>
-			<item>All voltage generators except for Vs have been replaced with a short circuit.</item>
-			<item>All current generators have been replaced with an open circuit.</item>
-			<item/>
-			<item>xxx The voltage between node numbers 2 and 0 setting to 9.9 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 2 setting to 9.9 Volt</item>
-			<item>The components Rb1 and R1 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 10 Volt</item>
-			<item>Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*10 Volt = 9.9 Volt </item>
-			<item/>
-			<item>xxx The voltage between node numbers 3 and 2 setting to 98m Volt ... starting ...</item>
-			<item>xxx The node potential for node number 3 setting to 10 Volt</item>
-			<item>The components Rb1 and R1 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 10 Volt</item>
-			<item>R1 is in the voltage divider so the voltage on R1 is R1/Ra1*10 Volt = 98m Volt </item>
-			<item/>
-			<item>xxx The voltage between node numbers 1 and 0 setting to 98m Volt ... starting ...</item>
-			<item>xxx The node potential for node number 1 setting to 98m Volt</item>
-			<item>The components R and R2 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 9.9 Volt</item>
-			<item>R is in the voltage divider so the voltage on R is R/Rb1*9.9 Volt = 98m Volt </item>
-			<item/>
-			<item>xxx The voltage between node numbers 2 and 1 setting to 9.8 Volt ... starting ...</item>
-			<item>xxx The node potential for node number 2 setting to 9.9 Volt</item>
-			<item>The components R and R2 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 9.9 Volt</item>
-			<item>R2 is in the voltage divider so the voltage on R2 is R2/Rb1*9.9 Volt = 9.8 Volt </item>
-			<item/>
+			<item>To answer the original question: because the voltmeter connected to nodes 2 and 0 so the voltage on VM1 is -4 Volt</item>
 		</solution>
 		<node_potentials_dbg>
 			<node_potentials>
 				<item>
 					<item>VP_0 = 0, assigned: 1</item>
-					<item>VP_1 = 19.8, assigned: 1</item>
-					<item>VP_2 = 196m, assigned: 1</item>
-					<item>VP_3 = 0, assigned: 1</item>
-				</item>
-				<item>
-					<item>VP_0 = 0, assigned: 1</item>
-					<item>VP_1 = 98m, assigned: 1</item>
-					<item>VP_2 = 9.9, assigned: 1</item>
-					<item>VP_3 = 10, assigned: 1</item>
+					<item>VP_1 = -16, assigned: 1</item>
+					<item>VP_2 = -4, assigned: 1</item>
 				</item>
 				<item>
 					<item>VP_0 = 0, assigned (and): 1</item>
-					<item>VP_1 = 19.9, assigned (and): 1</item>
-					<item>VP_2 = 10.1, assigned (and): 1</item>
-					<item>VP_3 = 10, assigned (and): 1</item>
+					<item>VP_1 = -16, assigned (and): 1</item>
+					<item>VP_2 = -4, assigned (and): 1</item>
 				</item>
 			</node_potentials>
 			<item_voltages>
@@ -198,15 +93,15 @@
 						<item>0</item>
 					</nodes>
 					<label>R</label>
-					<value>19.9</value>
+					<value>-16</value>
 				</item>
 				<item>
 					<nodes>
 						<item>2</item>
-						<item>3</item>
+						<item>0</item>
 					</nodes>
 					<label>R1</label>
-					<value>98m</value>
+					<value>-4</value>
 				</item>
 				<item>
 					<nodes>
@@ -214,15 +109,15 @@
 						<item>2</item>
 					</nodes>
 					<label>R2</label>
-					<value>9.8</value>
+					<value>-12</value>
 				</item>
 			</item_voltages>
 		</node_potentials_dbg>
 		<block_labels>
 			<item>
-				<label>Rc0</label>
+				<label>Rb</label>
 				<origin>series</origin>
-				<value>1.01kOhm</value>
+				<value>40Ohm</value>
 				<labels>
 					<item>R1</item>
 					<item>R2</item>
@@ -233,55 +128,16 @@
 				</unique_labels>
 			</item>
 			<item>
-				<label>Rb0</label>
-				<origin>series</origin>
-				<value>1.01kOhm</value>
-				<labels>
-					<item>RGenZero1</item>
-					<item>Rc0</item>
-				</labels>
-				<unique_labels>
-					<item>&lt;none&gt;</item>
-					<item>&lt;block&gt;</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Ra0</label>
+				<label>Ra</label>
 				<origin>parallel</origin>
-				<value>9.9Ohm</value>
+				<value>8Ohm</value>
 				<labels>
 					<item>R</item>
-					<item>Rb0</item>
+					<item>Rb</item>
 				</labels>
 				<unique_labels>
 					<item>T_09F5D88020230605185844</item>
 					<item>&lt;block&gt;</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rb1</label>
-				<origin>series</origin>
-				<value>1.01kOhm</value>
-				<labels>
-					<item>R</item>
-					<item>R2</item>
-				</labels>
-				<unique_labels>
-					<item>T_09F5D88020230605185844</item>
-					<item>NNLCI0KS8CCJ7CVP2FJ5I3B4</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Ra1</label>
-				<origin>series</origin>
-				<value>1.02kOhm</value>
-				<labels>
-					<item>Rb1</item>
-					<item>R1</item>
-				</labels>
-				<unique_labels>
-					<item>&lt;block&gt;</item>
-					<item>T_09F5D39020230605185844</item>
 				</unique_labels>
 			</item>
 		</block_labels>

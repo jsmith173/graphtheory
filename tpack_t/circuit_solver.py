@@ -412,7 +412,7 @@ class TCircuitSolver:
 				node_list = ",".join(node_list_)
 
 				directed_nodes = self.graph.get_directed_nodes(node, nodes[i])
-				self.graph.set_node_val(nodes[i], new_val[i], labels[i], True, 'voltage', directed_nodes, node)
+				self.graph.set_node_val(nodes[i], new_val[i], labels[i], True, 'voltage', directed_nodes, node, f"({label_list} in {node.type})")
 				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node)
 				#status, block_rules = self.resolve_composed_labels_rules(labels)
  
@@ -529,7 +529,8 @@ class TCircuitSolver:
 		for i in range(len(self.gens)):
 			self.gen = self.gens[i]
 			self.graph.i_pass = i
-			self.run_pass(circuit_key, i)		
+			self.run_pass(circuit_key, i)	
+		self.solver_silent = False		
 	
 	def run(self, circuit_key):
 		self.gens = self.graph.json_data['gens']
@@ -600,7 +601,10 @@ class TCircuitSolver:
 		if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
 			self.graph.calc_final_nodal_edges(request_txt)
 
-		if self.graph.use_superposition:
+		meter_question = (self.request['cmd'] == 'get_voltage' and self.request['volt_meter_question'] or \
+		                  self.request['cmd'] == 'get_current' and self.request['amper_meter_question'])
+			
+		if self.graph.use_superposition and not meter_question:
 			self.log(f"")
 			self.log(f"Now we are using superposition to calculate the {request_txt} on {comp}")
 
@@ -671,7 +675,7 @@ class TCircuitSolver:
 				n = meter['nodes'][1]
 				
 				v = self.graph.get_diff_v(m, n)			
-				self.log(f"To answer the original question: because the {sMeter} connected to nodes {m},{n} so the {request_txt} on {show_meter_name} is {self.graph.fv(v)} {cg.uVolt}")
+				self.log(f"To answer the original question: because the {sMeter} connected to nodes {m} and {n} so the {request_txt} on {show_meter_name} is {self.graph.fv(v)} {cg.uVolt}")
 		else:
 			meter_name = self.request["comp_ori"]
 			f, meter = self.graph.find_meter(meter_name)
@@ -939,19 +943,21 @@ class TCircuitSolver:
 		# set values on top node
 		#if i_pass == 0:
 		#	self.graph.set_v_pot(0, 0.0)		
-		self.log(f"xxx Gen: set voltage...")
-		self.log(f"xxx GND is: {self.gen['nodes'][1]}")
+		#self.log(f"xxx Gen: set voltage...")
+		#self.log(f"xxx GND is: {self.gen['nodes'][1]}")
 		self.graph.GND[i_pass] = self.gen['nodes'][1]
 		#self.graph.set_v_pot(self.gen['nodes'][1], 0)	
-		self.graph.set_v_pot(self.graph.GND[i_pass], 0.0)		
-		self.graph.set_v_pot(self.gen['nodes'][0], gen_new_value['value'])		
+		self.graph.set_v_pot(self.graph.GND[i_pass], 0.0, f"(generator {gen_name} negativ pole)", True)		
+		if gen_new_value['quantity'] == 'voltage':
+			self.graph.set_v_pot(self.gen['nodes'][0], gen_new_value['value'], f"(generator {gen_name} positive pole)")		
 		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
 		if gen_new_value['quantity'] == 'voltage':
 			#self.graph.set_v(T.target, T.source, T.prop['voltage'])
 			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
 		else:
 			voltage_val = T.prop['current']*T.prop['impedance']	
-			self.graph.set_node_val(T, voltage_val, '', True, 'voltage', self.gen['nodes']) 
+			self.graph.set_node_val(T, -voltage_val, '', True, 'voltage', self.gen['nodes'], None, f"(generator {gen_name} voltage)") 
+		self.log("")
 
 		if not self.request['ohm_meter_question']:
 			self.log(f"First we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
@@ -1007,6 +1013,7 @@ class TCircuitSolver:
 			#pass_item['nodal_voltage_log'] = self.graph.nodal_voltage_log
 		self.solution['superposition'].append(pass_item)
 
+		self.log("")
 		self.write_log(1, 'OK', 0, False)
 
 		#finalize 'run_pass' (one pass)

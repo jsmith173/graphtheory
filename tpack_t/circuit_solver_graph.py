@@ -122,6 +122,7 @@ class TCircuitSolverGraph:
 		self.graph_debug = []
 		self.try_count = 0; self.try_count_Y = 0; self.try_count_D = 0; self.edge_values = []			
 		self.loud = False
+		self.c_set_v_pot = 0
 	
 		self.log_state_v = {}
 		self.log_state_v['changed'] = False
@@ -400,7 +401,7 @@ class TCircuitSolverGraph:
 			raise Exception('get_directed_nodes')	
 		return r	
 
-	def set_node_val(self, node, v, label, state, key, directed_nodes_=None, top=None):
+	def set_node_val(self, node, v, label, state, key, directed_nodes_=None, top=None, s_log=""):
 		node.prop[key] = v
 		node.prop['valid'] = state
 		if top != None:
@@ -414,7 +415,7 @@ class TCircuitSolverGraph:
 			self.update_nodal_edges(node.directed_nodes, v, key, label)
 			self.nodal_voltage_log.append(f"Nodes: {m}, {n}, {key}: {v}, top type: {top_str}")
 			if key == 'voltage':
-				self.set_v(node, m, n, v)
+				self.set_v(node, m, n, v, s_log)
 			
 	def get_label_prop(self, node, calc_impedance=False):
 		status = True
@@ -1106,34 +1107,44 @@ class TCircuitSolverGraph:
 	def is_gen_node(self, i):
 		return self.gen['nodes'][0] == i or self.gen['nodes'][1] == i
 		
-	def set_v(self, node, i, j, value):
+	def set_v(self, node, i, j, value, s_log=""):
 		if isinstance(value, complex):
 			f_complex = True
 			re = value.real; im = value.imag
 		else:
 			re = value; im = 0
-		self.log(f"xxx The voltage between node numbers {i} and {j} setting to {self.fv(value)} {uVolt} ... starting ...")
+		#self.log(f"xxx The voltage between node numbers {i} and {j} setting to {self.fv(value)} {uVolt} ... starting ...")
 
 		f_set = True	
 		if self.v_flags[self.i_pass][j]:
 			re = self.v_re[self.i_pass][j]+re
 			m = i
 		else:	
-			if not self.v_flags[self.i_pass][i]:
-				self.log(f"xxx Value {i} is unassigned ...")
+			#if not self.v_flags[self.i_pass][i]:
+			#	self.log(f"xxx Value {i} is unassigned ...")
 			re = self.v_re[self.i_pass][i]-re
 			m = j
 		
 		if f_set:
-			self.set_v_pot(m, re)
+			self.set_v_pot(m, re, s_log)
 
-	def set_v_pot(self, m, value):
+	def set_v_pot(self, m, value, s_log="", force_log=False):
 		if isinstance(value, complex):
 			f_complex = True
 			re = value.real; im = value.imag
 		else:
 			re = value; im = 0
-		self.log(f"xxx The node potential for node number {m} setting to {self.fv(value)} {uVolt}")
+
+		old_re = self.v_re[self.i_pass][m]
+		old_im = self.v_im[self.i_pass][m]
+		if force_log or abs(old_re-re) > 1e-3 or abs(old_im-im) > 1e-3:
+			if s_log != "":
+				s_log = " "+s_log
+			# xxx	
+			self.log(f"The voltage of node {m} was set to {self.fv(value)} {uVolt}"+s_log) 
+			if self.c_set_v_pot == 3:
+				a=1
+			self.c_set_v_pot += 1
 
 		self.v_re[self.i_pass][m] = re	
 		self.v_im[self.i_pass][m] = im
