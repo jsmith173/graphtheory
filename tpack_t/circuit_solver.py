@@ -545,7 +545,7 @@ class TCircuitSolver:
 		if self.graph.use_superposition:
 			#self.logl(self.graph.graph_debug)
 			self.log("We have more than one generator so we are using superposition to calculate voltages/currents.")
-			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to 0 Ohm resistances, used during superposition.")
+			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to very small resistances, used during superposition.")
 			self.log("")
 
 		self.node_potentials_dbg['node_potentials'] = []
@@ -810,6 +810,7 @@ class TCircuitSolver:
 		self.total_impedance = []
 		self.graph.nodal_voltage_log = []
 		self.solver_silent = False; nInserted = 0
+		bkp_request_comp = self.request['comp']
 
 		gen_comp_id = self.gen['prop']['CompId']
 		is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
@@ -866,18 +867,17 @@ class TCircuitSolver:
 		cu.btree_check(T)
 
 		#ampermeters1: processing apmermeters
-		if i_pass == 0:
-			self.request['amper_meter_question'] = False; self.silent = False
-			self.graph.amper_meters = []
-			has_amper_meter = self.check_ampermeters()
-			if has_amper_meter:
-				#get the 'amper_meters'. walk_postorder can not use because it may find another 'series' component (for example 'Shortxx' res) 
-				self.get_amper_meters()
+		self.request['amper_meter_question'] = False; self.silent = False
+		self.graph.amper_meters = []
+		has_amper_meter = self.check_ampermeters()
+		if has_amper_meter:
+			#get the 'amper_meters'. walk_postorder can not use because it may find another 'series' component (for example 'Shortxx' res) 
+			self.get_amper_meters()
 
-				#mark ampetermeters with flags=0
-				self.mark_ampermeters()
+			#mark ampetermeters with flags=0
+			self.mark_ampermeters()
 
-		if i_pass == 0 and has_amper_meter:
+		if has_amper_meter:
 			for item in self.graph.amper_meters:
 				if self.request["comp"] == item["label"]:
 					self.request["comp_ori"] = self.request["comp"]
@@ -1028,6 +1028,8 @@ class TCircuitSolver:
 			list_ = self.graph.json_data["edges"]
 			N = len(list_)
 			list_.pop(N-1)
+		if i_pass < len(self.gens)-1:	
+			self.request['comp'] = bkp_request_comp
 			
 		#finalize 'run_pass' (one pass)
 		node_potentials_pass = []
