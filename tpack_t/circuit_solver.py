@@ -525,7 +525,6 @@ class TCircuitSolver:
 			return 'resistance'
 
 	def run_proc(self, circuit_key):
-		self.clean()
 		for i in range(len(self.gens)):
 			self.gen = self.gens[i]
 			self.graph.i_pass = i
@@ -557,15 +556,23 @@ class TCircuitSolver:
 
 		node_potentials_pass = []
 		for i in range(self.graph.max_node+1):
-			r = 0.0
+			re = 0.0
+			im = 0.0
 			flag = True
 			for j in range(len(self.gens)):
 				flag = flag and self.graph.v_flags[j][i]
-				tmp = self.graph.v_re[j][i]
-				r += tmp
+				tmp_re = self.graph.v_re[j][i]
+				re += tmp_re
+				tmp_im = self.graph.v_im[j][i]
+				im += tmp_im
 				
-			self.graph.v_potentials_re[i] = r
-			s0 = self.graph.fv(r)		
+			self.graph.v_potentials_re[i] = re
+			self.graph.v_potentials_im[i] = im
+			if abs(im) > 1e-15:
+				s0 = self.graph.fv(complex(re, im))
+			else:	
+				s0 = self.graph.fv(re)
+			
 			self.graph.v_node_flags[i] = self.graph.v_node_flags[i] or flag
 			s = f'VP_{i} = {s0}, assigned (and): {flag}'
 			node_potentials_pass.append(s)		
@@ -675,7 +682,7 @@ class TCircuitSolver:
 				n = meter['nodes'][1]
 				
 				v = self.graph.get_diff_v(m, n)			
-				self.log(f"To answer the original question: because the {sMeter} connected to nodes {m} and {n} so the {request_txt} on {show_meter_name} is {self.graph.fv(v)} {cg.uVolt}")
+				self.log(f"To answer the original question: because the {sMeter} connected to node{m} and node{n} so the {request_txt} on {show_meter_name} is V({m},{n})={self.graph.fv(v)} {cg.uVolt}")
 		else:
 			meter_name = self.request["comp_ori"]
 			f, meter = self.graph.find_meter(meter_name)
@@ -1025,12 +1032,23 @@ class TCircuitSolver:
 		#finalize 'run_pass' (one pass)
 		node_potentials_pass = []
 		ref_node = self.graph.GND[0]
-		shift = self.graph.v_re[i_pass][ref_node]
+		shift_re = self.graph.v_re[i_pass][ref_node]
+		shift_im = self.graph.v_im[i_pass][ref_node]
 		a1=1
 		for i in range(self.graph.max_node+1):
 			flag = self.graph.v_flags[i_pass][i]
-			r = self.graph.v_re[i_pass][i]-shift
-			self.graph.v_re[i_pass][i] = r
+			
+			re = self.graph.v_re[i_pass][i]-shift_re
+			im = self.graph.v_im[i_pass][i]-shift_im
+			
+			self.graph.v_re[i_pass][i] = re
+			self.graph.v_im[i_pass][i] = im
+			
+			if abs(im) > 1e-15:
+				r = complex(re, im)
+			else:
+				r = re
+			
 			s0 = self.graph.fv(r)
 			
 			s = f'VP_{i} = {s0}, assigned: {flag}'

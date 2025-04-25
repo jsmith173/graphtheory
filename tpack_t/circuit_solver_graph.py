@@ -102,6 +102,7 @@ class TCircuitSolverGraph:
 		self.v_im = [array('d', [0.0] * self.max_node_num) for _ in range(self.num_pass)]
 		self.v_flags = [array('b', [0] * self.max_node_num) for _ in range(self.num_pass)]
 		self.v_potentials_re = array('d', [0.0] * self.max_node_num)
+		self.v_potentials_im = array('d', [0.0] * self.max_node_num)
 		self.v_node_flags = array('b', [0] * self.max_node_num)
 		self.GND = [array('i', [0] * 100) for _ in range(self.num_pass)]
 		
@@ -123,6 +124,7 @@ class TCircuitSolverGraph:
 		self.try_count = 0; self.try_count_Y = 0; self.try_count_D = 0; self.edge_values = []			
 		self.loud = False
 		self.c_set_v_pot = 0
+		self.log_set_v_pot = False
 	
 		self.log_state_v = {}
 		self.log_state_v['changed'] = False
@@ -225,6 +227,8 @@ class TCircuitSolverGraph:
 			status = self.find_volt_meter()
 			self.request["comp"] = self.meter_prop["prop"]["label"]
 		
+		if self.request["volt_meter_question"]:
+			self.log_set_v_pot = True
 		cu.dump_list(self.json_data, "temp/input.json")
 		return self.has_expected_key, self.expected_key, self.gen, self.request
 	
@@ -1118,15 +1122,21 @@ class TCircuitSolverGraph:
 		f_set = True	
 		if self.v_flags[self.i_pass][j]:
 			re = self.v_re[self.i_pass][j]+re
+			im = self.v_im[self.i_pass][j]+im
 			m = i
 		else:	
 			#if not self.v_flags[self.i_pass][i]:
 			#	self.log(f"xxx Value {i} is unassigned ...")
 			re = self.v_re[self.i_pass][i]-re
+			im = self.v_im[self.i_pass][i]-im
 			m = j
 		
 		if f_set:
-			self.set_v_pot(m, re, s_log)
+			if abs(im) > 1e-15:
+				r = complex(re, im)
+			else:
+				r = re
+			self.set_v_pot(m, r, s_log)
 
 	def set_v_pot(self, m, value, s_log="", force_log=False):
 		if isinstance(value, complex):
@@ -1140,8 +1150,9 @@ class TCircuitSolverGraph:
 		if force_log or abs(old_re-re) > 1e-3 or abs(old_im-im) > 1e-3:
 			if s_log != "":
 				s_log = " "+s_log
-			# xxx	
-			self.log(f"The voltage of node {m} was set to {self.fv(value)} {uVolt}"+s_log) 
+			# xxx
+			if self.log_set_v_pot:
+				self.log(f"The voltage of node{m} was set to {self.fv(value)} {uVolt}"+s_log) 
 			if self.c_set_v_pot == 3:
 				a=1
 			self.c_set_v_pot += 1
@@ -1153,7 +1164,12 @@ class TCircuitSolverGraph:
 			self.max_node = m
 
 	def get_diff_v(self, i, j):
-		r = self.v_potentials_re[i]-self.v_potentials_re[j]
+		re = self.v_potentials_re[i]-self.v_potentials_re[j]
+		im = self.v_potentials_im[i]-self.v_potentials_im[j]
+		if abs(im) > 1e-15:
+			r = complex(re, im)
+		else:
+			r = re
 		return r
 
 	def get_w_speech_unit(self, v_str):

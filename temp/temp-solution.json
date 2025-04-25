@@ -2,14 +2,16 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "R1 and R2 connected in series so Rb=R1+R2=10Ohm+30Ohm=40Ohm",
-                "R and Rb connected in parallel so Ra=R*Rb/(R+Rb)=10Ohm*40Ohm/(10Ohm+40Ohm)=8Ohm",
-                "The total resistance is Ra = 8Ohm"
+                "R3 and R1 connected in series so Rb=R3+R1=2kOhm+1kOhm=3kOhm",
+                "R4 and R2 connected in series so Rc=R4+R2=6kOhm+2kOhm=8kOhm",
+                "Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3kOhm*8kOhm/(3kOhm+8kOhm)=2.18kOhm",
+                "The total resistance is Ra = 2.18kOhm"
             ],
             "total_impedance_txt": [
-                "R1 and R2 connected in series so Rb=R1+R2=10Ohm+30Ohm=40Ohm",
-                "R and Rb connected in parallel so Ra=R*Rb/(R+Rb)=10Ohm*40Ohm/(10Ohm+40Ohm)=8Ohm",
-                "The total resistance is Ra = 8Ohm"
+                "R3 and R1 connected in series so Rb=R3+R1=2kOhm+1kOhm=3kOhm",
+                "R4 and R2 connected in series so Rc=R4+R2=6kOhm+2kOhm=8kOhm",
+                "Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3kOhm*8kOhm/(3kOhm+8kOhm)=2.18kOhm",
+                "The total resistance is Ra = 2.18kOhm"
             ],
             "gen": {
                 "nodes": [
@@ -17,11 +19,11 @@
                     0
                 ],
                 "prop": {
-                    "label": "Is",
+                    "label": "VS1",
                     "match_label": "",
-                    "CompId": 13,
-                    "UniqueID": "T_09F5E26020230605185844",
-                    "value": 2,
+                    "CompId": 14,
+                    "UniqueID": "T_0846E67020091201135340",
+                    "value": 5,
                     "flags": 1,
                     "ac_gen": {
                         "mode": 0
@@ -30,7 +32,14 @@
             }
         }
     ],
-    "circuit": [],
+    "circuit": [
+        "Netlist (component name, nodes)",
+        "R4 3 0",
+        "R3 0 2",
+        "R1 1 2",
+        "R2 3 1",
+        ""
+    ],
     "request": {
         "text": "What is the voltage on VM1?",
         "cmd": "get_voltage",
@@ -46,69 +55,91 @@
     },
     "calculation": {
         "solution": [
-            "The voltage of node 0 was set to 0 Volt (generator Is negativ pole)",
-            "The voltage of node 1 was set to -16 Volt (generator Is voltage)",
+            "Solution by TINA assisted by AI",
+            "The voltage of node0 was set to 0 Volt (generator VS1 negativ pole)",
+            "The voltage of node1 was set to 5 Volt (generator VS1 positive pole)",
             "",
-            "First we calculate the total resistance between the generator nodes (Is)",
-            "R1 and R2 connected in series so Rb=R1+R2=10Ohm+30Ohm=40Ohm",
-            "R and Rb connected in parallel so Ra=R*Rb/(R+Rb)=10Ohm*40Ohm/(10Ohm+40Ohm)=8Ohm",
-            "The total resistance is Ra = 8Ohm",
+            "First we calculate the total resistance between the generator nodes (VS1)",
+            "R3 and R1 connected in series so Rb=R3+R1=2kOhm+1kOhm=3kOhm",
+            "R4 and R2 connected in series so Rc=R4+R2=6kOhm+2kOhm=8kOhm",
+            "Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3kOhm*8kOhm/(3kOhm+8kOhm)=2.18kOhm",
+            "The total resistance is Ra = 2.18kOhm",
             "",
             "Now we calculate the voltage on VM1",
-            "We know that the voltage between Is nodes is 16 Volt, because the generator current is Igen = 2A and the resistance between the generator nodes is Rtot = 8Ohm so the voltage between the generator nodes is Igen*Rtot = 16 Volt",
+            "We know that the voltage between VS1 nodes is 5 Volt.",
             "",
-            "The components R and Rb connected in parallel. The voltage on R is -16 Volt because the voltage on Ra is -16 Volt",
+            "The components Rb and Rc connected in parallel. The voltage on Rb is 5 Volt because the voltage on Ra is 5 Volt",
             "",
-            "The components R and Rb connected in parallel. The voltage on Rb is -16 Volt because the voltage on Ra is -16 Volt",
+            "The components Rb and Rc connected in parallel. The voltage on Rc is 5 Volt because the voltage on Ra is 5 Volt",
             "",
-            "The voltage of node 2 was set to -4 Volt (R1 and R2 in series)",
-            "The components R1 and R2 connected in series.",
-            "The voltage between this components starting and ending node is -16 Volt",
-            "R1 is in the voltage divider so the voltage on R1 is R1/Rb*-16 Volt = -4 Volt ",
+            "The voltage of node2 was set to 3.33 Volt (R3 and R1 in series)",
+            "The components R3 and R1 connected in series.",
+            "The voltage between this components starting and ending node is 5 Volt",
+            "R3 is in the voltage divider so the voltage on R3 is R3/Rb*5 Volt = 3.33 Volt ",
             "",
-            "The components R1 and R2 connected in series.",
-            "The voltage between this components starting and ending node is -16 Volt",
-            "R2 is in the voltage divider so the voltage on R2 is R2/Rb*-16 Volt = -12 Volt ",
+            "The components R3 and R1 connected in series.",
+            "The voltage between this components starting and ending node is 5 Volt",
+            "R1 is in the voltage divider so the voltage on R1 is R1/Rb*5 Volt = 1.67 Volt ",
             "",
-            "To answer the original question: because the voltmeter connected to nodes 2 and 0 so the voltage on VM1 is -4 Volt"
+            "The voltage of node3 was set to 3.75 Volt (R4 and R2 in series)",
+            "The components R4 and R2 connected in series.",
+            "The voltage between this components starting and ending node is 5 Volt",
+            "R4 is in the voltage divider so the voltage on R4 is R4/Rc*5 Volt = 3.75 Volt ",
+            "",
+            "The components R4 and R2 connected in series.",
+            "The voltage between this components starting and ending node is 5 Volt",
+            "R2 is in the voltage divider so the voltage on R2 is R2/Rc*5 Volt = 1.25 Volt ",
+            "",
+            "",
+            "To answer the original question: because the voltmeter connected to node2 and node3 so the voltage on VM1 is -417m Volt"
         ],
         "node_potentials_dbg": {
             "node_potentials": [
                 [
                     "VP_0 = 0, assigned: 1",
-                    "VP_1 = -16, assigned: 1",
-                    "VP_2 = -4, assigned: 1"
+                    "VP_1 = 5, assigned: 1",
+                    "VP_2 = 3.33, assigned: 1",
+                    "VP_3 = 3.75, assigned: 1"
                 ],
                 [
                     "VP_0 = 0, assigned (and): 1",
-                    "VP_1 = -16, assigned (and): 1",
-                    "VP_2 = -4, assigned (and): 1"
+                    "VP_1 = 5, assigned (and): 1",
+                    "VP_2 = 3.33, assigned (and): 1",
+                    "VP_3 = 3.75, assigned (and): 1"
                 ]
             ],
             "item_voltages": [
                 {
                     "nodes": [
                         1,
-                        0
-                    ],
-                    "label": "R",
-                    "value": "-16"
-                },
-                {
-                    "nodes": [
-                        2,
-                        0
-                    ],
-                    "label": "R1",
-                    "value": "-4"
-                },
-                {
-                    "nodes": [
-                        1,
                         2
                     ],
+                    "label": "R1",
+                    "value": "1.67"
+                },
+                {
+                    "nodes": [
+                        3,
+                        1
+                    ],
                     "label": "R2",
-                    "value": "-12"
+                    "value": "-1.25"
+                },
+                {
+                    "nodes": [
+                        0,
+                        2
+                    ],
+                    "label": "R3",
+                    "value": "-3.33"
+                },
+                {
+                    "nodes": [
+                        3,
+                        0
+                    ],
+                    "label": "R4",
+                    "value": "3.75"
                 }
             ]
         },
@@ -116,26 +147,39 @@
             {
                 "label": "Rb",
                 "origin": "series",
-                "value": "40Ohm",
+                "value": "3kOhm",
                 "labels": [
-                    "R1",
+                    "R3",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "T_0846D7A020091201135340",
+                    "T_0846D2B020091201135340"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "series",
+                "value": "8kOhm",
+                "labels": [
+                    "R4",
                     "R2"
                 ],
                 "unique_labels": [
-                    "T_09F5D39020230605185844",
-                    "NNLCI0KS8CCJ7CVP2FJ5I3B4"
+                    "T_0846DC9020091201135340",
+                    "T_0846CDC020091201135340"
                 ]
             },
             {
                 "label": "Ra",
                 "origin": "parallel",
-                "value": "8Ohm",
+                "value": "2.18kOhm",
                 "labels": [
-                    "R",
-                    "Rb"
+                    "Rb",
+                    "Rc"
                 ],
                 "unique_labels": [
-                    "T_09F5D88020230605185844",
+                    "<block>",
                     "<block>"
                 ]
             }
