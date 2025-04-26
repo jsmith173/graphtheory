@@ -591,13 +591,35 @@ class TCircuitSolver:
 			j = item['nodes'][1]
 			new_item['nodes'] = item['nodes']			
 			new_item['label'] = item['label']
-			if self.graph.find_in_json(item['label']) >= 0:
-				if self.graph.v_node_flags[i] and self.graph.v_node_flags[j]:
-					r = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
-					new_item['value'] = self.graph.fv(r)		
-				else:	
-					new_item['value'] = '<unassigned>'
-				self.node_potentials_dbg['item_voltages'].append(new_item)
+			idx = self.graph.find_in_json(item['label'])
+			if idx >= 0:
+				e = self.graph.json_data["edges"][idx]
+				if self.graph.is_resistive_compid(e['prop']['CompId']):
+					value = e['prop']['value']
+					new_item['value'] = value
+					if self.graph.v_node_flags[i] and self.graph.v_node_flags[j]:
+						re = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
+						im = self.graph.v_potentials_im[i]-self.graph.v_potentials_im[j]					
+						if abs(im) > 1e-15:
+							r = complex(re, im)
+						else:
+							r = re					
+						new_item['voltage'] = self.graph.fv(r)						
+						
+						current = r/value
+						
+						if isinstance(current, complex):
+							re = current.real; im = current.imag
+						else:
+							re = current; im = 0
+						self.graph.v_currents_re[i][j] = re
+						self.graph.v_currents_im[i][j] = im
+						
+						new_item['current'] = self.graph.fv(current)					
+					else:	
+						new_item['voltage'] = '<unassigned>'
+						new_item['current'] = '<unassigned>'
+					self.node_potentials_dbg['item_voltages'].append(new_item)
 		##
 
 		self.write_log(1, 'OK', 0, True)
@@ -710,6 +732,7 @@ class TCircuitSolver:
 				#	self.log(f"We have considered also that the {request_txt} direction on {comp} is reversed")
 			else:
 				#ampermeters1
+				status, v = self.calc_current(comp)
 				f = False
 				for i in range(len(meter['nodes'])):
 					item = meter['nodes'][i]
@@ -734,7 +757,43 @@ class TCircuitSolver:
 
 		#self.log(f"We have considered also the sign of the {request_txt} on {comp}")
 
+	def match_nodes(self, n1, n2):
+		sign_rev = False
+		if n1[0] == n2[0] and n1[1] == n2[1]:
+			return True, sign_rev
+		elif n1[0] == n2[1] and n1[1] == n2[0]:
+			sign_rev = True
+			return True, sign_rev
+		else:
+			return False, False
+		
+	def calc_current(self, comp):
+		idx = self.graph.find_in_json(comp)
+		if idx >= 0:
+			e = self.graph.json_data["edges"][idx]
+			for item in self.node_potentials_dbg['item_voltages']:
+				if item['label'] == comp:
+					f, sign_rev = self.match_nodes(e['nodes'], item['nodes'])
+					if f:
+						i = e['nodes'][0]
+						j = e['nodes'][1]
+						re = self.graph.v_currents_re[i][j]
+						im = self.graph.v_currents_im[i][j]
+						if sign_rev:
+							re = -re
+							im = -im
+						
+						if abs(im) > 1e-15:
+							r = complex(re, im)
+						else:	
+							r = re
+						
+						return True, r					
+		return False, 0					
+
 	def calc_final_nodal_edge(self, item, key):
+		return 0, ""
+		
 		items = item[f"{key}_items"]
 		item2 = items[0]
 		if item2['original_dir']:

@@ -104,6 +104,10 @@ class TCircuitSolverGraph:
 		self.v_flags = [array('b', [0] * self.max_node_num) for _ in range(self.num_pass)]
 		self.v_potentials_re = array('d', [0.0] * self.max_node_num)
 		self.v_potentials_im = array('d', [0.0] * self.max_node_num)
+
+		self.v_currents_re = [array('d', [0.0] * self.max_node_num) for _ in range(self.max_node_num)]
+		self.v_currents_im = [array('d', [0.0] * self.max_node_num) for _ in range(self.max_node_num)]
+
 		self.v_node_flags = array('b', [0] * self.max_node_num)
 		self.GND = [array('i', [0] * 100) for _ in range(self.num_pass)]
 		
@@ -116,6 +120,14 @@ class TCircuitSolverGraph:
 		for i in range(self.num_pass):
 			for j in range(self.max_node_num):
 				self.v_im[i][j] = 0.0
+				
+		for i in range(self.max_node_num):
+			for j in range(self.max_node_num):
+				self.v_currents_re[i][j] = 0.0
+		for i in range(self.max_node_num):
+			for j in range(self.max_node_num):
+				self.v_currents_im[i][j] = 0.0
+				
 		for i in range(self.num_pass):
 			for j in range(self.max_node_num):
 				self.v_flags[i][j] = False
@@ -330,6 +342,9 @@ class TCircuitSolverGraph:
 		
 	def is_resistive_or_ampmet_compid(self, comp_id):
 		return comp_id == RES_ or comp_id == AMPER_METER_ or comp_id == AMPER_METER2_
+	
+	def is_resistive_compid(self, comp_id):
+		return comp_id == RES_ or comp_id == IND_ or comp_id == CAP_
 	
 	def get_comp_val(self, edge):
 		comp_id = edge.prop['CompId']
