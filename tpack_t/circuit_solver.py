@@ -627,26 +627,15 @@ class TCircuitSolver:
 
 		comp = self.request["comp"]
 		request_txt = cu.get_request_txt(self.request)
-		if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
-			self.graph.calc_final_nodal_edges(request_txt)
 
 		meter_question = (self.request['cmd'] == 'get_voltage' and self.request['volt_meter_question'] or \
 		                  self.request['cmd'] == 'get_current' and self.request['amper_meter_question'])
 			
-		if self.graph.use_superposition and not meter_question:
-			self.log(f"")
+		if self.graph.use_superposition and not meter_question and not self.request['ohm_meter_question']:
 			self.log(f"Now we are using superposition to calculate the {request_txt} on {comp}")
-
-			idx = self.graph.find_edge_value_by_label(comp)
-			if idx < 0:
-				raise Exception(f"Comp not found while trying to calculate superposition: {comp}")
-			value = self.graph.edge_values[idx]
-
-			self.log(f"Let's summarize the calculations from the previous section.")
-			#self.log("When you see subtraction here it means that the original direction reversed.")
-			#self.log("The direction of voltage/current determined by TINA.")
-			v, v_str = self.calc_final_nodal_edge(value, request_txt)
-			self.log(f"'{request_txt} on {comp}' = {v_str} = {self.graph.fv(v)}{self.unit}")
+			self.log(f"Let's summarize the calculations from the previous sections.")
+			f, v = self.get_final_value(comp, request_txt)
+			self.log(f"'{request_txt} on {comp}' = {self.graph.fv(v['value'])}{self.unit}")
 
 		#after run_pass
 		if (self.request['cmd'] == 'get_voltage' and self.request['volt_meter_question'] or \
@@ -679,11 +668,7 @@ class TCircuitSolver:
 	def get_result(self):
 		request_txt = cu.get_request_txt(self.request)
 		comp = self.request["comp"]
-		idx = self.graph.find_edge_value_by_label(comp)
-		if idx < 0:
-			raise Exception(f"{comp} not found while trying to calculate the meter {meter_name}")
-		value = self.graph.edge_values[idx]
-		return self.calc_final_nodal_edge(value, request_txt)
+		return 0 #TODO
 	
 	def answer_meter(self):
 		request_txt = cu.get_request_txt(self.request)
@@ -713,26 +698,18 @@ class TCircuitSolver:
 				meter = self.graph.meter_prop
 
 			comp = self.request["comp"]
-			idx = self.graph.find_edge_value_by_label(comp)
-			if idx < 0:
-				raise Exception(f"{comp} not found while trying to calculate the meter {meter_name}")
-			value = self.graph.edge_values[idx]
-			v, v_str = self.calc_final_nodal_edge(value, request_txt)
-
 			if request_txt == "voltage":
-				if value['nodes'] == meter['nodes']:
-					polarity = 1.0
-				else:
-					polarity = -1.0	
-				v = v*polarity
-				self.log(f"To answer the original question: because the {sMeter} connected to {comp} parallel so the {request_txt} on {meter_name} is {self.graph.fv(v)} {cg.uVolt}")
+				status, v = self.get_final_value(comp, request_txt)
+				polarity = 1.0
+				v1 = v['value']*polarity
+				self.log(f"To answer the original question: because the {sMeter} connected to {comp} parallel so the {request_txt} on {meter_name} is {self.graph.fv(v1)} {cg.uVolt}")
 				#if polarity < 0:
 				#	self.log(f"We have considered also that the polarity of the {sMeter} does not match the {request_txt} direction on {comp}")
 				#if reversed and not self.graph.use_superposition:
 				#	self.log(f"We have considered also that the {request_txt} direction on {comp} is reversed")
 			else:
 				#ampermeters1
-				status, v = self.calc_current(comp)
+				status, value = self.get_final_value(comp, request_txt)
 				f = False
 				for i in range(len(meter['nodes'])):
 					item = meter['nodes'][i]
@@ -750,8 +727,8 @@ class TCircuitSolver:
 						polarity = 1.0
 					elif ii == AM_MINUS_NODE and jj == SECOND_NODE or ii == AM_PLUS_NODE and jj == FIRST_NODE:
 						polarity = -1.0
-					v = v*polarity			
-					self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {self.graph.fv(v)} {cg.uCurrent}")
+					v1 = value['value']*polarity			
+					self.log(f"To answer the original question: because the {meter_name} {sMeter} connected to {comp} in series so the {request_txt} on {meter_name} is {self.graph.fv(v1)} {cg.uCurrent}")
 					#if polarity < 0:
 					#	self.log(f"We have considered also that the direction of the {sMeter} does not match the {request_txt} direction on {comp}")
 
@@ -767,8 +744,9 @@ class TCircuitSolver:
 		else:
 			return False, False
 		
-	def calc_current(self, comp):
+	def get_final_value(self, comp, request_txt):
 		idx = self.graph.find_in_json(comp)
+		v = {}
 		if idx >= 0:
 			e = self.graph.json_data["edges"][idx]
 			for item in self.node_potentials_dbg['item_voltages']:
@@ -777,42 +755,26 @@ class TCircuitSolver:
 					if f:
 						i = e['nodes'][0]
 						j = e['nodes'][1]
-						re = self.graph.v_currents_re[i][j]
-						im = self.graph.v_currents_im[i][j]
+						if request_txt == 'voltage':
+							re = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
+							im = self.graph.v_potentials_im[i]-self.graph.v_potentials_im[j]					
+						elif request_txt == 'current':
+							re = self.graph.v_currents_re[i][j]
+							im = self.graph.v_currents_im[i][j]
+						else:
+							re = 0
+							im = 0
 						if sign_rev:
 							re = -re
-							im = -im
-						
+							im = -im					
 						if abs(im) > 1e-15:
 							r = complex(re, im)
 						else:	
 							r = re
-						
-						return True, r					
-		return False, 0					
-
-	def calc_final_nodal_edge(self, item, key):
-		return 0, ""
-		
-		items = item[f"{key}_items"]
-		item2 = items[0]
-		if item2['original_dir']:
-			v0 = item2[key]
-		else:	
-			v0 = -item2[key]
-		v_str = f"{self.graph.fv(v0)}{self.unit}"
-		v = v0; i = 1
-		while i < len(items):
-			item2 = items[i]
-			v0 = item2[key]
-			if item2['original_dir']:
-				v = v+v0
-				v_str = v_str+f"+{self.graph.fv(v0)}{self.unit}"
-			else:	
-				v = v-v0
-				v_str = v_str+f"-{self.graph.fv(v0)}{self.unit}"
-			i = i+1	
-		return v, v_str
+						v['value'] = r	
+						v['nodes'] = copy.deepcopy(item['nodes'])
+						return True, v					
+		return False, v					
 
 	def mark_ampermeters(self):
 		i = 0; list_ = self.graph.json_data["edges"]

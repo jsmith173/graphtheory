@@ -11,7 +11,7 @@ from copy import copy, deepcopy
 from tpack_t import circuit_solver_util as cu
 from array import array
 import math, cmath
-
+ 
 #for the pack_prefix the actual precision is precision+1 
 PRECISION = 3
 RMIN = 1e-12
@@ -432,7 +432,6 @@ class TCircuitSolverGraph:
 			node.directed_nodes = directed_nodes_
 			m = node.directed_nodes[0]
 			n = node.directed_nodes[1]
-			self.update_nodal_edges(node.directed_nodes, v, key, label)
 			self.nodal_voltage_log.append(f"Nodes: {m}, {n}, {key}: {v}, top type: {top_str}")
 			if key == 'voltage':
 				self.set_v(node, m, n, v, s_log)
@@ -940,60 +939,6 @@ class TCircuitSolverGraph:
 			if item['label'] == label:
 				return i
 		return -1	
-
-	def calc_final_nodal_edges(self, key):
-		for i in range(len(self.edge_values)):
-			item = self.edge_values[i]
-			v = 0.0; new_key = f"{key}_items"
-			if new_key in item.keys():
-				c = len(item[new_key])
-			else:
-				c = 0	
-			for j in range(c):
-				item2 = item[new_key][j]
-				if item2['original_dir']:
-					v = v+item2[key]
-				else:	
-					v = v-item2[key]
-			item[key] = v
-
-	def update_nodal_edges(self, directed_nodes, v, key, label):
-		if key == 'current'and label != '':
-			idx = self.find_in_json(label)
-		else:	
-			idx, original_dir = self.find_in_json_by_nodes(directed_nodes)
-		if idx >= 0:
-			item = self.json_data["edges"][idx]
-			new_item = {}
-			new_item['label'] = item['prop']['label']
-			new_item['nodes'] = item['nodes']
-
-			#get the direction from 'dctable'
-			f, original_dir = self.getdir_from_dctable(self.i_pass, item['prop']['label'], "currents")
-
-			new_item2 = {}
-			new_item2[key] = v
-			new_item2['original_dir'] = original_dir
-
-			new_key = f"{key}_items"
-			idx = self.find_edge_value(new_item['nodes'], new_item['label'])
-			if idx >= 0:
-				new_item = self.edge_values[idx]
-				if new_key in new_item.keys():
-					N = len(new_item[new_key]); m = N-1
-					if m == self.i_pass:
-						new_item[new_key][m] = new_item2
-					elif m+1 == self.i_pass:
-						new_item[new_key].append(new_item2)
-					else:
-						pass	
-				else:
-					new_item[new_key] = []
-					new_item[new_key].append(new_item2)
-			else:
-				new_item[new_key] = []
-				new_item[new_key].append(new_item2)
-				self.edge_values.append(new_item)
 
 	def update_edges_json(self):
 		for item in self.graph_update:
