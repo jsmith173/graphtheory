@@ -220,7 +220,7 @@ class TCircuitSolverGraph:
 		self.request["volt_meter_question"] = False
 		self.request["volt_meter_no_match"] = False
 		self.request["comp_ori"] = self.request["comp"]
-		idx = self.find_edge_value_by_label(self.request["comp"])
+		idx = self.find_in_json(self.request["comp"])
 		request_comp_normal = idx >= 0
 
 		if not request_comp_normal and self.request["cmd"] == "get_voltage":
@@ -926,20 +926,6 @@ class TCircuitSolverGraph:
 	def match_node(self, edge, m):
 		return edge['nodes'][0] == m or edge['nodes'][1] == m
 		
-	def find_edge_value(self, nodes, label):
-		for i in range(len(self.edge_values)):
-			item = self.edge_values[i]
-			if item['label'] == label and item['nodes'] == nodes:
-				return i
-		return -1	
-
-	def find_edge_value_by_label(self, label):
-		for i in range(len(self.edge_values)):
-			item = self.edge_values[i]
-			if item['label'] == label:
-				return i
-		return -1	
-
 	def update_edges_json(self):
 		for item in self.graph_update:
 			if item['key'] == 'deledge':		

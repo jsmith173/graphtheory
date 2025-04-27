@@ -1081,31 +1081,7 @@ class TCircuitSolver:
 	def write_log(self, valid, status, error_code=0, save_files=True):
 		if error_code > 0:
 			self.graph.solution_log.append('Failed: see codes')
-
-		edge_values_ = sorted(self.graph.edge_values, key=lambda d: d['label']) 
-		
-		#if self.opts['debug_mode'] == 1:
-		#	self.solution['edge_values'] = edge_values_ #tartalmazhat komplex szamokat is, amit a json nem tud kiirni: ne legyen benne a logban
-
-		result = []
-		for item in edge_values_:
-			new_item = {}; new_item['label'] = item['label']
-			for key in ["voltage", "current"]:
-				if key in item.keys():
-					new_value = {}
-					value = item[key]
-					if isinstance(value, complex):
-						re = value.real; im = value.imag
-						new_value['numtype'] = 'complex'
-						new_value['re'] = re; new_value['im'] = im
-					else:
-						new_value['numtype'] = 'real'
-						new_value['re'] = value.real
-					new_item[key] = new_value
-			result.append(new_item)	
-		#self.solution['gens'] = self.used_gens
-		#self.solution['result'] = result
-
+	
 		calculation = {}
 		calculation['solution'] = self.graph.solution_log
 		calculation['node_potentials_dbg'] = self.node_potentials_dbg
