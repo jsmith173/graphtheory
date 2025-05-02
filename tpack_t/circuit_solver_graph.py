@@ -14,8 +14,8 @@ import math, cmath
  
 #for the pack_prefix the actual precision is precision+1 
 PRECISION = 3
-RMIN = 1e-12
-
+RMIN_SMALL = 1e-12
+RMIN_ZERO = 0
 
 RES_ = 9; CAP_ = 10; IND_ = 11; 
 RESMET_ = 8; RESMET2_ = 98
@@ -138,6 +138,7 @@ class TCircuitSolverGraph:
 		self.loud = False
 		self.c_set_v_pot = 0
 		self.log_set_v_pot = False
+		self.RMIN = 0
 	
 		self.log_state_v = {}
 		self.log_state_v['changed'] = False
@@ -1153,7 +1154,7 @@ class TCircuitSolverGraph:
 			return f"{r_str} {fi_str}\N{DEGREE SIGN} "
 		else:
 			#removing trailing zeros (and .) if needed
-			if abs(v) < RMIN:
+			if abs(v) < self.RMIN:
 				v = 0.0
 			num = p.Float(v)
 			v_str = f'{num:.{PRECISION}H}'

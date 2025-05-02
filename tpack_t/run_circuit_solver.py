@@ -6,7 +6,7 @@ import json, os
 def test_one_file_no_exc(fn, key, opts):
 	solver = TCircuitSolver("data/"+fn, opts)
 	solver.prepare_solver(key)
-	solver.run(key)
+	solver.run_w_check(key)
 	print(f"fn: {fn}, OK")
 	print(""); print("")
 		
@@ -14,7 +14,7 @@ def test_one_file(fn, key, opts):
 	try:
 		solver = TCircuitSolver("data/"+fn, opts)
 		solver.prepare_solver(key)
-		solver.run(key)
+		solver.run_w_check(key)
 		print(f"fn: {fn}, OK")
 		print(""); print("")
 	except SolverException as e:
@@ -36,7 +36,7 @@ def test_all_proc(fn, key, opts):
 	try:
 		solver = TCircuitSolver("data/"+fn, opts)
 		expected_key = solver.prepare_solver(key)
-		solver.run(key)
+		solver.run_w_check(key)
 		print(f"fn: {fn}, key: {key}, OK")
 		print(""); print("")
 	except ValueError as e:
@@ -77,8 +77,8 @@ def run():
 
 	test_request = {
 		"text": "",
-		"cmd": "get_voltage",
-		"comp": "R1",
+		"cmd": "get_current",
+		"comp": "AM1",
 		"options": 0,
 		"qid": "0"
 	}
@@ -105,8 +105,8 @@ def run():
 	opts['test_Y'] = 1
 	opts['test_D'] = 1
 	opts['log_info'] = 1
-	opts['override_request'] = 0
-	#opts['request'] = test_request
+	opts['override_request'] = 1
+	opts['request'] = test_request
 
 	if mode_release == 1:
 		opts['mode_all_files'] = 0
@@ -119,7 +119,8 @@ def run():
 
 	with open(f'data/{test_file}', 'r') as f:
 		json_data = json.load(f)
-		opts['request'] = json_data['request']
+		if opts['override_request'] == 0:
+			opts['request'] = json_data['request']
 		
 	if opts['mode_all_files'] == 1:
 		opts['override_request'] = 0

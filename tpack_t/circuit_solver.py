@@ -19,6 +19,9 @@ def pos_fn(sub, s):
 	index = s_.find(sub_)
 	return index
 
+class ShortCircuitException(Exception):
+    pass
+	
 class SolverException(Exception):
     pass
 	
@@ -59,6 +62,7 @@ class TCircuitSolver:
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
 		self.ignored_resistances = []
+		self.short_circuit_pass = 0
 		
 		if self.opts != None and 'request' in self.opts.keys():
 			if (self.opts['request']['options'] & cg.LLM_LOUD) != 0:
@@ -72,8 +76,7 @@ class TCircuitSolver:
 				self.graph.sMul = '*'
 				self.graph.sOmega = 'w'
 				self.graph.sHz = 'Hz'
-				self.graph.loud = False
-		
+				self.graph.loud = False		
 		
 	def prepare_solver(self, circuit_key):
 		self.solution = {}
@@ -443,7 +446,13 @@ class TCircuitSolver:
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current':
-						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(new_val[i]/impedance[i])} {cg.uCurrent}")
+					
+						try:
+							r = new_val[i]/impedance[i]
+						except ZeroDivisionError as e:
+							raise ShortCircuitException("Division by zero in current calculation") from e
+						
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(r)} {cg.uCurrent}")
 					self.log("")
 
 				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node) 
@@ -530,12 +539,30 @@ class TCircuitSolver:
 			self.graph.i_pass = i
 			self.run_pass(circuit_key, i)	
 		self.solver_silent = False		
+
+	def run_w_check(self, circuit_key):
+		i = 0
+		in_cycle = True
+		RMIN = cg.RMIN_ZERO
+		while i < 10 and in_cycle:
+			try:
+				in_cycle = False
+				self.run(circuit_key, RMIN)
+			except ShortCircuitException as e:
+				in_cycle = True
+				self.clean()
+				RMIN = cg.RMIN_SMALL
+				self.short_circuit_pass = 1
+				i += 1
+			except Exception as e:
+				raise	
 	
-	def run(self, circuit_key):
+	def run(self, circuit_key, RMIN=0):
 		self.gens = self.graph.json_data['gens']
 		self.nGens = len(self.graph.json_data['gens'])
 		self.solution['superposition'] = []
 		self.block_labels = []; self.used_gens = []
+		self.graph.RMIN = RMIN
 
 		self.graph.debug_graph()
 
@@ -633,7 +660,7 @@ class TCircuitSolver:
 			
 		if self.graph.use_superposition and not meter_question and not self.request['ohm_meter_question']:
 			self.log(f"Now we are using superposition to calculate the {request_txt} on {comp}")
-			self.log(f"Let's summarize the calculations from the previous sections.")
+			self.log(f"Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.")
 			f, v = self.get_final_value(comp, request_txt)
 			self.log(f"'{request_txt} on {comp}' = {self.graph.fv(v['value'])}{self.unit}")
 
@@ -671,6 +698,9 @@ class TCircuitSolver:
 		return 0 #TODO
 	
 	def answer_meter(self):
+		if self.graph.use_superposition:
+			self.log(f"Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.")
+	
 		request_txt = cu.get_request_txt(self.request)
 		if request_txt == "voltage":
 			sMeter = "voltmeter"
@@ -824,266 +854,270 @@ class TCircuitSolver:
 				raise Exception(f"Resistive component not found for ampermeter {am_label}")	
 
 	def run_pass(self, circuit_key, i_pass):
-		self.graph.computed_id = 0; self.graph.y_computed_id = 0; 
-		self.graph.i_pass = i_pass
-		self.total_impedance_ori_txt = []
-		self.total_impedance_txt = []
-		self.total_impedance = []
-		self.graph.nodal_voltage_log = []
-		self.solver_silent = False; nInserted = 0
-		bkp_request_comp = self.request['comp']
+		try:
+			self.graph.computed_id = 0; self.graph.y_computed_id = 0; 
+			self.graph.i_pass = i_pass
+			self.total_impedance_ori_txt = []
+			self.total_impedance_txt = []
+			self.total_impedance = []
+			self.graph.nodal_voltage_log = []
+			self.solver_silent = False; nInserted = 0
+			self.bkp_request_comp = self.request['comp']
 
-		gen_comp_id = self.gen['prop']['CompId']
-		is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
-		
-		#init 'run_pass'
-		#voltage gens: add extra edge before 'get_graph'
-		for j in range(len(self.gens)):
-			if j != i_pass:
-				gen = self.gens[j]
+			gen_comp_id = self.gen['prop']['CompId']
+			is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
+			
+			#init 'run_pass'
+			#voltage gens: add extra edge before 'get_graph'
+			for j in range(len(self.gens)):
+				if j != i_pass:
+					gen = self.gens[j]
 
-				gen_comp_id = gen['prop']['CompId']
-				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
+					gen_comp_id = gen['prop']['CompId']
+					is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 
-				if is_v_gen:
-					item = self.graph.create_item(gen, j, cg.RMIN)
-					self.graph.json_data["edges"].append(item)
-					nInserted += 1
+					if is_v_gen:
+						item = self.graph.create_item(gen, j, self.graph.RMIN)
+						self.graph.json_data["edges"].append(item)
+						nInserted += 1
 
-		G = self.graph.get_graph(circuit_key)
+			G = self.graph.get_graph(circuit_key)
 
-		#self.solution['gen'] = self.gen
-		self.solution['circuit'] = self.graph.graph_debug
-		self.solution['request'] = self.request
-		if self.graph.use_superposition:
-			#self.log(f"Pass{i_pass+1} started")
-			self.log(f"###Processing generator {self.gen['prop']['label']}")
-		
-		self.mod = []
-		#self.set_edge_directions()				
-		#G = self.get_graph(circuit_key, True)
-
-		if self.graph.show_tree == 1:
-			for e in G.iteredges():
-		 		print(e)
-			print("")	
-			for item in self.graph.graph_debug:
-				print(item)
-			print("")	
-
-		fixed_ends = tuple(self.gen['nodes'])
-
-		if self.graph.opts['test_Y'] == 1 or self.graph.opts['test_D'] == 1:
-			status = self.graph.check_YD(fixed_ends)
-			if status == 1:
-				self.graph.solution_log.extend(self.graph.yd_log)
-				self.graph.update_edges_json()
-			G = self.graph.G
-		T = find_sptree(G, fixed_ends)
-
-		if self.graph.show_tree == 1:
-			cu.btree_print3(T); print("")
-
-		#graph check
-		cu.btree_check(T)
-
-		#ampermeters1: processing apmermeters
-		self.request['amper_meter_question'] = False; self.silent = False
-		self.graph.amper_meters = []
-		has_amper_meter = self.check_ampermeters()
-		if has_amper_meter:
-			#get the 'amper_meters'. walk_postorder can not use because it may find another 'series' component (for example 'Shortxx' res) 
-			self.get_amper_meters()
-
-			#mark ampetermeters with flags=0
-			self.mark_ampermeters()
-
-		if has_amper_meter:
-			for item in self.graph.amper_meters:
-				if self.request["comp"] == item["label"]:
-					self.request["comp_ori"] = self.request["comp"]
-					self.request["comp"] = item["match_label"]
-					self.request['amper_meter_question'] = True
-					break
-			self.check_amper_meter_question()
-
-		#get path for 'comp'
-		paths = []		
-		cu.btree_print_all_path(T, [], paths)
-		if self.graph.show_tree == 1:
-			for path in paths:
-				sPath = self.graph.path2str(path)
-				print(sPath)
-			print("")
-
-		label = self.request['comp']
-		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']; self.request_path = ''
-		if gen_name == comp_label:
-			self.request['req_on_gen'] = True
-		elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance' and not self.request["volt_meter_no_match"]:	
-			status = self.graph.find_edge_in_G(label)
-			if not status:
-				raise Exception(f"{label} not found in the circuit. Analysis stopped.")
-			status, self.request_path = self.graph.find_path(label, paths)	
-			if not status:
-				raise RequestException(f"Request error: {label} not found")
-			sPath = self.graph.path2str(self.request_path)
-			if self.graph.show_tree == 1:
-				print(sPath)
-
-		#calculating the impedance
-		self.prev_type = None; self.calc_symbols = []
-		self.ignored_resistances = []
-		self.walk_postorder(T)
-		self.finalize_calc_impedance(T)
-		if self.has_expected_key:
-			T.prop['expected'] = self.expected_key['res_req']
-		T.prop['circuit_key'] = circuit_key
-		if self.graph.show_result:
-			print(""); print(T.prop)
-
-		self.formula = T.formula	
-		#if self.has_expected_key and abs(self.expected_key['res_imp']-T.prop['impedance']) > 1e-4:
-		#	raise SolverException(f"Solver error: {self.fn}")
-		
-		#Prepare gen
-		gen_new_value = self.get_gen_value()
-		ac_gen = self.gen['prop']['ac_gen'] 
-
-		# Prepare log
-		if self.request['cmd'] == 'get_voltage':
-			self.unit = "V"
-		elif self.request['cmd'] == 'get_current':
-			self.unit = "A"
-		elif self.request['cmd'] == 'get_impedance' or self.request['cmd'] == 'get_total_impedance':
-			self.unit = "Ohm"
-		comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
-		if self.request["volt_meter_question"] and comp_label == '':
-			comp_label = 'voltmeter'
-		request_txt = cu.get_request_txt(self.request)
-		if i_pass == 0:
-			if ac_gen['mode'] == 1:
-				freq = self.graph.fv(ac_gen['Freq'])
-				self.log(f"This is an AC calculation")
-				self.log(f"We know that the generator frequency is f={freq}{self.graph.sHz}, {self.graph.sOmega}=2{self.graph.sMul}pi{self.graph.sMul}f")
-
-		# calculating voltage/currents
-		# set values on top node
-		#if i_pass == 0:
-		#	self.graph.set_v_pot(0, 0.0)		
-		#self.log(f"xxx Gen: set voltage...")
-		#self.log(f"xxx GND is: {self.gen['nodes'][1]}")
-		self.graph.GND[i_pass] = self.gen['nodes'][1]
-		#self.graph.set_v_pot(self.gen['nodes'][1], 0)	
-		self.graph.set_v_pot(self.graph.GND[i_pass], 0.0, f"(generator {gen_name} negativ pole)", True)		
-		if gen_new_value['quantity'] == 'voltage':
-			self.graph.set_v_pot(self.gen['nodes'][0], gen_new_value['value'], f"(generator {gen_name} positive pole)")		
-		self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
-		if gen_new_value['quantity'] == 'voltage':
-			#self.graph.set_v(T.target, T.source, T.prop['voltage'])
-			self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
-		else:
-			voltage_val = T.prop['current']*T.prop['impedance']	
-			self.graph.set_node_val(T, -voltage_val, '', True, 'voltage', self.gen['nodes'], None, f"(generator {gen_name} voltage)") 
-		self.log("")
-
-		if not self.request['ohm_meter_question']:
-			self.log(f"First we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
-		self.logl(self.total_impedance_txt)
-		if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
-			self.log("")
-			self.log(f"Now we calculate the {request_txt} on {comp_label}")
-
-			val_str = f"{self.graph.fv(gen_new_value['value'])}{gen_new_value['unit']}"
-			if gen_new_value['quantity'] == 'voltage':
-				val_str = f"{self.graph.fv(gen_new_value['value'])} {cg.uVolt}"
-				self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
-			else:	
-				voltage_str = f"{self.graph.fv(voltage_val)} {cg.uVolt}"
-				self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
-						  f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {self.graph.fv(T.prop['impedance'])}Ohm so "
-						  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
-
+			#self.solution['gen'] = self.gen
+			self.solution['circuit'] = self.graph.graph_debug
+			self.solution['request'] = self.request
 			if self.graph.use_superposition:
-				gen_comp_id = self.gen['prop']['CompId']
-				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
-				if is_v_gen:
-					self.log(f"All voltage generators except for {gen_name} have been replaced with a short circuit.")
-					self.log(f"All current generators have been replaced with an open circuit.")
-				else:
-					self.log(f"All voltage generators have been replaced with a short circuit.")
-					self.log(f"All current generators except for {gen_name} have been replaced with an open circuit.")
+				#self.log(f"Pass{i_pass+1} started")
+				self.log(f"###Processing generator {self.gen['prop']['label']}")
+			
+			self.mod = []
+			#self.set_edge_directions()				
+			#G = self.get_graph(circuit_key, True)
 
-			self.used_gens.append(gen_name)	
+			if self.graph.show_tree == 1:
+				for e in G.iteredges():
+					print(e)
+				print("")	
+				for item in self.graph.graph_debug:
+					print(item)
+				print("")	
+
+			fixed_ends = tuple(self.gen['nodes'])
+
+			if self.graph.opts['test_Y'] == 1 or self.graph.opts['test_D'] == 1:
+				status = self.graph.check_YD(fixed_ends)
+				if status == 1:
+					self.graph.solution_log.extend(self.graph.yd_log)
+					self.graph.update_edges_json()
+				G = self.graph.G
+			T = find_sptree(G, fixed_ends)
+
+			if self.graph.show_tree == 1:
+				cu.btree_print3(T); print("")
+
+			#graph check
+			cu.btree_check(T)
+
+			#ampermeters1: processing apmermeters
+			self.request['amper_meter_question'] = False; self.silent = False
+			self.graph.amper_meters = []
+			has_amper_meter = self.check_ampermeters()
+			if has_amper_meter:
+				#get the 'amper_meters'. walk_postorder can not use because it may find another 'series' component (for example 'Shortxx' res) 
+				self.get_amper_meters()
+
+				#mark ampetermeters with flags=0
+				self.mark_ampermeters()
+
+			if has_amper_meter:
+				for item in self.graph.amper_meters:
+					if self.request["comp"] == item["label"]:
+						self.request["comp_ori"] = self.request["comp"]
+						self.request["comp"] = item["match_label"]
+						self.request['amper_meter_question'] = True
+						break
+				self.check_amper_meter_question()
+
+			#get path for 'comp'
+			paths = []		
+			cu.btree_print_all_path(T, [], paths)
+			if self.graph.show_tree == 1:
+				for path in paths:
+					sPath = self.graph.path2str(path)
+					print(sPath)
+				print("")
+
+			label = self.request['comp']
+			comp_label = self.request['comp']; gen_name = self.gen['prop']['label']; self.request_path = ''
+			if gen_name == comp_label:
+				self.request['req_on_gen'] = True
+			elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance' and not self.request["volt_meter_no_match"]:	
+				status = self.graph.find_edge_in_G(label)
+				if not status:
+					raise Exception(f"{label} not found in the circuit. Analysis stopped.")
+				status, self.request_path = self.graph.find_path(label, paths)	
+				if not status:
+					raise RequestException(f"Request error: {label} not found")
+				sPath = self.graph.path2str(self.request_path)
+				if self.graph.show_tree == 1:
+					print(sPath)
+
+			#calculating the impedance
+			self.prev_type = None; self.calc_symbols = []
+			self.ignored_resistances = []
+			self.walk_postorder(T)
+			self.finalize_calc_impedance(T)
+			if self.has_expected_key:
+				T.prop['expected'] = self.expected_key['res_req']
+			T.prop['circuit_key'] = circuit_key
+			if self.graph.show_result:
+				print(""); print(T.prop)
+
+			self.formula = T.formula	
+			#if self.has_expected_key and abs(self.expected_key['res_imp']-T.prop['impedance']) > 1e-4:
+			#	raise SolverException(f"Solver error: {self.fn}")
+			
+			#Prepare gen
+			gen_new_value = self.get_gen_value()
+			ac_gen = self.gen['prop']['ac_gen'] 
+
+			# Prepare log
+			if self.request['cmd'] == 'get_voltage':
+				self.unit = "V"
+			elif self.request['cmd'] == 'get_current':
+				self.unit = "A"
+			elif self.request['cmd'] == 'get_impedance' or self.request['cmd'] == 'get_total_impedance':
+				self.unit = "Ohm"
+			comp_label = self.request['comp']; gen_name = self.gen['prop']['label']
+			if self.request["volt_meter_question"] and comp_label == '':
+				comp_label = 'voltmeter'
+			request_txt = cu.get_request_txt(self.request)
+			if i_pass == 0:
+				if ac_gen['mode'] == 1:
+					freq = self.graph.fv(ac_gen['Freq'])
+					self.log(f"This is an AC calculation")
+					self.log(f"We know that the generator frequency is f={freq}{self.graph.sHz}, {self.graph.sOmega}=2{self.graph.sMul}pi{self.graph.sMul}f")
+
+			# calculating voltage/currents
+			# set values on top node
+			#if i_pass == 0:
+			#	self.graph.set_v_pot(0, 0.0)		
+			#self.log(f"xxx Gen: set voltage...")
+			#self.log(f"xxx GND is: {self.gen['nodes'][1]}")
+			self.graph.GND[i_pass] = self.gen['nodes'][1]
+			#self.graph.set_v_pot(self.gen['nodes'][1], 0)	
+			self.graph.set_v_pot(self.graph.GND[i_pass], 0.0, f"(generator {gen_name} negativ pole)", True)		
+			if gen_new_value['quantity'] == 'voltage':
+				self.graph.set_v_pot(self.gen['nodes'][0], gen_new_value['value'], f"(generator {gen_name} positive pole)")		
+			self.graph.set_node_val(T, gen_new_value['value'], '', True, gen_new_value['quantity'], self.gen['nodes']) 
+			if gen_new_value['quantity'] == 'voltage':
+				#self.graph.set_v(T.target, T.source, T.prop['voltage'])
+				self.graph.set_node_val(T, T.prop['voltage']/T.prop['impedance'], '', True, 'current', self.gen['nodes']) 
+			else:
+				voltage_val = T.prop['current']*T.prop['impedance']	
+				self.graph.set_node_val(T, -voltage_val, '', True, 'voltage', self.gen['nodes'], None, f"(generator {gen_name} voltage)") 
 			self.log("")
 
-			if self.request['req_on_gen']:
-				status, value = self.graph.get_node_val(T, 'impedance'); impedance = value
-				gen_new_value = self.get_gen_value()
+			if not self.request['ohm_meter_question']:
+				self.log(f"First we calculate the total {self.get_impedance_str()} between the generator nodes ({gen_name})")
+			self.logl(self.total_impedance_txt)
+			if self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance':
+				self.log("")
+				self.log(f"Now we calculate the {request_txt} on {comp_label}")
+
+				val_str = f"{self.graph.fv(gen_new_value['value'])}{gen_new_value['unit']}"
 				if gen_new_value['quantity'] == 'voltage':
-					current = gen_new_value['value']/T.prop['impedance']
-					if self.request['cmd'] == 'get_current':
-						self.log(f"We know that the voltage between {gen_name} nodes is {self.graph.fv(gen_new_value['value'])} {cg.uVolt}.")
-						self.log(f"We calculated previously the {self.get_impedance_str()} between {gen_name} nodes: this is {self.graph.fv(impedance)}Ohm.")
-						self.log(f"So the current on {gen_name} is {self.graph.fv(current)} {cg.uCurrent}.")
-			else:
-				self.conf_preorder_test = 1; self.stopped = False
-				self.walk_preorder(T)
-				self.conf_preorder_test = 0; self.stopped = False
-				self.walk_preorder(T)
-			
-		pass_item = {}
-		if self.graph.opts['debug_mode'] == 1:	
-			#pass_item['total_impedance_silent'] = self.total_impedance_silent
-			pass_item['total_impedance_ori_txt'] = self.total_impedance_ori_txt
-			pass_item['total_impedance_txt'] = self.total_impedance_txt
-			pass_item['gen'] = self.gen
-			#pass_item['nodal_voltage_log'] = self.graph.nodal_voltage_log
-		self.solution['superposition'].append(pass_item)
+					val_str = f"{self.graph.fv(gen_new_value['value'])} {cg.uVolt}"
+					self.log(f"We know that the voltage between {gen_name} nodes is {val_str}.")
+				else:	
+					voltage_str = f"{self.graph.fv(voltage_val)} {cg.uVolt}"
+					self.log( f"We know that the voltage between {gen_name} nodes is {voltage_str}, "
+							  f"because the generator current is Igen = {val_str} and the {self.get_impedance_str()} between the generator nodes is Rtot = {self.graph.fv(T.prop['impedance'])}Ohm so "
+							  f"the voltage between the generator nodes is Igen*Rtot = {voltage_str}")
 
-		self.log("")
-		self.write_log(1, 'OK', 0, False)
+				if self.graph.use_superposition:
+					gen_comp_id = self.gen['prop']['CompId']
+					is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_
+					if is_v_gen:
+						self.log(f"All voltage generators except for {gen_name} have been replaced with a short circuit.")
+						self.log(f"All current generators have been replaced with an open circuit.")
+					else:
+						self.log(f"All voltage generators have been replaced with a short circuit.")
+						self.log(f"All current generators except for {gen_name} have been replaced with an open circuit.")
 
-		#finalize 'run_pass' (one pass)
-		for i in range(nInserted):
-			list_ = self.graph.json_data["edges"]
-			N = len(list_)
-			list_.pop(N-1)
-		if i_pass < len(self.gens)-1:	
-			self.request['comp'] = bkp_request_comp
-			
-		#finalize 'run_pass' (one pass)
-		node_potentials_pass = []
-		ref_node = self.graph.GND[0]
-		shift_re = self.graph.v_re[i_pass][ref_node]
-		shift_im = self.graph.v_im[i_pass][ref_node]
-		a1=1
-		for i in range(self.graph.max_node+1):
-			flag = self.graph.v_flags[i_pass][i]
-			
-			re = self.graph.v_re[i_pass][i]-shift_re
-			im = self.graph.v_im[i_pass][i]-shift_im
-			
-			self.graph.v_re[i_pass][i] = re
-			self.graph.v_im[i_pass][i] = im
-			
-			if abs(im) > 1e-15:
-				r = complex(re, im)
-			else:
-				r = re
-			
-			s0 = self.graph.fv(r)
-			
-			s = f'VP_{i} = {s0}, assigned: {flag}'
-			node_potentials_pass.append(s)		
-		self.node_potentials_dbg['node_potentials'].append(node_potentials_pass)	
+				self.used_gens.append(gen_name)	
+				self.log("")
+
+				if self.request['req_on_gen']:
+					status, value = self.graph.get_node_val(T, 'impedance'); impedance = value
+					gen_new_value = self.get_gen_value()
+					if gen_new_value['quantity'] == 'voltage':
+						current = gen_new_value['value']/T.prop['impedance']
+						if self.request['cmd'] == 'get_current':
+							self.log(f"We know that the voltage between {gen_name} nodes is {self.graph.fv(gen_new_value['value'])} {cg.uVolt}.")
+							self.log(f"We calculated previously the {self.get_impedance_str()} between {gen_name} nodes: this is {self.graph.fv(impedance)}Ohm.")
+							self.log(f"So the current on {gen_name} is {self.graph.fv(current)} {cg.uCurrent}.")
+				else:
+					self.conf_preorder_test = 1; self.stopped = False
+					self.walk_preorder(T)
+					self.conf_preorder_test = 0; self.stopped = False
+					self.walk_preorder(T)
+				
+			pass_item = {}
+			if self.graph.opts['debug_mode'] == 1:	
+				#pass_item['total_impedance_silent'] = self.total_impedance_silent
+				pass_item['total_impedance_ori_txt'] = self.total_impedance_ori_txt
+				pass_item['total_impedance_txt'] = self.total_impedance_txt
+				pass_item['gen'] = self.gen
+				#pass_item['nodal_voltage_log'] = self.graph.nodal_voltage_log
+			self.solution['superposition'].append(pass_item)
+
+			self.log("")
+			self.write_log(1, 'OK', 0, False)
+
+			#finalize 'run_pass' (one pass)
+			node_potentials_pass = []
+			ref_node = self.graph.GND[0]
+			shift_re = self.graph.v_re[i_pass][ref_node]
+			shift_im = self.graph.v_im[i_pass][ref_node]
+			a1=1
+			for i in range(self.graph.max_node+1):
+				flag = self.graph.v_flags[i_pass][i]
+				
+				re = self.graph.v_re[i_pass][i]-shift_re
+				im = self.graph.v_im[i_pass][i]-shift_im
+				
+				self.graph.v_re[i_pass][i] = re
+				self.graph.v_im[i_pass][i] = im
+				
+				if abs(im) > 1e-15:
+					r = complex(re, im)
+				else:
+					r = re
+				
+				s0 = self.graph.fv(r)
+				
+				s = f'VP_{i} = {s0}, assigned: {flag}'
+				node_potentials_pass.append(s)		
+			self.node_potentials_dbg['node_potentials'].append(node_potentials_pass)	
+		finally:
+			#finalize 'run_pass' (one pass)
+			for i in range(nInserted):
+				list_ = self.graph.json_data["edges"]
+				N = len(list_)
+				list_.pop(N-1)
+			if i_pass < len(self.gens)-1:	
+				self.request['comp'] = self.bkp_request_comp
+				
 	
 	def write_log(self, valid, status, error_code=0, save_files=True):
 		if error_code > 0:
 			self.graph.solution_log.append('Failed: see codes')
 	
 		calculation = {}
+		calculation['short_circuit_pass'] =	self.short_circuit_pass
 		calculation['solution'] = self.graph.solution_log
+
 		calculation['node_potentials_dbg'] = self.node_potentials_dbg
 		if error_code == 0:	
 			calculation['block_labels'] = self.block_labels
