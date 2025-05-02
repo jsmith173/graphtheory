@@ -84,10 +84,10 @@
         ""
     ],
     "request": {
-        "text": "",
+        "text": "What is the current on AM1?",
         "cmd": "get_current",
         "comp": "R1",
-        "options": 0,
+        "options": 4,
         "qid": "0",
         "ohm_meter_question": false,
         "req_on_gen": false,
@@ -99,6 +99,7 @@
     "calculation": {
         "short_circuit_pass": 1,
         "solution": [
+            "Solution by TINA assisted by AI",
             "We have more than one generator so we are using superposition to calculate voltages/currents.",
             "Names starting with RGenZero refer to very small resistances, used during superposition.",
             "",

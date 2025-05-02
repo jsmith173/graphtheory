@@ -1,3 +1,4 @@
+Solution by TINA assisted by AI
 We have more than one generator so we are using superposition to calculate voltages/currents.
 Names starting with RGenZero refer to very small resistances, used during superposition.
 
