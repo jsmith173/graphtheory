@@ -443,7 +443,7 @@ class TCircuitSolver:
 						self.log(f"The voltage between this components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
 						
 						self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
-			                     f"{labels_z[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {s_new_val} {cg.uVolt} {s_nodes}")
+			                     f"{labels[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {s_new_val} {cg.uVolt} {s_nodes}")
 								 
 					if self.request['cmd'] == 'get_voltage':
 						pass
@@ -454,7 +454,7 @@ class TCircuitSolver:
 						except ZeroDivisionError as e:
 							raise ShortCircuitException("Division by zero in current calculation") from e
 						
-						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(r)} {cg.uCurrent}")
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels[i]} = {self.graph.fv(r)} {cg.uCurrent}")
 					self.log("")
 
 				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node) 
@@ -483,7 +483,7 @@ class TCircuitSolver:
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current' and nodes[i].type == "edge":
-						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels_z[i]} = {self.graph.fv(new_val[i])} {cg.uCurrent} ")
+						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels[i]} = {self.graph.fv(new_val[i])} {cg.uCurrent} ")
 		else:
 			pass
 		if is_req_label:

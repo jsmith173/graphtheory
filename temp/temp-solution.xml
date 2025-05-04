@@ -3,33 +3,31 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>Rf0=R3=3Ohm=3Ohm</item>
-				<item>Re0=Rf0</item>
-				<item>R1 and Re0 connected in series so Rd0=R1+Re0=1Ohm+3Ohm=4Ohm</item>
-				<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
-				<item>R2 and Rc0 connected in series so Rb0=R2+Rc0=4Ohm+1.33Ohm=5.33Ohm</item>
-				<item>Rb0 and R4 connected in series so Ra0=Rb0+R4=5.33Ohm+5Ohm=10.3Ohm</item>
-				<item>The total resistance is Ra0 = 10.3Ohm</item>
+				<item>Rc0=R3</item>
+				<item>Re0=R1=40Ohm=40Ohm</item>
+				<item>Rd0=Re0</item>
+				<item>Rc0 and Rd0 connected in parallel so Rb0=Rc0*Rd0/(Rc0+Rd0)=40Ohm*40Ohm/(40Ohm+40Ohm)=20Ohm</item>
+				<item>Rf0=R2</item>
+				<item>Rb0 and Rf0 connected in series so Ra0=Rb0+Rf0=20Ohm+20Ohm=40Ohm</item>
+				<item>The total resistance is Ra0 = 40Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>Rf0=R3=3Ohm=3Ohm</item>
-				<item>R1 and Rf0 connected in series so Rd0=R1+Rf0=1Ohm+3Ohm=4Ohm</item>
-				<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
-				<item>R2 and Rc0 connected in series so Rb0=R2+Rc0=4Ohm+1.33Ohm=5.33Ohm</item>
-				<item>Rb0 and R4 connected in series so Ra0=Rb0+R4=5.33Ohm+5Ohm=10.3Ohm</item>
-				<item>The total resistance is Ra0 = 10.3Ohm</item>
+				<item>Re0=R1=40Ohm=40Ohm</item>
+				<item>R3 and Re0 connected in parallel so Rb0=R3*Re0/(R3+Re0)=40Ohm*40Ohm/(40Ohm+40Ohm)=20Ohm</item>
+				<item>Rb0 and R2 connected in series so Ra0=Rb0+R2=20Ohm+20Ohm=40Ohm</item>
+				<item>The total resistance is Ra0 = 40Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
-					<item>5</item>
-					<item>6</item>
+					<item>1</item>
+					<item>0</item>
 				</nodes>
 				<prop>
-					<label>VS2</label>
+					<label>V2</label>
 					<match_label/>
 					<CompId>14</CompId>
-					<UniqueID>T_1F3AE71020240311071555</UniqueID>
-					<value>4</value>
+					<UniqueID>T_09CBCEA020230605190422</UniqueID>
+					<value>16</value>
 					<flags>1</flags>
 					<ac_gen>
 						<mode>0</mode>
@@ -39,33 +37,31 @@
 		</item>
 		<item>
 			<total_impedance_ori_txt>
-				<item>Re1=R2=4Ohm=4Ohm</item>
-				<item>R4 and Re1 connected in series so Rd1=R4+Re1=5Ohm+4Ohm=9Ohm</item>
-				<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
+				<item>Rd1=R2=20Ohm=20Ohm</item>
+				<item>Rc1=Rd1</item>
+				<item>Re1=R3</item>
+				<item>Rc1 and Re1 connected in parallel so Rb1=Rc1*Re1/(Rc1+Re1)=20Ohm*40Ohm/(20Ohm+40Ohm)=13.3Ohm</item>
 				<item>Rf1=R1</item>
-				<item>Rc1 and Rf1 connected in series so Rb1=Rc1+Rf1=1.64Ohm+1Ohm=2.64Ohm</item>
-				<item>R3 and Rb1 connected in series so Ra1=R3+Rb1=3Ohm+2.64Ohm=5.64Ohm</item>
-				<item>The total resistance is Ra1 = 5.64Ohm</item>
+				<item>Rb1 and Rf1 connected in series so Ra1=Rb1+Rf1=13.3Ohm+40Ohm=53.3Ohm</item>
+				<item>The total resistance is Ra1 = 53.3Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>Re1=R2=4Ohm=4Ohm</item>
-				<item>R4 and Re1 connected in series so Rd1=R4+Re1=5Ohm+4Ohm=9Ohm</item>
-				<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
-				<item>Rc1 and R1 connected in series so Rb1=Rc1+R1=1.64Ohm+1Ohm=2.64Ohm</item>
-				<item>R3 and Rb1 connected in series so Ra1=R3+Rb1=3Ohm+2.64Ohm=5.64Ohm</item>
-				<item>The total resistance is Ra1 = 5.64Ohm</item>
+				<item>Rd1=R2=20Ohm=20Ohm</item>
+				<item>Rd1 and R3 connected in parallel so Rb1=Rd1*R3/(Rd1+R3)=20Ohm*40Ohm/(20Ohm+40Ohm)=13.3Ohm</item>
+				<item>Rb1 and R1 connected in series so Ra1=Rb1+R1=13.3Ohm+40Ohm=53.3Ohm</item>
+				<item>The total resistance is Ra1 = 53.3Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
-					<item>1</item>
+					<item>4</item>
 					<item>0</item>
 				</nodes>
 				<prop>
-					<label>VS1</label>
+					<label>V1</label>
 					<match_label/>
 					<CompId>14</CompId>
-					<UniqueID>T_1F27FA0020240204131136</UniqueID>
-					<value>6</value>
+					<UniqueID>T_09CBD39020230605190422</UniqueID>
+					<value>8</value>
 					<flags>1</flags>
 					<ac_gen>
 						<mode>0</mode>
@@ -76,18 +72,18 @@
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>AM1 1 2</item>
-		<item>R5 4 3</item>
-		<item>R4 4 6</item>
-		<item>R3 0 4</item>
-		<item>R2 3 5</item>
-		<item>R1 2 3</item>
+		<item>R2 1 2</item>
+		<item>R3 0 3</item>
+		<item>R1 4 5</item>
+		<item>I1 6 5</item>
+		<item>I2 6 3</item>
+		<item>AM1 6 2</item>
 		<item/>
 	</circuit>
 	<request>
 		<text>What is the current on AM1?</text>
 		<cmd>get_current</cmd>
-		<comp>R1</comp>
+		<comp>R2</comp>
 		<options>4</options>
 		<qid>0</qid>
 		<ohm_meter_question>false</ohm_meter_question>
@@ -98,293 +94,202 @@
 		<amper_meter_question>true</amper_meter_question>
 	</request>
 	<calculation>
-		<short_circuit_pass>1</short_circuit_pass>
+		<short_circuit_pass>0</short_circuit_pass>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
 			<item>We have more than one generator so we are using superposition to calculate voltages/currents.</item>
 			<item>Names starting with RGenZero refer to very small resistances, used during superposition.</item>
 			<item/>
-			<item>###Processing generator VS2</item>
+			<item>###Processing generator V2</item>
 			<item/>
-			<item>First we calculate the total resistance between the generator nodes (VS2)</item>
-			<item>Rf0=R3=3Ohm=3Ohm</item>
-			<item>R1 and Rf0 connected in series so Rd0=R1+Rf0=1Ohm+3Ohm=4Ohm</item>
-			<item>R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm</item>
-			<item>R2 and Rc0 connected in series so Rb0=R2+Rc0=4Ohm+1.33Ohm=5.33Ohm</item>
-			<item>Rb0 and R4 connected in series so Ra0=Rb0+R4=5.33Ohm+5Ohm=10.3Ohm</item>
-			<item>The total resistance is Ra0 = 10.3Ohm</item>
+			<item>First we calculate the total resistance between the generator nodes (V2)</item>
+			<item>Re0=R1=40Ohm=40Ohm</item>
+			<item>R3 and Re0 connected in parallel so Rb0=R3*Re0/(R3+Re0)=40Ohm*40Ohm/(40Ohm+40Ohm)=20Ohm</item>
+			<item>Rb0 and R2 connected in series so Ra0=Rb0+R2=20Ohm+20Ohm=40Ohm</item>
+			<item>The total resistance is Ra0 = 40Ohm</item>
 			<item/>
-			<item>Now we calculate the current on RGenZero1</item>
-			<item>We know that the voltage between VS2 nodes is 4 Volt.</item>
-			<item>All voltage generators except for VS2 have been replaced with a short circuit.</item>
+			<item>Now we calculate the current on R2</item>
+			<item>We know that the voltage between V2 nodes is 16 Volt.</item>
+			<item>All voltage generators except for V2 have been replaced with a short circuit.</item>
 			<item>All current generators have been replaced with an open circuit.</item>
 			<item/>
-			<item>The components Rb0 and R4 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 4 Volt</item>
-			<item>Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*4 Volt = 2.06 Volt </item>
-			<item>The current on Rb0 is the voltage on Rb0/Rb0 = 387m Amper</item>
+			<item>The components Rb0 and R2 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 16 Volt</item>
+			<item>R2 is in the voltage divider so the voltage on R2 is R2/Ra0*16 Volt = 8 Volt </item>
+			<item>The current on R2 is the voltage on R2/R2 = 400m Amper</item>
 			<item/>
-			<item>The components R2 and Rc0 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 2.06 Volt</item>
-			<item>Rc0 is in the voltage divider so the voltage on Rc0 is Rc0/Rb0*2.06 Volt = 516m Volt </item>
-			<item>The current on Rc0 is the voltage on Rc0/Rc0 = 387m Amper</item>
+			<item>The current on R2 is the voltage on R2/R2 = 400m Amper</item>
 			<item/>
-			<item>The components R5 and Rd0 connected in parallel. The voltage on Rd0 is 516m Volt because the voltage on Rc0 is 516m Volt</item>
+			<item>###Processing generator V1</item>
 			<item/>
-			<item>The components R1 and Rf0 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 516m Volt</item>
-			<item>Rf0 is in the voltage divider so the voltage on Rf0 is Re0/Rd0*516m Volt = 387m Volt </item>
-			<item>The current on Rf0 is the voltage on Rf0/Re0 = 129m Amper</item>
+			<item>First we calculate the total resistance between the generator nodes (V1)</item>
+			<item>Rd1=R2=20Ohm=20Ohm</item>
+			<item>Rd1 and R3 connected in parallel so Rb1=Rd1*R3/(Rd1+R3)=20Ohm*40Ohm/(20Ohm+40Ohm)=13.3Ohm</item>
+			<item>Rb1 and R1 connected in series so Ra1=Rb1+R1=13.3Ohm+40Ohm=53.3Ohm</item>
+			<item>The total resistance is Ra1 = 53.3Ohm</item>
 			<item/>
-			<item>The current on Rf0 is the voltage on Rf0/Rf0 = 129m Amper</item>
-			<item/>
-			<item>The components RGenZero1 and R3 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 387m Volt</item>
-			<item>RGenZero1 is in the voltage divider so the voltage on RGenZero1 is RGenZero1/Rf0*387m Volt = 129p Volt </item>
-			<item>The current on RGenZero1 is the voltage on RGenZero1/RGenZero1 = 129m Amper</item>
-			<item/>
-			<item>###Processing generator VS1</item>
-			<item/>
-			<item>First we calculate the total resistance between the generator nodes (VS1)</item>
-			<item>Re1=R2=4Ohm=4Ohm</item>
-			<item>R4 and Re1 connected in series so Rd1=R4+Re1=5Ohm+4Ohm=9Ohm</item>
-			<item>R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm</item>
-			<item>Rc1 and R1 connected in series so Rb1=Rc1+R1=1.64Ohm+1Ohm=2.64Ohm</item>
-			<item>R3 and Rb1 connected in series so Ra1=R3+Rb1=3Ohm+2.64Ohm=5.64Ohm</item>
-			<item>The total resistance is Ra1 = 5.64Ohm</item>
-			<item/>
-			<item>Now we calculate the current on R1</item>
-			<item>We know that the voltage between VS1 nodes is 6 Volt.</item>
-			<item>All voltage generators except for VS1 have been replaced with a short circuit.</item>
+			<item>Now we calculate the current on R2</item>
+			<item>We know that the voltage between V1 nodes is 8 Volt.</item>
+			<item>All voltage generators except for V1 have been replaced with a short circuit.</item>
 			<item>All current generators have been replaced with an open circuit.</item>
 			<item/>
-			<item>The components R3 and Rb1 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 6 Volt</item>
-			<item>Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*6 Volt = 2.81 Volt </item>
-			<item>The current on Rb1 is the voltage on Rb1/Rb1 = 1.06 Amper</item>
+			<item>The components Rb1 and R1 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 8 Volt</item>
+			<item>Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*8 Volt = 2 Volt </item>
+			<item>The current on Rb1 is the voltage on Rb1/Rb1 = 150m Amper</item>
 			<item/>
-			<item>The components Rc1 and R1 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 2.81 Volt</item>
-			<item>R1 is in the voltage divider so the voltage on R1 is Rf1/Rb1*2.81 Volt = 1.06 Volt </item>
-			<item>The current on R1 is the voltage on R1/Rf1 = 1.06 Amper</item>
+			<item>The components Rd1 and R3 connected in parallel. The voltage on Rd1 is 2 Volt because the voltage on Rb1 is 2 Volt</item>
 			<item/>
-			<item>The current on R1 is the voltage on R1/R1 = 1.06 Amper</item>
+			<item>The current on Rd1 is the voltage on Rd1/Rd1 = 100m Amper</item>
+			<item/>
+			<item>The components RGenZero0 and R2 connected in series.</item>
+			<item>The voltage between this components starting and ending node is 2 Volt</item>
+			<item>R2 is in the voltage divider so the voltage on R2 is R2/Rd1*2 Volt = 2 Volt </item>
+			<item>The current on R2 is the voltage on R2/R2 = 100m Amper</item>
 			<item/>
 			<item>Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.</item>
-			<item>To answer the original question: because the AM1 ampermeter connected to R1 in series so the current on AM1 is 935m Amper</item>
+			<item>To answer the original question: because the AM1 ampermeter connected to R2 in series so the current on AM1 is -300m Amper</item>
 		</solution>
 		<node_potentials_dbg>
 			<node_potentials>
 				<item>
-					<item>VP_0 = 2.32, assigned: 1</item>
-					<item>VP_1 = 2.32, assigned: 1</item>
-					<item>VP_2 = 2.32, assigned: 1</item>
-					<item>VP_3 = 2.45, assigned: 1</item>
-					<item>VP_4 = 1.94, assigned: 1</item>
-					<item>VP_5 = 4, assigned: 1</item>
-					<item>VP_6 = 0, assigned: 1</item>
+					<item>VP_0 = 0, assigned: 1</item>
+					<item>VP_1 = 16, assigned: 1</item>
+					<item>VP_2 = 8, assigned: 1</item>
+					<item>VP_3 = 8, assigned: 1</item>
+					<item>VP_4 = 0, assigned: 1</item>
+					<item>VP_5 = 8, assigned: 1</item>
+					<item>VP_6 = 8, assigned: 1</item>
 				</item>
 				<item>
-					<item>VP_0 = -4.16, assigned: 1</item>
-					<item>VP_1 = 1.84, assigned: 1</item>
-					<item>VP_2 = 1.84, assigned: 1</item>
-					<item>VP_3 = 774m, assigned: 1</item>
-					<item>VP_4 = -968m, assigned: 1</item>
-					<item>VP_5 = 194p, assigned: 1</item>
-					<item>VP_6 = 0, assigned: 1</item>
+					<item>VP_0 = 0, assigned: 1</item>
+					<item>VP_1 = 0, assigned: 1</item>
+					<item>VP_2 = 2, assigned: 1</item>
+					<item>VP_3 = 2, assigned: 1</item>
+					<item>VP_4 = 8, assigned: 1</item>
+					<item>VP_5 = 2, assigned: 1</item>
+					<item>VP_6 = 2, assigned: 1</item>
 				</item>
 				<item>
-					<item>VP_0 = -1.84, assigned (and): 1</item>
-					<item>VP_1 = 4.16, assigned (and): 1</item>
-					<item>VP_2 = 4.16, assigned (and): 1</item>
-					<item>VP_3 = 3.23, assigned (and): 1</item>
-					<item>VP_4 = 968m, assigned (and): 1</item>
-					<item>VP_5 = 4, assigned (and): 1</item>
-					<item>VP_6 = 0, assigned (and): 1</item>
+					<item>VP_0 = 0, assigned (and): 1</item>
+					<item>VP_1 = 16, assigned (and): 1</item>
+					<item>VP_2 = 10, assigned (and): 1</item>
+					<item>VP_3 = 10, assigned (and): 1</item>
+					<item>VP_4 = 8, assigned (and): 1</item>
+					<item>VP_5 = 10, assigned (and): 1</item>
+					<item>VP_6 = 10, assigned (and): 1</item>
 				</item>
 			</node_potentials>
 			<item_voltages>
 				<item>
 					<nodes>
-						<item>2</item>
-						<item>3</item>
+						<item>4</item>
+						<item>5</item>
 					</nodes>
 					<label>R1</label>
-					<value>1</value>
-					<voltage>935m</voltage>
-					<current>935m</current>
+					<value>40</value>
+					<voltage>-2</voltage>
+					<current>-50m</current>
 				</item>
 				<item>
 					<nodes>
-						<item>3</item>
-						<item>5</item>
+						<item>1</item>
+						<item>2</item>
 					</nodes>
 					<label>R2</label>
-					<value>4</value>
-					<voltage>-774m</voltage>
-					<current>-194m</current>
+					<value>20</value>
+					<voltage>6</voltage>
+					<current>300m</current>
 				</item>
 				<item>
 					<nodes>
 						<item>0</item>
-						<item>4</item>
-					</nodes>
-					<label>R3</label>
-					<value>3</value>
-					<voltage>-2.81</voltage>
-					<current>-935m</current>
-				</item>
-				<item>
-					<nodes>
-						<item>4</item>
-						<item>6</item>
-					</nodes>
-					<label>R4</label>
-					<value>5</value>
-					<voltage>968m</voltage>
-					<current>194m</current>
-				</item>
-				<item>
-					<nodes>
-						<item>4</item>
 						<item>3</item>
 					</nodes>
-					<label>R5</label>
-					<value>2</value>
-					<voltage>-2.26</voltage>
-					<current>-1.13</current>
+					<label>R3</label>
+					<value>40</value>
+					<voltage>-10</voltage>
+					<current>-250m</current>
 				</item>
 			</item_voltages>
 		</node_potentials_dbg>
 		<block_labels>
 			<item>
-				<label>Rf0</label>
+				<label>Re0</label>
 				<origin>series</origin>
-				<value>3Ohm</value>
+				<value>40Ohm</value>
 				<labels>
 					<item>RGenZero1</item>
-					<item>R3</item>
+					<item>R1</item>
 				</labels>
 				<unique_labels>
 					<item>&lt;none&gt;</item>
-					<item>T_1F39C23020240130111206</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rd0</label>
-				<origin>series</origin>
-				<value>4Ohm</value>
-				<labels>
-					<item>R1</item>
-					<item>Rf0</item>
-				</labels>
-				<unique_labels>
-					<item>T_1F39B85020240130111157</item>
-					<item>&lt;block&gt;</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rc0</label>
-				<origin>parallel</origin>
-				<value>1.33Ohm</value>
-				<labels>
-					<item>R5</item>
-					<item>Rd0</item>
-				</labels>
-				<unique_labels>
-					<item>T_1F39CC1020240130111214</item>
-					<item>&lt;block&gt;</item>
+					<item>T_09CBFB1020230605190422</item>
 				</unique_labels>
 			</item>
 			<item>
 				<label>Rb0</label>
-				<origin>series</origin>
-				<value>5.33Ohm</value>
+				<origin>parallel</origin>
+				<value>20Ohm</value>
 				<labels>
-					<item>R2</item>
-					<item>Rc0</item>
+					<item>R3</item>
+					<item>Re0</item>
 				</labels>
 				<unique_labels>
-					<item>T_1F39BD4020240130111203</item>
+					<item>T_09CBE75020230605190422</item>
 					<item>&lt;block&gt;</item>
 				</unique_labels>
 			</item>
 			<item>
 				<label>Ra0</label>
 				<origin>series</origin>
-				<value>10.3Ohm</value>
+				<value>40Ohm</value>
 				<labels>
 					<item>Rb0</item>
-					<item>R4</item>
+					<item>R2</item>
 				</labels>
 				<unique_labels>
 					<item>&lt;block&gt;</item>
-					<item>T_1F39C72020240130111211</item>
+					<item>T_09CBF13020230605190422</item>
 				</unique_labels>
 			</item>
 			<item>
-				<label>Re1</label>
+				<label>Rd1</label>
 				<origin>series</origin>
-				<value>4Ohm</value>
+				<value>20Ohm</value>
 				<labels>
 					<item>RGenZero0</item>
 					<item>R2</item>
 				</labels>
 				<unique_labels>
 					<item>&lt;none&gt;</item>
-					<item>T_1F39BD4020240130111203</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rd1</label>
-				<origin>series</origin>
-				<value>9Ohm</value>
-				<labels>
-					<item>R4</item>
-					<item>Re1</item>
-				</labels>
-				<unique_labels>
-					<item>T_1F39C72020240130111211</item>
-					<item>&lt;block&gt;</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rc1</label>
-				<origin>parallel</origin>
-				<value>1.64Ohm</value>
-				<labels>
-					<item>R5</item>
-					<item>Rd1</item>
-				</labels>
-				<unique_labels>
-					<item>T_1F39CC1020240130111214</item>
-					<item>&lt;block&gt;</item>
+					<item>T_09CBF13020230605190422</item>
 				</unique_labels>
 			</item>
 			<item>
 				<label>Rb1</label>
-				<origin>series</origin>
-				<value>2.64Ohm</value>
+				<origin>parallel</origin>
+				<value>13.3Ohm</value>
 				<labels>
-					<item>Rc1</item>
-					<item>R1</item>
+					<item>Rd1</item>
+					<item>R3</item>
 				</labels>
 				<unique_labels>
 					<item>&lt;block&gt;</item>
-					<item>T_1F39B85020240130111157</item>
+					<item>T_09CBE75020230605190422</item>
 				</unique_labels>
 			</item>
 			<item>
 				<label>Ra1</label>
 				<origin>series</origin>
-				<value>5.64Ohm</value>
+				<value>53.3Ohm</value>
 				<labels>
-					<item>R3</item>
 					<item>Rb1</item>
+					<item>R1</item>
 				</labels>
 				<unique_labels>
-					<item>T_1F39C23020240130111206</item>
 					<item>&lt;block&gt;</item>
+					<item>T_09CBFB1020230605190422</item>
 				</unique_labels>
 			</item>
 		</block_labels>
