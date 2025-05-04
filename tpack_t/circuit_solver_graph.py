@@ -913,14 +913,14 @@ class TCircuitSolverGraph:
 			i = i+1
 		return -1	
 	
-	def find_in_json_by_nodes(self, a):
+	def find_in_json_by_nodes(self, a, f=False):
 		i = 0
 		for item in self.json_data["edges"]:
 			src = item["nodes"]
 			if a[0] == src[0] and a[1] == src[1]:
 				return i, True
 			elif a[1] == src[0] and a[0] == src[1]:
-				return i, False
+				return i, False or f
 			i = i+1
 		return -1, False	
 	

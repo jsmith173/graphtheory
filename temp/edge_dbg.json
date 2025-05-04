@@ -3,83 +3,83 @@
         "source": 1,
         "target": 2,
         "prop": {
-            "label": "R2",
+            "label": "AM1",
+            "match_label": "",
+            "CompId": 34,
+            "UniqueID": "T_1E03811020240420124359",
+            "value": 0,
+            "flags": 0
+        }
+    },
+    {
+        "source": 4,
+        "target": 3,
+        "prop": {
+            "label": "R5",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_09CBF13020230605190422",
-            "value": 20,
+            "UniqueID": "T_1F39CC1020240130111214",
+            "value": 2,
+            "flags": 1
+        }
+    },
+    {
+        "source": 4,
+        "target": 6,
+        "prop": {
+            "label": "R4",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_1F39C72020240130111211",
+            "value": 5,
             "flags": 1
         }
     },
     {
         "source": 0,
-        "target": 3,
+        "target": 4,
         "prop": {
             "label": "R3",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_09CBE75020230605190422",
-            "value": 40,
+            "UniqueID": "T_1F39C23020240130111206",
+            "value": 3,
             "flags": 1
         }
     },
     {
-        "source": 4,
+        "source": 3,
         "target": 5,
+        "prop": {
+            "label": "R2",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "T_1F39BD4020240130111203",
+            "value": 4,
+            "flags": 1
+        }
+    },
+    {
+        "source": 2,
+        "target": 3,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_09CBFB1020230605190422",
-            "value": 40,
+            "UniqueID": "T_1F39B85020240130111157",
+            "value": 1,
             "flags": 1
         }
     },
     {
-        "source": 6,
-        "target": 5,
+        "source": 5,
+        "target": 6,
         "prop": {
-            "label": "I1",
-            "match_label": "",
-            "CompId": 6,
-            "UniqueID": "T_09CC000020230605190422",
-            "value": 0,
-            "flags": 1
-        }
-    },
-    {
-        "source": 6,
-        "target": 3,
-        "prop": {
-            "label": "I2",
-            "match_label": "",
-            "CompId": 6,
-            "UniqueID": "T_09CBEC4020230605190422",
-            "value": 0,
-            "flags": 1
-        }
-    },
-    {
-        "source": 6,
-        "target": 2,
-        "prop": {
-            "label": "AM1",
-            "match_label": "",
-            "CompId": 6,
-            "UniqueID": "T_09CBC9B020230605190422",
-            "value": 0,
-            "flags": 1
-        }
-    },
-    {
-        "source": 4,
-        "target": 0,
-        "prop": {
-            "label": "RGenZero1",
+            "label": "RGenZero0",
             "match_label": "",
             "CompId": 9,
             "UniqueID": "<none>",
-            "value": 0,
+            "value": 1e-09,
             "flags": 1
         }
     }
