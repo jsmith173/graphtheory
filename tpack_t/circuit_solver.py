@@ -342,6 +342,8 @@ class TCircuitSolver:
 		self.debug_test_preorder.append(s1)
 
 	def log(self, s):
+		if pos_fn('R2 is in the voltage divider so the voltage on R2 is Rf0/Ra0*16 Volt', s) >= 0:
+			a=1
 		if not self.solver_silent:
 			self.graph.log(s)
 

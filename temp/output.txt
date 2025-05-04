@@ -2,71 +2,52 @@ Solution by TINA assisted by AI
 We have more than one generator so we are using superposition to calculate voltages/currents.
 Names starting with RGenZero refer to very small resistances, used during superposition.
 
-###Processing generator VS2
+###Processing generator V2
 
-First we calculate the total resistance between the generator nodes (VS2)
-Rf0=R3=3Ohm=3Ohm
-R1 and Rf0 connected in series so Rd0=R1+Rf0=1Ohm+3Ohm=4Ohm
-R5 and Rd0 connected in parallel so Rc0=R5*Rd0/(R5+Rd0)=2Ohm*4Ohm/(2Ohm+4Ohm)=1.33Ohm
-R2 and Rc0 connected in series so Rb0=R2+Rc0=4Ohm+1.33Ohm=5.33Ohm
-Rb0 and R4 connected in series so Ra0=Rb0+R4=5.33Ohm+5Ohm=10.3Ohm
-The total resistance is Ra0 = 10.3Ohm
+First we calculate the total resistance between the generator nodes (V2)
+Re0=R1=40Ohm=40Ohm
+R3 and Re0 connected in parallel so Rb0=R3*Re0/(R3+Re0)=40Ohm*40Ohm/(40Ohm+40Ohm)=20Ohm
+Rb0 and R2 connected in series so Ra0=Rb0+R2=20Ohm+20Ohm=40Ohm
+The total resistance is Ra0 = 40Ohm
 
-Now we calculate the current on RGenZero1
-We know that the voltage between VS2 nodes is 4 Volt.
-All voltage generators except for VS2 have been replaced with a short circuit.
+Now we calculate the current on R2
+We know that the voltage between V2 nodes is 16 Volt.
+All voltage generators except for V2 have been replaced with a short circuit.
 All current generators have been replaced with an open circuit.
 
-The components Rb0 and R4 connected in series.
-The voltage between this components starting and ending node is 4 Volt
-Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*4 Volt = 2.06 Volt 
-The current on Rb0 is the voltage on Rb0/Rb0 = 387m Amper
+The components Rb0 and R2 connected in series.
+The voltage between this components starting and ending node is 16 Volt
+R2 is in the voltage divider so the voltage on R2 is Rf0/Ra0*16 Volt = 8 Volt 
+The current on R2 is the voltage on R2/Rf0 = 400m Amper
 
-The components R2 and Rc0 connected in series.
-The voltage between this components starting and ending node is 2.06 Volt
-Rc0 is in the voltage divider so the voltage on Rc0 is Rc0/Rb0*2.06 Volt = 516m Volt 
-The current on Rc0 is the voltage on Rc0/Rc0 = 387m Amper
+The current on R2 is the voltage on R2/R2 = 400m Amper
 
-The components R5 and Rd0 connected in parallel. The voltage on Rd0 is 516m Volt because the voltage on Rc0 is 516m Volt
+###Processing generator V1
 
-The components R1 and Rf0 connected in series.
-The voltage between this components starting and ending node is 516m Volt
-Rf0 is in the voltage divider so the voltage on Rf0 is Re0/Rd0*516m Volt = 387m Volt 
-The current on Rf0 is the voltage on Rf0/Re0 = 129m Amper
+First we calculate the total resistance between the generator nodes (V1)
+Rd1=R2=20Ohm=20Ohm
+Rd1 and R3 connected in parallel so Rb1=Rd1*R3/(Rd1+R3)=20Ohm*40Ohm/(20Ohm+40Ohm)=13.3Ohm
+Rb1 and R1 connected in series so Ra1=Rb1+R1=13.3Ohm+40Ohm=53.3Ohm
+The total resistance is Ra1 = 53.3Ohm
 
-The current on Rf0 is the voltage on Rf0/Rf0 = 129m Amper
-
-The components RGenZero1 and R3 connected in series.
-The voltage between this components starting and ending node is 387m Volt
-RGenZero1 is in the voltage divider so the voltage on RGenZero1 is RGenZero1/Rf0*387m Volt = 0 Volt 
-The current on RGenZero1 is the voltage on RGenZero1/RGenZero1 = 129m Amper
-
-###Processing generator VS1
-
-First we calculate the total resistance between the generator nodes (VS1)
-Re1=R2=4Ohm=4Ohm
-R4 and Re1 connected in series so Rd1=R4+Re1=5Ohm+4Ohm=9Ohm
-R5 and Rd1 connected in parallel so Rc1=R5*Rd1/(R5+Rd1)=2Ohm*9Ohm/(2Ohm+9Ohm)=1.64Ohm
-Rc1 and R1 connected in series so Rb1=Rc1+R1=1.64Ohm+1Ohm=2.64Ohm
-R3 and Rb1 connected in series so Ra1=R3+Rb1=3Ohm+2.64Ohm=5.64Ohm
-The total resistance is Ra1 = 5.64Ohm
-
-Now we calculate the current on R1
-We know that the voltage between VS1 nodes is 6 Volt.
-All voltage generators except for VS1 have been replaced with a short circuit.
+Now we calculate the current on R2
+We know that the voltage between V1 nodes is 8 Volt.
+All voltage generators except for V1 have been replaced with a short circuit.
 All current generators have been replaced with an open circuit.
 
-The components R3 and Rb1 connected in series.
-The voltage between this components starting and ending node is 6 Volt
-Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*6 Volt = 2.81 Volt 
-The current on Rb1 is the voltage on Rb1/Rb1 = 1.06 Amper
+The components Rb1 and R1 connected in series.
+The voltage between this components starting and ending node is 8 Volt
+Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*8 Volt = 2 Volt 
+The current on Rb1 is the voltage on Rb1/Rb1 = 150m Amper
 
-The components Rc1 and R1 connected in series.
-The voltage between this components starting and ending node is 2.81 Volt
-R1 is in the voltage divider so the voltage on R1 is Rf1/Rb1*2.81 Volt = 1.06 Volt 
-The current on R1 is the voltage on R1/Rf1 = 1.06 Amper
+The components Rd1 and R3 connected in parallel. The voltage on Rd1 is 2 Volt because the voltage on Rb1 is 2 Volt
 
-The current on R1 is the voltage on R1/R1 = 1.06 Amper
+The current on Rd1 is the voltage on Rd1/Rd1 = 100m Amper
+
+The components RGenZero0 and R2 connected in series.
+The voltage between this components starting and ending node is 2 Volt
+R2 is in the voltage divider so the voltage on R2 is R2/Rd1*2 Volt = 2 Volt 
+The current on R2 is the voltage on R2/R2 = 100m Amper
 
 Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.
-To answer the original question: because the AM1 ampermeter connected to R1 in series so the current on AM1 is 935m Amper
+To answer the original question: because the AM1 ampermeter connected to R2 in series so the current on AM1 is -300m Amper

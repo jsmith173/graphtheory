@@ -3,24 +3,24 @@
     "nodes": [
         1,
         2,
-        4,
-        3,
-        6,
         0,
-        5
+        3,
+        4,
+        5,
+        6
     ],
     "gens": [
         {
             "nodes": [
-                5,
-                6
+                1,
+                0
             ],
             "prop": {
-                "label": "VS2",
+                "label": "V2",
                 "match_label": "",
                 "CompId": 14,
-                "UniqueID": "T_1F3AE71020240311071555",
-                "value": 4,
+                "UniqueID": "T_09CBCEA020230605190422",
+                "value": 16,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -29,15 +29,15 @@
         },
         {
             "nodes": [
-                1,
+                4,
                 0
             ],
             "prop": {
-                "label": "VS1",
+                "label": "V1",
                 "match_label": "",
                 "CompId": 14,
-                "UniqueID": "T_1F27FA0020240204131136",
-                "value": 6,
+                "UniqueID": "T_09CBD39020230605190422",
+                "value": 8,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -45,22 +45,7 @@
             }
         }
     ],
-    "meters": [
-        {
-            "nodes": [
-                3,
-                4
-            ],
-            "prop": {
-                "label": "VM1",
-                "match_label": "R5",
-                "CompId": 5,
-                "UniqueID": "T_2192B9B020240418081630",
-                "value": 0,
-                "flags": 5
-            }
-        }
-    ],
+    "meters": [],
     "edges": [
         {
             "nodes": [
@@ -68,81 +53,81 @@
                 2
             ],
             "prop": {
-                "label": "AM1",
-                "match_label": "",
-                "CompId": 34,
-                "UniqueID": "T_1E03811020240420124359",
-                "value": 0,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                4,
-                3
-            ],
-            "prop": {
-                "label": "R5",
+                "label": "R2",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39CC1020240130111214",
-                "value": 2,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                4,
-                6
-            ],
-            "prop": {
-                "label": "R4",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_1F39C72020240130111211",
-                "value": 5,
+                "UniqueID": "T_09CBF13020230605190422",
+                "value": 20,
                 "flags": 1
             }
         },
         {
             "nodes": [
                 0,
-                4
+                3
             ],
             "prop": {
                 "label": "R3",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39C23020240130111206",
-                "value": 3,
+                "UniqueID": "T_09CBE75020230605190422",
+                "value": 40,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                3,
+                4,
                 5
-            ],
-            "prop": {
-                "label": "R2",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_1F39BD4020240130111203",
-                "value": 4,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                2,
-                3
             ],
             "prop": {
                 "label": "R1",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_1F39B85020240130111157",
-                "value": 1,
+                "UniqueID": "T_09CBFB1020230605190422",
+                "value": 40,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                6,
+                5
+            ],
+            "prop": {
+                "label": "I1",
+                "match_label": "",
+                "CompId": 6,
+                "UniqueID": "T_09CC000020230605190422",
+                "value": 0,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                6,
+                3
+            ],
+            "prop": {
+                "label": "I2",
+                "match_label": "",
+                "CompId": 6,
+                "UniqueID": "T_09CBEC4020230605190422",
+                "value": 0,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                6,
+                2
+            ],
+            "prop": {
+                "label": "AM1",
+                "match_label": "",
+                "CompId": 6,
+                "UniqueID": "T_09CBC9B020230605190422",
+                "value": 0,
                 "flags": 1
             }
         }
@@ -151,8 +136,16 @@
         {
             "outputs": [
                 {
-                    "label": "VM1",
-                    "value": 0.51612903226,
+                    "label": "I1",
+                    "value": 0.2,
+                    "nodes": [
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "label": "I2",
+                    "value": 0.2,
                     "nodes": [
                         0,
                         0
@@ -162,58 +155,42 @@
             "currents": [
                 {
                     "label": "R1",
-                    "value": -0.12903225806,
+                    "value": -0.2,
                     "nodes": [
-                        2,
-                        3
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": -0.38709677419,
-                    "nodes": [
-                        3,
+                        4,
                         5
                     ]
                 },
                 {
+                    "label": "R2",
+                    "value": 0.4,
+                    "nodes": [
+                        1,
+                        2
+                    ]
+                },
+                {
                     "label": "R3",
-                    "value": 0.12903225806,
+                    "value": -0.2,
                     "nodes": [
                         0,
-                        4
-                    ]
-                },
-                {
-                    "label": "R4",
-                    "value": 0.38709677419,
-                    "nodes": [
-                        4,
-                        6
-                    ]
-                },
-                {
-                    "label": "R5",
-                    "value": -0.25806451613,
-                    "nodes": [
-                        4,
                         3
                     ]
                 },
                 {
-                    "label": "VS1",
-                    "value": 0.12903225806,
+                    "label": "V1",
+                    "value": 0.2,
                     "nodes": [
-                        1,
+                        4,
                         0
                     ]
                 },
                 {
-                    "label": "VS2",
-                    "value": -0.38709677419,
+                    "label": "V2",
+                    "value": -0.4,
                     "nodes": [
-                        5,
-                        6
+                        1,
+                        0
                     ]
                 }
             ],
@@ -222,108 +199,100 @@
                     "label": "AM1",
                     "value": 0,
                     "nodes": [
+                        6,
+                        2
+                    ]
+                },
+                {
+                    "label": "I1",
+                    "value": 0,
+                    "nodes": [
+                        6,
+                        5
+                    ]
+                },
+                {
+                    "label": "I2",
+                    "value": 0,
+                    "nodes": [
+                        6,
+                        3
+                    ]
+                },
+                {
+                    "label": "R1",
+                    "value": -8,
+                    "nodes": [
+                        4,
+                        5
+                    ]
+                },
+                {
+                    "label": "R2",
+                    "value": 8,
+                    "nodes": [
                         1,
                         2
                     ]
                 },
                 {
-                    "label": "R1",
-                    "value": -0.12903225806,
-                    "nodes": [
-                        2,
-                        3
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": -1.5483871,
-                    "nodes": [
-                        3,
-                        5
-                    ]
-                },
-                {
                     "label": "R3",
-                    "value": 0.38709677419,
+                    "value": -8,
                     "nodes": [
                         0,
-                        4
-                    ]
-                },
-                {
-                    "label": "R4",
-                    "value": 1.93548387,
-                    "nodes": [
-                        4,
-                        6
-                    ]
-                },
-                {
-                    "label": "R5",
-                    "value": -0.51612903226,
-                    "nodes": [
-                        4,
                         3
                     ]
                 },
                 {
-                    "label": "VM1",
-                    "value": 0.51612903226,
-                    "nodes": [
-                        3,
-                        4
-                    ]
-                },
-                {
-                    "label": "VS1",
+                    "label": "V1",
                     "value": 0,
                     "nodes": [
-                        1,
+                        4,
                         0
                     ]
                 },
                 {
-                    "label": "VS2",
-                    "value": 4,
+                    "label": "V2",
+                    "value": 16,
                     "nodes": [
-                        5,
-                        6
+                        1,
+                        0
                     ]
                 }
             ],
             "nodal voltages": [
                 {
-                    "value": 0,
+                    "value": 16,
                     "nodes": [
                         1
                     ]
                 },
                 {
-                    "value": 0,
+                    "value": 8,
                     "nodes": [
                         2
                     ]
                 },
                 {
-                    "value": 0.12903225806,
+                    "value": 8,
                     "nodes": [
                         3
                     ]
                 },
                 {
-                    "value": -0.38709677419,
+                    "value": 0,
                     "nodes": [
                         4
                     ]
                 },
                 {
-                    "value": 1.67741935,
+                    "value": 8,
                     "nodes": [
                         5
                     ]
                 },
                 {
-                    "value": -2.32258065,
+                    "value": 8,
                     "nodes": [
                         6
                     ]
@@ -333,8 +302,16 @@
         {
             "outputs": [
                 {
-                    "label": "VM1",
-                    "value": 1.74193548,
+                    "label": "I1",
+                    "value": -0.15,
+                    "nodes": [
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "label": "I2",
+                    "value": 0.05,
                     "nodes": [
                         0,
                         0
@@ -344,58 +321,42 @@
             "currents": [
                 {
                     "label": "R1",
-                    "value": 1.06451613,
+                    "value": 0.15,
                     "nodes": [
-                        2,
-                        3
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": 0.1935483871,
-                    "nodes": [
-                        3,
+                        4,
                         5
                     ]
                 },
                 {
+                    "label": "R2",
+                    "value": -0.1,
+                    "nodes": [
+                        1,
+                        2
+                    ]
+                },
+                {
                     "label": "R3",
-                    "value": -1.06451613,
+                    "value": -0.05,
                     "nodes": [
                         0,
-                        4
-                    ]
-                },
-                {
-                    "label": "R4",
-                    "value": -0.1935483871,
-                    "nodes": [
-                        4,
-                        6
-                    ]
-                },
-                {
-                    "label": "R5",
-                    "value": -0.87096774194,
-                    "nodes": [
-                        4,
                         3
                     ]
                 },
                 {
-                    "label": "VS1",
-                    "value": -1.06451613,
+                    "label": "V1",
+                    "value": -0.15,
                     "nodes": [
-                        1,
+                        4,
                         0
                     ]
                 },
                 {
-                    "label": "VS2",
-                    "value": 0.1935483871,
+                    "label": "V2",
+                    "value": 0.1,
                     "nodes": [
-                        5,
-                        6
+                        1,
+                        0
                     ]
                 }
             ],
@@ -404,108 +365,100 @@
                     "label": "AM1",
                     "value": 0,
                     "nodes": [
+                        6,
+                        2
+                    ]
+                },
+                {
+                    "label": "I1",
+                    "value": 0,
+                    "nodes": [
+                        6,
+                        5
+                    ]
+                },
+                {
+                    "label": "I2",
+                    "value": 0,
+                    "nodes": [
+                        6,
+                        3
+                    ]
+                },
+                {
+                    "label": "R1",
+                    "value": 6,
+                    "nodes": [
+                        4,
+                        5
+                    ]
+                },
+                {
+                    "label": "R2",
+                    "value": -2,
+                    "nodes": [
                         1,
                         2
                     ]
                 },
                 {
-                    "label": "R1",
-                    "value": 1.06451613,
-                    "nodes": [
-                        2,
-                        3
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": 0.77419354839,
-                    "nodes": [
-                        3,
-                        5
-                    ]
-                },
-                {
                     "label": "R3",
-                    "value": -3.19354839,
+                    "value": -2,
                     "nodes": [
                         0,
-                        4
-                    ]
-                },
-                {
-                    "label": "R4",
-                    "value": -0.96774193548,
-                    "nodes": [
-                        4,
-                        6
-                    ]
-                },
-                {
-                    "label": "R5",
-                    "value": -1.74193548,
-                    "nodes": [
-                        4,
                         3
                     ]
                 },
                 {
-                    "label": "VM1",
-                    "value": 1.74193548,
+                    "label": "V1",
+                    "value": 8,
                     "nodes": [
-                        3,
-                        4
-                    ]
-                },
-                {
-                    "label": "VS1",
-                    "value": 6,
-                    "nodes": [
-                        1,
+                        4,
                         0
                     ]
                 },
                 {
-                    "label": "VS2",
+                    "label": "V2",
                     "value": 0,
                     "nodes": [
-                        5,
-                        6
+                        1,
+                        0
                     ]
                 }
             ],
             "nodal voltages": [
                 {
-                    "value": 6,
+                    "value": 0,
                     "nodes": [
                         1
                     ]
                 },
                 {
-                    "value": 6,
+                    "value": 2,
                     "nodes": [
                         2
                     ]
                 },
                 {
-                    "value": 4.93548387,
+                    "value": 2,
                     "nodes": [
                         3
                     ]
                 },
                 {
-                    "value": 3.19354839,
+                    "value": 8,
                     "nodes": [
                         4
                     ]
                 },
                 {
-                    "value": 4.16129032,
+                    "value": 2,
                     "nodes": [
                         5
                     ]
                 },
                 {
-                    "value": 4.16129032,
+                    "value": 2,
                     "nodes": [
                         6
                     ]
@@ -516,8 +469,16 @@
     "dctable_final": {
         "outputs": [
             {
-                "label": "VM1",
-                "value": 2.25806452,
+                "label": "I1",
+                "value": 0.05,
+                "nodes": [
+                    0,
+                    0
+                ]
+            },
+            {
+                "label": "I2",
+                "value": 0.25,
                 "nodes": [
                     0,
                     0
@@ -527,58 +488,42 @@
         "currents": [
             {
                 "label": "R1",
-                "value": 0.93548387097,
+                "value": -0.05,
                 "nodes": [
-                    2,
-                    3
-                ]
-            },
-            {
-                "label": "R2",
-                "value": -0.1935483871,
-                "nodes": [
-                    3,
+                    4,
                     5
                 ]
             },
             {
+                "label": "R2",
+                "value": 0.3,
+                "nodes": [
+                    1,
+                    2
+                ]
+            },
+            {
                 "label": "R3",
-                "value": -0.93548387097,
+                "value": -0.25,
                 "nodes": [
                     0,
-                    4
-                ]
-            },
-            {
-                "label": "R4",
-                "value": 0.1935483871,
-                "nodes": [
-                    4,
-                    6
-                ]
-            },
-            {
-                "label": "R5",
-                "value": -1.12903226,
-                "nodes": [
-                    4,
                     3
                 ]
             },
             {
-                "label": "VS1",
-                "value": -0.93548387097,
+                "label": "V1",
+                "value": 0.05,
                 "nodes": [
-                    1,
+                    4,
                     0
                 ]
             },
             {
-                "label": "VS2",
-                "value": -0.1935483871,
+                "label": "V2",
+                "value": -0.3,
                 "nodes": [
-                    5,
-                    6
+                    1,
+                    0
                 ]
             }
         ],
@@ -587,114 +532,106 @@
                 "label": "AM1",
                 "value": 0,
                 "nodes": [
+                    6,
+                    2
+                ]
+            },
+            {
+                "label": "I1",
+                "value": 0,
+                "nodes": [
+                    6,
+                    5
+                ]
+            },
+            {
+                "label": "I2",
+                "value": 0,
+                "nodes": [
+                    6,
+                    3
+                ]
+            },
+            {
+                "label": "R1",
+                "value": -2,
+                "nodes": [
+                    4,
+                    5
+                ]
+            },
+            {
+                "label": "R2",
+                "value": 6,
+                "nodes": [
                     1,
                     2
                 ]
             },
             {
-                "label": "R1",
-                "value": 0.93548387097,
-                "nodes": [
-                    2,
-                    3
-                ]
-            },
-            {
-                "label": "R2",
-                "value": -0.77419354839,
-                "nodes": [
-                    3,
-                    5
-                ]
-            },
-            {
                 "label": "R3",
-                "value": -2.80645161,
+                "value": -10,
                 "nodes": [
                     0,
-                    4
-                ]
-            },
-            {
-                "label": "R4",
-                "value": 0.96774193548,
-                "nodes": [
-                    4,
-                    6
-                ]
-            },
-            {
-                "label": "R5",
-                "value": -2.25806452,
-                "nodes": [
-                    4,
                     3
                 ]
             },
             {
-                "label": "VM1",
-                "value": 2.25806452,
+                "label": "V1",
+                "value": 8,
                 "nodes": [
-                    3,
-                    4
-                ]
-            },
-            {
-                "label": "VS1",
-                "value": 6,
-                "nodes": [
-                    1,
+                    4,
                     0
                 ]
             },
             {
-                "label": "VS2",
-                "value": 4,
+                "label": "V2",
+                "value": 16,
                 "nodes": [
-                    5,
-                    6
+                    1,
+                    0
                 ]
             }
         ],
         "nodal voltages": [
             {
-                "value": 6,
+                "value": 16,
                 "nodes": [
                     1
                 ]
             },
             {
-                "value": 6,
+                "value": 10,
                 "nodes": [
                     2
                 ]
             },
             {
-                "value": 5.06451613,
+                "value": 10,
                 "nodes": [
                     3
                 ]
             },
             {
-                "value": 2.80645161,
+                "value": 8,
                 "nodes": [
                     4
                 ]
             },
             {
-                "value": 5.83870968,
+                "value": 10,
                 "nodes": [
                     5
                 ]
             },
             {
-                "value": 1.83870968,
+                "value": 10,
                 "nodes": [
                     6
                 ]
             }
         ]
     },
-    "circ_name": "g-grid1-two-gen.tsc",
+    "circ_name": "super 26-ai.tsc",
     "meters_without_labels": 0
 }
