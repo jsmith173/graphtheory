@@ -1,13 +1,13 @@
 [
     {
-        "source": 1,
-        "target": 2,
+        "source": 2,
+        "target": 1,
         "prop": {
-            "label": "R2",
+            "label": "R4",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_09CBF13020230605190422",
-            "value": 20,
+            "UniqueID": "HVN77SE1IMC8UDTVLFT02KN5",
+            "value": 1000,
             "flags": 1
         }
     },
@@ -18,64 +18,40 @@
             "label": "R3",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_09CBE75020230605190422",
-            "value": 40,
+            "UniqueID": "NDVM8LQNKQ2N6B2DC0UVS157",
+            "value": 1000,
             "flags": 1
         }
     },
     {
-        "source": 4,
-        "target": 5,
+        "source": 3,
+        "target": 1,
+        "prop": {
+            "label": "R2",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "QIGDF94BHRK2ACM9S6CAIJDJ",
+            "value": 1000,
+            "flags": 1
+        }
+    },
+    {
+        "source": 0,
+        "target": 2,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_09CBFB1020230605190422",
-            "value": 40,
+            "UniqueID": "UHN971R4MOD4GG8DITMP4GAO",
+            "value": 1000,
             "flags": 1
         }
     },
     {
-        "source": 6,
-        "target": 5,
-        "prop": {
-            "label": "I1",
-            "match_label": "",
-            "CompId": 6,
-            "UniqueID": "T_09CC000020230605190422",
-            "value": 0,
-            "flags": 0
-        }
-    },
-    {
-        "source": 6,
-        "target": 3,
-        "prop": {
-            "label": "I2",
-            "match_label": "",
-            "CompId": 6,
-            "UniqueID": "T_09CBEC4020230605190422",
-            "value": 0,
-            "flags": 0
-        }
-    },
-    {
-        "source": 6,
-        "target": 2,
-        "prop": {
-            "label": "AM1",
-            "match_label": "",
-            "CompId": 6,
-            "UniqueID": "T_09CBC9B020230605190422",
-            "value": 0,
-            "flags": 0
-        }
-    },
-    {
-        "source": 1,
+        "source": 3,
         "target": 0,
         "prop": {
-            "label": "RGenZero0",
+            "label": "RGenZero1",
             "match_label": "",
             "CompId": 9,
             "UniqueID": "<none>",

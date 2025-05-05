@@ -166,6 +166,15 @@ class TCircuitSolverGraph:
 		self.circuit_key = circuit_key
 		with open(self.fn, 'r') as f:
 			json_data_l = json.load(f)
+
+		# write the indent version of the JSON input (debug)	
+		fn_ = f"{self.fn}"
+		fn2 = Path(fn_)
+		fn_wo_ext = str(fn2.with_suffix(''))
+		fn2 = Path(fn_wo_ext)
+		fn2_wo_ext = fn2.name	
+		cu.dump_list(json_data_l, fn_wo_ext+'-indent.json')
+			
 		self.json_data = json_data_l[circuit_key]
 		self.has_expected_key = 'expected' in json_data_l.keys()
 		if self.has_expected_key:
@@ -619,6 +628,29 @@ class TCircuitSolverGraph:
 		tmp.append(a)
 		return tmp
 	
+	def get_item_voltage(self, label):
+		idx = self.find_in_json(label)
+		if idx >= 0:
+			e = self.json_data["edges"][idx]
+			i = e["nodes"][0]
+			j = e["nodes"][1]
+			
+			flag0 = self.v_flags[self.i_pass][i]
+			flag1 = self.v_flags[self.i_pass][j]
+			
+			if flag0 and flag1:
+				re = self.v_re[self.i_pass][i]-self.v_re[self.i_pass][j]
+				im = self.v_im[self.i_pass][i]-self.v_im[self.i_pass][j]					
+				if abs(im) > 1e-15:
+					r = complex(re, im)
+				else:
+					r = re					
+				return True, r
+			else:	
+				return False, 0			
+		else:
+			return False, 0
+		
 	def yd_find_unique_labels(self, labels):
 		unique_labels = []
 		for i in range(len(labels)):

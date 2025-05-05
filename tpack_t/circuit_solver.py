@@ -425,6 +425,16 @@ class TCircuitSolver:
 				if M != "" or self.request_path == '':
 					self.last_node = nodes[i]
 					M = f"({self.lc}) "; self.lc = self.lc+1
+					
+					f, tmp = self.graph.get_item_voltage(labels[i])
+					# csak a kiirasba kellene beletenni, elrontja az ertekeket
+					if False:
+						changed = abs(voltage-tmp) > 1e-6
+						#if changed:
+						#	self.log(f"xxx Voltage dir change on {labels[i]}: old: {voltage}, new: {tmp}")
+						voltage = tmp
+						new_val[i] = tmp					
+					
 					if len(labels) == 1:
 						if top_label != labels[i]:
 							self.log(f"The voltage on {labels[i]} is {self.graph.fv(voltage)} {cg.uVolt} because the voltage is {self.graph.fv(voltage)} {cg.uVolt} on {top_label}") 
@@ -438,7 +448,7 @@ class TCircuitSolver:
 							s_nodes = f"(node numbers {m} and {n})"
 						else:
 							s_new_val = self.graph.fv(new_val[i])
-							s_nodes = ""
+							s_nodes = ""													
 							
 						self.log(f"The voltage between this components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
 						
@@ -478,6 +488,16 @@ class TCircuitSolver:
 					else:
 						s = labels[i]
 					M = f"({self.lc}) "; self.lc = self.lc+1
+					
+					f, tmp = self.graph.get_item_voltage(labels[i])
+					# csak a kiirasba kellene beletenni, elrontja az ertekeket
+					if False:
+						changed = abs(voltage-tmp) > 1e-6
+						#if changed:
+						#	self.log(f"xxx Voltage dir change on {labels[i]}: old: {voltage}, new: {tmp}")
+						voltage = tmp
+						new_val[i] = tmp															
+					
 					self.log(f"The components {label_list} connected in parallel. The voltage on {s} is {self.graph.fv(voltage)} {cg.uVolt} because the voltage on {top_label} is {self.graph.fv(voltage)} {cg.uVolt}")
 					self.log("")
 					if self.request['cmd'] == 'get_voltage':
@@ -828,7 +848,7 @@ class TCircuitSolver:
 		try:
 			tmp_edges = []
 			MaxGR = self.graph.MaxGR
-			# nInserted, MaxGR is local var
+			# MaxGR is local var
 			for j in range(len(self.gens)):
 				gen = self.gens[j]
 
