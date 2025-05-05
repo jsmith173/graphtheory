@@ -48,14 +48,26 @@
         }
     },
     {
-        "source": 3,
-        "target": 0,
+        "source": 1,
+        "target": 4,
         "prop": {
-            "label": "RGenZero1",
+            "label": "RGenZero0",
             "match_label": "",
             "CompId": 9,
             "UniqueID": "<none>",
-            "value": 0,
+            "value": 1e-09,
+            "flags": 1
+        }
+    },
+    {
+        "source": 4,
+        "target": 0,
+        "prop": {
+            "label": "RGenZero0",
+            "match_label": "",
+            "CompId": 9,
+            "UniqueID": "<none>",
+            "value": 1e-09,
             "flags": 1
         }
     }

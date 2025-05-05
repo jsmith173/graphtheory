@@ -63,6 +63,7 @@ class TCircuitSolver:
 		self.expected_key = {}; self.block_labels = []
 		self.ignored_resistances = []
 		self.short_circuit_pass = 0
+		self.insert_double_rmin = False
 		
 		if self.opts != None and 'request' in self.opts.keys():
 			if (self.opts['request']['options'] & cg.LLM_LOUD) != 0:
@@ -409,7 +410,13 @@ class TCircuitSolver:
 
 		if node.type == "series":
 			for i in range(N):
-				v = impedance[i]/sum_impedance*voltage; new_val.append(v)
+			
+				try:
+					r = impedance[i]/sum_impedance
+				except ZeroDivisionError as e:
+					raise ShortCircuitException("Division by zero in current calculation") from e
+									
+				v = r*voltage; new_val.append(v)
 
 			for i in range(N):
 				node_list_ = []
@@ -572,9 +579,18 @@ class TCircuitSolver:
 				self.run(circuit_key, RMIN)
 			except ShortCircuitException as e:
 				in_cycle = True
+				tmp = self.insert_double_rmin
 				self.clean()
 				RMIN = cg.RMIN_SMALL
 				self.short_circuit_pass = 1
+				self.insert_double_rmin = tmp
+				i += 1
+			except cg.GraphException as e:
+				in_cycle = True
+				self.clean()
+				RMIN = cg.RMIN_SMALL
+				self.short_circuit_pass = 1
+				self.insert_double_rmin = True
 				i += 1
 			except Exception as e:
 				raise	
@@ -932,9 +948,37 @@ class TCircuitSolver:
 					is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 
 					if is_v_gen:
-						item = self.graph.create_item(gen, j, self.graph.RMIN)
-						self.graph.json_data["edges"].append(item)
-						nInserted += 1
+						
+						if self.insert_double_rmin:
+							MaxGR = self.graph.get_max_graph_number()
+							i1 = gen['nodes'][0]
+							i2 = MaxGR+1
+							i3 = gen['nodes'][1]					
+							
+							nodes = []
+							nodes.append(i1)
+							nodes.append(i2)						
+							item = self.graph.create_item(copy.deepcopy(nodes), j, self.graph.RMIN)
+							self.graph.json_data["edges"].append(item)
+							nInserted += 1
+							
+							nodes = []
+							nodes.append(i2)
+							nodes.append(i3)						
+							item = self.graph.create_item(copy.deepcopy(nodes), j, self.graph.RMIN)
+							self.graph.json_data["edges"].append(item)
+							nInserted += 1
+						else:	
+							i1 = gen['nodes'][0]
+							i2 = gen['nodes'][1]					
+							
+							nodes = []
+							nodes.append(i1)
+							nodes.append(i2)						
+							item = self.graph.create_item(copy.deepcopy(nodes), j, self.graph.RMIN)
+							self.graph.json_data["edges"].append(item)
+							nInserted += 1
+						
 
 			G = self.graph.get_graph(circuit_key)
 

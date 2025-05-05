@@ -46,6 +46,9 @@ F_VOLT_METER  = 1
 F_OHM_METER   = 2
 F_AMPER_METER = 4
 
+class GraphException(Exception):
+    pass
+
 def_weight = 1
 
 dummy_gen = {
@@ -306,6 +309,13 @@ class TCircuitSolverGraph:
 				return True
 		return False
 		
+	def get_max_graph_number(self):
+		max_value = 0
+		for node in self.json_data["nodes"]:
+			if node > max_value:
+				max_value = node
+		return max_value
+
 	def get_graph(self, circuit_key, directed=False):
 		N = self.json_data["N"]; self.MaxGR = 0
 		self.G = Graph(N, directed=directed)
@@ -332,7 +342,11 @@ class TCircuitSolverGraph:
 				self.MaxGR = node
 
 		for edge in self.edges:
-			self.G.add_edge(edge)
+			try:
+				self.G.add_edge(edge)
+			except ValueError as e:
+				raise GraphException("Can not create graph") from e
+
 		return self.G
 
 	def get_edge(self, node):
@@ -1002,9 +1016,9 @@ class TCircuitSolverGraph:
 			s = f"{comp_str}x{a}{post_str}"
 		return f_inc, s
 
-	def create_item(self, gen, m, value):
+	def create_item(self, nodes, m, value):
 		item = {}; prop = {}
-		item["nodes"] = gen["nodes"]	
+		item["nodes"] = nodes
 		prop["label"] = f"{SHORT_CIRCUIT_PREFIX}{m}"
 		prop["match_label"] = ""
 		prop["CompId"] = RES_
