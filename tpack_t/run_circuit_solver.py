@@ -130,9 +130,9 @@ def run():
 		test_all(filelist, opts)
 	else:	
 		if (opts['request']['options'] & cg.LLM_LOUD) != 0:
-			test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
+			test_one_file(test_file, 'circuit_no_gens', opts)
 		opts['request']['options'] = opts['request']['options'] & ~cg.LLM_LOUD
-		test_one_file_no_exc(test_file, 'circuit_no_gens', opts)
+		test_one_file(test_file, 'circuit_no_gens', opts)
 
 if __name__ == "__main__":
 	run()

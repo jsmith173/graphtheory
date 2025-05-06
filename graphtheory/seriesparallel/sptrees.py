@@ -128,8 +128,12 @@ def find_sptree(graph, fixed_ends=None):
                     raise ValueError("not an sp-graph")
         # Trzeba ustalic jedno ramie jako koniec, w parze do centrum.
         source = degree1.pop()
-        while degree1:
-            call_stack.append(("jackknife", degree1.pop(), source, sink))
+        try:
+            while degree1:
+                call_stack.append(("jackknife", degree1.pop(), source, sink))
+        except UnboundLocalError as e:
+            raise ValueError("not an sp-graph #2") from e
+
         root = Node(source, sink, "edge")
         tnode_dict[(source, sink)] = root
     else:

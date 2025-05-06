@@ -1,73 +1,13 @@
 [
     {
-        "source": 2,
-        "target": 1,
-        "prop": {
-            "label": "R4",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "HVN77SE1IMC8UDTVLFT02KN5",
-            "value": 1000,
-            "flags": 1
-        }
-    },
-    {
-        "source": 0,
-        "target": 3,
-        "prop": {
-            "label": "R3",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "NDVM8LQNKQ2N6B2DC0UVS157",
-            "value": 1000,
-            "flags": 1
-        }
-    },
-    {
         "source": 3,
         "target": 1,
-        "prop": {
-            "label": "R2",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "QIGDF94BHRK2ACM9S6CAIJDJ",
-            "value": 1000,
-            "flags": 1
-        }
-    },
-    {
-        "source": 0,
-        "target": 2,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "UHN971R4MOD4GG8DITMP4GAO",
+            "UniqueID": "T_000000002786D12020250425154905",
             "value": 1000,
-            "flags": 1
-        }
-    },
-    {
-        "source": 1,
-        "target": 4,
-        "prop": {
-            "label": "RGenZero0",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "<none>",
-            "value": 1e-09,
-            "flags": 1
-        }
-    },
-    {
-        "source": 4,
-        "target": 0,
-        "prop": {
-            "label": "RGenZero0",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "<none>",
-            "value": 1e-09,
             "flags": 1
         }
     }
