@@ -2,20 +2,22 @@
     "superposition": [],
     "circuit": [
         "Netlist (component name, nodes)",
-        "R1 3 1",
+        "AM1 2 0",
+        "R1 1 2",
         ""
     ],
     "request": {
-        "text": "What is the voltage on VM1?",
-        "cmd": "get_voltage",
-        "comp": "VM1",
+        "text": "What is the current on AM1?",
+        "cmd": "get_current",
+        "comp": "AM1",
         "options": 4,
         "qid": "0",
         "ohm_meter_question": false,
         "req_on_gen": false,
-        "volt_meter_question": true,
-        "volt_meter_no_match": true,
-        "comp_ori": "VM1"
+        "volt_meter_question": false,
+        "volt_meter_no_match": false,
+        "comp_ori": "AM1",
+        "amper_meter_question": false
     },
     "calculation": {
         "short_circuit_pass": 0,
@@ -30,6 +32,6 @@
         "fn": "data/temp.json",
         "valid": 0,
         "error": 1,
-        "status": "cannot access local variable 'sink' where it is not associated with a value"
+        "status": "Error while processing ampermeter AM1"
     }
 }

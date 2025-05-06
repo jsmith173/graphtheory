@@ -844,14 +844,6 @@ class TCircuitSolver:
 						return True, v					
 		return False, v					
 
-	def mark_ampermeters(self):
-		i = 0; list_ = self.graph.json_data["edges"]
-		for i in range(len(list_)):
-			item = list_[i]; comp_id = item["prop"]["CompId"]
-			if comp_id == cg.AMPER_METER_ or comp_id == cg.AMPER_METER2_:
-				item["prop"]["flags"] = cg.FLAGS_NONE
-				list_[i] = item
-
 	def check_ampermeters(self):
 		i = 0; list_ = self.graph.json_data["edges"]; f = False
 		for i in range(len(list_)):
@@ -860,68 +852,6 @@ class TCircuitSolver:
 				f = True
 		return f	
 	
-	def get_amper_meters(self):
-		try:
-			tmp_edges = []
-			MaxGR = self.graph.MaxGR
-			# MaxGR is local var
-			for j in range(len(self.gens)):
-				gen = self.gens[j]
-
-				gen_comp_id = gen['prop']['CompId']
-				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
-
-				if not is_v_gen:
-					tmp_edges = []
-					i1 = gen['nodes'][0]
-					i2 = MaxGR+1
-					i3 = gen['nodes'][1]
-					self.graph.G.add_node(i2)
-					prop = cg.split_edge_prop
-					
-					edge = Edge(i1, i2, def_weight, prop)
-					tmp_edges.append(edge)
-					self.graph.G.add_edge(edge)
-					
-					edge = Edge(i2, i3, def_weight, prop)
-					tmp_edges.append(edge)
-					self.graph.G.add_edge(edge)
-					
-		
-			am_edges = []
-			for e in self.graph.edges:
-				prop = e.prop; comp_id = prop['CompId']
-				if comp_id == cg.AMPER_METER_ or comp_id == cg.AMPER_METER2_:
-					am_edges.append(e)
-			for e in am_edges:		
-				found = False
-				for node in [e.source, e.target]:
-					if node == e.source:
-						node_next = e.target
-					else:
-						node_next = e.source
-					am_label = e.prop['label'] 		
-					if self.graph.G.degree(node) == 2:
-						for node_adj in self.graph.G.iteradjacent(node):
-							if node_adj != node_next:
-								tmp = [node, node_adj]
-								idx, f = self.graph.find_in_json_by_nodes(tmp, True)
-								item = self.graph.json_data["edges"][idx]
-								prop = item["prop"]
-								if prop["flags"] == cg.FLAGS_NORMAL:
-									tmp = {}; tmp['label'] = am_label; tmp['match_label'] = prop['label']; tmp['nodes'] = [e.source, e.target]
-									self.graph.amper_meters.append(tmp)
-									found = True
-									break
-					if found:
-						break		
-				if not found:
-					raise Exception(f"Resistive component not found for ampermeter {am_label}")	
-		finally:
-			for edge in tmp_edges:
-				self.graph.G.del_edge(edge)
-		
-
 	def run_pass(self, circuit_key, i_pass):
 		try:
 			self.graph.computed_id = 0; self.graph.y_computed_id = 0; 
@@ -1021,12 +951,6 @@ class TCircuitSolver:
 			self.request['amper_meter_question'] = False; self.silent = False
 			self.graph.amper_meters = []
 			has_amper_meter = self.check_ampermeters()
-			if has_amper_meter:
-				#get the 'amper_meters'. walk_postorder can not use because it may find another 'series' component (for example 'Shortxx' res) 
-				self.get_amper_meters()
-
-				#mark ampetermeters with flags=0
-				self.mark_ampermeters()
 
 			if has_amper_meter:
 				for item in self.graph.amper_meters:

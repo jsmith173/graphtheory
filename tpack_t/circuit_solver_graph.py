@@ -184,6 +184,10 @@ class TCircuitSolverGraph:
 			self.expected_key = json_data_l['expected']
 		else:
 			self.expected_key = {}
+			
+		self.collect_amper_meters()
+		cu.dump_list(self.json_data, fn_wo_ext+'-mod.json')
+		
 		gen_found = True
 		if len(self.json_data['gens']) > 0 or self.find_ohm_meter():
 			if len(self.json_data['gens']) == 0:
@@ -257,7 +261,14 @@ class TCircuitSolverGraph:
 			self.log_set_v_pot = True
 		cu.dump_list(self.json_data, "temp/input.json")
 		return self.has_expected_key, self.expected_key, self.gen, self.request
-	
+
+	def collect_amper_meters(self):
+		self.am_edges = []
+		for item in self.json_data["edges"]:
+			if item['prop']['CompId'] == AMPER_METER_ or item['prop']['CompId'] == AMPER_METER2_:
+				new_item = deepcopy(item)
+				self.am_edges.append(new_item)
+
 	def debug_graph(self):
 		dbg1 = []
 		for item in self.json_data["edges"]:
