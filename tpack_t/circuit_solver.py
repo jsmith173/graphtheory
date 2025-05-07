@@ -409,13 +409,13 @@ class TCircuitSolver:
 			#label_list = ",".join(label_list_)
 
 		if node.type == "series":
-			for i in range(N):
-			
-				try:
-					r = impedance[i]/sum_impedance
-				except ZeroDivisionError as e:
-					raise ShortCircuitException("Division by zero in current calculation") from e
-									
+			try:
+				current = voltage/sum_impedance
+			except ZeroDivisionError as e:
+				raise ShortCircuitException("Division by zero in current calculation") from e
+								
+			for i in range(N):		
+				r = impedance[i]/sum_impedance
 				v = r*voltage; new_val.append(v)
 
 			for i in range(N):
@@ -466,12 +466,8 @@ class TCircuitSolver:
 						pass
 					elif self.request['cmd'] == 'get_current':
 					
-						try:
-							r = new_val[i]/impedance[i]
-						except ZeroDivisionError as e:
-							raise ShortCircuitException("Division by zero in current calculation") from e
-						
-						self.log(f"The current on {labels[i]} is the voltage on {labels[i]}{self.graph.sDiv}{labels[i]} = {self.graph.fv(r)} {cg.uCurrent}")
+						self.log(f"The current in branch {top_label} is 'voltage on this branch'{self.graph.sDiv}'impedance in this branch' = {self.graph.fv(voltage)}{self.graph.sDiv}{self.graph.fv(sum_impedance)} = {self.graph.fv(current)} {cg.uCurrent}")
+						self.log(f"The current on {labels[i]} is the current on {top_label}. Therefore the current on {labels[i]} is {self.graph.fv(current)} {cg.uCurrent}")
 					self.log("")
 
 				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node) 
@@ -563,6 +559,8 @@ class TCircuitSolver:
 			return 'resistance'
 
 	def run_proc(self, circuit_key):
+		self.graph.modify_amper_meters(self.graph.RMIN)
+		cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 		for i in range(len(self.gens)):
 			self.gen = self.gens[i]
 			self.graph.i_pass = i
@@ -671,7 +669,10 @@ class TCircuitSolver:
 							r = re					
 						new_item['voltage'] = self.graph.fv(r)						
 						
-						current = r/value
+						try:
+							current = r/value
+						except ZeroDivisionError as e:
+							raise ShortCircuitException("Division by zero in current calculation") from e
 						
 						if isinstance(current, complex):
 							re = current.real; im = current.imag
@@ -718,17 +719,6 @@ class TCircuitSolver:
 				self.log_info(f"*** Passed ***: expected: {self.graph.fv(self.expected_key['res_req'])}, got: {self.graph.fv(v)}")
 		
 		self.write_log(1, 'OK', 0, True)
-
-	def check_amper_meter_question(self):
-		label = self.request['comp']
-		idx = self.graph.find_in_json(label)
-		if idx >= 0:
-			e = self.graph.json_data["edges"][idx]
-			prop = e["prop"]; comp_id = prop['CompId'] 
-		else:
-			comp_id = -1	
-		if not self.request['amper_meter_question'] and (comp_id == cg.AMPER_METER_ or comp_id == cg.AMPER_METER2_):
-			raise Exception(f"Error while processing ampermeter {label}")
 
 	def get_result(self):
 		request_txt = cu.get_request_txt(self.request)
@@ -951,15 +941,6 @@ class TCircuitSolver:
 			self.request['amper_meter_question'] = False; self.silent = False
 			self.graph.amper_meters = []
 			has_amper_meter = self.check_ampermeters()
-
-			if has_amper_meter:
-				for item in self.graph.amper_meters:
-					if self.request["comp"] == item["label"]:
-						self.request["comp_ori"] = self.request["comp"]
-						self.request["comp"] = item["match_label"]
-						self.request['amper_meter_question'] = True
-						break
-				self.check_amper_meter_question()
 
 			#get path for 'comp'
 			paths = []		

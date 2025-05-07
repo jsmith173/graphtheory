@@ -269,6 +269,18 @@ class TCircuitSolverGraph:
 				new_item = deepcopy(item)
 				self.am_edges.append(new_item)
 
+	def is_amper_meter(self, unique_id):
+		for item in self.am_edges:
+			if item['prop']['UniqueID'] == unique_id:
+				return True
+		return False
+				
+	def modify_amper_meters(self, RMIN):
+		for item in self.json_data["edges"]:
+			if self.is_amper_meter(item['prop']['UniqueID']):
+				item['prop']['CompId'] = RES_
+				item['prop']['value'] = RMIN
+
 	def debug_graph(self):
 		dbg1 = []
 		for item in self.json_data["edges"]:

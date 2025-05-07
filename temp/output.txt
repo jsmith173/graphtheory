@@ -1,2 +1,16 @@
 Solution by TINA assisted by AI
-Failed: see codes
+
+First we calculate the total resistance between the generator nodes (VS1)
+R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm
+AM1 and Rb connected in series so Ra=AM1+Rb=1nOhm+2kOhm=2kOhm
+The total resistance is Ra = 2kOhm
+
+Now we calculate the current on AM1
+We know that the voltage between VS1 nodes is 5 Volt.
+
+The components AM1 and Rb connected in series.
+The voltage between this components starting and ending node is 5 Volt
+AM1 is in the voltage divider so the voltage on AM1 is AM1/Ra*5 Volt = 2.5p Volt 
+The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper
+The current on AM1 is the current on Ra. Therefore the current on AM1 is 2.5m Amper
+

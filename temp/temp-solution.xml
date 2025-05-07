@@ -1,10 +1,41 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <top>
-	<superposition/>
+	<superposition>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
+				<item>AM1 and Rb connected in series so Ra=AM1+Rb=1nOhm+2kOhm=2kOhm</item>
+				<item>The total resistance is Ra = 2kOhm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
+				<item>AM1 and Rb connected in series so Ra=AM1+Rb=1nOhm+2kOhm=2kOhm</item>
+				<item>The total resistance is Ra = 2kOhm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>3</item>
+					<item>0</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_000000002789CB4020250506222559</UniqueID>
+					<value>5</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
+	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>AM1 2 0</item>
-		<item>R1 1 2</item>
+		<item>R2 1 2</item>
+		<item>R1 3 1</item>
+		<item>AM1 0 2</item>
 		<item/>
 	</circuit>
 	<request>
@@ -21,18 +52,104 @@
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
-		<short_circuit_pass>0</short_circuit_pass>
+		<short_circuit_pass>1</short_circuit_pass>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
-			<item>Failed: see codes</item>
+			<item/>
+			<item>First we calculate the total resistance between the generator nodes (VS1)</item>
+			<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
+			<item>AM1 and Rb connected in series so Ra=AM1+Rb=1nOhm+2kOhm=2kOhm</item>
+			<item>The total resistance is Ra = 2kOhm</item>
+			<item/>
+			<item>Now we calculate the current on AM1</item>
+			<item>We know that the voltage between VS1 nodes is 5 Volt.</item>
+			<item/>
+			<item>The components AM1 and Rb connected in series.</item>
+			<item>The voltage between this components starting and ending node is 5 Volt</item>
+			<item>AM1 is in the voltage divider so the voltage on AM1 is AM1/Ra*5 Volt = 2.5p Volt </item>
+			<item>The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper</item>
+			<item>The current on AM1 is the current on Ra. Therefore the current on AM1 is 2.5m Amper</item>
+			<item/>
 		</solution>
 		<node_potentials_dbg>
-			<node_potentials/>
-			<item_voltages/>
+			<node_potentials>
+				<item>
+					<item>VP_0 = 0, assigned: 1</item>
+					<item>VP_1 = 2.5, assigned: 1</item>
+					<item>VP_2 = 2.5p, assigned: 1</item>
+					<item>VP_3 = 5, assigned: 1</item>
+				</item>
+				<item>
+					<item>VP_0 = 0, assigned (and): 1</item>
+					<item>VP_1 = 2.5, assigned (and): 1</item>
+					<item>VP_2 = 2.5p, assigned (and): 1</item>
+					<item>VP_3 = 5, assigned (and): 1</item>
+				</item>
+			</node_potentials>
+			<item_voltages>
+				<item>
+					<nodes>
+						<item>0</item>
+						<item>2</item>
+					</nodes>
+					<label>AM1</label>
+					<value>1e-09</value>
+					<voltage>-2.5p</voltage>
+					<current>-2.5m</current>
+				</item>
+				<item>
+					<nodes>
+						<item>3</item>
+						<item>1</item>
+					</nodes>
+					<label>R1</label>
+					<value>1000</value>
+					<voltage>2.5</voltage>
+					<current>2.5m</current>
+				</item>
+				<item>
+					<nodes>
+						<item>1</item>
+						<item>2</item>
+					</nodes>
+					<label>R2</label>
+					<value>1000</value>
+					<voltage>2.5</voltage>
+					<current>2.5m</current>
+				</item>
+			</item_voltages>
 		</node_potentials_dbg>
+		<block_labels>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<value>2kOhm</value>
+				<labels>
+					<item>R2</item>
+					<item>R1</item>
+				</labels>
+				<unique_labels>
+					<item>T_000000002786BF8020250507152631</item>
+					<item>T_000000002789D12020250506222554</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ra</label>
+				<origin>series</origin>
+				<value>2kOhm</value>
+				<labels>
+					<item>AM1</item>
+					<item>Rb</item>
+				</labels>
+				<unique_labels>
+					<item>T_000000002789EE8020250506222550</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+		</block_labels>
 		<fn>data/temp.json</fn>
-		<valid>0</valid>
-		<error>1</error>
-		<status>Error while processing ampermeter AM1</status>
+		<valid>1</valid>
+		<error>0</error>
+		<status>OK</status>
 	</calculation>
 </top>
