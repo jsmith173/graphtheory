@@ -53,9 +53,3 @@ def replace_all_whole_words(txt, src, repl):
 	result = re.sub(pattern, repl, txt)
 	return result
 
-def dump_list(l1, fn):
-	f = open(fn, "w")
-	data = json.dumps(l1, indent=4)
-	f.write(data)
-	f.close()
-	

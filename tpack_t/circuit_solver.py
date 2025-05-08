@@ -732,17 +732,7 @@ class TCircuitSolver:
 			if is_single_label:
 				return True, ser_label
 			else:	
-				fifo.append(ser_label)
-		
-				while len(fifo) > 0:
-					item = fifo[0]
-					f, ser_label = self.find_composed_label(item)
-					if f:
-						return f, ser_label
-					else:
-						fifo.append(ser_label)
-					fifo.pop(0)
-					
+				f, ser_label = self.find_composed_label(ser_label)
 		return f, ser_label		
 
 	def calc_item_values(self, table, calc_amper_meters):

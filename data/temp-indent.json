@@ -64,7 +64,7 @@
                     3
                 ],
                 "prop": {
-                    "label": "I2",
+                    "label": "AM1",
                     "match_label": "",
                     "CompId": 34,
                     "UniqueID": "T_0952FB1020230503180913",
@@ -117,6 +117,16 @@
         ],
         "dctables": [
             {
+                "outputs": [
+                    {
+                        "label": "VM1",
+                        "value": 5,
+                        "nodes": [
+                            0,
+                            0
+                        ]
+                    }
+                ],
                 "currents": [
                     {
                         "label": "R1",
@@ -143,31 +153,21 @@
                         ]
                     }
                 ],
-                "outputs": [
-                    {
-                        "label": "VM1",
-                        "value": 5,
-                        "nodes": [
-                            0,
-                            0
-                        ]
-                    }
-                ],
                 "other voltages": [
+                    {
+                        "label": "AM1",
+                        "value": 0,
+                        "nodes": [
+                            2,
+                            3
+                        ]
+                    },
                     {
                         "label": "I1",
                         "value": 0,
                         "nodes": [
                             2,
                             4
-                        ]
-                    },
-                    {
-                        "label": "I2",
-                        "value": 0,
-                        "nodes": [
-                            2,
-                            3
                         ]
                     },
                     {
@@ -240,6 +240,16 @@
             }
         ],
         "dctable_final": {
+            "outputs": [
+                {
+                    "label": "VM1",
+                    "value": 5,
+                    "nodes": [
+                        0,
+                        0
+                    ]
+                }
+            ],
             "currents": [
                 {
                     "label": "R1",
@@ -266,31 +276,21 @@
                     ]
                 }
             ],
-            "outputs": [
-                {
-                    "label": "VM1",
-                    "value": 5,
-                    "nodes": [
-                        0,
-                        0
-                    ]
-                }
-            ],
             "other voltages": [
+                {
+                    "label": "AM1",
+                    "value": 0,
+                    "nodes": [
+                        2,
+                        3
+                    ]
+                },
                 {
                     "label": "I1",
                     "value": 0,
                     "nodes": [
                         2,
                         4
-                    ]
-                },
-                {
-                    "label": "I2",
-                    "value": 0,
-                    "nodes": [
-                        2,
-                        3
                     ]
                 },
                 {
@@ -365,9 +365,9 @@
         "meters_without_labels": 0
     },
     "request": {
-        "text": "What is the current on I1?",
+        "text": "What is the current on AM1?",
         "cmd": "get_current",
-        "comp": "I1",
+        "comp": "AM1",
         "options": 4,
         "qid": "0"
     }
