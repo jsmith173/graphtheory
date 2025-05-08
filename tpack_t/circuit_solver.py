@@ -45,6 +45,7 @@ class TCircuitSolver:
 		self.fn_base_wo_ext = str(fn2.with_suffix(''))
 
 		self.opts = opts
+		self.rt_log = []
 		
 		# allocate
 		self.graph = TCircuitSolverGraph(self.fn, opts)
@@ -648,44 +649,10 @@ class TCircuitSolver:
 		self.node_potentials_dbg['item_voltages'] = []
 		dctable = self.graph.json_data["dctables"][0]
 		table = dctable['other voltages']
-		for item in table:
-			new_item = {}
-			i = item['nodes'][0]
-			j = item['nodes'][1]
-			new_item['nodes'] = item['nodes']			
-			new_item['label'] = item['label']
-			idx = self.graph.find_in_json(item['label'])
-			if idx >= 0:
-				e = self.graph.json_data["edges"][idx]
-				if self.graph.is_resistive_compid(e['prop']['CompId']):
-					value = e['prop']['value']
-					new_item['value'] = value
-					if self.graph.v_node_flags[i] and self.graph.v_node_flags[j]:
-						re = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
-						im = self.graph.v_potentials_im[i]-self.graph.v_potentials_im[j]					
-						if abs(im) > 1e-15:
-							r = complex(re, im)
-						else:
-							r = re					
-						new_item['voltage'] = self.graph.fv(r)						
-						
-						try:
-							current = r/value
-						except ZeroDivisionError as e:
-							raise ShortCircuitException("Division by zero in current calculation") from e
-						
-						if isinstance(current, complex):
-							re = current.real; im = current.imag
-						else:
-							re = current; im = 0
-						self.graph.v_currents_re[i][j] = re
-						self.graph.v_currents_im[i][j] = im
-						
-						new_item['current'] = self.graph.fv(current)					
-					else:	
-						new_item['voltage'] = '<unassigned>'
-						new_item['current'] = '<unassigned>'
-					self.node_potentials_dbg['item_voltages'].append(new_item)
+		
+		self.calc_item_values(table, False)
+		self.calc_item_values(table, True)
+		
 		##
 
 		self.write_log(1, 'OK', 0, True)
@@ -720,6 +687,119 @@ class TCircuitSolver:
 		
 		self.write_log(1, 'OK', 0, True)
 
+	def find_series_comp_proc(self, label):
+		f = False
+		ser_label = ''
+		for item in self.block_labels:
+			if item['origin'] == 'series':
+				if item['labels'][0] == label:
+					ser_label = item['labels'][1]
+					f = True
+				elif item['labels'][1] == label:
+					ser_label = item['labels'][0]
+					f = True				
+				if f:	
+					break	
+		return f, ser_label								
+
+	def find_single_label(self, labels):
+		f = False
+		label = ''
+		for label in labels:
+			idx = self.graph.find_in_json(label)
+			is_single_label = idx >= 0		
+			if is_single_label:
+				return True, label
+		return False, labels[0]
+
+	def find_composed_label(self, c):
+		found = False
+		for i in range(len(self.block_labels)):
+			o = self.block_labels[i]
+			if o['origin'] =='series' and o['label'] == c:
+				return self.find_single_label(o['labels'])
+		return False, ''
+
+	def find_series_comp(self, label):
+		fifo = []
+		f = False
+		ser_label = ''
+		
+		f, ser_label = self.find_series_comp_proc(label)
+		if f:
+			idx = self.graph.find_in_json(ser_label)
+			is_single_label = idx >= 0
+			if is_single_label:
+				return True, ser_label
+			else:	
+				fifo.append(ser_label)
+		
+				while len(fifo) > 0:
+					item = fifo[0]
+					f, ser_label = self.find_composed_label(item)
+					if f:
+						return f, ser_label
+					else:
+						fifo.append(ser_label)
+					fifo.pop(0)
+					
+		return f, ser_label		
+
+	def calc_item_values(self, table, calc_amper_meters):
+		for item in table:
+			new_item = {}
+			i = item['nodes'][0]
+			j = item['nodes'][1]
+			new_item['nodes'] = item['nodes']			
+			new_item['label'] = item['label']
+			idx = self.graph.find_in_json(item['label'])
+			label = item['label']
+			if idx >= 0:
+				e = self.graph.json_data["edges"][idx]
+				is_amper_meter = self.graph.is_amper_meter_by_label(label)
+				is_resistive_comp = self.graph.is_resistive_compid(e['prop']['CompId']);
+				
+				cond = calc_amper_meters and is_amper_meter or not calc_amper_meters and not is_amper_meter
+				if is_resistive_comp and cond:
+					value = e['prop']['value']
+					new_item['value'] = value
+					if self.graph.v_node_flags[i] and self.graph.v_node_flags[j]:
+						re = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
+						im = self.graph.v_potentials_im[i]-self.graph.v_potentials_im[j]					
+						if abs(im) > 1e-15:
+							r = complex(re, im)
+						else:
+							r = re					
+						new_item['voltage'] = self.graph.fv(r)						
+						
+						calc_current_from_voltage = True
+						if calc_amper_meters and (abs(value) < cg.EPS):
+							f, ser_label = self.find_series_comp(label)
+							if f:
+								f, v = self.get_final_value(ser_label, 'current')
+								current = v['value']
+								calc_current_from_voltage = False
+						
+						if calc_current_from_voltage:
+							try:
+								current = r/value
+							except ZeroDivisionError as e:
+								raise ShortCircuitException("Division by zero in current calculation") from e
+						
+						if isinstance(current, complex):
+							re = current.real; im = current.imag
+						else:
+							re = current; im = 0
+						self.graph.v_currents_re[i][j] = re
+						self.graph.v_currents_im[i][j] = im
+						
+						new_item['current'] = self.graph.fv(current)					
+					else:	
+						new_item['voltage'] = '<unassigned>'
+						new_item['current'] = '<unassigned>'
+					self.node_potentials_dbg['item_voltages'].append(new_item)
+	
+	
 	def get_result(self):
 		request_txt = cu.get_request_txt(self.request)
 		comp = self.request["comp"]

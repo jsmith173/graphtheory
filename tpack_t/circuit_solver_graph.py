@@ -16,6 +16,7 @@ import math, cmath
 PRECISION = 3
 RMIN_SMALL = 1e-9
 RMIN_ZERO = 0
+EPS = 1e-20
 
 RES_ = 9; CAP_ = 10; IND_ = 11; 
 RESMET_ = 8; RESMET2_ = 98
@@ -274,6 +275,12 @@ class TCircuitSolverGraph:
 			if item['prop']['UniqueID'] == unique_id:
 				return True
 		return False
+
+	def is_amper_meter_by_label(self, label):
+		for item in self.am_edges:
+			if item['prop']['label'] == label:
+				return True
+		return False
 				
 	def modify_amper_meters(self, RMIN):
 		for item in self.json_data["edges"]:
@@ -528,14 +535,6 @@ class TCircuitSolverGraph:
 		n = node; s_target = n.to_str()
 		s1 = f"l: {s_left}:{label[0]}:{left.type}, r: {s_right}:{label[1]}:{right.type}, targ: {s_target}:{label[2]}:{node.type}"		
 		return s1
-
-	def find_composed_label(self, c):
-		found = False
-		for i in range(len(self.composed_labels)):
-			o = self.composed_labels[i]
-			if o['label'] == c:
-				return True, o, i
-		return False, {}, 0
 
 	def clear_composed_label_marked(self):
 		for i in range(len(self.composed_labels)):
