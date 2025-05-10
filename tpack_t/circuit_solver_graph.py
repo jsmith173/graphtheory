@@ -956,6 +956,7 @@ class TCircuitSolverGraph:
 		self.G_orig = self.G.copy()
 		iter_nodes = []
 		for node in self.G.iternodes():
+			#if not self.is_gen_node(node) and not self.is_ohm_meter_node(node):
 			iter_nodes.append(node)
 
 		if self.opts['test_Y'] == 1:
@@ -1161,6 +1162,10 @@ class TCircuitSolverGraph:
 		
 	def is_gen_node(self, i):
 		return self.gen['nodes'][0] == i or self.gen['nodes'][1] == i
+		
+	def is_ohm_meter_node(self, i):
+		f = self.find_ohm_meter()		
+		return f and (self.meter_prop['nodes'][0] == i or self.meter_prop['nodes'][1] == i)
 		
 	def set_v(self, node, i, j, value, s_log=""):
 		if isinstance(value, complex):
