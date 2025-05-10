@@ -111,6 +111,12 @@ class TCircuitSolver:
 			item['nodes'] = nodes
 		return item	
 
+	def lab2res(self, label):
+		if self.graph.is_amper_meter_by_label(label):
+			return f'R{label}'
+		else:
+			return label
+	
 	def calc_str_impedance(self, top, left, right, values, v, labels, unique_labels):
 		c, arr_left = self.prepare_calc_str_impedance(top, left, right, False)
 		c, arr = self.prepare_calc_str_impedance(top, left, right, True)
@@ -128,11 +134,11 @@ class TCircuitSolver:
 				self.ignored_resistances.append(c)
 
 		elif len(arr) == 1:
-			a = arr[0]
+			a = self.lab2res(arr[0])
 			s = f"{c}={a}"
 			one_item = True; s_left = a; s_right = "" 
 		else:	
-			a = arr[0]; b = arr[1]
+			a = self.lab2res(arr[0]); b = self.lab2res(arr[1])
 			a_l = arr_left[0]; b_l = arr_left[1]
 			
 			if pos_fn(cg.SHORT_CIRCUIT_PREFIX, a_l) >= 0:
@@ -460,15 +466,21 @@ class TCircuitSolver:
 							
 						self.log(f"The voltage between this components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
 						
-						self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
-			                     f"{labels[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {s_new_val} {cg.uVolt} {s_nodes}")
+						if not self.graph.is_amper_meter_by_label(labels[i]):
+							self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
+									 f"{labels[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {s_new_val} {cg.uVolt} {s_nodes}")
 								 
 					if self.request['cmd'] == 'get_voltage':
 						pass
 					elif self.request['cmd'] == 'get_current':
 					
+						if self.graph.is_amper_meter_by_label(labels[i]):
+							current_str = f'<patch_AM_{labels[i]}>'
+						else:
+							current_str = self.graph.fv(current)
+					
 						self.log(f"The current in branch {top_label} is 'voltage on this branch'{self.graph.sDiv}'impedance in this branch' = {self.graph.fv(voltage)}{self.graph.sDiv}{self.graph.fv(sum_impedance)} = {self.graph.fv(current)} {cg.uCurrent}")
-						self.log(f"The current on {labels[i]} is the current on {top_label}. Therefore the current on {labels[i]} is {self.graph.fv(current)} {cg.uCurrent}")
+						self.log(f"The current on {labels[i]} is the current on {top_label}. Therefore the current on {labels[i]} is {current_str} {cg.uCurrent}")
 					self.log("")
 
 				self.graph.set_node_val(nodes[i], current, labels[i], True, 'current', directed_nodes, node) 
@@ -560,7 +572,6 @@ class TCircuitSolver:
 			return 'resistance'
 
 	def run_proc(self, circuit_key):
-		self.graph.modify_amper_meters(self.graph.RMIN)
 		cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 		for i in range(len(self.gens)):
 			self.gen = self.gens[i]
@@ -610,8 +621,19 @@ class TCircuitSolver:
 			#self.logl(self.graph.graph_debug)
 			self.log("We have more than one generator so we are using superposition to calculate voltages/currents.")
 			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to very small resistances, used during superposition.")
-			self.log("")
 
+		if self.short_circuit_pass:
+			for item in self.graph.am_edges:
+				v = self.graph.RMIN
+				meter_name = item['prop']['label']
+				meter_name_w_res = f'R{meter_name}'
+				value_str = self.graph.fv(v)
+				if abs(v) > cg.EPS:
+					self.log(f"We assume that the internal resistance of {meter_name} is {meter_name_w_res}={value_str}Ohm")		
+
+		if self.graph.use_superposition:
+			self.log("")
+			
 		self.node_potentials_dbg['node_potentials'] = []
 		self.node_potentials_dbg['item_voltages'] = []
 
@@ -652,6 +674,7 @@ class TCircuitSolver:
 		
 		self.calc_item_values(table, False)
 		self.calc_item_values(table, True)
+		self.patch_log()
 		
 		##
 
@@ -687,7 +710,8 @@ class TCircuitSolver:
 		
 		self.write_log(1, 'OK', 0, True)
 
-	def find_series_comp_proc(self, label):
+	def find_series_comp_proc(self, e):
+		label = e['prop']['label']
 		f = False
 		ser_label = ''
 		for item in self.block_labels:
@@ -702,38 +726,44 @@ class TCircuitSolver:
 					break	
 		return f, ser_label								
 
-	def find_single_label(self, labels):
+	def find_single_label(self, labels, e):
 		f = False
 		label = ''
 		for label in labels:
 			idx = self.graph.find_in_json(label)
+			e2 = self.graph.json_data["edges"][idx]
 			is_single_label = idx >= 0		
 			if is_single_label:
-				return True, label
-		return False, labels[0]
+				is_connected, normal_polarity = self.graph.is_edges_connected(e, e2)
+				if is_connected:
+					return is_connected, normal_polarity, label
+		return False, False, labels[0]
 
-	def find_composed_label(self, c):
+	def find_composed_label(self, label, e):
 		found = False
 		for i in range(len(self.block_labels)):
 			o = self.block_labels[i]
-			if o['origin'] =='series' and o['label'] == c:
-				return self.find_single_label(o['labels'])
-		return False, ''
+			if o['origin'] =='series' and o['label'] == label:
+				return self.find_single_label(o['labels'], e)
+		return False, False, ''
 
-	def find_series_comp(self, label):
+	# In case of superposition find_series_comp may find a wrong component so we should use 'get_amper_meters' on the original graph
+	def find_series_comp(self, e):
 		fifo = []
-		f = False
+		f = False; polarity = False
 		ser_label = ''
 		
-		f, ser_label = self.find_series_comp_proc(label)
+		f, ser_label = self.find_series_comp_proc(e)
 		if f:
 			idx = self.graph.find_in_json(ser_label)
+			e2 = self.graph.json_data["edges"][idx]
 			is_single_label = idx >= 0
 			if is_single_label:
-				return True, ser_label
+				is_connected, polarity = self.graph.is_edges_connected(e, e2)
+				return is_connected, polarity, ser_label
 			else:	
-				f, ser_label = self.find_composed_label(ser_label)
-		return f, ser_label		
+				f, polarity, ser_label = self.find_composed_label(ser_label, e)
+		return f, polarity, ser_label		
 
 	def calc_item_values(self, table, calc_amper_meters):
 		for item in table:
@@ -747,7 +777,7 @@ class TCircuitSolver:
 			if idx >= 0:
 				e = self.graph.json_data["edges"][idx]
 				is_amper_meter = self.graph.is_amper_meter_by_label(label)
-				is_resistive_comp = self.graph.is_resistive_compid(e['prop']['CompId']);
+				is_resistive_comp = self.graph.is_resistive_or_ampmet_compid(e['prop']['CompId']);
 				
 				cond = calc_amper_meters and is_amper_meter or not calc_amper_meters and not is_amper_meter
 				if is_resistive_comp and cond:
@@ -762,15 +792,19 @@ class TCircuitSolver:
 							r = re					
 						new_item['voltage'] = self.graph.fv(r)						
 						
+						# In case of superposition find_series_comp may find a wrong component so we should use 'get_amper_meters' on the original graph
 						calc_current_from_voltage = True
 						if calc_amper_meters and (abs(value) < cg.EPS):
-							f, ser_label = self.find_series_comp(label)
+							f, polarity, ser_label = self.graph.find_am_ser_comp(e)
+							#f, polarity, ser_label = self.find_series_comp(e)
 							if f:
 								f, v = self.get_final_value(ser_label, 'current')
 								current = v['value']
+								if not polarity:
+									current = -current
 								calc_current_from_voltage = False
 						
-						if calc_current_from_voltage:
+						if calc_current_from_voltage: #or self.graph.use_superposition:
 							try:
 								current = r/value
 							except ZeroDivisionError as e:
@@ -912,6 +946,75 @@ class TCircuitSolver:
 				f = True
 		return f	
 	
+	# collect amper meters using the original graph (keeping generators)
+	def get_amper_meters(self):
+		try:
+			tmp_edges = []
+			MaxGR = self.graph.MaxGR
+			# MaxGR is local var
+			for j in range(len(self.gens)):
+				gen = self.gens[j]
+
+				gen_comp_id = gen['prop']['CompId']
+				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
+
+				if not is_v_gen:
+					tmp_edges = []
+					i1 = gen['nodes'][0]
+					i2 = MaxGR+1
+					i3 = gen['nodes'][1]
+					self.graph.G.add_node(i2)
+					prop = cg.split_edge_prop
+					
+					edge = Edge(i1, i2, def_weight, prop)
+					tmp_edges.append(edge)
+					self.graph.G.add_edge(edge)
+					
+					edge = Edge(i2, i3, def_weight, prop)
+					tmp_edges.append(edge)
+					self.graph.G.add_edge(edge)
+					
+		
+			am_edges = []
+			for e in self.graph.edges:
+				prop = e.prop; comp_id = prop['CompId']
+				if comp_id == cg.AMPER_METER_ or comp_id == cg.AMPER_METER2_:
+					am_edges.append(e)
+			for e in am_edges:		
+				found = False
+				for node in [e.source, e.target]:
+					if node == e.source:
+						node_next = e.target
+					else:
+						node_next = e.source
+					am_label = e.prop['label'] 		
+					if self.graph.G.degree(node) == 2:
+						for node_adj in self.graph.G.iteradjacent(node):
+							if node_adj != node_next:
+								tmp = [node, node_adj]
+								idx, f = self.graph.find_in_json_by_nodes(tmp, True)
+								item = self.graph.json_data["edges"][idx]
+								prop = item["prop"]
+								if prop["flags"] == cg.FLAGS_NORMAL:
+									e2 = {}
+									e2['nodes'] = []
+									e2['nodes'].append(e.source)
+									e2['nodes'].append(e.target)
+									is_connected, polarity = self.graph.is_edges_connected(e2, item)
+									tmp = {}; tmp['label'] = am_label; tmp['match_label'] = prop['label']; tmp['nodes'] = [e.source, e.target]
+									tmp['connected'] = int(is_connected)
+									tmp['polarity'] = int(polarity)
+									self.graph.amper_meters.append(tmp)
+									found = True
+									break
+					if found:
+						break		
+				#if not found:
+				#	raise Exception(f"Resistive component not found for ampermeter {am_label}")	
+		finally:
+			for edge in tmp_edges:
+				self.graph.G.del_edge(edge)
+		
 	def run_pass(self, circuit_key, i_pass):
 		try:
 			self.graph.computed_id = 0; self.graph.y_computed_id = 0; 
@@ -920,6 +1023,7 @@ class TCircuitSolver:
 			self.total_impedance_txt = []
 			self.total_impedance = []
 			self.graph.nodal_voltage_log = []
+			self.graph.bkp_json_data()
 			
 			# nInserted is local var
 			self.solver_silent = False; nInserted = 0
@@ -1010,7 +1114,10 @@ class TCircuitSolver:
 			#ampermeters1: processing apmermeters
 			self.request['amper_meter_question'] = False; self.silent = False
 			self.graph.amper_meters = []
-			has_amper_meter = self.check_ampermeters()
+			has_amper_meter = self.check_ampermeters()		
+			if has_amper_meter:
+				self.get_amper_meters()
+			self.graph.modify_amper_meters(self.graph.RMIN)
 
 			#get path for 'comp'
 			paths = []		
@@ -1182,8 +1289,23 @@ class TCircuitSolver:
 				list_.pop(N-1)
 			if i_pass < len(self.gens)-1:	
 				self.request['comp'] = self.bkp_request_comp
+			self.graph.restore_json_data()
 				
-	
+
+	def patch_log(self):
+		for item in self.graph.am_edges:
+			label = item['prop']['label']			
+			f, v = self.get_final_value(label, 'current')
+			if f:
+				current = v['value']		
+				current_str = self.graph.fv(current)
+				patch_str = f'<patch_AM_{label}>'
+				for i in range(len(self.graph.solution_log)):
+					line = self.graph.solution_log[i]
+					if pos_fn(patch_str, line) >= 0:
+						new_line = line.replace(patch_str, current_str)
+						self.graph.solution_log[i] = new_line
+				
 	def write_log(self, valid, status, error_code=0, save_files=True):
 		if error_code > 0:
 			self.graph.solution_log.append('Failed: see codes')

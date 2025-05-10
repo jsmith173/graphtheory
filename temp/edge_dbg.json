@@ -3,59 +3,35 @@
         "source": 1,
         "target": 2,
         "prop": {
-            "label": "Itot",
+            "label": "R2",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_0952EC4020230503180913",
-            "value": 0,
-            "flags": 1
-        }
-    },
-    {
-        "source": 2,
-        "target": 3,
-        "prop": {
-            "label": "I2",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0952FB1020230503180913",
-            "value": 0,
-            "flags": 1
-        }
-    },
-    {
-        "source": 2,
-        "target": 4,
-        "prop": {
-            "label": "I1",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0953000020230503180913",
-            "value": 0,
+            "UniqueID": "T_000000002786BF8020250507152631",
+            "value": 1000,
             "flags": 1
         }
     },
     {
         "source": 3,
-        "target": 0,
-        "prop": {
-            "label": "R2",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0952D39020230503180913",
-            "value": 2000,
-            "flags": 1
-        }
-    },
-    {
-        "source": 4,
-        "target": 0,
+        "target": 1,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_0952C9B020230503180913",
+            "UniqueID": "T_000000002789D12020250506222554",
             "value": 1000,
+            "flags": 1
+        }
+    },
+    {
+        "source": 2,
+        "target": 0,
+        "prop": {
+            "label": "AM1",
+            "match_label": "",
+            "CompId": 6,
+            "UniqueID": "T_000000002789EE8020250506222550",
+            "value": 0,
             "flags": 1
         }
     }

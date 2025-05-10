@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <top>
 	<superposition>
-		<item/>
+		<item>
+			<total_impedance_ori_txt>
+				<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
+				<item>AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm</item>
+				<item>The total resistance is Ra = 2kOhm</item>
+			</total_impedance_ori_txt>
+			<total_impedance_txt>
+				<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
+				<item>AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm</item>
+				<item>The total resistance is Ra = 2kOhm</item>
+			</total_impedance_txt>
+			<gen>
+				<nodes>
+					<item>3</item>
+					<item>0</item>
+				</nodes>
+				<prop>
+					<label>VS1</label>
+					<match_label/>
+					<CompId>14</CompId>
+					<UniqueID>T_000000002789CB4020250506222559</UniqueID>
+					<value>5</value>
+					<flags>1</flags>
+					<ac_gen>
+						<mode>0</mode>
+					</ac_gen>
+				</prop>
+			</gen>
+		</item>
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>Itot 1 2</item>
-		<item>AM1 2 3</item>
-		<item>I1 2 4</item>
-		<item>R2 3 0</item>
-		<item>R1 4 0</item>
+		<item>R2 1 2</item>
+		<item>R1 3 1</item>
+		<item>AM1 2 0</item>
 		<item/>
 	</circuit>
 	<request>
@@ -26,156 +52,97 @@
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
-		<short_circuit_pass>1</short_circuit_pass>
+		<short_circuit_pass>0</short_circuit_pass>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
 			<item/>
 			<item>First we calculate the total resistance between the generator nodes (VS1)</item>
-			<item>R2 and AM1 connected in series so Rc=R2+AM1=2kOhm+1nOhm=2kOhm</item>
-			<item>R1 and I1 connected in series so Rd=R1+I1=1kOhm+1nOhm=1kOhm</item>
-			<item>Rc and Rd connected in parallel so Rb=Rc*Rd/(Rc+Rd)=2kOhm*1kOhm/(2kOhm+1kOhm)=667Ohm</item>
-			<item>Rb and Itot connected in series so Ra=Rb+Itot=667Ohm+1nOhm=667Ohm</item>
-			<item>The total resistance is Ra = 667Ohm</item>
+			<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
+			<item>AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm</item>
+			<item>The total resistance is Ra = 2kOhm</item>
 			<item/>
 			<item>Now we calculate the current on AM1</item>
 			<item>We know that the voltage between VS1 nodes is 5 Volt.</item>
 			<item/>
-			<item>The components Rb and Itot connected in series.</item>
+			<item>The components AM1 and Rb connected in series.</item>
 			<item>The voltage between this components starting and ending node is 5 Volt</item>
-			<item>Rb is in the voltage divider so the voltage on Rb is Rb/Ra*5 Volt = 5 Volt </item>
-			<item>The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/667 = 7.5m Amper</item>
-			<item>The current on Rb is the current on Ra. Therefore the current on Rb is 7.5m Amper</item>
-			<item/>
-			<item>The components Rc and Rd connected in parallel. The voltage on Rc is 5 Volt because the voltage on Rb is 5 Volt</item>
-			<item/>
-			<item>The components R2 and AM1 connected in series.</item>
-			<item>The voltage between this components starting and ending node is 5 Volt</item>
-			<item>AM1 is in the voltage divider so the voltage on AM1 is AM1/Rc*5 Volt = 2.5p Volt </item>
-			<item>The current in branch Rc is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper</item>
-			<item>The current on AM1 is the current on Rc. Therefore the current on AM1 is 2.5m Amper</item>
+			<item>The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper</item>
+			<item>The current on AM1 is the current on Ra. Therefore the current on AM1 is 2.5m Amper</item>
 			<item/>
 		</solution>
 		<node_potentials_dbg>
 			<node_potentials>
 				<item>
 					<item>VP_0 = 0, assigned: 1</item>
-					<item>VP_1 = 5, assigned: 1</item>
-					<item>VP_2 = 5, assigned: 1</item>
+					<item>VP_1 = 2.5, assigned: 1</item>
+					<item>VP_2 = 0, assigned: 1</item>
 					<item>VP_3 = 5, assigned: 1</item>
-					<item>VP_4 = 5, assigned: 1</item>
 				</item>
 				<item>
 					<item>VP_0 = 0, assigned (and): 1</item>
-					<item>VP_1 = 5, assigned (and): 1</item>
-					<item>VP_2 = 5, assigned (and): 1</item>
+					<item>VP_1 = 2.5, assigned (and): 1</item>
+					<item>VP_2 = 0, assigned (and): 1</item>
 					<item>VP_3 = 5, assigned (and): 1</item>
-					<item>VP_4 = 5, assigned (and): 1</item>
 				</item>
 			</node_potentials>
 			<item_voltages>
 				<item>
 					<nodes>
-						<item>4</item>
-						<item>0</item>
+						<item>3</item>
+						<item>1</item>
 					</nodes>
 					<label>R1</label>
 					<value>1000</value>
-					<voltage>5</voltage>
-					<current>5m</current>
-				</item>
-				<item>
-					<nodes>
-						<item>3</item>
-						<item>0</item>
-					</nodes>
-					<label>R2</label>
-					<value>2000</value>
-					<voltage>5</voltage>
+					<voltage>2.5</voltage>
 					<current>2.5m</current>
-				</item>
-				<item>
-					<nodes>
-						<item>2</item>
-						<item>3</item>
-					</nodes>
-					<label>AM1</label>
-					<value>1e-09</value>
-					<voltage>2.5p</voltage>
-					<current>2.5m</current>
-				</item>
-				<item>
-					<nodes>
-						<item>2</item>
-						<item>4</item>
-					</nodes>
-					<label>I1</label>
-					<value>1e-09</value>
-					<voltage>5p</voltage>
-					<current>5m</current>
 				</item>
 				<item>
 					<nodes>
 						<item>1</item>
 						<item>2</item>
 					</nodes>
-					<label>Itot</label>
-					<value>1e-09</value>
-					<voltage>7.5p</voltage>
-					<current>7.5m</current>
+					<label>R2</label>
+					<value>1000</value>
+					<voltage>2.5</voltage>
+					<current>2.5m</current>
+				</item>
+				<item>
+					<nodes>
+						<item>2</item>
+						<item>0</item>
+					</nodes>
+					<label>AM1</label>
+					<value>0</value>
+					<voltage>0</voltage>
+					<current>2.5m</current>
 				</item>
 			</item_voltages>
 		</node_potentials_dbg>
 		<block_labels>
 			<item>
-				<label>Rc</label>
+				<label>Rb</label>
 				<origin>series</origin>
 				<value>2kOhm</value>
 				<labels>
 					<item>R2</item>
-					<item>AM1</item>
-				</labels>
-				<unique_labels>
-					<item>T_0952D39020230503180913</item>
-					<item>T_0952FB1020230503180913</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rd</label>
-				<origin>series</origin>
-				<value>1kOhm</value>
-				<labels>
 					<item>R1</item>
-					<item>I1</item>
 				</labels>
 				<unique_labels>
-					<item>T_0952C9B020230503180913</item>
-					<item>T_0953000020230503180913</item>
-				</unique_labels>
-			</item>
-			<item>
-				<label>Rb</label>
-				<origin>parallel</origin>
-				<value>667Ohm</value>
-				<labels>
-					<item>Rc</item>
-					<item>Rd</item>
-				</labels>
-				<unique_labels>
-					<item>&lt;block&gt;</item>
-					<item>&lt;block&gt;</item>
+					<item>T_000000002786BF8020250507152631</item>
+					<item>T_000000002789D12020250506222554</item>
 				</unique_labels>
 			</item>
 			<item>
 				<label>Ra</label>
 				<origin>series</origin>
-				<value>667Ohm</value>
+				<value>2kOhm</value>
 				<labels>
+					<item>AM1</item>
 					<item>Rb</item>
-					<item>Itot</item>
 				</labels>
 				<unique_labels>
+					<item>T_000000002789EE8020250506222550</item>
 					<item>&lt;block&gt;</item>
-					<item>T_0952EC4020230503180913</item>
 				</unique_labels>
 			</item>
 		</block_labels>

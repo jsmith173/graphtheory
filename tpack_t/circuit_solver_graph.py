@@ -281,12 +281,25 @@ class TCircuitSolverGraph:
 			if item['prop']['label'] == label:
 				return True
 		return False
-				
+
+	def bkp_json_data(self):
+		self.json_data_bkp = {}
+		self.json_data_bkp["edges"] = []
+		for item in self.json_data["edges"]:
+			new_item = deepcopy(item)
+			self.json_data_bkp["edges"].append(new_item)
+	
+	def restore_json_data(self):
+		self.json_data["edges"] = []
+		for item in self.json_data_bkp["edges"]:
+			new_item = deepcopy(item)
+			self.json_data["edges"].append(new_item)
+	
 	def modify_amper_meters(self, RMIN):
 		for item in self.json_data["edges"]:
 			if self.is_amper_meter(item['prop']['UniqueID']):
 				item['prop']['CompId'] = RES_
-				item['prop']['value'] = RMIN
+				item['prop']['value'] = RMIN			
 
 	def debug_graph(self):
 		dbg1 = []
@@ -307,6 +320,15 @@ class TCircuitSolverGraph:
 			s = "{0} {1} {2}".format(item["label"], item["source"], item["target"])
 			self.graph_debug.append(s)	 
 		self.graph_debug.append('')
+
+	def find_am_ser_comp(self, e):
+		for item in self.amper_meters:
+			if item["label"] == e['prop']['label']:
+				if item["connected"] == 1:
+					return True, bool(item["polarity"]), item['match_label']
+				else:	
+					return False, bool(item["polarity"]), item['match_label']
+		return False, True, ''	
 
 	def find_meter(self, s):
 		for item in self.json_data["meters"]:
@@ -995,6 +1017,19 @@ class TCircuitSolverGraph:
 	def match_node(self, edge, m):
 		return edge['nodes'][0] == m or edge['nodes'][1] == m
 		
+	def is_edges_connected(self, e1, e2):
+		is_connected = False
+		normal_polarity = True
+		for m in e1['nodes']:
+			for n in e2['nodes']:			
+				if m == n:
+					is_connected = True	
+					break
+		if is_connected:
+			normal_polarity = e1['nodes'][1] == e2['nodes'][0] or e1['nodes'][0] == e2['nodes'][1]
+			
+		return is_connected, normal_polarity		
+			
 	def update_edges_json(self):
 		for item in self.graph_update:
 			if item['key'] == 'deledge':		
@@ -1192,7 +1227,9 @@ class TCircuitSolverGraph:
 		last_char = v_str[-1]		
 		last_char_deleted = v_str[:-1]
 		a = last_char
-		if a == 'u':
+		if a == 'n':
+			s = ' nano '
+		elif a == 'u':
 			s = ' micro '
 		elif a == 'm':
 			s = ' milli '
