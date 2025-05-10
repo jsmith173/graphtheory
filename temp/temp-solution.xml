@@ -3,26 +3,40 @@
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
-				<item>AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm</item>
-				<item>The total resistance is Ra = 2kOhm</item>
+				<item>R1 and R2 connected in series so Rb=R1+R2=1Ohm+2Ohm=3Ohm</item>
+				<item>R1 and R3 connected in series so Rd=R1+R3=1Ohm+3Ohm=4Ohm</item>
+				<item>Rh=Rxyc</item>
+				<item>R5 and Rh connected in parallel so Rg=R5*Rh/(R5+Rh)=5Ohm*3.5Ohm/(5Ohm+3.5Ohm)=2.06Ohm</item>
+				<item>Rj=Rxyb</item>
+				<item>R2 and Rj connected in parallel so Ri=R2*Rj/(R2+Rj)=2Ohm*7Ohm/(2Ohm+7Ohm)=1.56Ohm</item>
+				<item>Rg and Ri connected in series so Rf=Rg+Ri=2.06Ohm+1.56Ohm=3.61Ohm</item>
+				<item>Rxya and Rf connected in parallel so Re=Rxya*Rf/(Rxya+Rf)=14Ohm*3.61Ohm/(14Ohm+3.61Ohm)=2.87Ohm</item>
+				<item>Rd and Re connected in series so Rc=Rd+Re=4Ohm+2.87Ohm=6.87Ohm</item>
+				<item>Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3Ohm*6.87Ohm/(3Ohm+6.87Ohm)=2.09Ohm</item>
+				<item>The ohm meter shows Ra = 2.09Ohm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
-				<item>AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm</item>
-				<item>The total resistance is Ra = 2kOhm</item>
+				<item>R1 and R2 connected in series so Rb=R1+R2=1Ohm+2Ohm=3Ohm</item>
+				<item>R1 and R3 connected in series so Rd=R1+R3=1Ohm+3Ohm=4Ohm</item>
+				<item>R5 and Rxyc connected in parallel so Rg=R5*Rxyc/(R5+Rxyc)=5Ohm*3.5Ohm/(5Ohm+3.5Ohm)=2.06Ohm</item>
+				<item>R2 and Rxyb connected in parallel so Ri=R2*Rxyb/(R2+Rxyb)=2Ohm*7Ohm/(2Ohm+7Ohm)=1.56Ohm</item>
+				<item>Rg and Ri connected in series so Rf=Rg+Ri=2.06Ohm+1.56Ohm=3.61Ohm</item>
+				<item>Rxya and Rf connected in parallel so Re=Rxya*Rf/(Rxya+Rf)=14Ohm*3.61Ohm/(14Ohm+3.61Ohm)=2.87Ohm</item>
+				<item>Rd and Re connected in series so Rc=Rd+Re=4Ohm+2.87Ohm=6.87Ohm</item>
+				<item>Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3Ohm*6.87Ohm/(3Ohm+6.87Ohm)=2.09Ohm</item>
+				<item>The ohm meter shows Ra = 2.09Ohm</item>
 			</total_impedance_txt>
 			<gen>
 				<nodes>
-					<item>3</item>
+					<item>1</item>
 					<item>0</item>
 				</nodes>
 				<prop>
-					<label>VS1</label>
+					<label>Req</label>
 					<match_label/>
-					<CompId>14</CompId>
-					<UniqueID>T_000000002789CB4020250506222559</UniqueID>
-					<value>5</value>
+					<CompId>8</CompId>
+					<UniqueID/>
+					<value>0</value>
 					<flags>1</flags>
 					<ac_gen>
 						<mode>0</mode>
@@ -33,115 +47,215 @@
 	</superposition>
 	<circuit>
 		<item>Netlist (component name, nodes)</item>
-		<item>R2 1 2</item>
-		<item>R1 3 1</item>
-		<item>AM1 2 0</item>
+		<item>R1 2 0</item>
+		<item>R1 0 3</item>
+		<item>R2 1 4</item>
+		<item>R4 5 1</item>
+		<item>R2 5 6</item>
+		<item>R2 2 5</item>
+		<item>R3 3 4</item>
+		<item>R1 1 6</item>
+		<item>R5 4 6</item>
 		<item/>
 	</circuit>
 	<request>
-		<text>What is the current on AM1?</text>
-		<cmd>get_current</cmd>
-		<comp>AM1</comp>
+		<text>What is the resistance on Req?</text>
+		<cmd>get_impedance</cmd>
+		<comp>Req</comp>
 		<options>4</options>
 		<qid>0</qid>
-		<ohm_meter_question>false</ohm_meter_question>
-		<req_on_gen>false</req_on_gen>
+		<ohm_meter_question>true</ohm_meter_question>
+		<req_on_gen>true</req_on_gen>
 		<volt_meter_question>false</volt_meter_question>
 		<volt_meter_no_match>false</volt_meter_no_match>
-		<comp_ori>AM1</comp_ori>
+		<comp_ori>Req</comp_ori>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
 		<short_circuit_pass>0</short_circuit_pass>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
+			<item>This circuit can not be solved by using the standard series-parallel rules</item>
+			<item>The R2,R4,R1 components form a star connection. We will convert it to delta connection</item>
+			<item>So we can use standard series-parallel rules for impedance calculation</item>
+			<item>The new components will be: Rxya=14.00 Ohm,Rxyb=7.00 Ohm,Rxyc=3.50 Ohm</item>
+			<item>The following formulas are used in the star to delta conversion: </item>
+			<item>Rxya=(R2*R4+R4*R1+R1*R2)/R1</item>
+			<item>Rxyb=(R2*R4+R4*R1+R1*R2)/R2</item>
+			<item>Rxyc=(R2*R4+R4*R1+R1*R2)/R4</item>
 			<item/>
-			<item>First we calculate the total resistance between the generator nodes (VS1)</item>
-			<item>R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm</item>
-			<item>AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm</item>
-			<item>The total resistance is Ra = 2kOhm</item>
 			<item/>
-			<item>Now we calculate the current on AM1</item>
-			<item>We know that the voltage between VS1 nodes is 5 Volt.</item>
-			<item/>
-			<item>The components AM1 and Rb connected in series.</item>
-			<item>The voltage between this components starting and ending node is 5 Volt</item>
-			<item>The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper</item>
-			<item>The current on AM1 is the current on Ra. Therefore the current on AM1 is 2.5m Amper</item>
+			<item>R1 and R2 connected in series so Rb=R1+R2=1Ohm+2Ohm=3Ohm</item>
+			<item>R1 and R3 connected in series so Rd=R1+R3=1Ohm+3Ohm=4Ohm</item>
+			<item>R5 and Rxyc connected in parallel so Rg=R5*Rxyc/(R5+Rxyc)=5Ohm*3.5Ohm/(5Ohm+3.5Ohm)=2.06Ohm</item>
+			<item>R2 and Rxyb connected in parallel so Ri=R2*Rxyb/(R2+Rxyb)=2Ohm*7Ohm/(2Ohm+7Ohm)=1.56Ohm</item>
+			<item>Rg and Ri connected in series so Rf=Rg+Ri=2.06Ohm+1.56Ohm=3.61Ohm</item>
+			<item>Rxya and Rf connected in parallel so Re=Rxya*Rf/(Rxya+Rf)=14Ohm*3.61Ohm/(14Ohm+3.61Ohm)=2.87Ohm</item>
+			<item>Rd and Re connected in series so Rc=Rd+Re=4Ohm+2.87Ohm=6.87Ohm</item>
+			<item>Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3Ohm*6.87Ohm/(3Ohm+6.87Ohm)=2.09Ohm</item>
+			<item>The ohm meter shows Ra = 2.09Ohm</item>
 			<item/>
 		</solution>
 		<node_potentials_dbg>
 			<node_potentials>
 				<item>
 					<item>VP_0 = 0, assigned: 1</item>
-					<item>VP_1 = 2.5, assigned: 1</item>
-					<item>VP_2 = 0, assigned: 1</item>
-					<item>VP_3 = 5, assigned: 1</item>
+					<item>VP_1 = 0, assigned: 1</item>
 				</item>
 				<item>
 					<item>VP_0 = 0, assigned (and): 1</item>
-					<item>VP_1 = 2.5, assigned (and): 1</item>
-					<item>VP_2 = 0, assigned (and): 1</item>
-					<item>VP_3 = 5, assigned (and): 1</item>
+					<item>VP_1 = 0, assigned (and): 1</item>
 				</item>
 			</node_potentials>
-			<item_voltages>
-				<item>
-					<nodes>
-						<item>3</item>
-						<item>1</item>
-					</nodes>
-					<label>R1</label>
-					<value>1000</value>
-					<voltage>2.5</voltage>
-					<current>2.5m</current>
-				</item>
-				<item>
-					<nodes>
-						<item>1</item>
-						<item>2</item>
-					</nodes>
-					<label>R2</label>
-					<value>1000</value>
-					<voltage>2.5</voltage>
-					<current>2.5m</current>
-				</item>
-				<item>
-					<nodes>
-						<item>2</item>
-						<item>0</item>
-					</nodes>
-					<label>AM1</label>
-					<value>0</value>
-					<voltage>0</voltage>
-					<current>2.5m</current>
-				</item>
-			</item_voltages>
+			<item_voltages/>
 		</node_potentials_dbg>
 		<block_labels>
 			<item>
-				<label>Rb</label>
-				<origin>series</origin>
-				<value>2kOhm</value>
+				<label>Rxya</label>
+				<origin>yd</origin>
 				<labels>
 					<item>R2</item>
+					<item>R4</item>
 					<item>R1</item>
 				</labels>
+				<value>14 Ohm</value>
 				<unique_labels>
-					<item>T_000000002786BF8020250507152631</item>
-					<item>T_000000002789D12020250506222554</item>
+					<item>T_0970E26020230511120534</item>
+					<item>T_0970F13020230511120534</item>
+					<item>T_0970CEA020230511120534</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rxyb</label>
+				<origin>yd</origin>
+				<labels>
+					<item>R4</item>
+					<item>R1</item>
+					<item>R2</item>
+				</labels>
+				<value>7 Ohm</value>
+				<unique_labels>
+					<item>T_0970F13020230511120534</item>
+					<item>T_0970CEA020230511120534</item>
+					<item>T_0970E26020230511120534</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rxyc</label>
+				<origin>yd</origin>
+				<labels>
+					<item>R1</item>
+					<item>R2</item>
+					<item>R4</item>
+				</labels>
+				<value>3.5 Ohm</value>
+				<unique_labels>
+					<item>T_0970CEA020230511120534</item>
+					<item>T_0970E26020230511120534</item>
+					<item>T_0970F13020230511120534</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rb</label>
+				<origin>series</origin>
+				<value>3Ohm</value>
+				<labels>
+					<item>R1</item>
+					<item>R2</item>
+				</labels>
+				<unique_labels>
+					<item>T_0970CEA020230511120534</item>
+					<item>T_0970FB1020230511120534</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rd</label>
+				<origin>series</origin>
+				<value>4Ohm</value>
+				<labels>
+					<item>R1</item>
+					<item>R3</item>
+				</labels>
+				<unique_labels>
+					<item>T_0970DD7020230511120534</item>
+					<item>T_0971000020230511120534</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rg</label>
+				<origin>parallel</origin>
+				<value>2.06Ohm</value>
+				<labels>
+					<item>R5</item>
+					<item>Rxyc</item>
+				</labels>
+				<unique_labels>
+					<item>T_0970D39020230511120534</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Ri</label>
+				<origin>parallel</origin>
+				<value>1.56Ohm</value>
+				<labels>
+					<item>R2</item>
+					<item>Rxyb</item>
+				</labels>
+				<unique_labels>
+					<item>T_0970E75020230511120534</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rf</label>
+				<origin>series</origin>
+				<value>3.61Ohm</value>
+				<labels>
+					<item>Rg</item>
+					<item>Ri</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Re</label>
+				<origin>parallel</origin>
+				<value>2.87Ohm</value>
+				<labels>
+					<item>Rxya</item>
+					<item>Rf</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>&lt;block&gt;</item>
+				</unique_labels>
+			</item>
+			<item>
+				<label>Rc</label>
+				<origin>series</origin>
+				<value>6.87Ohm</value>
+				<labels>
+					<item>Rd</item>
+					<item>Re</item>
+				</labels>
+				<unique_labels>
+					<item>&lt;block&gt;</item>
+					<item>&lt;block&gt;</item>
 				</unique_labels>
 			</item>
 			<item>
 				<label>Ra</label>
-				<origin>series</origin>
-				<value>2kOhm</value>
+				<origin>parallel</origin>
+				<value>2.09Ohm</value>
 				<labels>
-					<item>AM1</item>
 					<item>Rb</item>
+					<item>Rc</item>
 				</labels>
 				<unique_labels>
-					<item>T_000000002789EE8020250506222550</item>
+					<item>&lt;block&gt;</item>
 					<item>&lt;block&gt;</item>
 				</unique_labels>
 			</item>

@@ -669,12 +669,14 @@ class TCircuitSolver:
 
 		##
 		self.node_potentials_dbg['item_voltages'] = []
-		dctable = self.graph.json_data["dctables"][0]
-		table = dctable['other voltages']
-		
-		self.calc_item_values(table, False)
-		self.calc_item_values(table, True)
-		self.patch_log()
+		N = len(self.graph.json_data["dctables"])
+		if N > 0:
+			dctable = self.graph.json_data["dctables"][0]
+			table = dctable['other voltages']
+			
+			self.calc_item_values(table, False)
+			self.calc_item_values(table, True)
+			self.patch_log()
 		
 		##
 

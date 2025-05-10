@@ -2,26 +2,40 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm",
-                "AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm",
-                "The total resistance is Ra = 2kOhm"
+                "R1 and R2 connected in series so Rb=R1+R2=1Ohm+2Ohm=3Ohm",
+                "R1 and R3 connected in series so Rd=R1+R3=1Ohm+3Ohm=4Ohm",
+                "Rh=Rxyc",
+                "R5 and Rh connected in parallel so Rg=R5*Rh/(R5+Rh)=5Ohm*3.5Ohm/(5Ohm+3.5Ohm)=2.06Ohm",
+                "Rj=Rxyb",
+                "R2 and Rj connected in parallel so Ri=R2*Rj/(R2+Rj)=2Ohm*7Ohm/(2Ohm+7Ohm)=1.56Ohm",
+                "Rg and Ri connected in series so Rf=Rg+Ri=2.06Ohm+1.56Ohm=3.61Ohm",
+                "Rxya and Rf connected in parallel so Re=Rxya*Rf/(Rxya+Rf)=14Ohm*3.61Ohm/(14Ohm+3.61Ohm)=2.87Ohm",
+                "Rd and Re connected in series so Rc=Rd+Re=4Ohm+2.87Ohm=6.87Ohm",
+                "Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3Ohm*6.87Ohm/(3Ohm+6.87Ohm)=2.09Ohm",
+                "The ohm meter shows Ra = 2.09Ohm"
             ],
             "total_impedance_txt": [
-                "R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm",
-                "AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm",
-                "The total resistance is Ra = 2kOhm"
+                "R1 and R2 connected in series so Rb=R1+R2=1Ohm+2Ohm=3Ohm",
+                "R1 and R3 connected in series so Rd=R1+R3=1Ohm+3Ohm=4Ohm",
+                "R5 and Rxyc connected in parallel so Rg=R5*Rxyc/(R5+Rxyc)=5Ohm*3.5Ohm/(5Ohm+3.5Ohm)=2.06Ohm",
+                "R2 and Rxyb connected in parallel so Ri=R2*Rxyb/(R2+Rxyb)=2Ohm*7Ohm/(2Ohm+7Ohm)=1.56Ohm",
+                "Rg and Ri connected in series so Rf=Rg+Ri=2.06Ohm+1.56Ohm=3.61Ohm",
+                "Rxya and Rf connected in parallel so Re=Rxya*Rf/(Rxya+Rf)=14Ohm*3.61Ohm/(14Ohm+3.61Ohm)=2.87Ohm",
+                "Rd and Re connected in series so Rc=Rd+Re=4Ohm+2.87Ohm=6.87Ohm",
+                "Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3Ohm*6.87Ohm/(3Ohm+6.87Ohm)=2.09Ohm",
+                "The ohm meter shows Ra = 2.09Ohm"
             ],
             "gen": {
                 "nodes": [
-                    3,
+                    1,
                     0
                 ],
                 "prop": {
-                    "label": "VS1",
+                    "label": "Req",
                     "match_label": "",
-                    "CompId": 14,
-                    "UniqueID": "T_000000002789CB4020250506222559",
-                    "value": 5,
+                    "CompId": 8,
+                    "UniqueID": "",
+                    "value": 0,
                     "flags": 1,
                     "ac_gen": {
                         "mode": 0
@@ -32,115 +46,215 @@
     ],
     "circuit": [
         "Netlist (component name, nodes)",
-        "R2 1 2",
-        "R1 3 1",
-        "AM1 2 0",
+        "R1 2 0",
+        "R1 0 3",
+        "R2 1 4",
+        "R4 5 1",
+        "R2 5 6",
+        "R2 2 5",
+        "R3 3 4",
+        "R1 1 6",
+        "R5 4 6",
         ""
     ],
     "request": {
-        "text": "What is the current on AM1?",
-        "cmd": "get_current",
-        "comp": "AM1",
+        "text": "What is the resistance on Req?",
+        "cmd": "get_impedance",
+        "comp": "Req",
         "options": 4,
         "qid": "0",
-        "ohm_meter_question": false,
-        "req_on_gen": false,
+        "ohm_meter_question": true,
+        "req_on_gen": true,
         "volt_meter_question": false,
         "volt_meter_no_match": false,
-        "comp_ori": "AM1",
+        "comp_ori": "Req",
         "amper_meter_question": false
     },
     "calculation": {
         "short_circuit_pass": 0,
         "solution": [
             "Solution by TINA assisted by AI",
+            "This circuit can not be solved by using the standard series-parallel rules",
+            "The R2,R4,R1 components form a star connection. We will convert it to delta connection",
+            "So we can use standard series-parallel rules for impedance calculation",
+            "The new components will be: Rxya=14.00 Ohm,Rxyb=7.00 Ohm,Rxyc=3.50 Ohm",
+            "The following formulas are used in the star to delta conversion: ",
+            "Rxya=(R2*R4+R4*R1+R1*R2)/R1",
+            "Rxyb=(R2*R4+R4*R1+R1*R2)/R2",
+            "Rxyc=(R2*R4+R4*R1+R1*R2)/R4",
             "",
-            "First we calculate the total resistance between the generator nodes (VS1)",
-            "R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm",
-            "AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm",
-            "The total resistance is Ra = 2kOhm",
             "",
-            "Now we calculate the current on AM1",
-            "We know that the voltage between VS1 nodes is 5 Volt.",
-            "",
-            "The components AM1 and Rb connected in series.",
-            "The voltage between this components starting and ending node is 5 Volt",
-            "The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper",
-            "The current on AM1 is the current on Ra. Therefore the current on AM1 is 2.5m Amper",
+            "R1 and R2 connected in series so Rb=R1+R2=1Ohm+2Ohm=3Ohm",
+            "R1 and R3 connected in series so Rd=R1+R3=1Ohm+3Ohm=4Ohm",
+            "R5 and Rxyc connected in parallel so Rg=R5*Rxyc/(R5+Rxyc)=5Ohm*3.5Ohm/(5Ohm+3.5Ohm)=2.06Ohm",
+            "R2 and Rxyb connected in parallel so Ri=R2*Rxyb/(R2+Rxyb)=2Ohm*7Ohm/(2Ohm+7Ohm)=1.56Ohm",
+            "Rg and Ri connected in series so Rf=Rg+Ri=2.06Ohm+1.56Ohm=3.61Ohm",
+            "Rxya and Rf connected in parallel so Re=Rxya*Rf/(Rxya+Rf)=14Ohm*3.61Ohm/(14Ohm+3.61Ohm)=2.87Ohm",
+            "Rd and Re connected in series so Rc=Rd+Re=4Ohm+2.87Ohm=6.87Ohm",
+            "Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3Ohm*6.87Ohm/(3Ohm+6.87Ohm)=2.09Ohm",
+            "The ohm meter shows Ra = 2.09Ohm",
             ""
         ],
         "node_potentials_dbg": {
             "node_potentials": [
                 [
                     "VP_0 = 0, assigned: 1",
-                    "VP_1 = 2.5, assigned: 1",
-                    "VP_2 = 0, assigned: 1",
-                    "VP_3 = 5, assigned: 1"
+                    "VP_1 = 0, assigned: 1"
                 ],
                 [
                     "VP_0 = 0, assigned (and): 1",
-                    "VP_1 = 2.5, assigned (and): 1",
-                    "VP_2 = 0, assigned (and): 1",
-                    "VP_3 = 5, assigned (and): 1"
+                    "VP_1 = 0, assigned (and): 1"
                 ]
             ],
-            "item_voltages": [
-                {
-                    "nodes": [
-                        3,
-                        1
-                    ],
-                    "label": "R1",
-                    "value": 1000,
-                    "voltage": "2.5",
-                    "current": "2.5m"
-                },
-                {
-                    "nodes": [
-                        1,
-                        2
-                    ],
-                    "label": "R2",
-                    "value": 1000,
-                    "voltage": "2.5",
-                    "current": "2.5m"
-                },
-                {
-                    "nodes": [
-                        2,
-                        0
-                    ],
-                    "label": "AM1",
-                    "value": 0,
-                    "voltage": "0",
-                    "current": "2.5m"
-                }
-            ]
+            "item_voltages": []
         },
         "block_labels": [
             {
-                "label": "Rb",
-                "origin": "series",
-                "value": "2kOhm",
+                "label": "Rxya",
+                "origin": "yd",
                 "labels": [
                     "R2",
+                    "R4",
                     "R1"
                 ],
+                "value": "14 Ohm",
                 "unique_labels": [
-                    "T_000000002786BF8020250507152631",
-                    "T_000000002789D12020250506222554"
+                    "T_0970E26020230511120534",
+                    "T_0970F13020230511120534",
+                    "T_0970CEA020230511120534"
+                ]
+            },
+            {
+                "label": "Rxyb",
+                "origin": "yd",
+                "labels": [
+                    "R4",
+                    "R1",
+                    "R2"
+                ],
+                "value": "7 Ohm",
+                "unique_labels": [
+                    "T_0970F13020230511120534",
+                    "T_0970CEA020230511120534",
+                    "T_0970E26020230511120534"
+                ]
+            },
+            {
+                "label": "Rxyc",
+                "origin": "yd",
+                "labels": [
+                    "R1",
+                    "R2",
+                    "R4"
+                ],
+                "value": "3.5 Ohm",
+                "unique_labels": [
+                    "T_0970CEA020230511120534",
+                    "T_0970E26020230511120534",
+                    "T_0970F13020230511120534"
+                ]
+            },
+            {
+                "label": "Rb",
+                "origin": "series",
+                "value": "3Ohm",
+                "labels": [
+                    "R1",
+                    "R2"
+                ],
+                "unique_labels": [
+                    "T_0970CEA020230511120534",
+                    "T_0970FB1020230511120534"
+                ]
+            },
+            {
+                "label": "Rd",
+                "origin": "series",
+                "value": "4Ohm",
+                "labels": [
+                    "R1",
+                    "R3"
+                ],
+                "unique_labels": [
+                    "T_0970DD7020230511120534",
+                    "T_0971000020230511120534"
+                ]
+            },
+            {
+                "label": "Rg",
+                "origin": "parallel",
+                "value": "2.06Ohm",
+                "labels": [
+                    "R5",
+                    "Rxyc"
+                ],
+                "unique_labels": [
+                    "T_0970D39020230511120534",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Ri",
+                "origin": "parallel",
+                "value": "1.56Ohm",
+                "labels": [
+                    "R2",
+                    "Rxyb"
+                ],
+                "unique_labels": [
+                    "T_0970E75020230511120534",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rf",
+                "origin": "series",
+                "value": "3.61Ohm",
+                "labels": [
+                    "Rg",
+                    "Ri"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Re",
+                "origin": "parallel",
+                "value": "2.87Ohm",
+                "labels": [
+                    "Rxya",
+                    "Rf"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rc",
+                "origin": "series",
+                "value": "6.87Ohm",
+                "labels": [
+                    "Rd",
+                    "Re"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
                 ]
             },
             {
                 "label": "Ra",
-                "origin": "series",
-                "value": "2kOhm",
+                "origin": "parallel",
+                "value": "2.09Ohm",
                 "labels": [
-                    "AM1",
-                    "Rb"
+                    "Rb",
+                    "Rc"
                 ],
                 "unique_labels": [
-                    "T_000000002789EE8020250506222550",
+                    "<block>",
                     "<block>"
                 ]
             }

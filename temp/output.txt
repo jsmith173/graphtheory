@@ -1,15 +1,21 @@
 Solution by TINA assisted by AI
+This circuit can not be solved by using the standard series-parallel rules
+The R2,R4,R1 components form a star connection. We will convert it to delta connection
+So we can use standard series-parallel rules for impedance calculation
+The new components will be: Rxya=14.00 Ohm,Rxyb=7.00 Ohm,Rxyc=3.50 Ohm
+The following formulas are used in the star to delta conversion: 
+Rxya=(R2*R4+R4*R1+R1*R2)/R1
+Rxyb=(R2*R4+R4*R1+R1*R2)/R2
+Rxyc=(R2*R4+R4*R1+R1*R2)/R4
 
-First we calculate the total resistance between the generator nodes (VS1)
-R2 and R1 connected in series so Rb=R2+R1=1kOhm+1kOhm=2kOhm
-AM1 and Rb connected in series so Ra=RAM1+Rb=0Ohm+2kOhm=2kOhm
-The total resistance is Ra = 2kOhm
 
-Now we calculate the current on AM1
-We know that the voltage between VS1 nodes is 5 Volt.
-
-The components AM1 and Rb connected in series.
-The voltage between this components starting and ending node is 5 Volt
-The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper
-The current on AM1 is the current on Ra. Therefore the current on AM1 is 2.5m Amper
+R1 and R2 connected in series so Rb=R1+R2=1Ohm+2Ohm=3Ohm
+R1 and R3 connected in series so Rd=R1+R3=1Ohm+3Ohm=4Ohm
+R5 and Rxyc connected in parallel so Rg=R5*Rxyc/(R5+Rxyc)=5Ohm*3.5Ohm/(5Ohm+3.5Ohm)=2.06Ohm
+R2 and Rxyb connected in parallel so Ri=R2*Rxyb/(R2+Rxyb)=2Ohm*7Ohm/(2Ohm+7Ohm)=1.56Ohm
+Rg and Ri connected in series so Rf=Rg+Ri=2.06Ohm+1.56Ohm=3.61Ohm
+Rxya and Rf connected in parallel so Re=Rxya*Rf/(Rxya+Rf)=14Ohm*3.61Ohm/(14Ohm+3.61Ohm)=2.87Ohm
+Rd and Re connected in series so Rc=Rd+Re=4Ohm+2.87Ohm=6.87Ohm
+Rb and Rc connected in parallel so Ra=Rb*Rc/(Rb+Rc)=3Ohm*6.87Ohm/(3Ohm+6.87Ohm)=2.09Ohm
+The ohm meter shows Ra = 2.09Ohm
 
