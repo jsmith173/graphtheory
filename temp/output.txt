@@ -1,17 +1,2 @@
 Solution by TINA assisted by AI
-This circuit can not be solved by using the standard series-parallel rules
-The R5, R2,R1 components form a star connection. We will convert it to delta connection
-So we can use standard series-parallel rules for impedance calculation
-The new components will be: Rxya=2008.00 Ohm,Rxyb=16.06 Ohm,Rxyc=2008.00 Ohm
-The following formulas are used in the star to delta conversion: 
-Rxya=(R5* R2+ R2*R1+R1*R5)/R1
-Rxyb=(R5* R2+ R2*R1+R1*R5)/R5
-Rxyc=(R5* R2+ R2*R1+R1*R5)/ R2
-
-
-R3 and Rxyc connected in parallel so Rc=R3*Rxyc/(R3+Rxyc)=10Ohm*2.01kOhm/(10Ohm+2.01kOhm)=9.95Ohm
-Rx and Rxya connected in parallel so Re=Rx*Rxya/(Rx+Rxya)=16Ohm*2.01kOhm/(16Ohm+2.01kOhm)=15.9Ohm
-Rc and Re connected in series so Rb=Rc+Re=9.95Ohm+15.9Ohm=25.8Ohm
-Rxyb and Rb connected in parallel so Ra=Rxyb*Rb/(Rxyb+Rb)=16.1Ohm*25.8Ohm/(16.1Ohm+25.8Ohm)=9.9Ohm
-The ohm meter shows Ra = 9.9Ohm
-
+Failed: see codes

@@ -779,12 +779,16 @@ class TCircuitSolverGraph:
 
 	# Converts D to Y: opts['test_D'] = 1
 	def check_D(self, D):
-		for i in range(len(D)):
-			m = D[i]; j = (i+1) % 3; n = D[j]
-			e = self.G[m][n]
-			item = e.to_dict(); R = item['prop']['value']; label = item['prop']['label']
-			if label == self.request["comp"] or not self.is_resistive(e):
-				return False	
+		try:
+			for i in range(len(D)):
+				m = D[i]; j = (i+1) % 3; n = D[j]
+				e = self.G[m][n]
+				item = e.to_dict(); R = item['prop']['value']; label = item['prop']['label']
+				if label == self.request["comp"] or not self.is_resistive(e):
+					return False	
+		except Exception as e:
+			raise Exception("Graph error") from e
+					
 
 		self.reset_YD()
 		adjacent = []; edges_old = []; new_edges = []; R_old = []; label_old = []; R_new = []; label_list = []; label_list_new = []; value_list_new = []
@@ -956,8 +960,8 @@ class TCircuitSolverGraph:
 		self.G_orig = self.G.copy()
 		iter_nodes = []
 		for node in self.G.iternodes():
-			#if not self.is_gen_node(node) and not self.is_ohm_meter_node(node):
-			iter_nodes.append(node)
+			if not self.is_gen_node(node) and not self.is_ohm_meter_node(node) and not self.is_volt_meter_node(node) :
+				iter_nodes.append(node)
 
 		if self.opts['test_Y'] == 1:
 			for node in iter_nodes:
@@ -1166,6 +1170,14 @@ class TCircuitSolverGraph:
 	def is_ohm_meter_node(self, i):
 		f = self.find_ohm_meter()		
 		return f and (self.meter_prop['nodes'][0] == i or self.meter_prop['nodes'][1] == i)
+		
+	def is_volt_meter_node(self, i):
+		for item in self.json_data["meters"]:
+			prop = item["prop"]
+			if prop["CompId"] == VOLTMET_ or prop["CompId"] == VOLTMET2_:
+				if (item['nodes'][0] == i or item['nodes'][1] == i):
+					return True
+		return False	
 		
 	def set_v(self, node, i, j, value, s_log=""):
 		if isinstance(value, complex):
