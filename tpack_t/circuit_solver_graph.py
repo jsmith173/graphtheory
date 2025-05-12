@@ -188,6 +188,7 @@ class TCircuitSolverGraph:
 			self.expected_key = {}
 			
 		self.collect_amper_meters()
+		self.collect_volt_meters()
 		cu.dump_list(self.json_data, fn_wo_ext+'-mod.json')
 		
 		gen_found = True
@@ -271,6 +272,13 @@ class TCircuitSolverGraph:
 				new_item = deepcopy(item)
 				self.am_edges.append(new_item)
 
+	def collect_volt_meters(self):
+		self.vm_edges = []
+		for item in self.json_data["meters"]:
+			if item['prop']['CompId'] == VOLTMET_ or item['prop']['CompId'] == VOLTMET2_:
+				new_item = deepcopy(item)
+				self.vm_edges.append(new_item)
+				
 	def is_amper_meter(self, unique_id):
 		for item in self.am_edges:
 			if item['prop']['UniqueID'] == unique_id:
@@ -283,6 +291,12 @@ class TCircuitSolverGraph:
 				return True
 		return False
 
+	def is_volt_meter_by_label(self, label):
+		for item in self.vm_edges:
+			if item['prop']['label'] == label:
+				return True
+		return False
+		
 	def bkp_json_data(self):
 		self.json_data_bkp = {}
 		self.json_data_bkp["edges"] = []

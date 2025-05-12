@@ -24,22 +24,7 @@
             }
         }
     ],
-    "meters": [
-        {
-            "nodes": [
-                1,
-                2
-            ],
-            "prop": {
-                "label": "VM1",
-                "match_label": "",
-                "CompId": 5,
-                "UniqueID": "T_000000002786C56020250425154910",
-                "value": 0,
-                "flags": 5
-            }
-        }
-    ],
+    "meters": [],
     "edges": [
         {
             "nodes": [

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" ?>
 <top>
 	<superposition>
 		<item>
 			<total_impedance_ori_txt>
-				<item>VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm</item>
+				<item>VM1 and R1 connected in series so Ra=RVM1+R1=1GOhm+1kOhm=1GOhm</item>
 				<item>The total resistance is Ra = 1GOhm</item>
 			</total_impedance_ori_txt>
 			<total_impedance_txt>
-				<item>VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm</item>
+				<item>VM1 and R1 connected in series so Ra=RVM1+R1=1GOhm+1kOhm=1GOhm</item>
 				<item>The total resistance is Ra = 1GOhm</item>
 			</total_impedance_txt>
 			<gen>
@@ -35,16 +35,16 @@
 		<item/>
 	</circuit>
 	<request>
-		<text>What is the voltage on R1?</text>
+		<text>What is the voltage on VM1?</text>
 		<cmd>get_voltage</cmd>
-		<comp>R1</comp>
+		<comp>VM1</comp>
 		<options>4</options>
 		<qid>0</qid>
 		<ohm_meter_question>false</ohm_meter_question>
 		<req_on_gen>false</req_on_gen>
 		<volt_meter_question>false</volt_meter_question>
 		<volt_meter_no_match>false</volt_meter_no_match>
-		<comp_ori>R1</comp_ori>
+		<comp_ori>VM1</comp_ori>
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
@@ -52,17 +52,18 @@
 		<open_circuit_pass>1</open_circuit_pass>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
+			<item>We assume that the internal resistance of VM1 is RVM1=1GOhm</item>
 			<item/>
 			<item>First we calculate the total resistance between the generator nodes (VS1)</item>
-			<item>VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm</item>
+			<item>VM1 and R1 connected in series so Ra=RVM1+R1=1GOhm+1kOhm=1GOhm</item>
 			<item>The total resistance is Ra = 1GOhm</item>
 			<item/>
-			<item>Now we calculate the voltage on R1</item>
+			<item>Now we calculate the voltage on VM1</item>
 			<item>We know that the voltage between VS1 nodes is 5 Volt.</item>
 			<item/>
 			<item>The components VM1 and R1 connected in series.</item>
 			<item>The voltage between this components starting and ending node is 5 Volt</item>
-			<item>R1 is in the voltage divider so the voltage on R1 is R1/Ra*5 Volt = 5u Volt </item>
+			<item>VM1 is in the voltage divider so the voltage on VM1 is RVM1/Ra*5 Volt = 5 Volt </item>
 			<item/>
 		</solution>
 		<node_potentials_dbg>

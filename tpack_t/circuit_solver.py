@@ -114,7 +114,7 @@ class TCircuitSolver:
 		return item	
 
 	def lab2res(self, label):
-		if self.graph.is_amper_meter_by_label(label):
+		if self.graph.is_amper_meter_by_label(label) or self.graph.is_volt_meter_by_label(label):
 			return f'R{label}'
 		else:
 			return label
@@ -470,7 +470,7 @@ class TCircuitSolver:
 						
 						if not self.graph.is_amper_meter_by_label(labels[i]):
 							self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
-									 f"{labels[i]}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {s_new_val} {cg.uVolt} {s_nodes}")
+									 f"{self.lab2res(labels[i])}{self.graph.sDiv}{top_label}{self.graph.sMul}{self.graph.fv(voltage)} {cg.uVolt} = {s_new_val} {cg.uVolt} {s_nodes}")
 								 
 					if self.request['cmd'] == 'get_voltage':
 						pass
@@ -641,6 +641,14 @@ class TCircuitSolver:
 				value_str = self.graph.fv(v)
 				if abs(v) > cg.EPS:
 					self.log(f"We assume that the internal resistance of {meter_name} is {meter_name_w_res}={value_str}Ohm")		
+
+		if self.open_circuit_pass == 1:
+			for item in self.graph.vm_edges:
+				v = cg.ROPEN
+				meter_name = item['prop']['label']
+				meter_name_w_res = f'R{meter_name}'
+				value_str = self.graph.fv(v)
+				self.log(f"We assume that the internal resistance of {meter_name} is {meter_name_w_res}={value_str}Ohm")		
 
 		if self.graph.use_superposition:
 			self.log("")
@@ -1087,7 +1095,9 @@ class TCircuitSolver:
 							nInserted += 1
 				
 			if self.open_circuit_pass:
-				for item in self.graph.json_data["meters"]:
+				i = 0
+				while i < len(self.graph.json_data["meters"]):
+					item = self.graph.json_data["meters"][i]
 					prop = item["prop"]
 					if prop["CompId"] == cg.VOLTMET_ or prop["CompId"] == cg.VOLTMET2_:
 						i1 = item['nodes'][0]
@@ -1098,7 +1108,12 @@ class TCircuitSolver:
 						nodes.append(i2)						
 						item = self.graph.create_item(copy.deepcopy(nodes), j, cg.ROPEN, prop['label'])
 						self.graph.json_data["edges"].append(item)
-						nInserted += 1										
+						nInserted += 1		
+						self.graph.json_data["meters"].pop(i)
+						self.request["volt_meter_question"] = False
+						self.request["volt_meter_no_match"] = False
+					else:
+						i += 1												
 
 			cu.dump_list(self.graph.json_data, 'data/temp-mod.json')
 			G = self.graph.get_graph(circuit_key)

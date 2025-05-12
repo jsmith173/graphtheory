@@ -215,9 +215,9 @@
         "meters_without_labels": 0
     },
     "request": {
-        "text": "What is the voltage on R1?",
+        "text": "What is the voltage on VM1?",
         "cmd": "get_voltage",
-        "comp": "R1",
+        "comp": "VM1",
         "options": 4,
         "qid": "0"
     }

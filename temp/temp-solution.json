@@ -2,11 +2,11 @@
     "superposition": [
         {
             "total_impedance_ori_txt": [
-                "VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm",
+                "VM1 and R1 connected in series so Ra=RVM1+R1=1GOhm+1kOhm=1GOhm",
                 "The total resistance is Ra = 1GOhm"
             ],
             "total_impedance_txt": [
-                "VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm",
+                "VM1 and R1 connected in series so Ra=RVM1+R1=1GOhm+1kOhm=1GOhm",
                 "The total resistance is Ra = 1GOhm"
             ],
             "gen": {
@@ -34,16 +34,16 @@
         ""
     ],
     "request": {
-        "text": "What is the voltage on R1?",
+        "text": "What is the voltage on VM1?",
         "cmd": "get_voltage",
-        "comp": "R1",
+        "comp": "VM1",
         "options": 4,
         "qid": "0",
         "ohm_meter_question": false,
         "req_on_gen": false,
         "volt_meter_question": false,
         "volt_meter_no_match": false,
-        "comp_ori": "R1",
+        "comp_ori": "VM1",
         "amper_meter_question": false
     },
     "calculation": {
@@ -51,17 +51,18 @@
         "open_circuit_pass": 1,
         "solution": [
             "Solution by TINA assisted by AI",
+            "We assume that the internal resistance of VM1 is RVM1=1GOhm",
             "",
             "First we calculate the total resistance between the generator nodes (VS1)",
-            "VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm",
+            "VM1 and R1 connected in series so Ra=RVM1+R1=1GOhm+1kOhm=1GOhm",
             "The total resistance is Ra = 1GOhm",
             "",
-            "Now we calculate the voltage on R1",
+            "Now we calculate the voltage on VM1",
             "We know that the voltage between VS1 nodes is 5 Volt.",
             "",
             "The components VM1 and R1 connected in series.",
             "The voltage between this components starting and ending node is 5 Volt",
-            "R1 is in the voltage divider so the voltage on R1 is R1/Ra*5 Volt = 5u Volt ",
+            "VM1 is in the voltage divider so the voltage on VM1 is RVM1/Ra*5 Volt = 5 Volt ",
             ""
         ],
         "node_potentials_dbg": {
