@@ -606,7 +606,7 @@ class TCircuitSolver:
 				i += 1
 			except ValueError as e:
 				msg = str(e)
-				if self.open_circuit_pass == 0 and msg == spt.sErrJackknife:
+				if self.open_circuit_pass == 0 and (msg == spt.sErrJackknife or msg == spt.sErrNotAnSpGraph):
 					in_cycle = True
 					self.clean()
 					self.open_circuit_pass = 1

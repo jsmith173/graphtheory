@@ -1,14 +1,13 @@
 {
-    "N": 3,
+    "N": 2,
     "nodes": [
-        3,
         1,
         2
     ],
     "gens": [
         {
             "nodes": [
-                3,
+                1,
                 2
             ],
             "prop": {
@@ -34,57 +33,26 @@
                 "label": "VM1",
                 "match_label": "",
                 "CompId": 5,
-                "UniqueID": "T_000000002786C56020250425154910",
+                "UniqueID": "T_000000000C3711C020250512181343",
                 "value": 0,
                 "flags": 5
             }
         }
     ],
-    "edges": [
-        {
-            "nodes": [
-                3,
-                1
-            ],
-            "prop": {
-                "label": "R1",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_000000002786D12020250425154905",
-                "value": 1000,
-                "flags": 1
-            }
-        }
-    ],
+    "edges": [],
     "dctables": [
         {
             "currents": [
                 {
-                    "label": "R1",
-                    "value": 0,
-                    "nodes": [
-                        3,
-                        1
-                    ]
-                },
-                {
                     "label": "VS1",
                     "value": 0,
                     "nodes": [
-                        3,
+                        1,
                         2
                     ]
                 }
             ],
             "other voltages": [
-                {
-                    "label": "R1",
-                    "value": 0,
-                    "nodes": [
-                        3,
-                        1
-                    ]
-                },
                 {
                     "label": "VM1",
                     "value": 5,
@@ -97,7 +65,7 @@
                     "label": "VS1",
                     "value": 5,
                     "nodes": [
-                        3,
+                        1,
                         2
                     ]
                 }
@@ -124,12 +92,6 @@
                     "nodes": [
                         2
                     ]
-                },
-                {
-                    "value": 0,
-                    "nodes": [
-                        3
-                    ]
                 }
             ]
         }
@@ -137,31 +99,15 @@
     "dctable_final": {
         "currents": [
             {
-                "label": "R1",
-                "value": 0,
-                "nodes": [
-                    3,
-                    1
-                ]
-            },
-            {
                 "label": "VS1",
                 "value": 0,
                 "nodes": [
-                    3,
+                    1,
                     2
                 ]
             }
         ],
         "other voltages": [
-            {
-                "label": "R1",
-                "value": 0,
-                "nodes": [
-                    3,
-                    1
-                ]
-            },
             {
                 "label": "VM1",
                 "value": 5,
@@ -174,7 +120,7 @@
                 "label": "VS1",
                 "value": 5,
                 "nodes": [
-                    3,
+                    1,
                     2
                 ]
             }
@@ -200,12 +146,6 @@
                 "value": -5,
                 "nodes": [
                     2
-                ]
-            },
-            {
-                "value": 0,
-                "nodes": [
-                    3
                 ]
             }
         ]

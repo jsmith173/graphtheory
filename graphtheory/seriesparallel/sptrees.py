@@ -12,7 +12,8 @@ from graphtheory.seriesparallel.spnodes import btree_postorder
 from graphtheory.seriesparallel.spnodes import btree_count
 from graphtheory.seriesparallel.spnodes import btree_count_iter
 
-sErrJackknife = "Graph error: jackknife"
+sErrJackknife    = "Graph error: jackknife"
+sErrNotAnSpGraph = "not an sp-graph"
 
 def swap(L, i, j):
     """Swap items on the list."""
@@ -126,7 +127,7 @@ def find_sptree(graph, fixed_ends=None):
                     sink = node   #  centrum gwiazdy
                     break
                 else:
-                    raise ValueError("not an sp-graph")
+                    raise ValueError(sErrNotAnSpGraph)
         # Trzeba ustalic jedno ramie jako koniec, w parze do centrum.
         source = degree1.pop()
         try:
@@ -138,7 +139,7 @@ def find_sptree(graph, fixed_ends=None):
         root = Node(source, sink, "edge")
         tnode_dict[(source, sink)] = root
     else:
-        raise ValueError("not an sp-graph")
+        raise ValueError(sErrNotAnSpGraph)
     # Etap III. Budowa sp-tree na bazie call_stack.
     while call_stack:
         action, node, node1, node2 = call_stack.pop()
