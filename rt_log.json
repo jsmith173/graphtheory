@@ -1,0 +1,22 @@
+[
+    "before run_w_check",
+    "before run_proc",
+    "after run_proc",
+    "before calc_item_values",
+    "after calc_item_values",
+    "before calc_item_values",
+    "before find_series_comp",
+    "after find_series_comp",
+    "before find_series_comp",
+    "after find_series_comp",
+    "before find_series_comp",
+    "after find_series_comp",
+    "before run_w_check",
+    "before run_proc",
+    "after run_proc",
+    "before calc_item_values",
+    "after calc_item_values",
+    "before calc_item_values",
+    "after calc_item_values",
+    "before run_w_check"
+]
