@@ -1,44 +1,115 @@
 {
-    "superposition": [],
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm",
+                "The total resistance is Ra = 1GOhm"
+            ],
+            "total_impedance_txt": [
+                "VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm",
+                "The total resistance is Ra = 1GOhm"
+            ],
+            "gen": {
+                "nodes": [
+                    3,
+                    2
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_000000002786EE8020250425154900",
+                    "value": 5,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
     "circuit": [
         "Netlist (component name, nodes)",
-        "R8 3 4",
-        "R7 4 2",
-        "R6 4 1",
-        " R2 3 2",
-        "R4 1 3",
-        "R5 7 8",
-        "Rx 8 6",
-        "R3 8 5",
-        " R2 7 6",
-        "R1 5 7",
+        "R1 3 1",
         ""
     ],
     "request": {
-        "text": "What is the resistance on ZM1?",
-        "cmd": "get_impedance",
-        "comp": "ZM1",
+        "text": "What is the voltage on R1?",
+        "cmd": "get_voltage",
+        "comp": "R1",
         "options": 4,
         "qid": "0",
-        "ohm_meter_question": true,
+        "ohm_meter_question": false,
         "req_on_gen": false,
         "volt_meter_question": false,
         "volt_meter_no_match": false,
-        "comp_ori": "ZM1"
+        "comp_ori": "R1",
+        "amper_meter_question": false
     },
     "calculation": {
         "short_circuit_pass": 0,
+        "open_circuit_pass": 1,
         "solution": [
             "Solution by TINA assisted by AI",
-            "Failed: see codes"
+            "",
+            "First we calculate the total resistance between the generator nodes (VS1)",
+            "VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm",
+            "The total resistance is Ra = 1GOhm",
+            "",
+            "Now we calculate the voltage on R1",
+            "We know that the voltage between VS1 nodes is 5 Volt.",
+            "",
+            "The components VM1 and R1 connected in series.",
+            "The voltage between this components starting and ending node is 5 Volt",
+            "R1 is in the voltage divider so the voltage on R1 is R1/Ra*5 Volt = 5u Volt ",
+            ""
         ],
         "node_potentials_dbg": {
-            "node_potentials": [],
-            "item_voltages": []
+            "node_potentials": [
+                [
+                    "VP_0 = 0, assigned: 0",
+                    "VP_1 = 5, assigned: 1",
+                    "VP_2 = 0, assigned: 1",
+                    "VP_3 = 5, assigned: 1"
+                ],
+                [
+                    "VP_0 = 0, assigned (and): 0",
+                    "VP_1 = 5, assigned (and): 1",
+                    "VP_2 = 0, assigned (and): 1",
+                    "VP_3 = 5, assigned (and): 1"
+                ]
+            ],
+            "item_voltages": [
+                {
+                    "nodes": [
+                        3,
+                        1
+                    ],
+                    "label": "R1",
+                    "value": 1000,
+                    "voltage": "5u",
+                    "current": "5n"
+                }
+            ]
         },
+        "block_labels": [
+            {
+                "label": "Ra",
+                "origin": "series",
+                "value": "1GOhm",
+                "labels": [
+                    "VM1",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "<none>",
+                    "T_000000002786D12020250425154905"
+                ]
+            }
+        ],
         "fn": "data/temp.json",
-        "valid": 0,
-        "error": 1,
-        "status": "4"
+        "valid": 1,
+        "error": 0,
+        "status": "OK"
     }
 }

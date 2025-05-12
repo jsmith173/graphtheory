@@ -1,85 +1,25 @@
 [
     {
-        "source": 1,
-        "target": 0,
-        "prop": {
-            "label": "R6",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0000000028B470F020250511071249",
-            "value": 1,
-            "flags": 1
-        }
-    },
-    {
-        "source": 2,
-        "target": 1,
-        "prop": {
-            "label": "R5",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0000000028B476D020250511071249",
-            "value": 1,
-            "flags": 1
-        }
-    },
-    {
         "source": 3,
-        "target": 2,
-        "prop": {
-            "label": "R4",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_0000000028B4829020250511071249",
-            "value": 1,
-            "flags": 1
-        }
-    },
-    {
-        "source": 4,
-        "target": 0,
-        "prop": {
-            "label": "R3",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_1F2AE99020240203083907",
-            "value": 1,
-            "flags": 1
-        }
-    },
-    {
-        "source": 5,
-        "target": 4,
-        "prop": {
-            "label": "R2",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "T_1F2AE4A020240203083904",
-            "value": 1,
-            "flags": 1
-        }
-    },
-    {
-        "source": 6,
-        "target": 5,
+        "target": 1,
         "prop": {
             "label": "R1",
             "match_label": "",
             "CompId": 9,
-            "UniqueID": "T_1F41EC7020240129133833",
-            "value": 1,
+            "UniqueID": "T_000000002786D12020250425154905",
+            "value": 1000,
             "flags": 1
         }
     },
     {
-        "source": 6,
-        "target": 0,
+        "source": 1,
+        "target": 2,
         "prop": {
-            "label": "RGenZero1",
+            "label": "VM1",
             "match_label": "",
             "CompId": 9,
             "UniqueID": "<none>",
-            "value": 0,
+            "value": 1000000000.0,
             "flags": 1
         }
     }

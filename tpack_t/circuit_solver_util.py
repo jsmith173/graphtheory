@@ -1,5 +1,6 @@
 import os, json, cmath, math, re
 import graphtheory.seriesparallel.spnodes as sp
+import graphtheory.seriesparallel.sptrees as spt
 
 def btree_print3(top, level=0):
     if top is None:
@@ -12,7 +13,7 @@ def btree_check(top):
 	list_ = sp.btree_postorder(top)
 	for node in list_:
 		if node.type == "jackknife":
-			raise Exception("Graph error")
+			raise ValueError(spt.sErrJackknife)
 
 def btree_print_all_path(top, path, res):
 	if top is None:

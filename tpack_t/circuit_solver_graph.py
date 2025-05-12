@@ -17,6 +17,7 @@ PRECISION = 3
 RMIN_SMALL = 1e-9
 RMIN_ZERO = 0
 EPS = 1e-20
+ROPEN = 1e9
 
 RES_ = 9; CAP_ = 10; IND_ = 11; 
 RESMET_ = 8; RESMET2_ = 98
@@ -1078,10 +1079,13 @@ class TCircuitSolverGraph:
 			s = f"{comp_str}x{a}{post_str}"
 		return f_inc, s
 
-	def create_item(self, nodes, m, value):
+	def create_item(self, nodes, m, value, label=''):
 		item = {}; prop = {}
 		item["nodes"] = nodes
-		prop["label"] = f"{SHORT_CIRCUIT_PREFIX}{m}"
+		if label == '':
+			prop["label"] = f"{SHORT_CIRCUIT_PREFIX}{m}"
+		else:
+			prop["label"] = label
 		prop["match_label"] = ""
 		prop["CompId"] = RES_
 		prop["UniqueID"] = "<none>"

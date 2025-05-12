@@ -9,6 +9,7 @@ from json2xml import json2xml
 from tpack_t import circuit_solver_util as cu
 from tpack_t.circuit_solver_graph import TCircuitSolverGraph
 from tpack_t import circuit_solver_graph as cg
+import graphtheory.seriesparallel.sptrees as spt
 import math, cmath, copy
 
 def_weight = 1
@@ -65,6 +66,7 @@ class TCircuitSolver:
 		self.ignored_resistances = []
 		self.short_circuit_pass = 0
 		self.insert_double_rmin = False
+		self.open_circuit_pass = 0
 		
 		if self.opts != None and 'request' in self.opts.keys():
 			if (self.opts['request']['options'] & cg.LLM_LOUD) != 0:
@@ -602,6 +604,15 @@ class TCircuitSolver:
 				self.short_circuit_pass = 1
 				self.insert_double_rmin = True
 				i += 1
+			except ValueError as e:
+				msg = str(e)
+				if self.open_circuit_pass == 0 and msg == spt.sErrJackknife:
+					in_cycle = True
+					self.clean()
+					self.open_circuit_pass = 1
+					i += 1
+				else:
+					raise
 			except Exception as e:
 				raise	
 	
@@ -622,7 +633,7 @@ class TCircuitSolver:
 			self.log("We have more than one generator so we are using superposition to calculate voltages/currents.")
 			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to very small resistances, used during superposition.")
 
-		if self.short_circuit_pass:
+		if self.short_circuit_pass == 1:
 			for item in self.graph.am_edges:
 				v = self.graph.RMIN
 				meter_name = item['prop']['label']
@@ -1074,8 +1085,22 @@ class TCircuitSolver:
 							item = self.graph.create_item(copy.deepcopy(nodes), j, self.graph.RMIN)
 							self.graph.json_data["edges"].append(item)
 							nInserted += 1
+				
+			if self.open_circuit_pass:
+				for item in self.graph.json_data["meters"]:
+					prop = item["prop"]
+					if prop["CompId"] == cg.VOLTMET_ or prop["CompId"] == cg.VOLTMET2_:
+						i1 = item['nodes'][0]
+						i2 = item['nodes'][1]					
 						
+						nodes = []
+						nodes.append(i1)
+						nodes.append(i2)						
+						item = self.graph.create_item(copy.deepcopy(nodes), j, cg.ROPEN, prop['label'])
+						self.graph.json_data["edges"].append(item)
+						nInserted += 1										
 
+			cu.dump_list(self.graph.json_data, 'data/temp-mod.json')
 			G = self.graph.get_graph(circuit_key)
 
 			#self.solution['gen'] = self.gen
@@ -1285,10 +1310,6 @@ class TCircuitSolver:
 			self.node_potentials_dbg['node_potentials'].append(node_potentials_pass)	
 		finally:
 			#finalize 'run_pass' (one pass)
-			for i in range(nInserted):
-				list_ = self.graph.json_data["edges"]
-				N = len(list_)
-				list_.pop(N-1)
 			if i_pass < len(self.gens)-1:	
 				self.request['comp'] = self.bkp_request_comp
 			self.graph.restore_json_data()
@@ -1314,6 +1335,7 @@ class TCircuitSolver:
 	
 		calculation = {}
 		calculation['short_circuit_pass'] =	self.short_circuit_pass
+		calculation['open_circuit_pass'] =	self.open_circuit_pass
 		calculation['solution'] = self.graph.solution_log
 
 		calculation['node_potentials_dbg'] = self.node_potentials_dbg

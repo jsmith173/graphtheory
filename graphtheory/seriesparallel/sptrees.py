@@ -12,6 +12,7 @@ from graphtheory.seriesparallel.spnodes import btree_postorder
 from graphtheory.seriesparallel.spnodes import btree_count
 from graphtheory.seriesparallel.spnodes import btree_count_iter
 
+sErrJackknife = "Graph error: jackknife"
 
 def swap(L, i, j):
     """Swap items on the list."""
@@ -132,7 +133,7 @@ def find_sptree(graph, fixed_ends=None):
             while degree1:
                 call_stack.append(("jackknife", degree1.pop(), source, sink))
         except UnboundLocalError as e:
-            raise ValueError("not an sp-graph #2") from e
+            raise ValueError(sErrJackknife) from e
 
         root = Node(source, sink, "edge")
         tnode_dict[(source, sink)] = root

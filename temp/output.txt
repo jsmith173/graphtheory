@@ -1,2 +1,13 @@
 Solution by TINA assisted by AI
-Failed: see codes
+
+First we calculate the total resistance between the generator nodes (VS1)
+VM1 and R1 connected in series so Ra=VM1+R1=1GOhm+1kOhm=1GOhm
+The total resistance is Ra = 1GOhm
+
+Now we calculate the voltage on R1
+We know that the voltage between VS1 nodes is 5 Volt.
+
+The components VM1 and R1 connected in series.
+The voltage between this components starting and ending node is 5 Volt
+R1 is in the voltage divider so the voltage on R1 is R1/Ra*5 Volt = 5u Volt 
+
