@@ -1098,7 +1098,7 @@ class TCircuitSolver:
 							self.graph.json_data["edges"].append(item)
 							nInserted += 1
 				
-					else:
+					elif self.open_circuit_pass:
 						prop = gen["prop"]
 						gen_name = prop['label']
 						gen_name_w_res = self.lab2res(gen_name)				
