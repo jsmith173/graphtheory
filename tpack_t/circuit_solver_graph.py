@@ -304,6 +304,12 @@ class TCircuitSolverGraph:
 				return True
 		return False
 		
+	def is_gen(self, label):
+		for item in self.json_data['gens']:
+			if item['prop']['label'] == label:
+				return True
+		return False
+		
 	def bkp_json_data(self):
 		self.json_data_bkp = {}
 		self.json_data_bkp["edges"] = []

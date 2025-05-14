@@ -114,7 +114,7 @@ class TCircuitSolver:
 		return item	
 
 	def lab2res(self, label):
-		if self.graph.is_amper_meter_by_label(label) or self.graph.is_volt_meter_by_label(label):
+		if self.graph.is_amper_meter_by_label(label) or self.graph.is_volt_meter_by_label(label) or self.graph.is_gen(label):
 			return f'R{label}'
 		else:
 			return label
@@ -585,7 +585,7 @@ class TCircuitSolver:
 		i = 0
 		in_cycle = True
 		RMIN = cg.RMIN_ZERO
-		while i < 10 and in_cycle:
+		while i < 100 and in_cycle:
 			try:
 				in_cycle = False
 				self.run(circuit_key, RMIN)
@@ -1095,6 +1095,23 @@ class TCircuitSolver:
 							nInserted += 1
 				
 			if self.open_circuit_pass:
+				if not is_v_gen:
+					prop = gen["prop"]
+					gen_name = prop['label']
+					gen_name_w_res = self.lab2res(gen_name)				
+					value_str = self.graph.fv(cg.ROPEN)
+					
+					self.log(f"We assume that the internal resistance of {gen_name} is {gen_name_w_res}={value_str}Ohm")				
+					i1 = gen['nodes'][0]
+					i2 = gen['nodes'][1]					
+					
+					nodes = []
+					nodes.append(i1)
+					nodes.append(i2)						
+					item = self.graph.create_item(copy.deepcopy(nodes), j, cg.ROPEN, prop['label'])
+					self.graph.json_data["edges"].append(item)
+					nInserted += 1
+				
 				i = 0
 				while i < len(self.graph.json_data["meters"]):
 					item = self.graph.json_data["meters"][i]
