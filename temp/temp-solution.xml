@@ -72,8 +72,8 @@
 		<item/>
 	</circuit>
 	<request>
-		<text>What is the voltage on R3?</text>
-		<cmd>get_voltage</cmd>
+		<text>What is the current on R3?</text>
+		<cmd>get_current</cmd>
 		<comp>R3</comp>
 		<options>4</options>
 		<qid>0</qid>
@@ -86,7 +86,7 @@
 	</request>
 	<calculation>
 		<short_circuit_pass>0</short_circuit_pass>
-		<open_circuit_pass>1</open_circuit_pass>
+		<open_circuit_pass>0</open_circuit_pass>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
 			<item>We have more than one generator so we are using superposition to calculate voltages/currents.</item>
@@ -101,7 +101,7 @@
 			<item>R1 and Rb0 connected in series so Ra0=R1+Rb0=1kOhm+1000Ohm=2kOhm</item>
 			<item>The total resistance is Ra0 = 2kOhm</item>
 			<item/>
-			<item>Now we calculate the voltage on R3</item>
+			<item>Now we calculate the current on R3</item>
 			<item>We know that the voltage between VS1 nodes is 5 Volt.</item>
 			<item>All voltage generators except for VS1 have been replaced with a short circuit.</item>
 			<item>All current generators have been replaced with an open circuit.</item>
@@ -109,12 +109,16 @@
 			<item>The components R1 and Rb0 connected in series.</item>
 			<item>The voltage between this components starting and ending node is 5 Volt</item>
 			<item>Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*5 Volt = 2.5 Volt </item>
+			<item>The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper</item>
+			<item>The current on Rb0 is the current on Ra0. Therefore the current on Rb0 is 2.5m Amper</item>
 			<item/>
 			<item>The components R2 and Rc0 connected in parallel. The voltage on Rc0 is 2.5 Volt because the voltage on Rb0 is 2.5 Volt</item>
 			<item/>
 			<item>The components R3 and IS1 connected in series.</item>
 			<item>The voltage between this components starting and ending node is 2.5 Volt</item>
 			<item>R3 is in the voltage divider so the voltage on R3 is R3/Rc0*2.5 Volt = 2.5u Volt </item>
+			<item>The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 2.5/1G = 2.5n Amper</item>
+			<item>The current on R3 is the current on Rc0. Therefore the current on R3 is 2.5n Amper</item>
 			<item/>
 			<item>###Processing generator IS1</item>
 			<item/>
@@ -124,7 +128,7 @@
 			<item>Rb1 and R3 connected in series so Ra1=Rb1+R3=500Ohm+1kOhm=1.5kOhm</item>
 			<item>The total resistance is Ra1 = 1.5kOhm</item>
 			<item/>
-			<item>Now we calculate the voltage on R3</item>
+			<item>Now we calculate the current on R3</item>
 			<item>We know that the voltage between IS1 nodes is 15 Volt, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 1.5kOhm so the voltage between the generator nodes is Igen*Rtot = 15 Volt</item>
 			<item>All voltage generators have been replaced with a short circuit.</item>
 			<item>All current generators except for IS1 have been replaced with an open circuit.</item>
@@ -132,10 +136,12 @@
 			<item>The components Rb1 and R3 connected in series.</item>
 			<item>The voltage between this components starting and ending node is -15 Volt</item>
 			<item>R3 is in the voltage divider so the voltage on R3 is R3/Ra1*-15 Volt = -10 Volt </item>
+			<item>The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = -15/1.5k = -10m Amper</item>
+			<item>The current on R3 is the current on Ra1. Therefore the current on R3 is -10m Amper</item>
 			<item/>
-			<item>Now we are using superposition to calculate the voltage on R3</item>
+			<item>Now we are using superposition to calculate the current on R3</item>
 			<item>Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.</item>
-			<item>'voltage on R3' = 10V</item>
+			<item>'current on R3' = 10mA</item>
 		</solution>
 		<node_potentials_dbg>
 			<node_potentials>

@@ -406,8 +406,8 @@
         "meters_without_labels": 0
     },
     "request": {
-        "text": "What is the voltage on R3?",
-        "cmd": "get_voltage",
+        "text": "What is the current on R3?",
+        "cmd": "get_current",
         "comp": "R3",
         "options": 4,
         "qid": "0"

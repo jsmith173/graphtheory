@@ -11,7 +11,7 @@ R2 and Rc0 connected in parallel so Rb0=R2*Rc0/(R2+Rc0)=1kOhm*1GOhm/(1kOhm+1GOhm
 R1 and Rb0 connected in series so Ra0=R1+Rb0=1kOhm+1000Ohm=2kOhm
 The total resistance is Ra0 = 2kOhm
 
-Now we calculate the voltage on R3
+Now we calculate the current on R3
 We know that the voltage between VS1 nodes is 5 Volt.
 All voltage generators except for VS1 have been replaced with a short circuit.
 All current generators have been replaced with an open circuit.
@@ -19,12 +19,16 @@ All current generators have been replaced with an open circuit.
 The components R1 and Rb0 connected in series.
 The voltage between this components starting and ending node is 5 Volt
 Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*5 Volt = 2.5 Volt 
+The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper
+The current on Rb0 is the current on Ra0. Therefore the current on Rb0 is 2.5m Amper
 
 The components R2 and Rc0 connected in parallel. The voltage on Rc0 is 2.5 Volt because the voltage on Rb0 is 2.5 Volt
 
 The components R3 and IS1 connected in series.
 The voltage between this components starting and ending node is 2.5 Volt
 R3 is in the voltage divider so the voltage on R3 is R3/Rc0*2.5 Volt = 2.5u Volt 
+The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 2.5/1G = 2.5n Amper
+The current on R3 is the current on Rc0. Therefore the current on R3 is 2.5n Amper
 
 ###Processing generator IS1
 
@@ -34,7 +38,7 @@ R2 and Rc1 connected in parallel so Rb1=R2*Rc1/(R2+Rc1)=1kOhm*1kOhm/(1kOhm+1kOhm
 Rb1 and R3 connected in series so Ra1=Rb1+R3=500Ohm+1kOhm=1.5kOhm
 The total resistance is Ra1 = 1.5kOhm
 
-Now we calculate the voltage on R3
+Now we calculate the current on R3
 We know that the voltage between IS1 nodes is 15 Volt, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 1.5kOhm so the voltage between the generator nodes is Igen*Rtot = 15 Volt
 All voltage generators have been replaced with a short circuit.
 All current generators except for IS1 have been replaced with an open circuit.
@@ -42,7 +46,9 @@ All current generators except for IS1 have been replaced with an open circuit.
 The components Rb1 and R3 connected in series.
 The voltage between this components starting and ending node is -15 Volt
 R3 is in the voltage divider so the voltage on R3 is R3/Ra1*-15 Volt = -10 Volt 
+The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = -15/1.5k = -10m Amper
+The current on R3 is the current on Ra1. Therefore the current on R3 is -10m Amper
 
-Now we are using superposition to calculate the voltage on R3
+Now we are using superposition to calculate the current on R3
 Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.
-'voltage on R3' = 10V
+'current on R3' = 10mA

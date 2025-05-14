@@ -85,20 +85,6 @@
                 "value": 1000,
                 "flags": 1
             }
-        },
-        {
-            "nodes": [
-                1,
-                2
-            ],
-            "prop": {
-                "label": "RGenZero0",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "<none>",
-                "value": 0,
-                "flags": 1
-            }
         }
     ],
     "dctables": [

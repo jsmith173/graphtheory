@@ -585,7 +585,7 @@ class TCircuitSolver:
 		i = 0
 		in_cycle = True
 		RMIN = cg.RMIN_ZERO
-		while i < 100 and in_cycle:
+		while i < 20 and in_cycle:
 			try:
 				in_cycle = False
 				self.run(circuit_key, RMIN)
@@ -828,8 +828,8 @@ class TCircuitSolver:
 						if calc_current_from_voltage: #or self.graph.use_superposition:
 							try:
 								current = r/value
-							except ZeroDivisionError as e:
-								raise ShortCircuitException("Division by zero in current calculation") from e
+							except ZeroDivisionError as exc:
+								raise ShortCircuitException("Division by zero in current calculation") from exc
 						
 						if isinstance(current, complex):
 							re = current.real; im = current.imag
@@ -1044,12 +1044,16 @@ class TCircuitSolver:
 			self.total_impedance_txt = []
 			self.total_impedance = []
 			self.graph.nodal_voltage_log = []
-			self.graph.bkp_json_data()
+			
+			# save/restore json in case of superpos (check parh3-ai.tsc)
+			if len(self.gens) > 1:	
+				self.graph.bkp_json_data()
 			
 			# nInserted is local var
 			self.solver_silent = False; nInserted = 0
 			self.bkp_request_comp = self.request['comp']
 
+			gen = self.gen
 			gen_comp_id = self.gen['prop']['CompId']
 			is_v_gen_pass = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 			
@@ -1094,24 +1098,25 @@ class TCircuitSolver:
 							self.graph.json_data["edges"].append(item)
 							nInserted += 1
 				
+					else:
+						prop = gen["prop"]
+						gen_name = prop['label']
+						gen_name_w_res = self.lab2res(gen_name)				
+						value_str = self.graph.fv(cg.ROPEN)
+						
+						self.log(f"We assume that the internal resistance of {gen_name} is {gen_name_w_res}={value_str}Ohm")				
+						i1 = gen['nodes'][0]
+						i2 = gen['nodes'][1]					
+						
+						nodes = []
+						nodes.append(i1)
+						nodes.append(i2)						
+						item = self.graph.create_item(copy.deepcopy(nodes), j, cg.ROPEN, prop['label'])
+						self.graph.json_data["edges"].append(item)
+						nInserted += 1
+					
+					
 			if self.open_circuit_pass:
-				if not is_v_gen:
-					prop = gen["prop"]
-					gen_name = prop['label']
-					gen_name_w_res = self.lab2res(gen_name)				
-					value_str = self.graph.fv(cg.ROPEN)
-					
-					self.log(f"We assume that the internal resistance of {gen_name} is {gen_name_w_res}={value_str}Ohm")				
-					i1 = gen['nodes'][0]
-					i2 = gen['nodes'][1]					
-					
-					nodes = []
-					nodes.append(i1)
-					nodes.append(i2)						
-					item = self.graph.create_item(copy.deepcopy(nodes), j, cg.ROPEN, prop['label'])
-					self.graph.json_data["edges"].append(item)
-					nInserted += 1
-				
 				i = 0
 				while i < len(self.graph.json_data["meters"]):
 					item = self.graph.json_data["meters"][i]
@@ -1177,6 +1182,7 @@ class TCircuitSolver:
 			if has_amper_meter:
 				self.get_amper_meters()
 			self.graph.modify_amper_meters(self.graph.RMIN)
+			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 
 			#get path for 'comp'
 			paths = []		
@@ -1344,7 +1350,9 @@ class TCircuitSolver:
 			#finalize 'run_pass' (one pass)
 			if i_pass < len(self.gens)-1:	
 				self.request['comp'] = self.bkp_request_comp
-			self.graph.restore_json_data()
+			if len(self.gens) > 1:	
+				self.graph.restore_json_data()
+			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 				
 
 	def patch_log(self):
