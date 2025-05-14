@@ -1,6 +1,7 @@
 from graphtheory.structures.edges import Edge
 from graphtheory.structures.graphs import Graph
 from graphtheory.structures.factory import GraphFactory
+from graphtheory.traversing.bfs import SimpleBFS
 from graphtheory.seriesparallel.sptrees import find_sptree
 from graphtheory.seriesparallel.spnodes import node_global_init
 from tpack_t import pack_prefix as p
@@ -263,6 +264,12 @@ class TCircuitSolverGraph:
 		if self.request["volt_meter_question"]:
 			self.log_set_v_pot = True
 		cu.dump_list(self.json_data, "temp/input.json")
+		
+		##
+		#self.test_bfs()
+		##
+		
+		
 		return self.has_expected_key, self.expected_key, self.gen, self.request
 
 	def collect_amper_meters(self):
@@ -1309,4 +1316,75 @@ class TCircuitSolverGraph:
 			else:
 				return v_str
 		
+	def bfs_get_next_node(self, parts, all_nodes):
+		for node in all_nodes:
+			f = False
+			for part in parts:
+				if node in part:
+					f = True
+					break
+			if not f:
+				return True, node	
+		return False, -1
+			
+	def bfs_all_node_walked(self, parts, all_nodes):
+		flags = array('b', [0] * (self.bfs_max_gr+1))
+		flags_en = array('b', [0] * (self.bfs_max_gr+1))
+
+		for part in parts:
+			for i in part:
+				flags[i] = True	
+
+		for node in all_nodes:						
+			flags_en[node] = True
+			
+		for i in range(self.bfs_max_gr+1):						
+			if flags_en[i] and not flags[i]:
+				return False
+			
+		return True	
+
+	def test_bfs(self):
+		try:
+			G = self.get_graph(self.circuit_key)
+			number_of_nodes = G.v()
+			self.bfs_max_gr = 0
+			
+			disconnected_graph = False
+			parts = []
+			all_nodes = []
+			for node in G.iternodes():
+				if node > self.bfs_max_gr:
+					self.bfs_max_gr = node
+				all_nodes.append(node)
+
+			source = all_nodes[0]
+			finished = False
+			i = 0
+			while not finished and i < 50:
+				pre_order = []
+				post_order = []
+				algorithm = SimpleBFS(G)
+				algorithm.run(source, pre_action=lambda node: pre_order.append(node),
+							post_action=lambda node: post_order.append(node))
+				
+				n_walked = len(pre_order)
+				if i == 0:
+					disconnected_graph = number_of_nodes != n_walked 
+					if not disconnected_graph:
+						finished = True
+						break
+				if disconnected_graph:
+					parts.append(pre_order)
+					if self.bfs_all_node_walked(parts, all_nodes):
+						finished = True
+						break
+					f, source = self.bfs_get_next_node(parts, all_nodes)
+				i += 1
+
+		finally:
+			del G
+			a=1
+		
+	
 	
