@@ -238,7 +238,7 @@ class TCircuitSolverGraph:
 		self.use_superposition = len(self.json_data['gens']) > 1
 
 		# Replacing volt meter labels in request
-		self.request["volt_meter_question"] = False
+		self.set_req_prop_b("volt_meter_question", False)
 		self.request["volt_meter_no_match"] = False
 		self.request["comp_ori"] = self.request["comp"]
 		idx = self.find_in_json(self.request["comp"])
@@ -249,10 +249,10 @@ class TCircuitSolverGraph:
 				prop = item["prop"]
 				if self.match_volt_meter(prop["label"]):
 					if (prop["flags"] & F_VOLT_METER_NO_MATCH) != 0:
-						self.request["volt_meter_question"] = True
+						self.set_req_prop_b("volt_meter_question", True)
 						self.request["volt_meter_no_match"] = True
 					else:
-						self.request["volt_meter_question"] = True
+						self.set_req_prop_b("volt_meter_question", True)
 						self.request["comp_ori"] = self.request["comp"]
 						self.request["comp"] = prop["match_label"]
 						break
@@ -309,7 +309,10 @@ class TCircuitSolverGraph:
 			if item['prop']['label'] == label:
 				return True
 		return False
-		
+
+	def set_req_prop_b(self, key, value):
+		self.request[key] = value
+
 	def bkp_json_data(self):
 		self.json_data_bkp = {}
 		self.json_data_bkp["edges"] = []

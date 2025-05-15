@@ -712,7 +712,10 @@ class TCircuitSolver:
 			self.log(f"Now we are using superposition to calculate the {request_txt} on {comp}")
 			self.log(f"Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.")
 			f, v = self.get_final_value(comp, request_txt)
-			self.log(f"'{request_txt} on {comp}' = {self.graph.fv(v['value'])}{self.unit}")
+			if f:
+				self.log(f"'{request_txt} on {comp}' = {self.graph.fv(v['value'])}{self.unit}")
+			else:
+				raise Exception(f'Key not found: {comp}')
 
 		#after run_pass
 		if (self.request['cmd'] == 'get_voltage' and self.request['volt_meter_question'] or \
@@ -1132,7 +1135,7 @@ class TCircuitSolver:
 						self.graph.json_data["edges"].append(item)
 						nInserted += 1		
 						self.graph.json_data["meters"].pop(i)
-						self.request["volt_meter_question"] = False
+						self.graph.set_req_prop_b("volt_meter_question", False)
 						self.request["volt_meter_no_match"] = False
 					else:
 						i += 1												
@@ -1197,7 +1200,7 @@ class TCircuitSolver:
 			comp_label = self.request['comp']; gen_name = self.gen['prop']['label']; self.request_path = ''
 			if gen_name == comp_label:
 				self.request['req_on_gen'] = True
-			elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance' and not self.request["volt_meter_no_match"]:	
+			elif self.request['cmd'] != 'get_impedance' and self.request['cmd'] != 'get_total_impedance' and False:	#not self.request["volt_meter_no_match"]
 				status = self.graph.find_edge_in_G(label)
 				if not status:
 					raise Exception(f"{label} not found in the circuit. Analysis stopped.")
