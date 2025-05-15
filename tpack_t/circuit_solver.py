@@ -856,10 +856,10 @@ class TCircuitSolver:
 							try:
 								current = r/value
 							except ZeroDivisionError as exc:
-								if not is_vm_edge:
+								if not is_vm_edge and not self.graph.is_gen(label):
 									raise ShortCircuitException("Division by zero in current calculation") from exc
 								else:
-									current = 0
+									current = 0 # divHACK
 						
 						if isinstance(current, complex):
 							re = current.real; im = current.imag
