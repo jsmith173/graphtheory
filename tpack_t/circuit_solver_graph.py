@@ -284,6 +284,7 @@ class TCircuitSolverGraph:
 		for item in self.json_data["meters"]:
 			if item['prop']['CompId'] == VOLTMET_ or item['prop']['CompId'] == VOLTMET2_:
 				new_item = deepcopy(item)
+				new_item['prop']['CompId'] = RES_
 				self.vm_edges.append(new_item)
 				
 	def is_amper_meter(self, unique_id):
@@ -303,6 +304,12 @@ class TCircuitSolverGraph:
 			if item['prop']['label'] == label:
 				return True
 		return False
+		
+	def is_volt_meter_by_edge(self, label):
+		for item in self.vm_edges:
+			if item['prop']['label'] == label:
+				return True, item
+		return False, {}
 		
 	def is_gen(self, label):
 		for item in self.json_data['gens']:

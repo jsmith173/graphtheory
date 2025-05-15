@@ -597,18 +597,18 @@ class TCircuitSolver:
 				self.sl(f'In {type(e).__name__} exception')
 				in_cycle = True
 				tmp = self.sv['insert_double_rmin']
-				v0, v1, v2 = self.get_sv_props():
+				v0, v1, v2 = self.get_sv_props()
 				self.clean()
-				self.set_sv_props(v0, v1, v2):
+				self.set_sv_props(v0, v1, v2)
 				RMIN = cg.RMIN_SMALL
 				self.set_sv_prop_i('short_circuit_pass', 1)
 				i += 1
 			except cg.GraphException as e:
 				self.sl(f'In {type(e).__name__} exception')
 				in_cycle = True
-				v0, v1, v2 = self.get_sv_props():
+				v0, v1, v2 = self.get_sv_props()
 				self.clean()
-				self.set_sv_props(v0, v1, v2):
+				self.set_sv_props(v0, v1, v2)
 				RMIN = cg.RMIN_SMALL
 				self.set_sv_prop_i('short_circuit_pass', 1)
 				self.set_sv_prop_i('insert_double_rmin', 1)
@@ -618,9 +618,9 @@ class TCircuitSolver:
 				if self.sv['open_circuit_pass'] == 0 and (msg == spt.sErrJackknife or msg == spt.sErrNotAnSpGraph):
 					self.sl(f'In {type(e).__name__} exception: spec handling open_circuit_pass')
 					in_cycle = True
-					v0, v1, v2 = self.get_sv_props():
+					v0, v1, v2 = self.get_sv_props()
 					self.clean()
-					self.set_sv_props(v0, v1, v2):
+					self.set_sv_props(v0, v1, v2)
 					self.set_sv_prop_i('open_circuit_pass', 1)
 					i += 1
 				else:
@@ -812,8 +812,18 @@ class TCircuitSolver:
 			new_item['label'] = item['label']
 			idx = self.graph.find_in_json(item['label'])
 			label = item['label']
+			
+			is_vm_edge = False
+			if idx < 0:
+				idx = 0
+				is_vm_edge, e = self.graph.is_volt_meter_by_edge(label)
+			
 			if idx >= 0:
-				e = self.graph.json_data["edges"][idx]
+				if is_vm_edge:
+					is_vm_edge, e = self.graph.is_volt_meter_by_edge(label)
+				else:	
+					e = self.graph.json_data["edges"][idx]
+					
 				is_amper_meter = self.graph.is_amper_meter_by_label(label)
 				is_resistive_comp = self.graph.is_resistive_or_ampmet_compid(e['prop']['CompId']);
 				
@@ -846,7 +856,10 @@ class TCircuitSolver:
 							try:
 								current = r/value
 							except ZeroDivisionError as exc:
-								raise ShortCircuitException("Division by zero in current calculation") from exc
+								if not is_vm_edge:
+									raise ShortCircuitException("Division by zero in current calculation") from exc
+								else:
+									current = 0
 						
 						if isinstance(current, complex):
 							re = current.real; im = current.imag
@@ -946,9 +959,16 @@ class TCircuitSolver:
 		
 	def get_final_value(self, comp, request_txt):
 		idx = self.graph.find_in_json(comp)
+		is_vm_edge = False
+		if idx < 0:
+			idx = 0
+			is_vm_edge, e = self.graph.is_volt_meter_by_edge(comp)
 		v = {}
 		if idx >= 0:
-			e = self.graph.json_data["edges"][idx]
+			if is_vm_edge:
+				is_vm_edge, e = self.graph.is_volt_meter_by_edge(comp)
+			else:	
+				e = self.graph.json_data["edges"][idx]
 			for item in self.node_potentials_dbg['item_voltages']:
 				if item['label'] == comp:
 					f, sign_rev = self.match_nodes(e['nodes'], item['nodes'])
@@ -1374,6 +1394,7 @@ class TCircuitSolver:
 			if i_pass < len(self.gens)-1:	
 				self.request['comp'] = self.bkp_request_comp
 			if len(self.gens) > 1:	
+				#cu.dump_list(self.graph.json_data, f'temp/temp-run-pass-{i_pass}.json')
 				self.graph.restore_json_data()
 				self.sl(f'restore_json_data: all extra edges (like extra VM) are restored')
 			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
