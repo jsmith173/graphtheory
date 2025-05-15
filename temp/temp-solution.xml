@@ -85,8 +85,56 @@
 		<amper_meter_question>false</amper_meter_question>
 	</request>
 	<calculation>
-		<short_circuit_pass>0</short_circuit_pass>
-		<open_circuit_pass>1</open_circuit_pass>
+		<sv>
+			<short_circuit_pass>0</short_circuit_pass>
+			<insert_double_rmin>0</insert_double_rmin>
+			<open_circuit_pass>1</open_circuit_pass>
+		</sv>
+		<spec_log>
+			<item>short_circuit_pass set to 0</item>
+			<item>insert_double_rmin set to 0</item>
+			<item>open_circuit_pass set to 0</item>
+			<item>run_w_check: 0</item>
+			<item>bkp_json_data</item>
+			<item>run_pass: 0</item>
+			<item>restore_json_data: all extra edges (like extra VM) are restored</item>
+			<item>In ValueError exception: spec handling open_circuit_pass</item>
+			<item>short_circuit_pass set to 0</item>
+			<item>insert_double_rmin set to 0</item>
+			<item>open_circuit_pass set to 0</item>
+			<item>open_circuit_pass set to 1</item>
+			<item>run_w_check: 1</item>
+			<item>bkp_json_data</item>
+			<item>run_pass: 0</item>
+			<item>In gen cycle and is_v_gen open_circuit_pass: adding extra edges</item>
+			<item>In gen cycle and open_circuit_pass: adding extra edges</item>
+			<item>restore_json_data: all extra edges (like extra VM) are restored</item>
+			<item>In GraphException exception</item>
+			<item>short_circuit_pass set to 0</item>
+			<item>insert_double_rmin set to 0</item>
+			<item>open_circuit_pass set to 0</item>
+			<item>short_circuit_pass set to 1</item>
+			<item>insert_double_rmin set to 1</item>
+			<item>run_w_check: 2</item>
+			<item>bkp_json_data</item>
+			<item>run_pass: 0</item>
+			<item>restore_json_data: all extra edges (like extra VM) are restored</item>
+			<item>In ValueError exception: spec handling open_circuit_pass</item>
+			<item>short_circuit_pass set to 0</item>
+			<item>insert_double_rmin set to 0</item>
+			<item>open_circuit_pass set to 0</item>
+			<item>open_circuit_pass set to 1</item>
+			<item>run_w_check: 3</item>
+			<item>bkp_json_data</item>
+			<item>run_pass: 0</item>
+			<item>In gen cycle and is_v_gen open_circuit_pass: adding extra edges</item>
+			<item>restore_json_data: all extra edges (like extra VM) are restored</item>
+			<item>bkp_json_data</item>
+			<item>run_pass: 1</item>
+			<item>In gen cycle and is_v_gen: adding extra edges</item>
+			<item>restore_json_data: all extra edges (like extra VM) are restored</item>
+			<item>before calc_item_values</item>
+		</spec_log>
 		<solution>
 			<item>Solution by TINA assisted by AI</item>
 			<item>We have more than one generator so we are using superposition to calculate voltages/currents.</item>

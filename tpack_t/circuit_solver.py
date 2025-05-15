@@ -52,7 +52,9 @@ class TCircuitSolver:
 		self.graph = TCircuitSolverGraph(self.fn, opts)
 
 		self.node_potentials_dbg = {}
+		self.spec_log = []
 		self.clean()
+
 		
 	def clean(self):
 		self.graph.clean()
@@ -64,9 +66,10 @@ class TCircuitSolver:
 		self.has_expected_key = False
 		self.expected_key = {}; self.block_labels = []
 		self.ignored_resistances = []
-		self.short_circuit_pass = 0
-		self.insert_double_rmin = False
-		self.open_circuit_pass = 0
+		self.sv = {}
+		self.set_sv_prop_i('short_circuit_pass', 0)
+		self.set_sv_prop_i('insert_double_rmin', 0)
+		self.set_sv_prop_i('open_circuit_pass', 0)
 		
 		if self.opts != None and 'request' in self.opts.keys():
 			if (self.opts['request']['options'] & cg.LLM_LOUD) != 0:
@@ -588,32 +591,42 @@ class TCircuitSolver:
 		while i < 20 and in_cycle:
 			try:
 				in_cycle = False
+				self.sl(f'run_w_check: {i}')
 				self.run(circuit_key, RMIN)
 			except ShortCircuitException as e:
+				self.sl(f'In {type(e).__name__} exception')
 				in_cycle = True
-				tmp = self.insert_double_rmin
+				tmp = self.sv['insert_double_rmin']
+				v0, v1, v2 = self.get_sv_props():
 				self.clean()
+				self.set_sv_props(v0, v1, v2):
 				RMIN = cg.RMIN_SMALL
-				self.short_circuit_pass = 1
-				self.insert_double_rmin = tmp
+				self.set_sv_prop_i('short_circuit_pass', 1)
 				i += 1
 			except cg.GraphException as e:
+				self.sl(f'In {type(e).__name__} exception')
 				in_cycle = True
+				v0, v1, v2 = self.get_sv_props():
 				self.clean()
+				self.set_sv_props(v0, v1, v2):
 				RMIN = cg.RMIN_SMALL
-				self.short_circuit_pass = 1
-				self.insert_double_rmin = True
+				self.set_sv_prop_i('short_circuit_pass', 1)
+				self.set_sv_prop_i('insert_double_rmin', 1)
 				i += 1
 			except ValueError as e:
 				msg = str(e)
-				if self.open_circuit_pass == 0 and (msg == spt.sErrJackknife or msg == spt.sErrNotAnSpGraph):
+				if self.sv['open_circuit_pass'] == 0 and (msg == spt.sErrJackknife or msg == spt.sErrNotAnSpGraph):
+					self.sl(f'In {type(e).__name__} exception: spec handling open_circuit_pass')
 					in_cycle = True
+					v0, v1, v2 = self.get_sv_props():
 					self.clean()
-					self.open_circuit_pass = 1
+					self.set_sv_props(v0, v1, v2):
+					self.set_sv_prop_i('open_circuit_pass', 1)
 					i += 1
 				else:
 					raise
 			except Exception as e:
+				self.sl(f'In {type(e).__name__} exception')
 				raise	
 	
 	def run(self, circuit_key, RMIN=0):
@@ -633,7 +646,7 @@ class TCircuitSolver:
 			self.log("We have more than one generator so we are using superposition to calculate voltages/currents.")
 			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to very small resistances, used during superposition.")
 
-		if self.short_circuit_pass == 1:
+		if self.sv['short_circuit_pass'] == 1:
 			for item in self.graph.am_edges:
 				v = self.graph.RMIN
 				meter_name = item['prop']['label']
@@ -642,7 +655,7 @@ class TCircuitSolver:
 				if abs(v) > cg.EPS:
 					self.log(f"We assume that the internal resistance of {meter_name} is {meter_name_w_res}={value_str}Ohm")		
 
-		if self.open_circuit_pass == 1:
+		if self.sv['open_circuit_pass'] == 1:
 			for item in self.graph.vm_edges:
 				v = cg.ROPEN
 				meter_name = item['prop']['label']
@@ -693,6 +706,7 @@ class TCircuitSolver:
 			dctable = self.graph.json_data["dctables"][0]
 			table = dctable['other voltages']
 			
+			self.sl(f'before calc_item_values')
 			self.calc_item_values(table, False)
 			self.calc_item_values(table, True)
 			self.patch_log()
@@ -1050,7 +1064,9 @@ class TCircuitSolver:
 			
 			# save/restore json in case of superpos (check parh3-ai.tsc)
 			if len(self.gens) > 1:	
+				self.sl(f'bkp_json_data')
 				self.graph.bkp_json_data()
+				self.sl(f'run_pass: {i_pass}')
 			
 			# nInserted is local var
 			self.solver_silent = False; nInserted = 0
@@ -1071,7 +1087,7 @@ class TCircuitSolver:
 
 					if is_v_gen:
 						
-						if self.insert_double_rmin:
+						if self.sv['insert_double_rmin'] == 1:
 							MaxGR = self.graph.get_max_graph_number()
 							i1 = gen['nodes'][0]
 							i2 = MaxGR+1
@@ -1090,6 +1106,7 @@ class TCircuitSolver:
 							item = self.graph.create_item(copy.deepcopy(nodes), j, self.graph.RMIN)
 							self.graph.json_data["edges"].append(item)
 							nInserted += 1
+							self.sl(f'In gen cycle and is_v_gen and insert_double_rmin: adding extra edges')
 						else:	
 							i1 = gen['nodes'][0]
 							i2 = gen['nodes'][1]					
@@ -1100,8 +1117,9 @@ class TCircuitSolver:
 							item = self.graph.create_item(copy.deepcopy(nodes), j, self.graph.RMIN)
 							self.graph.json_data["edges"].append(item)
 							nInserted += 1
+							self.sl(f'In gen cycle and is_v_gen: adding extra edges')
 				
-					elif self.open_circuit_pass:
+					elif self.sv['open_circuit_pass'] == 1:
 						prop = gen["prop"]
 						gen_name = prop['label']
 						gen_name_w_res = self.lab2res(gen_name)				
@@ -1117,9 +1135,10 @@ class TCircuitSolver:
 						item = self.graph.create_item(copy.deepcopy(nodes), j, cg.ROPEN, prop['label'])
 						self.graph.json_data["edges"].append(item)
 						nInserted += 1
+						self.sl(f'In gen cycle and is_v_gen open_circuit_pass: adding extra edges')
 					
 					
-			if self.open_circuit_pass:
+			if self.sv['open_circuit_pass'] == 1:
 				i = 0
 				while i < len(self.graph.json_data["meters"]):
 					item = self.graph.json_data["meters"][i]
@@ -1137,6 +1156,7 @@ class TCircuitSolver:
 						self.graph.json_data["meters"].pop(i)
 						self.graph.set_req_prop_b("volt_meter_question", False)
 						self.request["volt_meter_no_match"] = False
+						self.sl(f'In gen cycle and open_circuit_pass: adding extra edges')
 					else:
 						i += 1												
 
@@ -1355,6 +1375,7 @@ class TCircuitSolver:
 				self.request['comp'] = self.bkp_request_comp
 			if len(self.gens) > 1:	
 				self.graph.restore_json_data()
+				self.sl(f'restore_json_data: all extra edges (like extra VM) are restored')
 			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 				
 
@@ -1377,8 +1398,8 @@ class TCircuitSolver:
 			self.graph.solution_log.append('Failed: see codes')
 	
 		calculation = {}
-		calculation['short_circuit_pass'] =	self.short_circuit_pass
-		calculation['open_circuit_pass'] =	self.open_circuit_pass
+		calculation['sv'] =	copy.deepcopy(self.sv)
+		calculation['spec_log'] = copy.deepcopy(self.spec_log)
 		calculation['solution'] = self.graph.solution_log
 
 		calculation['node_potentials_dbg'] = self.node_potentials_dbg
@@ -1415,3 +1436,20 @@ class TCircuitSolver:
 				f.write(json2xml.Json2xml(self.solution, wrapper="top", pretty=True, attr_type=False).to_xml())
 				f.close()
 
+	def set_sv_prop_i(self, key, value):
+		self.sv[key] = value
+		self.sl(f'{key} set to {value}')
+		
+	def get_sv_props(self):
+		v0 = self.sv['short_circuit_pass']
+		v1 = self.sv['open_circuit_pass']
+		v2 = self.sv['insert_double_rmin']
+		return v0, v1, v2
+		
+	def set_sv_props(self, v0, v1, v2):
+		self.set_sv_prop_i('short_circuit_pass', v0)
+		self.set_sv_prop_i('open_circuit_pass', v1)
+		self.set_sv_prop_i('insert_double_rmin', v2)
+		
+	def sl(self, s):
+		self.spec_log.append(s)

@@ -34,17 +34,5 @@
             "value": 1000,
             "flags": 1
         }
-    },
-    {
-        "source": 3,
-        "target": 2,
-        "prop": {
-            "label": "RGenZero0",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "<none>",
-            "value": 1e-09,
-            "flags": 1
-        }
     }
 ]
