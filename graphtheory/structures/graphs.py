@@ -111,12 +111,12 @@ class Graph(dict):
         if edge.target not in self[edge.source]:
             self[edge.source][edge.target] = edge
         else:
-            raise ValueError("parallel edges are forbidden")
+            raise ValueError(f"parallel edges are forbidden: ({edge.source}, {edge.target})")
         if not self.is_directed():
             if edge.source not in self[edge.target]:
                 self[edge.target][edge.source] = ~edge
             else:
-                raise ValueError("parallel edges are forbidden")
+                raise ValueError(f"parallel edges are forbidden: ({edge.source}, {edge.target})")
 
     def del_edge(self, edge):
         """Remove an edge from the graph."""

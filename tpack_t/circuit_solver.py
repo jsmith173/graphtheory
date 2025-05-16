@@ -624,6 +624,8 @@ class TCircuitSolver:
 					self.set_sv_prop_i('open_circuit_pass', 1)
 					i += 1
 				else:
+					self.write_log(1, str(e), 1)
+					self.graph.G.show()
 					raise
 			except Exception as e:
 				self.sl(f'In {type(e).__name__} exception')
@@ -1007,8 +1009,10 @@ class TCircuitSolver:
 	# collect amper meters using the original graph (keeping generators)
 	def get_amper_meters(self):
 		try:
+			self.graph.G.show()
 			tmp_edges = []
-			MaxGR = self.graph.MaxGR
+			tmp_nodes = []
+			MaxGR = self.graph.get_max_graph_number()
 			# MaxGR is local var
 			for j in range(len(self.gens)):
 				gen = self.gens[j]
@@ -1017,6 +1021,8 @@ class TCircuitSolver:
 				is_v_gen = gen_comp_id == cg.VSOUR_ or gen_comp_id == cg.VGEN_ or gen_comp_id == cg.RESMET_ or gen_comp_id == cg.RESMET2_
 
 				if not is_v_gen:
+					self.sl(f'get_amper_meters: adding extra edges')					
+
 					tmp_edges = []
 					i1 = gen['nodes'][0]
 					i2 = MaxGR+1
@@ -1032,6 +1038,8 @@ class TCircuitSolver:
 					tmp_edges.append(edge)
 					self.graph.G.add_edge(edge)
 					
+					tmp_nodes.append(i2)
+					self.sl(f'MaxGR incremented: {MaxGR+1}')
 		
 			am_edges = []
 			for e in self.graph.edges:
@@ -1070,8 +1078,8 @@ class TCircuitSolver:
 				#if not found:
 				#	raise Exception(f"Resistive component not found for ampermeter {am_label}")	
 		finally:
-			for edge in tmp_edges:
-				self.graph.G.del_edge(edge)
+			for node in tmp_nodes:
+				self.graph.G.del_node(node)
 		
 	def run_pass(self, circuit_key, i_pass):
 		try:
@@ -1126,6 +1134,10 @@ class TCircuitSolver:
 							item = self.graph.create_item(copy.deepcopy(nodes), j, self.graph.RMIN)
 							self.graph.json_data["edges"].append(item)
 							nInserted += 1
+							
+							self.graph.set_max_gr(MaxGR+1)				
+							
+							self.sl(f'MaxGR incremented: {MaxGR+1}')						
 							self.sl(f'In gen cycle and is_v_gen and insert_double_rmin: adding extra edges')
 						else:	
 							i1 = gen['nodes'][0]
@@ -1158,25 +1170,42 @@ class TCircuitSolver:
 						self.sl(f'In gen cycle and is_v_gen open_circuit_pass: adding extra edges')
 					
 					
+			# graph change
 			if self.sv['open_circuit_pass'] == 1:
+				MaxGR = self.graph.get_max_graph_number()
 				i = 0
 				while i < len(self.graph.json_data["meters"]):
 					item = self.graph.json_data["meters"][i]
 					prop = item["prop"]
 					if prop["CompId"] == cg.VOLTMET_ or prop["CompId"] == cg.VOLTMET2_:
-						i1 = item['nodes'][0]
-						i2 = item['nodes'][1]					
+						i1 = gen['nodes'][0]
+						i2 = MaxGR+1
+						i3 = gen['nodes'][1]					
 						
 						nodes = []
 						nodes.append(i1)
 						nodes.append(i2)						
 						item = self.graph.create_item(copy.deepcopy(nodes), j, cg.ROPEN, prop['label'])
 						self.graph.json_data["edges"].append(item)
-						nInserted += 1		
+						nInserted += 1
+						
+						#We have to add another edge here (possible later add_edge conflicts)
+						nodes = []
+						nodes.append(i2)
+						nodes.append(i3)						
+						item = self.graph.create_skip_item(copy.deepcopy(nodes))
+						self.graph.json_data["edges"].append(item)
+						nInserted += 1						
+						
 						self.graph.json_data["meters"].pop(i)
 						self.graph.set_req_prop_b("volt_meter_question", False)
 						self.request["volt_meter_no_match"] = False
-						self.sl(f'In gen cycle and open_circuit_pass: adding extra edges')
+						
+						self.graph.set_max_gr(MaxGR+1)				
+
+						self.sl(f'MaxGR incremented: {MaxGR+1}')
+						self.sl(f'In gen cycle and open_circuit_pass: adding extra edges')					
+						
 					else:
 						i += 1												
 
@@ -1221,9 +1250,12 @@ class TCircuitSolver:
 			#ampermeters1: processing apmermeters
 			self.request['amper_meter_question'] = False; self.silent = False
 			self.graph.amper_meters = []
-			has_amper_meter = self.check_ampermeters()		
+			has_amper_meter = self.check_ampermeters()	
+			
+			# graph change
 			if has_amper_meter:
 				self.get_amper_meters()
+				
 			self.graph.modify_amper_meters(self.graph.RMIN)
 			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 
@@ -1396,6 +1428,8 @@ class TCircuitSolver:
 			if len(self.gens) > 1:	
 				#cu.dump_list(self.graph.json_data, f'temp/temp-run-pass-{i_pass}.json')
 				self.graph.restore_json_data()
+				del self.graph.G
+				G = self.graph.get_graph(self.graph.circuit_key)			
 				self.sl(f'restore_json_data: all extra edges (like extra VM) are restored')
 			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 				

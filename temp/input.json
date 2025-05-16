@@ -1,23 +1,24 @@
 {
-    "N": 4,
+    "N": 5,
     "nodes": [
+        1,
         2,
         3,
-        1,
-        0
+        4,
+        5
     ],
     "gens": [
         {
             "nodes": [
-                1,
-                0
+                5,
+                4
             ],
             "prop": {
-                "label": "Vs",
+                "label": "VS1",
                 "match_label": "",
                 "CompId": 14,
-                "UniqueID": "T_09F5DD7020230605185844",
-                "value": 10,
+                "UniqueID": "T_0000000028B4953020250514075449",
+                "value": 5,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -26,15 +27,15 @@
         },
         {
             "nodes": [
-                2,
-                0
+                1,
+                4
             ],
             "prop": {
-                "label": "Is",
+                "label": "IS1",
                 "match_label": "",
                 "CompId": 13,
-                "UniqueID": "T_09F5E26020230605185844",
-                "value": 2,
+                "UniqueID": "ML00SAF0ROA4RTD8GKUU1KQR",
+                "value": 0.01,
                 "flags": 1,
                 "ac_gen": {
                     "mode": 0
@@ -42,18 +43,33 @@
             }
         }
     ],
-    "meters": [],
+    "meters": [
+        {
+            "nodes": [
+                3,
+                4
+            ],
+            "prop": {
+                "label": "VM1",
+                "match_label": "R2",
+                "CompId": 5,
+                "UniqueID": "T_00000000278A908020250515063514",
+                "value": 0,
+                "flags": 5
+            }
+        }
+    ],
     "edges": [
         {
             "nodes": [
-                2,
-                3
+                1,
+                2
             ],
             "prop": {
                 "label": "AM1",
                 "match_label": "",
-                "CompId": 34,
-                "UniqueID": "T_0000000028B51C5020250427091049",
+                "CompId": 6,
+                "UniqueID": "T_000000000D31CB4020250515144034",
                 "value": 0,
                 "flags": 1
             }
@@ -61,28 +77,42 @@
         {
             "nodes": [
                 3,
-                1
+                2
             ],
             "prop": {
-                "label": "R2",
+                "label": "R3",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_09F5D39020230605185844",
-                "value": 10,
+                "UniqueID": "KJNTSFAKQ8EATBLULJ4UC8SD",
+                "value": 1000,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                2,
-                0
+                3,
+                4
+            ],
+            "prop": {
+                "label": "R2",
+                "match_label": "",
+                "CompId": 9,
+                "UniqueID": "7LT7O23UG6VL11H2KSFP0BS1",
+                "value": 1000,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                5,
+                3
             ],
             "prop": {
                 "label": "R1",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_09F5D88020230605185844",
-                "value": 4,
+                "UniqueID": "8KM9IVIVUU25UVS65BA9TILC",
+                "value": 1000,
                 "flags": 1
             }
         }
@@ -91,8 +121,8 @@
         {
             "outputs": [
                 {
-                    "label": "AM1",
-                    "value": -0.71428571429,
+                    "label": "VM1",
+                    "value": 2.5,
                     "nodes": [
                         0,
                         0
@@ -102,26 +132,34 @@
             "currents": [
                 {
                     "label": "R1",
-                    "value": 0.71428571429,
+                    "value": 0.0025,
                     "nodes": [
-                        2,
-                        0
+                        5,
+                        3
                     ]
                 },
                 {
                     "label": "R2",
-                    "value": -0.71428571429,
+                    "value": 0.0025,
                     "nodes": [
                         3,
-                        1
+                        4
                     ]
                 },
                 {
-                    "label": "Vs",
-                    "value": -0.71428571429,
+                    "label": "R3",
+                    "value": 0,
                     "nodes": [
-                        1,
-                        0
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": -0.0025,
+                    "nodes": [
+                        5,
+                        4
                     ]
                 }
             ],
@@ -130,60 +168,88 @@
                     "label": "AM1",
                     "value": 0,
                     "nodes": [
-                        2,
-                        3
+                        1,
+                        2
                     ]
                 },
                 {
-                    "label": "Is",
-                    "value": 2.85714286,
+                    "label": "IS1",
+                    "value": 2.5,
                     "nodes": [
-                        2,
-                        0
+                        1,
+                        4
                     ]
                 },
                 {
                     "label": "R1",
-                    "value": 2.85714286,
+                    "value": 2.5,
                     "nodes": [
-                        2,
-                        0
+                        5,
+                        3
                     ]
                 },
                 {
                     "label": "R2",
-                    "value": -7.14285714,
+                    "value": 2.5,
                     "nodes": [
                         3,
-                        1
+                        4
                     ]
                 },
                 {
-                    "label": "Vs",
-                    "value": 10,
+                    "label": "R3",
+                    "value": 0,
                     "nodes": [
-                        1,
-                        0
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "label": "VM1",
+                    "value": 2.5,
+                    "nodes": [
+                        3,
+                        4
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": 5,
+                    "nodes": [
+                        5,
+                        4
                     ]
                 }
             ],
             "nodal voltages": [
                 {
-                    "value": 10,
+                    "value": 0,
                     "nodes": [
                         1
                     ]
                 },
                 {
-                    "value": 2.85714286,
+                    "value": 0,
                     "nodes": [
                         2
                     ]
                 },
                 {
-                    "value": 2.85714286,
+                    "value": 0,
                     "nodes": [
                         3
+                    ]
+                },
+                {
+                    "value": -2.5,
+                    "nodes": [
+                        4
+                    ]
+                },
+                {
+                    "value": 2.5,
+                    "nodes": [
+                        5
                     ]
                 }
             ]
@@ -191,8 +257,8 @@
         {
             "outputs": [
                 {
-                    "label": "AM1",
-                    "value": -0.57142857143,
+                    "label": "VM1",
+                    "value": -5,
                     "nodes": [
                         0,
                         0
@@ -202,26 +268,34 @@
             "currents": [
                 {
                     "label": "R1",
-                    "value": -1.42857143,
+                    "value": 0.005,
                     "nodes": [
-                        2,
-                        0
+                        5,
+                        3
                     ]
                 },
                 {
                     "label": "R2",
-                    "value": -0.57142857143,
+                    "value": -0.005,
                     "nodes": [
                         3,
-                        1
+                        4
                     ]
                 },
                 {
-                    "label": "Vs",
-                    "value": -0.57142857143,
+                    "label": "R3",
+                    "value": 0.01,
                     "nodes": [
-                        1,
-                        0
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": -0.005,
+                    "nodes": [
+                        5,
+                        4
                     ]
                 }
             ],
@@ -230,40 +304,56 @@
                     "label": "AM1",
                     "value": 0,
                     "nodes": [
-                        2,
-                        3
+                        1,
+                        2
                     ]
                 },
                 {
-                    "label": "Is",
-                    "value": -5.71428571,
+                    "label": "IS1",
+                    "value": -15,
                     "nodes": [
-                        2,
-                        0
+                        1,
+                        4
                     ]
                 },
                 {
                     "label": "R1",
-                    "value": -5.71428571,
+                    "value": 5,
                     "nodes": [
-                        2,
-                        0
+                        5,
+                        3
                     ]
                 },
                 {
                     "label": "R2",
-                    "value": -5.71428571,
+                    "value": -5,
                     "nodes": [
                         3,
-                        1
+                        4
                     ]
                 },
                 {
-                    "label": "Vs",
+                    "label": "R3",
+                    "value": 10,
+                    "nodes": [
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "label": "VM1",
+                    "value": -5,
+                    "nodes": [
+                        3,
+                        4
+                    ]
+                },
+                {
+                    "label": "VS1",
                     "value": 0,
                     "nodes": [
-                        1,
-                        0
+                        5,
+                        4
                     ]
                 }
             ],
@@ -275,15 +365,27 @@
                     ]
                 },
                 {
-                    "value": -5.71428571,
+                    "value": 0,
                     "nodes": [
                         2
                     ]
                 },
                 {
-                    "value": -5.71428571,
+                    "value": 10,
                     "nodes": [
                         3
+                    ]
+                },
+                {
+                    "value": 15,
+                    "nodes": [
+                        4
+                    ]
+                },
+                {
+                    "value": 15,
+                    "nodes": [
+                        5
                     ]
                 }
             ]
@@ -292,8 +394,8 @@
     "dctable_final": {
         "outputs": [
             {
-                "label": "AM1",
-                "value": -1.28571429,
+                "label": "VM1",
+                "value": -2.5,
                 "nodes": [
                     0,
                     0
@@ -303,26 +405,34 @@
         "currents": [
             {
                 "label": "R1",
-                "value": -0.71428571429,
+                "value": 0.0075,
                 "nodes": [
-                    2,
-                    0
+                    5,
+                    3
                 ]
             },
             {
                 "label": "R2",
-                "value": -1.28571429,
+                "value": -0.0025,
                 "nodes": [
                     3,
-                    1
+                    4
                 ]
             },
             {
-                "label": "Vs",
-                "value": -1.28571429,
+                "label": "R3",
+                "value": 0.01,
                 "nodes": [
-                    1,
-                    0
+                    3,
+                    2
+                ]
+            },
+            {
+                "label": "VS1",
+                "value": -0.0075,
+                "nodes": [
+                    5,
+                    4
                 ]
             }
         ],
@@ -331,64 +441,92 @@
                 "label": "AM1",
                 "value": 0,
                 "nodes": [
-                    2,
-                    3
+                    1,
+                    2
                 ]
             },
             {
-                "label": "Is",
-                "value": -2.85714286,
+                "label": "IS1",
+                "value": -12.5,
                 "nodes": [
-                    2,
-                    0
+                    1,
+                    4
                 ]
             },
             {
                 "label": "R1",
-                "value": -2.85714286,
+                "value": 7.5,
                 "nodes": [
-                    2,
-                    0
+                    5,
+                    3
                 ]
             },
             {
                 "label": "R2",
-                "value": -12.85714286,
+                "value": -2.5,
                 "nodes": [
                     3,
-                    1
+                    4
                 ]
             },
             {
-                "label": "Vs",
+                "label": "R3",
                 "value": 10,
                 "nodes": [
-                    1,
-                    0
+                    3,
+                    2
+                ]
+            },
+            {
+                "label": "VM1",
+                "value": -2.5,
+                "nodes": [
+                    3,
+                    4
+                ]
+            },
+            {
+                "label": "VS1",
+                "value": 5,
+                "nodes": [
+                    5,
+                    4
                 ]
             }
         ],
         "nodal voltages": [
             {
-                "value": 10,
+                "value": 0,
                 "nodes": [
                     1
                 ]
             },
             {
-                "value": -2.85714286,
+                "value": 0,
                 "nodes": [
                     2
                 ]
             },
             {
-                "value": -2.85714286,
+                "value": 10,
                 "nodes": [
                     3
+                ]
+            },
+            {
+                "value": 12.5,
+                "nodes": [
+                    4
+                ]
+            },
+            {
+                "value": 17.5,
+                "nodes": [
+                    5
                 ]
             }
         ]
     },
-    "circ_name": "current measurement error mod 1.tsc",
+    "circ_name": "serial-2.tsc",
     "meters_without_labels": 0
 }

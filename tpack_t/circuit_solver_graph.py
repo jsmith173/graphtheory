@@ -332,6 +332,7 @@ class TCircuitSolverGraph:
 		for item in self.json_data_bkp["edges"]:
 			new_item = deepcopy(item)
 			self.json_data["edges"].append(new_item)
+		self.MaxGR = self.get_max_graph_number()
 	
 	def modify_amper_meters(self, RMIN):
 		for item in self.json_data["edges"]:
@@ -1118,7 +1119,7 @@ class TCircuitSolverGraph:
 
 	def create_item(self, nodes, m, value, label=''):
 		item = {}; prop = {}
-		item["nodes"] = nodes
+		item["nodes"] = deepcopy(nodes)
 		if label == '':
 			prop["label"] = f"{SHORT_CIRCUIT_PREFIX}{m}"
 		else:
@@ -1131,6 +1132,12 @@ class TCircuitSolverGraph:
 		item["prop"] = prop
 		return item
 
+	def create_skip_item(self, nodes):
+		item = {}; prop = deepcopy(split_edge_prop)
+		item["nodes"] = deepcopy(nodes)
+		item["prop"] = prop
+		return item
+		
 	def cgen_remove_connected_edges(self, gen):
 		fifo = []; edge_list = []
 		for node in gen['nodes']:
@@ -1331,6 +1338,9 @@ class TCircuitSolverGraph:
 				return v_speech_str
 			else:
 				return v_str
+	
+	def set_max_gr(self, a):
+		self.MaxGR = a
 		
 	def bfs_get_next_node(self, parts, all_nodes):
 		for node in all_nodes:
