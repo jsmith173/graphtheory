@@ -5,4 +5,106 @@ We assume that the internal resistance of VM1 is RVM1=1GOhm
 
 We assume that the internal resistance of IS1 is RIS1=1GOhm
 ###Processing generator VS1
-Failed: see codes
+
+First we calculate the total resistance between the generator nodes (VS1)
+IS1 and RVM1 connected in parallel so Rd0=RIS1*RVM1/(RIS1+RVM1)=1GOhm*1GOhm/(1GOhm+1GOhm)=500MOhm
+AM1 and R3 connected in series so Rf0=RAM1+R3=0Ohm+1kOhm=1kOhm
+Rd0 and Rf0 connected in series so Rc0=Rd0+Rf0=500MOhm+1kOhm=500MOhm
+R2 and Rc0 connected in parallel so Rb0=R2*Rc0/(R2+Rc0)=1kOhm*500MOhm/(1kOhm+500MOhm)=1000Ohm
+Rb0 and R1 connected in series so Ra0=Rb0+R1=1000Ohm+1kOhm=2kOhm
+The total resistance is Ra0 = 2kOhm
+
+Now we calculate the current on AM1
+We know that the voltage between VS1 nodes is 5 Volt.
+All voltage generators except for VS1 have been replaced with a short circuit.
+All current generators have been replaced with an open circuit.
+
+The components Rb0 and R1 connected in series.
+The voltage between this components starting and ending node is 5 Volt
+Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*5 Volt = 2.5 Volt 
+The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper
+The current on Rb0 is the current on Ra0. Therefore the current on Rb0 is 2.5m Amper
+
+The components Rb0 and R1 connected in series.
+The voltage between this components starting and ending node is 5 Volt
+R1 is in the voltage divider so the voltage on R1 is R1/Ra0*5 Volt = 2.5 Volt 
+The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper
+The current on R1 is the current on Ra0. Therefore the current on R1 is 2.5m Amper
+
+The components R2 and Rc0 connected in parallel. The voltage on R2 is 2.5 Volt because the voltage on Rb0 is 2.5 Volt
+
+The current on R2 is the voltage on R2/R2 = 2.5m Amper 
+The components R2 and Rc0 connected in parallel. The voltage on Rc0 is 2.5 Volt because the voltage on Rb0 is 2.5 Volt
+
+The components Rd0 and Rf0 connected in series.
+The voltage between this components starting and ending node is 2.5 Volt
+Rd0 is in the voltage divider so the voltage on Rd0 is Rd0/Rc0*2.5 Volt = 2.5 Volt 
+The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 2.5/500M = 5n Amper
+The current on Rd0 is the current on Rc0. Therefore the current on Rd0 is 5n Amper
+
+The components Rd0 and Rf0 connected in series.
+The voltage between this components starting and ending node is 2.5 Volt
+Rf0 is in the voltage divider so the voltage on Rf0 is Rf0/Rc0*2.5 Volt = 5u Volt 
+The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 2.5/500M = 5n Amper
+The current on Rf0 is the current on Rc0. Therefore the current on Rf0 is 5n Amper
+
+The components IS1 and RVM1 connected in parallel. The voltage on IS1 is 2.5 Volt because the voltage on Rd0 is 2.5 Volt
+
+The current on IS1 is the voltage on IS1/IS1 = 2.5n Amper 
+The components IS1 and RVM1 connected in parallel. The voltage on RVM1 is 2.5 Volt because the voltage on Rd0 is 2.5 Volt
+
+The voltage on VM1 is 2.5 Volt because the voltage is 2.5 Volt on RVM1
+The current in branch RVM1 is 'voltage on this branch'/'impedance in this branch' = 2.5/1G = 2.5n Amper
+The current on VM1 is the current on RVM1. Therefore the current on VM1 is 2.5n Amper
+
+The components AM1 and R3 connected in series.
+The voltage between this components starting and ending node is 5u Volt
+The current in branch Rf0 is 'voltage on this branch'/'impedance in this branch' = 5u/1k = 5n Amper
+The current on AM1 is the current on Rf0. Therefore the current on AM1 is -10m Amper
+
+The components AM1 and R3 connected in series.
+The voltage between this components starting and ending node is 5u Volt
+R3 is in the voltage divider so the voltage on R3 is R3/Rf0*5u Volt = 5u Volt 
+The current in branch Rf0 is 'voltage on this branch'/'impedance in this branch' = 5u/1k = 5n Amper
+The current on R3 is the current on Rf0. Therefore the current on R3 is 5n Amper
+
+###Processing generator IS1
+
+First we calculate the total resistance between the generator nodes (IS1)
+AM1 and R3 connected in series so Rb1=RAM1+R3=0Ohm+1kOhm=1kOhm
+Rd1=R1=1kOhm=1kOhm
+R2 and Rd1 connected in parallel so Rc1=R2*Rd1/(R2+Rd1)=1kOhm*1kOhm/(1kOhm+1kOhm)=500Ohm
+Rb1 and Rc1 connected in series so Ra1=Rb1+Rc1=1kOhm+500Ohm=1.5kOhm
+The total resistance is Ra1 = 1.5kOhm
+
+Now we calculate the current on AM1
+We know that the voltage between IS1 nodes is 15 Volt, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 1.5kOhm so the voltage between the generator nodes is Igen*Rtot = 15 Volt
+All voltage generators have been replaced with a short circuit.
+All current generators except for IS1 have been replaced with an open circuit.
+
+The components Rb1 and Rc1 connected in series.
+The voltage between this components starting and ending node is -15 Volt
+Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*-15 Volt = -10 Volt 
+The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = -15/1.5k = -10m Amper
+The current on Rb1 is the current on Ra1. Therefore the current on Rb1 is -10m Amper
+
+The components Rb1 and Rc1 connected in series.
+The voltage between this components starting and ending node is -15 Volt
+Rc1 is in the voltage divider so the voltage on Rc1 is Rc1/Ra1*-15 Volt = -5 Volt 
+The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = -15/1.5k = -10m Amper
+The current on Rc1 is the current on Ra1. Therefore the current on Rc1 is -10m Amper
+
+The components AM1 and R3 connected in series.
+The voltage between this components starting and ending node is -10 Volt
+The current in branch Rb1 is 'voltage on this branch'/'impedance in this branch' = -10/1k = -10m Amper
+The current on AM1 is the current on Rb1. Therefore the current on AM1 is -10m Amper
+
+The components AM1 and R3 connected in series.
+The voltage between this components starting and ending node is -10 Volt
+R3 is in the voltage divider so the voltage on R3 is R3/Rb1*-10 Volt = -10 Volt 
+The current in branch Rb1 is 'voltage on this branch'/'impedance in this branch' = -10/1k = -10m Amper
+The current on R3 is the current on Rb1. Therefore the current on R3 is -10m Amper
+
+Now we are using superposition to calculate the current on AM1
+Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.
+'current on AM1' = -10mA

@@ -145,6 +145,7 @@ class TCircuitSolverGraph:
 		self.c_set_v_pot = 0
 		self.log_set_v_pot = False
 		self.RMIN = 0
+		self.G = None
 	
 		self.log_state_v = {}
 		self.log_state_v['changed'] = False

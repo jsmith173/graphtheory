@@ -578,6 +578,8 @@ class TCircuitSolver:
 
 	def run_proc(self, circuit_key):
 		cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
+		self.graph.amper_meters = []
+		self.get_amper_meters()
 		for i in range(len(self.gens)):
 			self.gen = self.gens[i]
 			self.graph.i_pass = i
@@ -624,8 +626,8 @@ class TCircuitSolver:
 					self.set_sv_prop_i('open_circuit_pass', 1)
 					i += 1
 				else:
-					self.write_log(1, str(e), 1)
-					self.graph.G.show()
+					#self.write_log(1, str(e), 1)
+					#self.graph.G.show()
 					raise
 			except Exception as e:
 				self.sl(f'In {type(e).__name__} exception')
@@ -1009,8 +1011,10 @@ class TCircuitSolver:
 	# collect amper meters using the original graph (keeping generators)
 	def get_amper_meters(self):
 		try:
-			self.graph.G.show()
-			tmp_edges = []
+			if self.graph.G != None:
+				del self.graph.G
+				self.graph.G = None
+			G = self.graph.get_graph(self.graph.circuit_key)
 			tmp_nodes = []
 			MaxGR = self.graph.get_max_graph_number()
 			# MaxGR is local var
@@ -1059,27 +1063,28 @@ class TCircuitSolver:
 							if node_adj != node_next:
 								tmp = [node, node_adj]
 								idx, f = self.graph.find_in_json_by_nodes(tmp, True)
-								item = self.graph.json_data["edges"][idx]
-								prop = item["prop"]
-								if prop["flags"] == cg.FLAGS_NORMAL:
-									e2 = {}
-									e2['nodes'] = []
-									e2['nodes'].append(e.source)
-									e2['nodes'].append(e.target)
-									is_connected, polarity = self.graph.is_edges_connected(e2, item)
-									tmp = {}; tmp['label'] = am_label; tmp['match_label'] = prop['label']; tmp['nodes'] = [e.source, e.target]
-									tmp['connected'] = int(is_connected)
-									tmp['polarity'] = int(polarity)
-									self.graph.amper_meters.append(tmp)
-									found = True
-									break
+								if f:
+									item = self.graph.json_data["edges"][idx]
+									prop = item["prop"]
+									if prop["flags"] == cg.FLAGS_NORMAL:
+										e2 = {}
+										e2['nodes'] = []
+										e2['nodes'].append(e.source)
+										e2['nodes'].append(e.target)
+										is_connected, polarity = self.graph.is_edges_connected(e2, item)
+										tmp = {}; tmp['label'] = am_label; tmp['match_label'] = prop['label']; tmp['nodes'] = [e.source, e.target]
+										tmp['connected'] = int(is_connected)
+										tmp['polarity'] = int(polarity)
+										self.graph.amper_meters.append(copy.deepcopy(tmp))
+										found = True
+										break
 					if found:
 						break		
 				#if not found:
 				#	raise Exception(f"Resistive component not found for ampermeter {am_label}")	
 		finally:
-			for node in tmp_nodes:
-				self.graph.G.del_node(node)
+			del self.graph.G
+			self.graph.G = None
 		
 	def run_pass(self, circuit_key, i_pass):
 		try:
@@ -1249,13 +1254,8 @@ class TCircuitSolver:
 
 			#ampermeters1: processing apmermeters
 			self.request['amper_meter_question'] = False; self.silent = False
-			self.graph.amper_meters = []
 			has_amper_meter = self.check_ampermeters()	
 			
-			# graph change
-			if has_amper_meter:
-				self.get_amper_meters()
-				
 			self.graph.modify_amper_meters(self.graph.RMIN)
 			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 
@@ -1431,7 +1431,7 @@ class TCircuitSolver:
 				del self.graph.G
 				G = self.graph.get_graph(self.graph.circuit_key)			
 				self.sl(f'restore_json_data: all extra edges (like extra VM) are restored')
-			cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
+			#cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 				
 
 	def patch_log(self):

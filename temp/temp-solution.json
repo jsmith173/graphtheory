@@ -1,5 +1,75 @@
 {
-    "superposition": [],
+    "superposition": [
+        {
+            "total_impedance_ori_txt": [
+                "Re0=RVM1",
+                "IS1 and Re0 connected in parallel so Rd0=RIS1*Re0/(RIS1+Re0)=1GOhm*1GOhm/(1GOhm+1GOhm)=500MOhm",
+                "AM1 and R3 connected in series so Rf0=RAM1+R3=0Ohm+1kOhm=1kOhm",
+                "Rd0 and Rf0 connected in series so Rc0=Rd0+Rf0=500MOhm+1kOhm=500MOhm",
+                "R2 and Rc0 connected in parallel so Rb0=R2*Rc0/(R2+Rc0)=1kOhm*500MOhm/(1kOhm+500MOhm)=1000Ohm",
+                "Rb0 and R1 connected in series so Ra0=Rb0+R1=1000Ohm+1kOhm=2kOhm",
+                "The total resistance is Ra0 = 2kOhm"
+            ],
+            "total_impedance_txt": [
+                "IS1 and RVM1 connected in parallel so Rd0=RIS1*RVM1/(RIS1+RVM1)=1GOhm*1GOhm/(1GOhm+1GOhm)=500MOhm",
+                "AM1 and R3 connected in series so Rf0=RAM1+R3=0Ohm+1kOhm=1kOhm",
+                "Rd0 and Rf0 connected in series so Rc0=Rd0+Rf0=500MOhm+1kOhm=500MOhm",
+                "R2 and Rc0 connected in parallel so Rb0=R2*Rc0/(R2+Rc0)=1kOhm*500MOhm/(1kOhm+500MOhm)=1000Ohm",
+                "Rb0 and R1 connected in series so Ra0=Rb0+R1=1000Ohm+1kOhm=2kOhm",
+                "The total resistance is Ra0 = 2kOhm"
+            ],
+            "gen": {
+                "nodes": [
+                    5,
+                    4
+                ],
+                "prop": {
+                    "label": "VS1",
+                    "match_label": "",
+                    "CompId": 14,
+                    "UniqueID": "T_0000000028B4953020250514075449",
+                    "value": 5,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        },
+        {
+            "total_impedance_ori_txt": [
+                "AM1 and R3 connected in series so Rb1=RAM1+R3=0Ohm+1kOhm=1kOhm",
+                "Rd1=R1=1kOhm=1kOhm",
+                "R2 and Rd1 connected in parallel so Rc1=R2*Rd1/(R2+Rd1)=1kOhm*1kOhm/(1kOhm+1kOhm)=500Ohm",
+                "Rb1 and Rc1 connected in series so Ra1=Rb1+Rc1=1kOhm+500Ohm=1.5kOhm",
+                "The total resistance is Ra1 = 1.5kOhm"
+            ],
+            "total_impedance_txt": [
+                "AM1 and R3 connected in series so Rb1=RAM1+R3=0Ohm+1kOhm=1kOhm",
+                "Rd1=R1=1kOhm=1kOhm",
+                "R2 and Rd1 connected in parallel so Rc1=R2*Rd1/(R2+Rd1)=1kOhm*1kOhm/(1kOhm+1kOhm)=500Ohm",
+                "Rb1 and Rc1 connected in series so Ra1=Rb1+Rc1=1kOhm+500Ohm=1.5kOhm",
+                "The total resistance is Ra1 = 1.5kOhm"
+            ],
+            "gen": {
+                "nodes": [
+                    1,
+                    4
+                ],
+                "prop": {
+                    "label": "IS1",
+                    "match_label": "",
+                    "CompId": 13,
+                    "UniqueID": "ML00SAF0ROA4RTD8GKUU1KQR",
+                    "value": 0.01,
+                    "flags": 1,
+                    "ac_gen": {
+                        "mode": 0
+                    }
+                }
+            }
+        }
+    ],
     "circuit": [
         "Netlist (component name, nodes)",
         "AM1 1 2",
@@ -32,6 +102,8 @@
             "insert_double_rmin set to 0",
             "open_circuit_pass set to 0",
             "run_w_check: 0",
+            "get_amper_meters: adding extra edges",
+            "MaxGR incremented: 6",
             "bkp_json_data",
             "run_pass: 0",
             "restore_json_data: all extra edges (like extra VM) are restored",
@@ -44,13 +116,19 @@
             "insert_double_rmin set to 0",
             "open_circuit_pass set to 1",
             "run_w_check: 1",
+            "get_amper_meters: adding extra edges",
+            "MaxGR incremented: 6",
             "bkp_json_data",
             "run_pass: 0",
             "In gen cycle and is_v_gen open_circuit_pass: adding extra edges",
             "MaxGR incremented: 6",
             "In gen cycle and open_circuit_pass: adding extra edges",
-            "get_amper_meters: adding extra edges",
-            "restore_json_data: all extra edges (like extra VM) are restored"
+            "restore_json_data: all extra edges (like extra VM) are restored",
+            "bkp_json_data",
+            "run_pass: 1",
+            "In gen cycle and is_v_gen: adding extra edges",
+            "restore_json_data: all extra edges (like extra VM) are restored",
+            "before calc_item_values"
         ],
         "solution": [
             "Solution by TINA assisted by AI",
@@ -60,15 +138,335 @@
             "",
             "We assume that the internal resistance of IS1 is RIS1=1GOhm",
             "###Processing generator VS1",
-            "Failed: see codes"
+            "",
+            "First we calculate the total resistance between the generator nodes (VS1)",
+            "IS1 and RVM1 connected in parallel so Rd0=RIS1*RVM1/(RIS1+RVM1)=1GOhm*1GOhm/(1GOhm+1GOhm)=500MOhm",
+            "AM1 and R3 connected in series so Rf0=RAM1+R3=0Ohm+1kOhm=1kOhm",
+            "Rd0 and Rf0 connected in series so Rc0=Rd0+Rf0=500MOhm+1kOhm=500MOhm",
+            "R2 and Rc0 connected in parallel so Rb0=R2*Rc0/(R2+Rc0)=1kOhm*500MOhm/(1kOhm+500MOhm)=1000Ohm",
+            "Rb0 and R1 connected in series so Ra0=Rb0+R1=1000Ohm+1kOhm=2kOhm",
+            "The total resistance is Ra0 = 2kOhm",
+            "",
+            "Now we calculate the current on AM1",
+            "We know that the voltage between VS1 nodes is 5 Volt.",
+            "All voltage generators except for VS1 have been replaced with a short circuit.",
+            "All current generators have been replaced with an open circuit.",
+            "",
+            "The components Rb0 and R1 connected in series.",
+            "The voltage between this components starting and ending node is 5 Volt",
+            "Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*5 Volt = 2.5 Volt ",
+            "The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper",
+            "The current on Rb0 is the current on Ra0. Therefore the current on Rb0 is 2.5m Amper",
+            "",
+            "The components Rb0 and R1 connected in series.",
+            "The voltage between this components starting and ending node is 5 Volt",
+            "R1 is in the voltage divider so the voltage on R1 is R1/Ra0*5 Volt = 2.5 Volt ",
+            "The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper",
+            "The current on R1 is the current on Ra0. Therefore the current on R1 is 2.5m Amper",
+            "",
+            "The components R2 and Rc0 connected in parallel. The voltage on R2 is 2.5 Volt because the voltage on Rb0 is 2.5 Volt",
+            "",
+            "The current on R2 is the voltage on R2/R2 = 2.5m Amper ",
+            "The components R2 and Rc0 connected in parallel. The voltage on Rc0 is 2.5 Volt because the voltage on Rb0 is 2.5 Volt",
+            "",
+            "The components Rd0 and Rf0 connected in series.",
+            "The voltage between this components starting and ending node is 2.5 Volt",
+            "Rd0 is in the voltage divider so the voltage on Rd0 is Rd0/Rc0*2.5 Volt = 2.5 Volt ",
+            "The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 2.5/500M = 5n Amper",
+            "The current on Rd0 is the current on Rc0. Therefore the current on Rd0 is 5n Amper",
+            "",
+            "The components Rd0 and Rf0 connected in series.",
+            "The voltage between this components starting and ending node is 2.5 Volt",
+            "Rf0 is in the voltage divider so the voltage on Rf0 is Rf0/Rc0*2.5 Volt = 5u Volt ",
+            "The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 2.5/500M = 5n Amper",
+            "The current on Rf0 is the current on Rc0. Therefore the current on Rf0 is 5n Amper",
+            "",
+            "The components IS1 and RVM1 connected in parallel. The voltage on IS1 is 2.5 Volt because the voltage on Rd0 is 2.5 Volt",
+            "",
+            "The current on IS1 is the voltage on IS1/IS1 = 2.5n Amper ",
+            "The components IS1 and RVM1 connected in parallel. The voltage on RVM1 is 2.5 Volt because the voltage on Rd0 is 2.5 Volt",
+            "",
+            "The voltage on VM1 is 2.5 Volt because the voltage is 2.5 Volt on RVM1",
+            "The current in branch RVM1 is 'voltage on this branch'/'impedance in this branch' = 2.5/1G = 2.5n Amper",
+            "The current on VM1 is the current on RVM1. Therefore the current on VM1 is 2.5n Amper",
+            "",
+            "The components AM1 and R3 connected in series.",
+            "The voltage between this components starting and ending node is 5u Volt",
+            "The current in branch Rf0 is 'voltage on this branch'/'impedance in this branch' = 5u/1k = 5n Amper",
+            "The current on AM1 is the current on Rf0. Therefore the current on AM1 is -10m Amper",
+            "",
+            "The components AM1 and R3 connected in series.",
+            "The voltage between this components starting and ending node is 5u Volt",
+            "R3 is in the voltage divider so the voltage on R3 is R3/Rf0*5u Volt = 5u Volt ",
+            "The current in branch Rf0 is 'voltage on this branch'/'impedance in this branch' = 5u/1k = 5n Amper",
+            "The current on R3 is the current on Rf0. Therefore the current on R3 is 5n Amper",
+            "",
+            "###Processing generator IS1",
+            "",
+            "First we calculate the total resistance between the generator nodes (IS1)",
+            "AM1 and R3 connected in series so Rb1=RAM1+R3=0Ohm+1kOhm=1kOhm",
+            "Rd1=R1=1kOhm=1kOhm",
+            "R2 and Rd1 connected in parallel so Rc1=R2*Rd1/(R2+Rd1)=1kOhm*1kOhm/(1kOhm+1kOhm)=500Ohm",
+            "Rb1 and Rc1 connected in series so Ra1=Rb1+Rc1=1kOhm+500Ohm=1.5kOhm",
+            "The total resistance is Ra1 = 1.5kOhm",
+            "",
+            "Now we calculate the current on AM1",
+            "We know that the voltage between IS1 nodes is 15 Volt, because the generator current is Igen = 10mA and the resistance between the generator nodes is Rtot = 1.5kOhm so the voltage between the generator nodes is Igen*Rtot = 15 Volt",
+            "All voltage generators have been replaced with a short circuit.",
+            "All current generators except for IS1 have been replaced with an open circuit.",
+            "",
+            "The components Rb1 and Rc1 connected in series.",
+            "The voltage between this components starting and ending node is -15 Volt",
+            "Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*-15 Volt = -10 Volt ",
+            "The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = -15/1.5k = -10m Amper",
+            "The current on Rb1 is the current on Ra1. Therefore the current on Rb1 is -10m Amper",
+            "",
+            "The components Rb1 and Rc1 connected in series.",
+            "The voltage between this components starting and ending node is -15 Volt",
+            "Rc1 is in the voltage divider so the voltage on Rc1 is Rc1/Ra1*-15 Volt = -5 Volt ",
+            "The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = -15/1.5k = -10m Amper",
+            "The current on Rc1 is the current on Ra1. Therefore the current on Rc1 is -10m Amper",
+            "",
+            "The components AM1 and R3 connected in series.",
+            "The voltage between this components starting and ending node is -10 Volt",
+            "The current in branch Rb1 is 'voltage on this branch'/'impedance in this branch' = -10/1k = -10m Amper",
+            "The current on AM1 is the current on Rb1. Therefore the current on AM1 is -10m Amper",
+            "",
+            "The components AM1 and R3 connected in series.",
+            "The voltage between this components starting and ending node is -10 Volt",
+            "R3 is in the voltage divider so the voltage on R3 is R3/Rb1*-10 Volt = -10 Volt ",
+            "The current in branch Rb1 is 'voltage on this branch'/'impedance in this branch' = -10/1k = -10m Amper",
+            "The current on R3 is the current on Rb1. Therefore the current on R3 is -10m Amper",
+            "",
+            "Now we are using superposition to calculate the current on AM1",
+            "Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.",
+            "'current on AM1' = -10mA"
         ],
         "node_potentials_dbg": {
-            "node_potentials": [],
-            "item_voltages": []
+            "node_potentials": [
+                [
+                    "VP_0 = 0, assigned: 0",
+                    "VP_1 = 2.5, assigned: 1",
+                    "VP_2 = 2.5, assigned: 1",
+                    "VP_3 = 2.5, assigned: 1",
+                    "VP_4 = 0, assigned: 1",
+                    "VP_5 = 5, assigned: 1",
+                    "VP_6 = 0, assigned: 1"
+                ],
+                [
+                    "VP_0 = 0, assigned: 0",
+                    "VP_1 = -15, assigned: 1",
+                    "VP_2 = -15, assigned: 1",
+                    "VP_3 = -5, assigned: 1",
+                    "VP_4 = 0, assigned: 1",
+                    "VP_5 = 0, assigned: 1",
+                    "VP_6 = 0, assigned: 0"
+                ],
+                [
+                    "VP_0 = 0, assigned (and): 0",
+                    "VP_1 = -12.5, assigned (and): 1",
+                    "VP_2 = -12.5, assigned (and): 1",
+                    "VP_3 = -2.5, assigned (and): 1",
+                    "VP_4 = 0, assigned (and): 1",
+                    "VP_5 = 5, assigned (and): 1",
+                    "VP_6 = 0, assigned (and): 0"
+                ]
+            ],
+            "item_voltages": [
+                {
+                    "nodes": [
+                        1,
+                        4
+                    ],
+                    "label": "IS1",
+                    "value": 0,
+                    "voltage": "-12.5",
+                    "current": "0"
+                },
+                {
+                    "nodes": [
+                        5,
+                        3
+                    ],
+                    "label": "R1",
+                    "value": 1000,
+                    "voltage": "7.5",
+                    "current": "7.5m"
+                },
+                {
+                    "nodes": [
+                        3,
+                        4
+                    ],
+                    "label": "R2",
+                    "value": 1000,
+                    "voltage": "-2.5",
+                    "current": "-2.5m"
+                },
+                {
+                    "nodes": [
+                        3,
+                        2
+                    ],
+                    "label": "R3",
+                    "value": 1000,
+                    "voltage": "10",
+                    "current": "10m"
+                },
+                {
+                    "nodes": [
+                        3,
+                        4
+                    ],
+                    "label": "VM1",
+                    "value": 0,
+                    "voltage": "-2.5",
+                    "current": "0"
+                },
+                {
+                    "nodes": [
+                        5,
+                        4
+                    ],
+                    "label": "VS1",
+                    "value": 0,
+                    "voltage": "5",
+                    "current": "0"
+                },
+                {
+                    "nodes": [
+                        1,
+                        2
+                    ],
+                    "label": "AM1",
+                    "value": 0,
+                    "voltage": "0",
+                    "current": "-10m"
+                }
+            ]
         },
+        "block_labels": [
+            {
+                "label": "Rd0",
+                "origin": "parallel",
+                "value": "500MOhm",
+                "labels": [
+                    "IS1",
+                    "RVM1"
+                ],
+                "unique_labels": [
+                    "<none>",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rf0",
+                "origin": "series",
+                "value": "1kOhm",
+                "labels": [
+                    "AM1",
+                    "R3"
+                ],
+                "unique_labels": [
+                    "T_000000000D31CB4020250515144034",
+                    "KJNTSFAKQ8EATBLULJ4UC8SD"
+                ]
+            },
+            {
+                "label": "Rc0",
+                "origin": "series",
+                "value": "500MOhm",
+                "labels": [
+                    "Rd0",
+                    "Rf0"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Rb0",
+                "origin": "parallel",
+                "value": "1000Ohm",
+                "labels": [
+                    "R2",
+                    "Rc0"
+                ],
+                "unique_labels": [
+                    "7LT7O23UG6VL11H2KSFP0BS1",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Ra0",
+                "origin": "series",
+                "value": "2kOhm",
+                "labels": [
+                    "Rb0",
+                    "R1"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "8KM9IVIVUU25UVS65BA9TILC"
+                ]
+            },
+            {
+                "label": "Rb1",
+                "origin": "series",
+                "value": "1kOhm",
+                "labels": [
+                    "AM1",
+                    "R3"
+                ],
+                "unique_labels": [
+                    "T_000000000D31CB4020250515144034",
+                    "KJNTSFAKQ8EATBLULJ4UC8SD"
+                ]
+            },
+            {
+                "label": "Rd1",
+                "origin": "series",
+                "value": "1kOhm",
+                "labels": [
+                    "R1",
+                    "RGenZero0"
+                ],
+                "unique_labels": [
+                    "8KM9IVIVUU25UVS65BA9TILC",
+                    "<none>"
+                ]
+            },
+            {
+                "label": "Rc1",
+                "origin": "parallel",
+                "value": "500Ohm",
+                "labels": [
+                    "R2",
+                    "Rd1"
+                ],
+                "unique_labels": [
+                    "7LT7O23UG6VL11H2KSFP0BS1",
+                    "<block>"
+                ]
+            },
+            {
+                "label": "Ra1",
+                "origin": "series",
+                "value": "1.5kOhm",
+                "labels": [
+                    "Rb1",
+                    "Rc1"
+                ],
+                "unique_labels": [
+                    "<block>",
+                    "<block>"
+                ]
+            }
+        ],
         "fn": "data/temp.json",
         "valid": 1,
-        "error": 1,
-        "status": "parallel edges are forbidden: (1, 6)"
+        "error": 0,
+        "status": "OK"
     }
 }
