@@ -111,9 +111,6 @@ class TCircuitSolverGraph:
 		self.v_potentials_re = array('d', [0.0] * self.max_node_num)
 		self.v_potentials_im = array('d', [0.0] * self.max_node_num)
 
-		self.v_currents_re = [array('d', [0.0] * self.max_node_num) for _ in range(self.max_node_num)]
-		self.v_currents_im = [array('d', [0.0] * self.max_node_num) for _ in range(self.max_node_num)]
-
 		self.v_node_flags = array('b', [0] * self.max_node_num)
 		self.GND = [array('i', [0] * 100) for _ in range(self.num_pass)]
 		
@@ -126,13 +123,6 @@ class TCircuitSolverGraph:
 		for i in range(self.num_pass):
 			for j in range(self.max_node_num):
 				self.v_im[i][j] = 0.0
-				
-		for i in range(self.max_node_num):
-			for j in range(self.max_node_num):
-				self.v_currents_re[i][j] = 0.0
-		for i in range(self.max_node_num):
-			for j in range(self.max_node_num):
-				self.v_currents_im[i][j] = 0.0
 				
 		for i in range(self.num_pass):
 			for j in range(self.max_node_num):

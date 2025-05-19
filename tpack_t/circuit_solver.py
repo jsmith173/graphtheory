@@ -864,15 +864,16 @@ class TCircuitSolver:
 									raise ShortCircuitException("Division by zero in current calculation") from exc
 								else:
 									current = 0 # divHACK
+									self.sl(f'divHACK: calc_item_values: current: {current}')					
 						
 						if isinstance(current, complex):
 							re = current.real; im = current.imag
 						else:
 							re = current; im = 0
-						self.graph.v_currents_re[i][j] = re
-						self.graph.v_currents_im[i][j] = im
 						
 						new_item['current'] = self.graph.fv(current)					
+						new_item['current_re'] = re
+						new_item['current_im'] = im
 					else:	
 						new_item['voltage'] = '<unassigned>'
 						new_item['current'] = '<unassigned>'
@@ -983,8 +984,8 @@ class TCircuitSolver:
 							re = self.graph.v_potentials_re[i]-self.graph.v_potentials_re[j]
 							im = self.graph.v_potentials_im[i]-self.graph.v_potentials_im[j]					
 						elif request_txt == 'current':
-							re = self.graph.v_currents_re[i][j]
-							im = self.graph.v_currents_im[i][j]
+							re = item['current_re']
+							im = item['current_im']
 						else:
 							re = 0
 							im = 0
@@ -1436,7 +1437,8 @@ class TCircuitSolver:
 
 	def patch_log(self):
 		for item in self.graph.am_edges:
-			label = item['prop']['label']			
+			label = item['prop']['label']	
+		
 			f, v = self.get_final_value(label, 'current')
 			if f:
 				current = v['value']		
