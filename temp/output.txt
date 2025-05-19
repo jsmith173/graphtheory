@@ -1,33 +1,19 @@
 Solution by TINA assisted by AI
+We assume that the internal resistance of VM1 is RVM1=1GOhm
 
 First we calculate the total resistance between the generator nodes (VS1)
-R2 and AM1 connected in series so Rb=R2+RAM1=1kOhm+0Ohm=1kOhm
-Rb and R1 connected in series so Ra=Rb+R1=1kOhm+1kOhm=2kOhm
-The total resistance is Ra = 2kOhm
+VM1 and R1 connected in series so Rb=RVM1+R1=1GOhm+1kOhm=1GOhm
+The total resistance is Rb = 1GOhm
 
-Now we calculate the current on AM1
+Now we calculate the voltage on VM1
 We know that the voltage between VS1 nodes is 5 Volt.
 
-The components Rb and R1 connected in series.
+
+The components VM1 and R1 connected in series.
 The voltage between this components starting and ending node is 5 Volt
-Rb is in the voltage divider so the voltage on Rb is Rb/Ra*5 Volt = 2.5 Volt 
-The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper
-The current on Rb is the current on Ra. Therefore the current on Rb is 2.5m Amper
+VM1 is in the voltage divider so the voltage on VM1 is RVM1/Rb*5 Volt = 5 Volt 
 
-The components Rb and R1 connected in series.
+The components VM1 and R1 connected in series.
 The voltage between this components starting and ending node is 5 Volt
-R1 is in the voltage divider so the voltage on R1 is R1/Ra*5 Volt = 2.5 Volt 
-The current in branch Ra is 'voltage on this branch'/'impedance in this branch' = 5/2k = 2.5m Amper
-The current on R1 is the current on Ra. Therefore the current on R1 is 2.5m Amper
-
-The components R2 and AM1 connected in series.
-The voltage between this components starting and ending node is 2.5 Volt
-R2 is in the voltage divider so the voltage on R2 is R2/Rb*2.5 Volt = 2.5 Volt 
-The current in branch Rb is 'voltage on this branch'/'impedance in this branch' = 2.5/1k = 2.5m Amper
-The current on R2 is the current on Rb. Therefore the current on R2 is 2.5m Amper
-
-The components R2 and AM1 connected in series.
-The voltage between this components starting and ending node is 2.5 Volt
-The current in branch Rb is 'voltage on this branch'/'impedance in this branch' = 2.5/1k = 2.5m Amper
-The current on AM1 is the current on Rb. Therefore the current on AM1 is -2.5m Amper
+R1 is in the voltage divider so the voltage on R1 is R1/Rb*5 Volt = 5u Volt 
 
