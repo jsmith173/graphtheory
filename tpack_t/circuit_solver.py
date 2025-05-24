@@ -576,8 +576,18 @@ class TCircuitSolver:
 		else:
 			return 'resistance'
 
+	def check_csource(self):
+		for i in range(len(self.gens)):
+			gen = self.gens[i]
+
+			gen_comp_id = gen['prop']['CompId']
+			if gen_comp_id == cg.CSOUR_ or gen_comp_id == cg.CGEN_:
+				return True
+		return False		
+	
 	def run_proc(self, circuit_key):
 		cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
+		self.has_csource = self.check_csource()
 		self.graph.amper_meters = []
 		self.get_amper_meters()
 		for i in range(len(self.gens)):
@@ -856,7 +866,7 @@ class TCircuitSolver:
 								if not polarity:
 									current = -current
 								calc_current_from_voltage = False
-							elif self.match_csource_branch(label):
+							elif self.has_csource and self.match_csource_branch(label):
 								e = self.temp_edge
 								js = e.to_dict()
 								current = js['prop']['value']
