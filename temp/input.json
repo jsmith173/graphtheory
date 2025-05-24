@@ -1,9 +1,10 @@
 {
-    "N": 3,
+    "N": 4,
     "nodes": [
-        3,
         1,
-        2
+        3,
+        2,
+        4
     ],
     "gens": [
         {
@@ -12,10 +13,27 @@
                 2
             ],
             "prop": {
+                "label": "IS1",
+                "match_label": "",
+                "CompId": 13,
+                "UniqueID": "T_0000000007542EA020250520212318",
+                "value": 0.01,
+                "flags": 1,
+                "ac_gen": {
+                    "mode": 0
+                }
+            }
+        },
+        {
+            "nodes": [
+                4,
+                2
+            ],
+            "prop": {
                 "label": "VS1",
                 "match_label": "",
                 "CompId": 14,
-                "UniqueID": "T_000000002786EE8020250425154900",
+                "UniqueID": "T_000000003061775020250520212139",
                 "value": 5,
                 "flags": 1,
                 "ac_gen": {
@@ -32,9 +50,9 @@
             ],
             "prop": {
                 "label": "VM1",
-                "match_label": "",
+                "match_label": "R4",
                 "CompId": 5,
-                "UniqueID": "T_000000002786C56020250425154910",
+                "UniqueID": "T_000000000615CE3020250520215950",
                 "value": 0,
                 "flags": 5
             }
@@ -43,14 +61,42 @@
     "edges": [
         {
             "nodes": [
-                3,
+                1,
+                3
+            ],
+            "prop": {
+                "label": "AM1",
+                "match_label": "",
+                "CompId": 6,
+                "UniqueID": "T_00000000075428C020250520212215",
+                "value": 0,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                1,
+                2
+            ],
+            "prop": {
+                "label": "R4",
+                "match_label": "",
+                "CompId": 9,
+                "UniqueID": "T_000000000754172020250520212200",
+                "value": 1000,
+                "flags": 1
+            }
+        },
+        {
+            "nodes": [
+                4,
                 1
             ],
             "prop": {
                 "label": "R1",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_000000002786D12020250425154905",
+                "UniqueID": "T_000000000F645F0020250520212142",
                 "value": 1000,
                 "flags": 1
             }
@@ -58,36 +104,28 @@
     ],
     "dctables": [
         {
-            "currents": [
+            "outputs": [
                 {
-                    "label": "R1",
-                    "value": 0,
+                    "label": "VM1",
+                    "value": -5,
                     "nodes": [
-                        3,
-                        1
-                    ]
-                },
-                {
-                    "label": "VS1",
-                    "value": 0,
-                    "nodes": [
-                        3,
-                        2
+                        0,
+                        0
                     ]
                 }
             ],
-            "other voltages": [
+            "currents": [
                 {
                     "label": "R1",
-                    "value": 0,
+                    "value": 0.005,
                     "nodes": [
-                        3,
+                        4,
                         1
                     ]
                 },
                 {
-                    "label": "VM1",
-                    "value": 5,
+                    "label": "R4",
+                    "value": -0.005,
                     "nodes": [
                         1,
                         2
@@ -95,20 +133,60 @@
                 },
                 {
                     "label": "VS1",
-                    "value": 5,
+                    "value": -0.005,
                     "nodes": [
-                        3,
+                        4,
                         2
                     ]
                 }
             ],
-            "outputs": [
+            "other voltages": [
                 {
-                    "label": "VM1",
+                    "label": "AM1",
+                    "value": 0,
+                    "nodes": [
+                        1,
+                        3
+                    ]
+                },
+                {
+                    "label": "IS1",
+                    "value": -5,
+                    "nodes": [
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "label": "R1",
                     "value": 5,
                     "nodes": [
-                        0,
-                        0
+                        4,
+                        1
+                    ]
+                },
+                {
+                    "label": "R4",
+                    "value": -5,
+                    "nodes": [
+                        1,
+                        2
+                    ]
+                },
+                {
+                    "label": "VM1",
+                    "value": -5,
+                    "nodes": [
+                        1,
+                        2
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": 0,
+                    "nodes": [
+                        4,
+                        2
                     ]
                 }
             ],
@@ -120,7 +198,7 @@
                     ]
                 },
                 {
-                    "value": -5,
+                    "value": 5,
                     "nodes": [
                         2
                     ]
@@ -130,41 +208,203 @@
                     "nodes": [
                         3
                     ]
+                },
+                {
+                    "value": 5,
+                    "nodes": [
+                        4
+                    ]
+                }
+            ]
+        },
+        {
+            "outputs": [
+                {
+                    "label": "VM1",
+                    "value": 2.5,
+                    "nodes": [
+                        0,
+                        0
+                    ]
+                }
+            ],
+            "currents": [
+                {
+                    "label": "R1",
+                    "value": 0.0025,
+                    "nodes": [
+                        4,
+                        1
+                    ]
+                },
+                {
+                    "label": "R4",
+                    "value": 0.0025,
+                    "nodes": [
+                        1,
+                        2
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": -0.0025,
+                    "nodes": [
+                        4,
+                        2
+                    ]
+                }
+            ],
+            "other voltages": [
+                {
+                    "label": "AM1",
+                    "value": 0,
+                    "nodes": [
+                        1,
+                        3
+                    ]
+                },
+                {
+                    "label": "IS1",
+                    "value": 2.5,
+                    "nodes": [
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "label": "R1",
+                    "value": 2.5,
+                    "nodes": [
+                        4,
+                        1
+                    ]
+                },
+                {
+                    "label": "R4",
+                    "value": 2.5,
+                    "nodes": [
+                        1,
+                        2
+                    ]
+                },
+                {
+                    "label": "VM1",
+                    "value": 2.5,
+                    "nodes": [
+                        1,
+                        2
+                    ]
+                },
+                {
+                    "label": "VS1",
+                    "value": 5,
+                    "nodes": [
+                        4,
+                        2
+                    ]
+                }
+            ],
+            "nodal voltages": [
+                {
+                    "value": 0,
+                    "nodes": [
+                        1
+                    ]
+                },
+                {
+                    "value": -2.5,
+                    "nodes": [
+                        2
+                    ]
+                },
+                {
+                    "value": 0,
+                    "nodes": [
+                        3
+                    ]
+                },
+                {
+                    "value": 2.5,
+                    "nodes": [
+                        4
+                    ]
                 }
             ]
         }
     ],
     "dctable_final": {
+        "outputs": [
+            {
+                "label": "VM1",
+                "value": -2.5,
+                "nodes": [
+                    0,
+                    0
+                ]
+            }
+        ],
         "currents": [
             {
                 "label": "R1",
-                "value": 0,
+                "value": 0.0075,
                 "nodes": [
-                    3,
+                    4,
                     1
                 ]
             },
             {
-                "label": "VS1",
-                "value": 0,
+                "label": "R4",
+                "value": -0.0025,
                 "nodes": [
-                    3,
+                    1,
+                    2
+                ]
+            },
+            {
+                "label": "VS1",
+                "value": -0.0075,
+                "nodes": [
+                    4,
                     2
                 ]
             }
         ],
         "other voltages": [
             {
-                "label": "R1",
+                "label": "AM1",
                 "value": 0,
                 "nodes": [
+                    1,
+                    3
+                ]
+            },
+            {
+                "label": "IS1",
+                "value": -2.5,
+                "nodes": [
                     3,
+                    2
+                ]
+            },
+            {
+                "label": "R1",
+                "value": 7.5,
+                "nodes": [
+                    4,
                     1
                 ]
             },
             {
+                "label": "R4",
+                "value": -2.5,
+                "nodes": [
+                    1,
+                    2
+                ]
+            },
+            {
                 "label": "VM1",
-                "value": 5,
+                "value": -2.5,
                 "nodes": [
                     1,
                     2
@@ -174,18 +414,8 @@
                 "label": "VS1",
                 "value": 5,
                 "nodes": [
-                    3,
+                    4,
                     2
-                ]
-            }
-        ],
-        "outputs": [
-            {
-                "label": "VM1",
-                "value": 5,
-                "nodes": [
-                    0,
-                    0
                 ]
             }
         ],
@@ -197,7 +427,7 @@
                 ]
             },
             {
-                "value": -5,
+                "value": 2.5,
                 "nodes": [
                     2
                 ]
@@ -207,9 +437,15 @@
                 "nodes": [
                     3
                 ]
+            },
+            {
+                "value": 7.5,
+                "nodes": [
+                    4
+                ]
             }
         ]
     },
-    "circ_name": "vm1.tsc",
+    "circ_name": "current meter (2).tsc",
     "meters_without_labels": 0
 }

@@ -856,6 +856,11 @@ class TCircuitSolver:
 								if not polarity:
 									current = -current
 								calc_current_from_voltage = False
+							elif self.match_csource_branch(label):
+								e = self.temp_edge
+								js = e.to_dict()
+								current = js['prop']['value']
+								calc_current_from_voltage = False
 						
 						if calc_current_from_voltage: #or self.graph.use_superposition:
 							try:
@@ -1092,6 +1097,53 @@ class TCircuitSolver:
 		finally:
 			del self.graph.G
 			self.graph.G = None
+		
+	def match_csource_branch(self, label):
+		try:
+			nInserted = 0
+			tmp_edges = []
+			for i in range(len(self.gens)):
+				gen = self.gens[i]
+				
+				self.graph.json_data["edges"].append(copy.deepcopy(gen))
+
+				i1 = gen['nodes'][0]
+				i2 = gen['nodes'][1]
+				
+				edge = Edge(i1, i2, def_weight, gen['prop'])
+				tmp_edges.append(edge)
+				self.graph.G.add_edge(edge)
+				
+				nInserted += 1
+		
+			fifo = []
+			idx = self.graph.find_in_json(label)
+			if idx >= 0:
+				e = self.graph.json_data["edges"][idx]
+				for node in e['nodes']:
+					if self.graph.G.degree(node) <= 2:
+						fifo.append(node)
+				while len(fifo) > 0:
+					node = fifo[0]
+					for node_adj in self.graph.G.iteradjacent(node):
+						e = self.graph.G[node][node_adj]
+						if e.prop['CompId'] == cg.CSOUR_:
+							self.temp_edge = e
+							return True
+						if self.graph.G.degree(node_adj) <= 2:
+							fifo.append(node_adj)
+					fifo.pop(0)
+			else:
+				return False
+				
+		finally:
+			for i in range(nInserted):
+				list_ = self.graph.json_data["edges"]
+				N = len(list_)
+				list_.pop(N-1)
+			for e in tmp_edges:
+				self.graph.G.del_edge(e)	
+				
 		
 	def run_pass(self, circuit_key, i_pass):
 		try:
