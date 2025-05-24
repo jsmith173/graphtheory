@@ -484,6 +484,8 @@ class TCircuitSolver:
 						else:
 							current_str = self.graph.fv(current)
 					
+						f=self.find_label_w_fifo(top_label)
+					
 						self.log(f"The current in branch {top_label} is 'voltage on this branch'{self.graph.sDiv}'impedance in this branch' = {self.graph.fv(voltage)}{self.graph.sDiv}{self.graph.fv(sum_impedance)} = {self.graph.fv(current)} {cg.uCurrent}")
 						self.log(f"The current on {labels[i]} is the current on {top_label}. Therefore the current on {labels[i]} is {current_str} {cg.uCurrent}")
 					self.log("")
@@ -800,6 +802,64 @@ class TCircuitSolver:
 				return self.find_single_label(o['labels'], e)
 		return False, False, ''
 
+	def get_block_label_idx(self, label):
+		i = 0
+		for block_label in self.block_labels:
+			if label == block_label['label']:
+				return i
+			i += 1	
+		return -1		
+		
+	def get_block_label_childs(self, idx):
+		arr = []
+		block_label = self.block_labels[idx]
+		for label in block_label['labels']:
+			m = self.get_block_label_idx(label)
+			arr.append(m)
+		return arr			
+		
+	def find_label_w_fifo(self, label):
+		found = False
+		fifo = []
+		N = len(self.block_labels)
+		if N > 0:
+			fifo.append(0)
+			
+			while len(fifo) > 0:
+				idx = fifo[0]
+				block_label = self.block_labels[idx]
+				childs = self.get_block_label_childs(idx)
+				child_labels = block_label['labels']
+				i = 0
+				for child in childs:
+					if child >= 0:
+						tmp = self.block_labels[child]['label']
+						fifo.append(child)
+					else:
+						child_label = child_labels[i]
+						idx = self.graph.find_in_json(child_label)
+						if idx >= 0:
+							e2 = self.graph.json_data["edges"][idx]
+							is_single_label = idx >= 0		
+							if is_single_label and self.match_csource_branch(child_label):
+								return True, child_label
+					i += 1		
+				fifo.pop(0)
+		else:		
+			idx = self.graph.find_in_json(label)
+			if idx >= 0:
+				e2 = self.graph.json_data["edges"][idx]
+				is_single_label = idx >= 0		
+				if is_single_label:
+					return True, label
+		return False, ''		
+
+	def find_label_w_fifo_w_csource(self, label):
+		if self.has_csource: 
+			f, ser_label = self.find_label_w_fifo(label)
+			if f:
+				f = self.match_csource_branch(ser_label)
+	
 	# In case of superposition find_series_comp may find a wrong component so we should use 'get_amper_meters' on the original graph
 	def find_series_comp(self, e):
 		fifo = []
@@ -1114,17 +1174,21 @@ class TCircuitSolver:
 			tmp_edges = []
 			for i in range(len(self.gens)):
 				gen = self.gens[i]
-				
-				self.graph.json_data["edges"].append(copy.deepcopy(gen))
 
-				i1 = gen['nodes'][0]
-				i2 = gen['nodes'][1]
+				gen_comp_id = gen['prop']['CompId']
+				is_c_gen = gen_comp_id == cg.CSOUR_ or gen_comp_id == cg.CGEN_
 				
-				edge = Edge(i1, i2, def_weight, gen['prop'])
-				tmp_edges.append(edge)
-				self.graph.G.add_edge(edge)
-				
-				nInserted += 1
+				if is_c_gen:
+					self.graph.json_data["edges"].append(copy.deepcopy(gen))
+
+					i1 = gen['nodes'][0]
+					i2 = gen['nodes'][1]
+					
+					edge = Edge(i1, i2, def_weight, gen['prop'])
+					tmp_edges.append(edge)
+					self.graph.G.add_edge(edge)
+					
+					nInserted += 1
 		
 			fifo = []
 			idx = self.graph.find_in_json(label)
