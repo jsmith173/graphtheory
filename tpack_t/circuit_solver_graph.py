@@ -1123,6 +1123,15 @@ class TCircuitSolverGraph:
 		item["prop"] = prop
 		return item
 
+	def create_item_from_edge(self, e):
+		item = {}; prop = {}
+		nodes = []
+		nodes.append(e.source)
+		nodes.append(e.target)
+		item["nodes"] = deepcopy(nodes)
+		item["prop"] = deepcopy(e.prop)
+		return item
+		
 	def create_skip_item(self, nodes):
 		item = {}; prop = deepcopy(split_edge_prop)
 		item["nodes"] = deepcopy(nodes)

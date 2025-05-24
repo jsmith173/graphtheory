@@ -34,17 +34,5 @@
             "value": 1000,
             "flags": 1
         }
-    },
-    {
-        "source": 3,
-        "target": 2,
-        "prop": {
-            "label": "IS1",
-            "match_label": "",
-            "CompId": 9,
-            "UniqueID": "<none>",
-            "value": 1000000000.0,
-            "flags": 1
-        }
     }
 ]

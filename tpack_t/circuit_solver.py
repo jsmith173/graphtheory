@@ -590,6 +590,7 @@ class TCircuitSolver:
 	def run_proc(self, circuit_key):
 		cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
 		self.has_csource = self.check_csource()
+		self.collect_csource_branches()
 		self.graph.amper_meters = []
 		self.get_amper_meters()
 		for i in range(len(self.gens)):
@@ -1218,6 +1219,70 @@ class TCircuitSolver:
 			for e in tmp_edges:
 				self.graph.G.del_edge(e)	
 				
+	def match_edges_visited(self, e):
+		for edge in self.edges_visited:
+			if e.source == edge.source and e.target == edge.target or e.target == edge.source and e.source == edge.target:
+				return True
+		return False		
+	
+	def collect_csource_branches(self):
+		try:
+			if self.graph.G != None:
+				del self.graph.G
+				self.graph.G = None
+			G = self.graph.get_graph(self.graph.circuit_key)
+				
+			nInserted = 0
+			tmp_edges = []
+			for i in range(len(self.gens)):
+				gen = self.gens[i]
+
+				gen_comp_id = gen['prop']['CompId']
+				is_c_gen = gen_comp_id == cg.CSOUR_ or gen_comp_id == cg.CGEN_
+				
+				if is_c_gen:
+					self.graph.json_data["edges"].append(copy.deepcopy(gen))
+
+					i1 = gen['nodes'][0]
+					i2 = gen['nodes'][1]
+					
+					edge = Edge(i1, i2, def_weight, gen['prop'])
+					tmp_edges.append(edge)
+					self.graph.G.add_edge(edge)
+					
+					nInserted += 1
+		
+			fifo = []
+			self.edges_visited = []
+			self.csource_to_ser_labels = []
+			for e2 in self.graph.json_data["edges"]:
+				for node in e2['nodes']:
+					if self.graph.G.degree(node) <= 2:
+						fifo.append(node)
+				while len(fifo) > 0:
+					node = fifo[0]
+					for node_adj in self.graph.G.iteradjacent(node):
+						e = self.graph.G[node][node_adj]
+						if not self.match_edges_visited(e):
+							self.edges_visited.append(e)
+							if e.prop['CompId'] == cg.CSOUR_:
+								js = {}
+								js['csource'] = self.graph.create_item_from_edge(e)
+								js['ser_label'] = copy.deepcopy(e2)
+								self.csource_to_ser_labels.append(js)
+							if self.graph.G.degree(node_adj) <= 2:
+								fifo.append(node_adj)
+					fifo.pop(0)
+				
+		finally:
+			for i in range(nInserted):
+				list_ = self.graph.json_data["edges"]
+				N = len(list_)
+				list_.pop(N-1)
+			for e in tmp_edges:
+				self.graph.G.del_edge(e)	
+			del self.graph.G
+			self.graph.G = None
 		
 	def run_pass(self, circuit_key, i_pass):
 		try:

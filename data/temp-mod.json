@@ -42,7 +42,22 @@
             }
         }
     ],
-    "meters": [],
+    "meters": [
+        {
+            "nodes": [
+                1,
+                2
+            ],
+            "prop": {
+                "label": "VM1",
+                "match_label": "R4",
+                "CompId": 5,
+                "UniqueID": "T_000000000615CE3020250520215950",
+                "value": 0,
+                "flags": 5
+            }
+        }
+    ],
     "edges": [
         {
             "nodes": [
@@ -52,7 +67,7 @@
             "prop": {
                 "label": "AM1",
                 "match_label": "",
-                "CompId": 9,
+                "CompId": 6,
                 "UniqueID": "T_00000000075428C020250520212215",
                 "value": 0,
                 "flags": 1
@@ -83,20 +98,6 @@
                 "CompId": 9,
                 "UniqueID": "T_000000000F645F0020250520212142",
                 "value": 1000,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                3,
-                2
-            ],
-            "prop": {
-                "label": "IS1",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "<none>",
-                "value": 1000000000.0,
                 "flags": 1
             }
         }
