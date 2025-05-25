@@ -484,9 +484,19 @@ class TCircuitSolver:
 						else:
 							current_str = self.graph.fv(current)
 					
-						f=self.find_label_w_fifo(top_label)
-					
-						self.log(f"The current in branch {top_label} is 'voltage on this branch'{self.graph.sDiv}'impedance in this branch' = {self.graph.fv(voltage)}{self.graph.sDiv}{self.graph.fv(sum_impedance)} = {self.graph.fv(current)} {cg.uCurrent}")
+						found_csource, s = self.find_label_w_fifo(top_label)
+						if found_csource:
+							gen_name = self.temp_edge['prop']['label']
+							f, gen = self.get_gen(gen_name)
+
+							if gen['active'] == 1:
+								current = self.temp_edge['prop']['value']
+							else:
+								current = 0
+							current_str = self.graph.fv(current)
+							self.log(f"The current in branch {top_label} is the current of {gen_name} = {self.graph.fv(current)} {cg.uCurrent}")
+						else:	
+							self.log(f"The current in branch {top_label} is 'voltage on this branch'{self.graph.sDiv}'impedance in this branch' = {self.graph.fv(voltage)}{self.graph.sDiv}{self.graph.fv(sum_impedance)} = {self.graph.fv(current)} {cg.uCurrent}")
 						self.log(f"The current on {labels[i]} is the current on {top_label}. Therefore the current on {labels[i]} is {current_str} {cg.uCurrent}")
 					self.log("")
 
@@ -586,6 +596,24 @@ class TCircuitSolver:
 			if gen_comp_id == cg.CSOUR_ or gen_comp_id == cg.CGEN_:
 				return True
 		return False		
+
+	def get_gen(self, label):
+		for gen in self.gens:
+			if gen['prop']['label'] == label:
+				return True, gen
+		return False, {}
+		
+	def change_gen_state(self, idx):
+		N = len(self.gens)
+		for i in range(len(self.gens)):
+			gen = self.gens[i]
+			if N > 1:
+				gen['active'] = 0
+			else:	
+				gen['active'] = 1
+		if N > 1:
+			gen = self.gens[idx]
+			gen['active'] = 1	
 	
 	def run_proc(self, circuit_key):
 		cu.dump_list(self.graph.json_data, 'data/temp'+'-mod.json')
@@ -641,7 +669,8 @@ class TCircuitSolver:
 				else:
 					if self.graph.opts['debug_mode'] == 1:
 						self.write_log(1, str(e), 1)
-						self.graph.G.show()
+						if self.graph.G != None:
+							self.graph.G.show()
 					raise
 			except Exception as e:
 				self.sl(f'In {type(e).__name__} exception')
@@ -824,7 +853,8 @@ class TCircuitSolver:
 		fifo = []
 		N = len(self.block_labels)
 		if N > 0:
-			fifo.append(0)
+			m = self.get_block_label_idx(label)
+			fifo.append(m)
 			
 			while len(fifo) > 0:
 				idx = fifo[0]
@@ -855,12 +885,6 @@ class TCircuitSolver:
 					return True, label
 		return False, ''		
 
-	def find_label_w_fifo_w_csource(self, label):
-		if self.has_csource: 
-			f, ser_label = self.find_label_w_fifo(label)
-			if f:
-				f = self.match_csource_branch(ser_label)
-	
 	# In case of superposition find_series_comp may find a wrong component so we should use 'get_amper_meters' on the original graph
 	def find_series_comp(self, e):
 		fifo = []
@@ -929,8 +953,7 @@ class TCircuitSolver:
 								calc_current_from_voltage = False
 							elif self.has_csource and self.match_csource_branch(label):
 								e = self.temp_edge
-								js = e.to_dict()
-								current = js['prop']['value']
+								current = e['prop']['value']
 								calc_current_from_voltage = False
 						
 						if calc_current_from_voltage: #or self.graph.use_superposition:
@@ -1170,54 +1193,11 @@ class TCircuitSolver:
 			self.graph.G = None
 		
 	def match_csource_branch(self, label):
-		try:
-			nInserted = 0
-			tmp_edges = []
-			for i in range(len(self.gens)):
-				gen = self.gens[i]
-
-				gen_comp_id = gen['prop']['CompId']
-				is_c_gen = gen_comp_id == cg.CSOUR_ or gen_comp_id == cg.CGEN_
-				
-				if is_c_gen:
-					self.graph.json_data["edges"].append(copy.deepcopy(gen))
-
-					i1 = gen['nodes'][0]
-					i2 = gen['nodes'][1]
-					
-					edge = Edge(i1, i2, def_weight, gen['prop'])
-					tmp_edges.append(edge)
-					self.graph.G.add_edge(edge)
-					
-					nInserted += 1
-		
-			fifo = []
-			idx = self.graph.find_in_json(label)
-			if idx >= 0:
-				e = self.graph.json_data["edges"][idx]
-				for node in e['nodes']:
-					if self.graph.G.degree(node) <= 2:
-						fifo.append(node)
-				while len(fifo) > 0:
-					node = fifo[0]
-					for node_adj in self.graph.G.iteradjacent(node):
-						e = self.graph.G[node][node_adj]
-						if e.prop['CompId'] == cg.CSOUR_:
-							self.temp_edge = e
-							return True
-						if self.graph.G.degree(node_adj) <= 2:
-							fifo.append(node_adj)
-					fifo.pop(0)
-			else:
-				return False
-				
-		finally:
-			for i in range(nInserted):
-				list_ = self.graph.json_data["edges"]
-				N = len(list_)
-				list_.pop(N-1)
-			for e in tmp_edges:
-				self.graph.G.del_edge(e)	
+		for entry in self.csource_to_ser_labels:
+			if entry['ser_label']['prop']['label'] == label:
+				self.temp_edge = entry['csource']
+				return True
+		return False		
 				
 	def match_edges_visited(self, e):
 		for edge in self.edges_visited:
@@ -1227,12 +1207,13 @@ class TCircuitSolver:
 	
 	def collect_csource_branches(self):
 		try:
+			self.csource_to_ser_labels = []
+			nInserted = 0
 			if self.graph.G != None:
 				del self.graph.G
 				self.graph.G = None
 			G = self.graph.get_graph(self.graph.circuit_key)
 				
-			nInserted = 0
 			tmp_edges = []
 			for i in range(len(self.gens)):
 				gen = self.gens[i]
@@ -1241,20 +1222,16 @@ class TCircuitSolver:
 				is_c_gen = gen_comp_id == cg.CSOUR_ or gen_comp_id == cg.CGEN_
 				
 				if is_c_gen:
+					nInserted += 1
 					self.graph.json_data["edges"].append(copy.deepcopy(gen))
-
 					i1 = gen['nodes'][0]
 					i2 = gen['nodes'][1]
-					
 					edge = Edge(i1, i2, def_weight, gen['prop'])
 					tmp_edges.append(edge)
 					self.graph.G.add_edge(edge)
-					
-					nInserted += 1
 		
 			fifo = []
 			self.edges_visited = []
-			self.csource_to_ser_labels = []
 			for e2 in self.graph.json_data["edges"]:
 				for node in e2['nodes']:
 					if self.graph.G.degree(node) <= 2:
@@ -1273,14 +1250,16 @@ class TCircuitSolver:
 							if self.graph.G.degree(node_adj) <= 2:
 								fifo.append(node_adj)
 					fifo.pop(0)
-				
+		except:
+			# hack: we may some problem with G.add_edge
+			a=1
+			pass
+			
 		finally:
 			for i in range(nInserted):
 				list_ = self.graph.json_data["edges"]
 				N = len(list_)
 				list_.pop(N-1)
-			for e in tmp_edges:
-				self.graph.G.del_edge(e)	
 			del self.graph.G
 			self.graph.G = None
 		
@@ -1292,6 +1271,7 @@ class TCircuitSolver:
 			self.total_impedance_txt = []
 			self.total_impedance = []
 			self.graph.nodal_voltage_log = []
+			self.change_gen_state(i_pass)
 			
 			# save/restore json in case of superpos (check parh3-ai.tsc)
 			if len(self.gens) > 1:	
