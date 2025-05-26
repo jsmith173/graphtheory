@@ -1070,13 +1070,18 @@ class TCircuitSolver:
 	def get_final_value(self, comp, request_txt):
 		idx = self.graph.find_in_json(comp)
 		is_vm_edge = False
+		f2 = False
 		if idx < 0:
-			idx = 0
 			is_vm_edge, e = self.graph.is_volt_meter_by_edge(comp)
+			f2, gen = self.graph.is_gen_ret_item(comp)
+			if is_vm_edge or f2:
+				idx = 0
 		v = {}
 		if idx >= 0:
 			if is_vm_edge:
 				is_vm_edge, e = self.graph.is_volt_meter_by_edge(comp)
+			elif f2:
+				e = gen
 			else:	
 				e = self.graph.json_data["edges"][idx]
 			for item in self.node_potentials_dbg['item_voltages']:
@@ -1630,17 +1635,20 @@ class TCircuitSolver:
 	def patch_log(self):
 		for item in self.graph.am_edges:
 			label = item['prop']['label']	
-		
-			f, v = self.get_final_value(label, 'current')
-			if f:
-				current = v['value']		
-				current_str = self.graph.fv(current)
-				patch_str = f'<patch_AM_{label}>'
-				for i in range(len(self.graph.solution_log)):
-					line = self.graph.solution_log[i]
-					if pos_fn(patch_str, line) >= 0:
-						new_line = line.replace(patch_str, current_str)
-						self.graph.solution_log[i] = new_line
+
+			try:
+				f, v = self.get_final_value(label, 'current')
+				if f:
+					current = v['value']		
+					current_str = self.graph.fv(current)
+					patch_str = f'<patch_AM_{label}>'
+					for i in range(len(self.graph.solution_log)):
+						line = self.graph.solution_log[i]
+						if pos_fn(patch_str, line) >= 0:
+							new_line = line.replace(patch_str, current_str)
+							self.graph.solution_log[i] = new_line
+			except:
+				pass				
 				
 	def write_log(self, valid, status, error_code=0, save_files=True):
 		if error_code > 0:

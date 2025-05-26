@@ -308,6 +308,12 @@ class TCircuitSolverGraph:
 				return True
 		return False
 
+	def is_gen_ret_item(self, label):
+		for item in self.json_data['gens']:
+			if item['prop']['label'] == label:
+				return True, item
+		return False, {}
+
 	def set_req_prop_b(self, key, value):
 		self.request[key] = value
 

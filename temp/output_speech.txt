@@ -1,17 +1,63 @@
 Solution by TINA assisted by AI
-This circuit can not be solved by using the standard series-parallel rules
-The R5, R2,R1 components form a star connection. We will convert it to delta connection
-So we can use standard series-parallel rules for impedance calculation
-The new components will be: Rxya=2008.00 Ohm,Rxyb=16.06 Ohm,Rxyc=2008.00 Ohm
-The following formulas are used in the star to delta conversion: 
-Rxya=(R5* R2+ R2*R1+R1*R5)/R1
-Rxyb=(R5* R2+ R2*R1+R1*R5)/R5
-Rxyc=(R5* R2+ R2*R1+R1*R5)/ R2
+We have more than one generator so we are using superposition to calculate voltages/currents.
+Names starting with RGenZero refer to very small resistances, used during superposition.
+We assume that the internal resistance of VM1 is RVM1=1GOhm
+
+###Processing generator IS1
+
+First we calculate the total resistance between the generator nodes (IS1)
+Rd0=R1=1 kilo Ohm=1 kilo Ohm
+R4 and Rd0 connected in parallel so Rc0=R4 multiplied by Rd0 divided by (R4+Rd0)=1 kilo Ohm multiplied by 1 kilo Ohm divided by (1 kilo Ohm+1 kilo Ohm)=500Ohm
+Rc0 and RVM1 connected in parallel so Rb0=Rc0 multiplied by RVM1 divided by (Rc0+RVM1)=500Ohm multiplied by 1GOhm divided by (500Ohm+1GOhm)=500Ohm
+Rb0 and AM1 connected in series so Ra0=Rb0+RAM1=500Ohm+0Ohm=500Ohm
+The total resistance is Ra0 = 500Ohm
+
+Now we calculate the voltage on VS1
+We know that the voltage between IS1 nodes is 5 Volt, because the generator current is Igen = 10 milli A and the resistance between the generator nodes is Rtot = 500Ohm so the voltage between the generator nodes is Igen*Rtot = 5 Volt
+All voltage generators have been replaced with a short circuit.
+All current generators except for IS1 have been replaced with an open circuit.
+
+The components Rb0 and AM1 connected in series.
+The voltage between this components starting and ending node is -5 Volt
+Rb0 is in the voltage divider so the voltage on Rb0 is Rb0 divided by Ra0 multiplied by -5 Volt = -5 Volt 
+
+The components Rb0 and AM1 connected in series.
+The voltage between this components starting and ending node is -5 Volt
+
+The components Rc0 and RVM1 connected in parallel. The voltage on Rc0 is -5 Volt because the voltage on Rb0 is -5 Volt
+
+The components Rc0 and RVM1 connected in parallel. The voltage on RVM1 is -5 Volt because the voltage on Rb0 is -5 Volt
+
+The components R4 and Rd0 connected in parallel. The voltage on R4 is -5 Volt because the voltage on Rc0 is -5 Volt
+
+The components R4 and Rd0 connected in parallel. The voltage on Rd0 is -5 Volt because the voltage on Rc0 is -5 Volt
+
+The components RGenZero1 and R1 connected in series.
+The voltage between this components starting and ending node is -5 Volt
+RGenZero1 is in the voltage divider so the voltage on RGenZero1 is RGenZero1 divided by Rd0 multiplied by -5 Volt = -0 Volt 
+
+The components RGenZero1 and R1 connected in series.
+The voltage between this components starting and ending node is -5 Volt
+R1 is in the voltage divider so the voltage on R1 is R1 divided by Rd0 multiplied by -5 Volt = -5 Volt 
+
+The voltage on VM1 is -5 Volt because the voltage is -5 Volt on RVM1
 
 
-R3 and Rxyc connected in parallel so Rc=R3 multiplied by Rxyc divided by (R3+Rxyc)=10Ohm multiplied by 2.01 kilo Ohm divided by (10Ohm+2.01 kilo Ohm)=9.95Ohm
-Rx and Rxya connected in parallel so Re=Rx multiplied by Rxya divided by (Rx+Rxya)=16Ohm multiplied by 2.01 kilo Ohm divided by (16Ohm+2.01 kilo Ohm)=15.9Ohm
-Rc and Re connected in series so Rb=Rc+Re=9.95Ohm+15.9Ohm=25.8Ohm
-Rxyb and Rb connected in parallel so Ra=Rxyb multiplied by Rb divided by (Rxyb+Rb)=16.1Ohm multiplied by 25.8Ohm divided by (16.1Ohm+25.8Ohm)=9.9Ohm
-The ohm meter shows Ra = 9.9Ohm
+We assume that the internal resistance of IS1 is RIS1=1GOhm
+###Processing generator VS1
 
+First we calculate the total resistance between the generator nodes (VS1)
+IS1 and AM1 connected in series so Rc1=RIS1+RAM1=1GOhm+0Ohm=1GOhm
+R4 and Rc1 connected in parallel so Rb1=R4 multiplied by Rc1 divided by (R4+Rc1)=1 kilo Ohm multiplied by 1GOhm divided by (1 kilo Ohm+1GOhm)=1000Ohm
+Rb1 and R1 connected in series so Ra1=Rb1+R1=1000Ohm+1 kilo Ohm=2 kilo Ohm
+The total resistance is Ra1 = 2 kilo Ohm
+
+Now we calculate the voltage on VS1
+We know that the voltage between VS1 nodes is 5 Volt.
+All voltage generators except for VS1 have been replaced with a short circuit.
+All current generators have been replaced with an open circuit.
+
+
+Now we are using superposition to calculate the voltage on VS1
+Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.
+'voltage on VS1' = 5V
