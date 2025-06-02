@@ -77,12 +77,14 @@ class TCircuitSolver:
 				self.graph.sMul = ' multiplied by '
 				self.graph.sOmega = ' omega '
 				self.graph.sHz = ' hertz '
+				self.graph.hash_tag = ''
 				self.graph.loud = True
 			else:	
 				self.graph.sDiv = '/'
 				self.graph.sMul = '*'
 				self.graph.sOmega = 'w'
 				self.graph.sHz = 'Hz'
+				self.graph.hash_tag = '###'
 				self.graph.loud = False		
 		
 	def prepare_solver(self, circuit_key):
@@ -690,7 +692,7 @@ class TCircuitSolver:
 
 		if self.graph.use_superposition:
 			#self.logl(self.graph.graph_debug)
-			self.log("We have more than one generator so we are using superposition to calculate voltages/currents.")
+			self.log("We have more than one generator so we are using superposition to calculate voltages and currents.")
 			self.log(f"Names starting with {cg.SHORT_CIRCUIT_PREFIX} refer to very small resistances, used during superposition.")
 
 		if self.sv['short_circuit_pass'] == 1:
@@ -1420,10 +1422,10 @@ class TCircuitSolver:
 			self.solution['request'] = self.request
 			if self.graph.use_superposition:
 				#self.log(f"Pass{i_pass+1} started")
-				self.log(f"###Processing generator {self.gen['prop']['label']}")
+				self.log(f"{self.graph.hash_tag}Processing generator {self.gen['prop']['label']}")
 			
 			self.mod = []
-			#self.set_edge_directions()				
+			#self.set_edge_directions()
 			#G = self.get_graph(circuit_key, True)
 
 			if self.graph.show_tree == 1:
