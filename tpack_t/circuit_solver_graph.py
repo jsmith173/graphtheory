@@ -1294,6 +1294,15 @@ class TCircuitSolverGraph:
 			r = re
 		return r
 
+	def get_diff_v_partial(self, i_pass, i, j):
+		re = self.v_re[i_pass][i]-self.v_re[i_pass][j]
+		im = self.v_im[i_pass][i]-self.v_im[i_pass][j]
+		if abs(im) > 1e-15:
+			r = complex(re, im)
+		else:
+			r = re
+		return r
+
 	def get_w_speech_unit(self, v_str):
 		last_char = v_str[-1]		
 		last_char_deleted = v_str[:-1]

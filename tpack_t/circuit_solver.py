@@ -992,6 +992,28 @@ class TCircuitSolver:
 		else:
 			raise Exception(f'Key not found: {comp}')		
 	
+	def answer_meter_partial(self):
+		if self.graph.use_superposition:
+			request_txt = cu.get_request_txt(self.request)
+			if request_txt == "voltage":
+				sMeter = "voltmeter"
+			elif request_txt == "current":
+				sMeter = "ampermeter"
+			else:
+				sMeter = "ohmmeter"	
+
+			show_meter_name = self.request["comp_ori"]
+			if self.request["volt_meter_no_match"]:
+				meter_name = self.request["comp"]
+				f, meter = self.graph.find_meter(meter_name)
+
+				if request_txt == "voltage":
+					m = meter['nodes'][0]
+					n = meter['nodes'][1]
+					
+					v = self.graph.get_diff_v_partial(self.graph.i_pass, m, n)			
+					self.log(f"Because the {sMeter} connected to node{m} and node{n} so the {request_txt} on {show_meter_name} is V({m},{n})={self.graph.fv(v)} {cg.uVolt}")
+
 	def answer_meter(self):
 		if self.graph.use_superposition:
 			self.log(f"Let's summarize the calculations from the previous sections. We sum the results of individual superposition runs for the given element.")
@@ -1013,8 +1035,20 @@ class TCircuitSolver:
 				m = meter['nodes'][0]
 				n = meter['nodes'][1]
 				
-				v = self.graph.get_diff_v(m, n)			
-				self.log(f"To answer the original question: because the {sMeter} connected to node{m} and node{n} so the {request_txt} on {show_meter_name} is V({m},{n})={self.graph.fv(v)} {cg.uVolt}")
+				if self.graph.use_superposition:
+					sResult = ''
+					res = 0
+					for i in range(len(self.gens)):
+						v = self.graph.get_diff_v_partial(i, m, n)
+						res = res+v
+						sResult = sResult+f'{self.graph.fv(v)} {cg.uVolt}'
+						if i < len(self.gens)-1:
+							sResult = sResult+'+'
+					self.log(f"To answer the original question: because the {sMeter} connected to node{m} and node{n} so the {request_txt} on {show_meter_name} is V({m},{n})={sResult}={self.graph.fv(res)} {cg.uVolt}")
+					
+				else:
+					v = self.graph.get_diff_v(m, n)			
+					self.log(f"To answer the original question: because the {sMeter} connected to node{m} and node{n} so the {request_txt} on {show_meter_name} is V({m},{n})={self.graph.fv(v)} {cg.uVolt}")
 		else:
 			meter_name = self.request["comp_ori"]
 			f, meter = self.graph.find_meter(meter_name)
@@ -1592,6 +1626,10 @@ class TCircuitSolver:
 				pass_item['gen'] = self.gen
 				#pass_item['nodal_voltage_log'] = self.graph.nodal_voltage_log
 			self.solution['superposition'].append(pass_item)
+
+			if (self.request['cmd'] == 'get_voltage' and self.request['volt_meter_question'] or \
+				self.request['cmd'] == 'get_current' and self.request['amper_meter_question']):
+				self.answer_meter_partial()
 
 			self.log("")
 			self.write_log(1, 'OK', 0, False)
