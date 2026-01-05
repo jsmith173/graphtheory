@@ -1,160 +1,43 @@
 Solution by TINA assisted by AI
-We have more than one generator so we are using superposition to calculate voltages and currents.
-Names starting with RGenZero refer to very small resistances, used during superposition.
+We assume that the internal resistance of iR is RiR=1nOhm
+We assume that the internal resistance of iL is RiL=1nOhm
+We assume that the internal resistance of is is Ris=1nOhm
+This is an AC calculation
+We know that the generator frequency is f=1kHz, w=2*pi*f
 
-###Processing generator V2
+First we calculate the total impedance between the generator nodes (is(t))
+L and iL connected in series so Zc=j*w*L+RiL=333m 90° Ohm+1n 0° Ohm=333m 90° Ohm
+R and iR connected in series so Zd=R+RiR=250m 0° Ohm+1n 0° Ohm=250m 0° Ohm
+Zc and Zd connected in parallel so Zb=Zc*Zd/(Zc+Zd)=333m 90° Ohm*250m 0° Ohm/(333m 90° Ohm+250m 0° Ohm)=200m 36.9° Ohm
+Zb and is connected in series so Za=Zb+Ris=200m 36.9° Ohm+1n 0° Ohm=200m 36.9° Ohm
+The total impedance is Za = 200m 36.9° Ohm
 
-First we calculate the total resistance between the generator nodes (V2)
-R3 and I2 connected in series so Rc0=R3+RI2=40Ohm+0Ohm=40Ohm
-Re0=R1=40Ohm=40Ohm
-Re0 and I1 connected in series so Rd0=Re0+RI1=40Ohm+0Ohm=40Ohm
-Rc0 and Rd0 connected in parallel so Rb0=Rc0*Rd0/(Rc0+Rd0)=40Ohm*40Ohm/(40Ohm+40Ohm)=20Ohm
-I3  and R2 connected in series so Rf0=RI3 +R2=0Ohm+20Ohm=20Ohm
-Rb0 and Rf0 connected in series so Ra0=Rb0+Rf0=20Ohm+20Ohm=40Ohm
-The total resistance is Ra0 = 40Ohm
+Now we calculate the current on iL
+We know that the voltage between is(t) nodes is 1000m 36.9°  Volt, because the generator current is Igen = 5 0° A and the impedance between the generator nodes is Rtot = 200m 36.9° Ohm so the voltage between the generator nodes is Igen*Rtot = 1000m 36.9°  Volt
 
-Now we calculate the current on I3
-We know that the voltage between V2 nodes is 16 Volt.
-All voltage generators except for V2 have been replaced with a short circuit.
-All current generators have been replaced with an open circuit.
+The components Zb and is connected in series.
+The voltage between this components starting and ending node is 1000m -143°  Volt
+Zb is in the voltage divider so the voltage on Zb is Zb/Za*1000m -143°  Volt = 1000m -143°  Volt 
+The current in branch Za is 'voltage on this branch'/'impedance in this branch' = 1000m -143° /200m 36.9°  = 5 180°  Amper
+The current on Zb is the current on Za. Therefore the current on Zb is 5 180°  Amper
 
-The components Rb0 and Rf0 connected in series.
-The voltage between this components starting and ending node is 16 Volt
-Rb0 is in the voltage divider so the voltage on Rb0 is Rb0/Ra0*16 Volt = 8 Volt 
-The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 16/40 = 400m Amper
-The current on Rb0 is the current on Ra0. Therefore the current on Rb0 is 400m Amper
+The components Zb and is connected in series.
+The voltage between this components starting and ending node is 1000m -143°  Volt
+The current in branch Za is 'voltage on this branch'/'impedance in this branch' = 1000m -143° /200m 36.9°  = 5 180°  Amper
+The current on is is the current on Za. Therefore the current on is is 5 Amper
 
-The components Rb0 and Rf0 connected in series.
-The voltage between this components starting and ending node is 16 Volt
-Rf0 is in the voltage divider so the voltage on Rf0 is Rf0/Ra0*16 Volt = 8 Volt 
-The current in branch Ra0 is 'voltage on this branch'/'impedance in this branch' = 16/40 = 400m Amper
-The current on Rf0 is the current on Ra0. Therefore the current on Rf0 is 400m Amper
+The components Zc and Zd connected in parallel. The voltage on Zc is 1000m -143°  Volt because the voltage on Zb is 1000m -143°  Volt
 
-The components Rc0 and Rd0 connected in parallel. The voltage on Rc0 is 8 Volt because the voltage on Rb0 is 8 Volt
+The components Zc and Zd connected in parallel. The voltage on Zd is 1000m -143°  Volt because the voltage on Zb is 1000m -143°  Volt
 
-The components Rc0 and Rd0 connected in parallel. The voltage on Rd0 is 8 Volt because the voltage on Rb0 is 8 Volt
+The components L and iL connected in series.
+The voltage between this components starting and ending node is 1000m -143°  Volt
+L is in the voltage divider so the voltage on L is L/Zc*1000m -143°  Volt = 1000m -143°  Volt 
+The current in branch Zc is 'voltage on this branch'/'impedance in this branch' = 1000m -143° /333m 90°  = 3 127°  Amper
+The current on L is the current on Zc. Therefore the current on L is 3 127°  Amper
 
-The components R3 and I2 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-R3 is in the voltage divider so the voltage on R3 is R3/Rc0*8 Volt = 8 Volt 
-The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 8/40 = 200m Amper
-The current on R3 is the current on Rc0. Therefore the current on R3 is 200m Amper
-
-The components R3 and I2 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-The current in branch Rc0 is 'voltage on this branch'/'impedance in this branch' = 8/40 = 200m Amper
-The current on I2 is the current on Rc0. Therefore the current on I2 is 250m Amper
-
-The components Re0 and I1 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-Re0 is in the voltage divider so the voltage on Re0 is Re0/Rd0*8 Volt = 8 Volt 
-The current in branch Rd0 is 'voltage on this branch'/'impedance in this branch' = 8/40 = 200m Amper
-The current on Re0 is the current on Rd0. Therefore the current on Re0 is 200m Amper
-
-The components Re0 and I1 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-The current in branch Rd0 is 'voltage on this branch'/'impedance in this branch' = 8/40 = 200m Amper
-The current on I1 is the current on Rd0. Therefore the current on I1 is 50m Amper
-
-The components RGenZero1 and R1 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-RGenZero1 is in the voltage divider so the voltage on RGenZero1 is RGenZero1/Re0*8 Volt = 0 Volt 
-The current in branch Re0 is 'voltage on this branch'/'impedance in this branch' = 8/40 = 200m Amper
-The current on RGenZero1 is the current on Re0. Therefore the current on RGenZero1 is 200m Amper
-
-The components RGenZero1 and R1 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-R1 is in the voltage divider so the voltage on R1 is R1/Re0*8 Volt = 8 Volt 
-The current in branch Re0 is 'voltage on this branch'/'impedance in this branch' = 8/40 = 200m Amper
-The current on R1 is the current on Re0. Therefore the current on R1 is 200m Amper
-
-The components I3  and R2 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-The current in branch Rf0 is 'voltage on this branch'/'impedance in this branch' = 8/20 = 400m Amper
-The current on I3  is the current on Rf0. Therefore the current on I3  is -300m Amper
-
-The components I3  and R2 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-R2 is in the voltage divider so the voltage on R2 is R2/Rf0*8 Volt = 8 Volt 
-The current in branch Rf0 is 'voltage on this branch'/'impedance in this branch' = 8/20 = 400m Amper
-The current on R2 is the current on Rf0. Therefore the current on R2 is 400m Amper
-
-
-###Processing generator V1
-
-First we calculate the total resistance between the generator nodes (V1)
-Rd1=R2=20Ohm=20Ohm
-Rd1 and I3  connected in series so Rc1=Rd1+RI3 =20Ohm+0Ohm=20Ohm
-R3 and I2 connected in series so Re1=R3+RI2=40Ohm+0Ohm=40Ohm
-Rc1 and Re1 connected in parallel so Rb1=Rc1*Re1/(Rc1+Re1)=20Ohm*40Ohm/(20Ohm+40Ohm)=13.3Ohm
-I1 and R1 connected in series so Rf1=RI1+R1=0Ohm+40Ohm=40Ohm
-Rb1 and Rf1 connected in series so Ra1=Rb1+Rf1=13.3Ohm+40Ohm=53.3Ohm
-The total resistance is Ra1 = 53.3Ohm
-
-Now we calculate the current on I3
-We know that the voltage between V1 nodes is 8 Volt.
-All voltage generators except for V1 have been replaced with a short circuit.
-All current generators have been replaced with an open circuit.
-
-The components Rb1 and Rf1 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-Rb1 is in the voltage divider so the voltage on Rb1 is Rb1/Ra1*8 Volt = 2 Volt 
-The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = 8/53.3 = 150m Amper
-The current on Rb1 is the current on Ra1. Therefore the current on Rb1 is 150m Amper
-
-The components Rb1 and Rf1 connected in series.
-The voltage between this components starting and ending node is 8 Volt
-Rf1 is in the voltage divider so the voltage on Rf1 is Rf1/Ra1*8 Volt = 6 Volt 
-The current in branch Ra1 is 'voltage on this branch'/'impedance in this branch' = 8/53.3 = 150m Amper
-The current on Rf1 is the current on Ra1. Therefore the current on Rf1 is 150m Amper
-
-The components Rc1 and Re1 connected in parallel. The voltage on Rc1 is 2 Volt because the voltage on Rb1 is 2 Volt
-
-The components Rc1 and Re1 connected in parallel. The voltage on Re1 is 2 Volt because the voltage on Rb1 is 2 Volt
-
-The components Rd1 and I3  connected in series.
-The voltage between this components starting and ending node is 2 Volt
-Rd1 is in the voltage divider so the voltage on Rd1 is Rd1/Rc1*2 Volt = 2 Volt 
-The current in branch Rc1 is 'voltage on this branch'/'impedance in this branch' = 2/20 = 100m Amper
-The current on Rd1 is the current on Rc1. Therefore the current on Rd1 is 100m Amper
-
-The components Rd1 and I3  connected in series.
-The voltage between this components starting and ending node is 2 Volt
-The current in branch Rc1 is 'voltage on this branch'/'impedance in this branch' = 2/20 = 100m Amper
-The current on I3  is the current on Rc1. Therefore the current on I3  is -300m Amper
-
-The components RGenZero0 and R2 connected in series.
-The voltage between this components starting and ending node is 2 Volt
-RGenZero0 is in the voltage divider so the voltage on RGenZero0 is RGenZero0/Rd1*2 Volt = 0 Volt 
-The current in branch Rd1 is 'voltage on this branch'/'impedance in this branch' = 2/20 = 100m Amper
-The current on RGenZero0 is the current on Rd1. Therefore the current on RGenZero0 is 100m Amper
-
-The components RGenZero0 and R2 connected in series.
-The voltage between this components starting and ending node is 2 Volt
-R2 is in the voltage divider so the voltage on R2 is R2/Rd1*2 Volt = 2 Volt 
-The current in branch Rd1 is 'voltage on this branch'/'impedance in this branch' = 2/20 = 100m Amper
-The current on R2 is the current on Rd1. Therefore the current on R2 is 100m Amper
-
-The components R3 and I2 connected in series.
-The voltage between this components starting and ending node is 2 Volt
-R3 is in the voltage divider so the voltage on R3 is R3/Re1*2 Volt = 2 Volt 
-The current in branch Re1 is 'voltage on this branch'/'impedance in this branch' = 2/40 = 50m Amper
-The current on R3 is the current on Re1. Therefore the current on R3 is 50m Amper
-
-The components R3 and I2 connected in series.
-The voltage between this components starting and ending node is 2 Volt
-The current in branch Re1 is 'voltage on this branch'/'impedance in this branch' = 2/40 = 50m Amper
-The current on I2 is the current on Re1. Therefore the current on I2 is 250m Amper
-
-The components I1 and R1 connected in series.
-The voltage between this components starting and ending node is 6 Volt
-The current in branch Rf1 is 'voltage on this branch'/'impedance in this branch' = 6/40 = 150m Amper
-The current on I1 is the current on Rf1. Therefore the current on I1 is 50m Amper
-
-The components I1 and R1 connected in series.
-The voltage between this components starting and ending node is 6 Volt
-R1 is in the voltage divider so the voltage on R1 is R1/Rf1*6 Volt = 6 Volt 
-The current in branch Rf1 is 'voltage on this branch'/'impedance in this branch' = 6/40 = 150m Amper
-The current on R1 is the current on Rf1. Therefore the current on R1 is 150m Amper
-
+The components L and iL connected in series.
+The voltage between this components starting and ending node is 1000m -143°  Volt
+The current in branch Zc is 'voltage on this branch'/'impedance in this branch' = 1000m -143° /333m 90°  = 3 127°  Amper
+The current on iL is the current on Zc. Therefore the current on iL is 3 -53.1°  Amper
 

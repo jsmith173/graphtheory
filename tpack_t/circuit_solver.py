@@ -949,10 +949,11 @@ class TCircuitSolver:
 							#f, polarity, ser_label = self.find_series_comp(e)
 							if f:
 								f, v = self.get_final_value(ser_label, 'current')
-								current = v['value']
-								if not polarity:
-									current = -current
-								calc_current_from_voltage = False
+								if f:
+									current = v['value']
+									if not polarity:
+										current = -current
+									calc_current_from_voltage = False
 							elif self.has_csource and self.match_csource_branch(label):
 								e = self.temp_edge
 								current = e['prop']['value']

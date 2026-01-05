@@ -1,47 +1,31 @@
 {
-    "N": 7,
+    "N": 5,
     "nodes": [
-        1,
-        2,
         0,
+        2,
         3,
         4,
-        5,
-        6
+        1
     ],
     "gens": [
         {
             "nodes": [
-                1,
-                0
+                0,
+                1
             ],
             "prop": {
-                "label": "V2",
+                "label": "is(t)",
                 "match_label": "",
-                "CompId": 14,
-                "UniqueID": "T_09CBCEA020230605190422",
-                "value": 16,
+                "CompId": 15,
+                "UniqueID": "T_09E10F8020230627121020",
+                "value": 0,
                 "flags": 1,
                 "ac_gen": {
-                    "mode": 0
-                }
-            },
-            "active": 0
-        },
-        {
-            "nodes": [
-                4,
-                0
-            ],
-            "prop": {
-                "label": "V1",
-                "match_label": "",
-                "CompId": 14,
-                "UniqueID": "T_09CBD39020230605190422",
-                "value": 8,
-                "flags": 1,
-                "ac_gen": {
-                    "mode": 0
+                    "mode": 1,
+                    "AbsV": 5,
+                    "Phase": 0,
+                    "Freq": 1000,
+                    "FreqStr": "1k"
                 }
             },
             "active": 1
@@ -51,15 +35,15 @@
     "edges": [
         {
             "nodes": [
-                1,
+                0,
                 2
             ],
             "prop": {
-                "label": "R2",
+                "label": "L",
                 "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09CBF13020230605190422",
-                "value": 20,
+                "CompId": 11,
+                "UniqueID": "T_09E10A9020230627121020",
+                "value": 5.3e-05,
                 "flags": 1
             }
         },
@@ -69,81 +53,53 @@
                 3
             ],
             "prop": {
-                "label": "R3",
+                "label": "R",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_09CBE75020230605190422",
-                "value": 40,
+                "UniqueID": "T_09E105A020230627121020",
+                "value": 0.25,
                 "flags": 1
             }
         },
         {
             "nodes": [
                 4,
-                5
-            ],
-            "prop": {
-                "label": "R1",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09CBFB1020230605190422",
-                "value": 40,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                6,
-                5
-            ],
-            "prop": {
-                "label": "I1",
-                "match_label": "",
-                "CompId": 9,
-                "UniqueID": "T_09CC000020230605190422",
-                "value": 0,
-                "flags": 1
-            }
-        },
-        {
-            "nodes": [
-                6,
                 3
             ],
             "prop": {
-                "label": "I2",
+                "label": "iR",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_09CBEC4020230605190422",
-                "value": 0,
+                "UniqueID": "T_09E100B020230627121020",
+                "value": 1e-09,
                 "flags": 1
             }
         },
         {
             "nodes": [
-                6,
+                4,
                 2
             ],
             "prop": {
-                "label": "I3 ",
+                "label": "iL",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "T_09CBC9B020230605190422",
-                "value": 0,
+                "UniqueID": "T_09E0BB9020230627121020",
+                "value": 1e-09,
                 "flags": 1
             }
         },
         {
             "nodes": [
                 1,
-                0
+                4
             ],
             "prop": {
-                "label": "RGenZero0",
+                "label": "is",
                 "match_label": "",
                 "CompId": 9,
-                "UniqueID": "<none>",
-                "value": 0,
+                "UniqueID": "T_09E0B6A020230627121020",
+                "value": 1e-09,
                 "flags": 1
             }
         }
@@ -152,66 +108,42 @@
         {
             "currents": [
                 {
-                    "label": "R1",
-                    "value": -0.2,
+                    "label": "L",
+                    "value": 0,
                     "nodes": [
-                        4,
-                        5
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": 0.4,
-                    "nodes": [
-                        1,
+                        0,
                         2
                     ]
                 },
                 {
-                    "label": "R3",
-                    "value": -0.2,
+                    "label": "R",
+                    "value": 0,
                     "nodes": [
                         0,
                         3
-                    ]
-                },
-                {
-                    "label": "V1",
-                    "value": 0.2,
-                    "nodes": [
-                        4,
-                        0
-                    ]
-                },
-                {
-                    "label": "V2",
-                    "value": -0.4,
-                    "nodes": [
-                        1,
-                        0
                     ]
                 }
             ],
             "outputs": [
                 {
-                    "label": "I1",
-                    "value": 0.2,
+                    "label": "iL",
+                    "value": 0,
                     "nodes": [
                         0,
                         0
                     ]
                 },
                 {
-                    "label": "I2",
-                    "value": 0.2,
+                    "label": "iR",
+                    "value": 0,
                     "nodes": [
                         0,
                         0
                     ]
                 },
                 {
-                    "label": "I3 ",
-                    "value": -0.4,
+                    "label": "is",
+                    "value": 0,
                     "nodes": [
                         0,
                         0
@@ -220,241 +152,51 @@
             ],
             "other voltages": [
                 {
-                    "label": "I1",
+                    "label": "iL",
                     "value": 0,
                     "nodes": [
-                        6,
-                        5
+                        4,
+                        2
                     ]
                 },
                 {
-                    "label": "I2",
+                    "label": "iR",
                     "value": 0,
                     "nodes": [
-                        6,
+                        4,
                         3
                     ]
                 },
                 {
-                    "label": "I3 ",
+                    "label": "is(t)",
                     "value": 0,
-                    "nodes": [
-                        6,
-                        2
-                    ]
-                },
-                {
-                    "label": "R1",
-                    "value": -8,
-                    "nodes": [
-                        4,
-                        5
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": 8,
-                    "nodes": [
-                        1,
-                        2
-                    ]
-                },
-                {
-                    "label": "R3",
-                    "value": -8,
                     "nodes": [
                         0,
-                        3
-                    ]
-                },
-                {
-                    "label": "V1",
-                    "value": 0,
-                    "nodes": [
-                        4,
-                        0
-                    ]
-                },
-                {
-                    "label": "V2",
-                    "value": 16,
-                    "nodes": [
-                        1,
-                        0
-                    ]
-                }
-            ],
-            "nodal voltages": [
-                {
-                    "value": 16,
-                    "nodes": [
                         1
                     ]
                 },
                 {
-                    "value": 8,
-                    "nodes": [
-                        2
-                    ]
-                },
-                {
-                    "value": 8,
-                    "nodes": [
-                        3
-                    ]
-                },
-                {
+                    "label": "is",
                     "value": 0,
                     "nodes": [
+                        1,
                         4
                     ]
                 },
                 {
-                    "value": 8,
+                    "label": "L",
+                    "value": 0,
                     "nodes": [
-                        5
-                    ]
-                },
-                {
-                    "value": 8,
-                    "nodes": [
-                        6
-                    ]
-                }
-            ]
-        },
-        {
-            "currents": [
-                {
-                    "label": "R1",
-                    "value": 0.15,
-                    "nodes": [
-                        4,
-                        5
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": -0.1,
-                    "nodes": [
-                        1,
+                        0,
                         2
                     ]
                 },
                 {
-                    "label": "R3",
-                    "value": -0.05,
+                    "label": "R",
+                    "value": 0,
                     "nodes": [
                         0,
                         3
-                    ]
-                },
-                {
-                    "label": "V1",
-                    "value": -0.15,
-                    "nodes": [
-                        4,
-                        0
-                    ]
-                },
-                {
-                    "label": "V2",
-                    "value": 0.1,
-                    "nodes": [
-                        1,
-                        0
-                    ]
-                }
-            ],
-            "outputs": [
-                {
-                    "label": "I1",
-                    "value": -0.15,
-                    "nodes": [
-                        0,
-                        0
-                    ]
-                },
-                {
-                    "label": "I2",
-                    "value": 0.05,
-                    "nodes": [
-                        0,
-                        0
-                    ]
-                },
-                {
-                    "label": "I3 ",
-                    "value": 0.1,
-                    "nodes": [
-                        0,
-                        0
-                    ]
-                }
-            ],
-            "other voltages": [
-                {
-                    "label": "I1",
-                    "value": 0,
-                    "nodes": [
-                        6,
-                        5
-                    ]
-                },
-                {
-                    "label": "I2",
-                    "value": 0,
-                    "nodes": [
-                        6,
-                        3
-                    ]
-                },
-                {
-                    "label": "I3 ",
-                    "value": 0,
-                    "nodes": [
-                        6,
-                        2
-                    ]
-                },
-                {
-                    "label": "R1",
-                    "value": 6,
-                    "nodes": [
-                        4,
-                        5
-                    ]
-                },
-                {
-                    "label": "R2",
-                    "value": -2,
-                    "nodes": [
-                        1,
-                        2
-                    ]
-                },
-                {
-                    "label": "R3",
-                    "value": -2,
-                    "nodes": [
-                        0,
-                        3
-                    ]
-                },
-                {
-                    "label": "V1",
-                    "value": 8,
-                    "nodes": [
-                        4,
-                        0
-                    ]
-                },
-                {
-                    "label": "V2",
-                    "value": 0,
-                    "nodes": [
-                        1,
-                        0
                     ]
                 }
             ],
@@ -466,33 +208,21 @@
                     ]
                 },
                 {
-                    "value": 2,
+                    "value": 0,
                     "nodes": [
                         2
                     ]
                 },
                 {
-                    "value": 2,
+                    "value": 0,
                     "nodes": [
                         3
                     ]
                 },
                 {
-                    "value": 8,
+                    "value": 0,
                     "nodes": [
                         4
-                    ]
-                },
-                {
-                    "value": 2,
-                    "nodes": [
-                        5
-                    ]
-                },
-                {
-                    "value": 2,
-                    "nodes": [
-                        6
                     ]
                 }
             ]
@@ -501,66 +231,42 @@
     "dctable_final": {
         "currents": [
             {
-                "label": "R1",
-                "value": -0.05,
+                "label": "L",
+                "value": 0,
                 "nodes": [
-                    4,
-                    5
-                ]
-            },
-            {
-                "label": "R2",
-                "value": 0.3,
-                "nodes": [
-                    1,
+                    0,
                     2
                 ]
             },
             {
-                "label": "R3",
-                "value": -0.25,
+                "label": "R",
+                "value": 0,
                 "nodes": [
                     0,
                     3
-                ]
-            },
-            {
-                "label": "V1",
-                "value": 0.05,
-                "nodes": [
-                    4,
-                    0
-                ]
-            },
-            {
-                "label": "V2",
-                "value": -0.3,
-                "nodes": [
-                    1,
-                    0
                 ]
             }
         ],
         "outputs": [
             {
-                "label": "I1",
-                "value": 0.05,
+                "label": "iL",
+                "value": 0,
                 "nodes": [
                     0,
                     0
                 ]
             },
             {
-                "label": "I2",
-                "value": 0.25,
+                "label": "iR",
+                "value": 0,
                 "nodes": [
                     0,
                     0
                 ]
             },
             {
-                "label": "I3 ",
-                "value": -0.3,
+                "label": "is",
+                "value": 0,
                 "nodes": [
                     0,
                     0
@@ -569,109 +275,81 @@
         ],
         "other voltages": [
             {
-                "label": "I1",
+                "label": "iL",
                 "value": 0,
                 "nodes": [
-                    6,
-                    5
+                    4,
+                    2
                 ]
             },
             {
-                "label": "I2",
+                "label": "iR",
                 "value": 0,
                 "nodes": [
-                    6,
+                    4,
                     3
                 ]
             },
             {
-                "label": "I3 ",
+                "label": "is(t)",
                 "value": 0,
                 "nodes": [
-                    6,
-                    2
+                    0,
+                    1
                 ]
             },
             {
-                "label": "R1",
-                "value": -2,
-                "nodes": [
-                    4,
-                    5
-                ]
-            },
-            {
-                "label": "R2",
-                "value": 6,
+                "label": "is",
+                "value": 0,
                 "nodes": [
                     1,
+                    4
+                ]
+            },
+            {
+                "label": "L",
+                "value": 0,
+                "nodes": [
+                    0,
                     2
                 ]
             },
             {
-                "label": "R3",
-                "value": -10,
+                "label": "R",
+                "value": 0,
                 "nodes": [
                     0,
                     3
-                ]
-            },
-            {
-                "label": "V1",
-                "value": 8,
-                "nodes": [
-                    4,
-                    0
-                ]
-            },
-            {
-                "label": "V2",
-                "value": 16,
-                "nodes": [
-                    1,
-                    0
                 ]
             }
         ],
         "nodal voltages": [
             {
-                "value": 16,
+                "value": 0,
                 "nodes": [
                     1
                 ]
             },
             {
-                "value": 10,
+                "value": 0,
                 "nodes": [
                     2
                 ]
             },
             {
-                "value": 10,
+                "value": 0,
                 "nodes": [
                     3
                 ]
             },
             {
-                "value": 8,
+                "value": 0,
                 "nodes": [
                     4
-                ]
-            },
-            {
-                "value": 10,
-                "nodes": [
-                    5
-                ]
-            },
-            {
-                "value": 10,
-                "nodes": [
-                    6
                 ]
             }
         ]
     },
-    "circ_name": "super 26-ai (1).tsc",
+    "circ_name": "voltag20-ai.tsc",
     "meters_without_labels": 0
 }
