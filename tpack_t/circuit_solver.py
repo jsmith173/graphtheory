@@ -471,7 +471,7 @@ class TCircuitSolver:
 							s_new_val = self.graph.fv(new_val[i])
 							s_nodes = ""													
 							
-						self.log(f"The voltage between this components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
+						self.log(f"The voltage between these components starting and ending node is {self.graph.fv(voltage)} {cg.uVolt}") 
 						
 						if not self.graph.is_amper_meter_by_label(labels[i]):
 							self.log(f"{labels[i]} is in the voltage divider so the voltage on {labels[i]} is " \
